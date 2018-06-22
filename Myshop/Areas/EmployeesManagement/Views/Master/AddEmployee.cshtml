@@ -1,0 +1,72 @@
+﻿@using DataLayer;
+@model Gbl_Master_Employee
+@using Myshop.GlobalResource;
+@{
+    ViewBag.Title = "AddEmployee";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Employee/Masters/AddEmployee.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="empform" enctype="multipart/form-data">
+    <input type="hidden" id="GetEmpRoleTypeListUrl" data-request-url="@Url.Action("GetEmpRole", "Masters", new { area = "EmployeesManagement" })" />
+    <div class="col-sm-10 col-sm-offset-1">
+
+        <div class="panel panel-info">
+            <div class="panel-heading">Add Employee</div>
+            <div class="panel-body">
+
+                @Html.Partial("_AddEmp")               
+                
+            </div>
+            <div class="panel-footer">
+                @{
+                    string ViewDataName = "GetEmpListJson";
+                }
+                @Html.Partial("_ButtonGroup", ViewDataName)
+            </div>
+        </div>       
+    </div>
+    <div class="popup">
+        <div>
+            <img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" />
+        </div>
+        <div>
+            <table style="font-size:12px;" id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                <thead>
+                    <tr>
+                        <th id="UserImage">User Image</th>
+                        <th id="FirstName">First Name</th>
+                        <th id="LastName">Last Name</th>
+                        <th id="FatherName">Father Name</th>
+                        <th id="EmailId">Email</th>
+                        <th id="AadharNo">AadharNo</th>
+                        <th id="DOB" data-dateformat="short">DOB</th>
+                        <th id="Mobile">Mobile</th>
+                        <th id="btnSelect">Select</th>
+                    </tr>
+                </thead>
+                <tfoot>
+                    <tr>
+                        <th>User Image</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Father Name</th>
+                        <th>Email</th>
+                        <th>AadharNo</th>
+                        <th>DOB</th>
+                        <th>Mobile</th>
+                        <th>Select</th>
+                    </tr>
+                </tfoot>
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</form>
+
+
+

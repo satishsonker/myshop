@@ -1,0 +1,60 @@
+﻿
+@{
+    ViewBag.Title = "GetAccountType";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Global/Master/AccType.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="acctypeform">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Bank Account Details</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Account Type</label>
+                        <input type="text" required="required" class="form-control" placeholder="Enter Bank Account Type" id="accounttype" name="accounttype" />
+                        <input type="hidden" value="0" id="accounttypeid" name="accounttypeid" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Description</label>
+                        <input type="text"  class="form-control" placeholder="Enter Account Type Description" id="accounttypedesc" name="accounttypedesc" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                @{
+                    string ViewDataName = "GetAccTypeJson";
+                }
+                @Html.Partial("_ButtonGroup", ViewDataName)
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div><img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" /></div>
+        <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="AccountType">Bank Account Type</th>
+                    <th id="Description" title="Product Description">Description</th>
+                    <th id="CreatedDate">Date</th>
+                    <th id="btnSelect">Select</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Bank Account Type</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Select</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>

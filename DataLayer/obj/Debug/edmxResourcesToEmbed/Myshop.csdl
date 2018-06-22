@@ -1,0 +1,540 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyshopModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="MyshopDb" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Users" EntityType="MyshopModel.User" />
+    <EntitySet Name="UserTypes" EntityType="MyshopModel.UserType" />
+    <AssociationSet Name="FK_User_UserType" Association="MyshopModel.FK_User_UserType">
+      <End Role="UserType" EntitySet="UserTypes" />
+      <End Role="User" EntitySet="Users" />
+    </AssociationSet>
+    <EntitySet Name="Logins" EntityType="MyshopModel.Login" />
+    <AssociationSet Name="FK_Login_User" Association="MyshopModel.FK_Login_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Login" EntitySet="Logins" />
+    </AssociationSet>
+    <EntitySet Name="Shops" EntityType="MyshopModel.Shop" />
+    <EntitySet Name="UserShopMappers" EntityType="MyshopModel.UserShopMapper" />
+    <AssociationSet Name="FK_Shop_User" Association="MyshopModel.FK_Shop_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="Shop" EntitySet="Shops" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserShopMapper_Shop" Association="MyshopModel.FK_UserShopMapper_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="UserShopMapper" EntitySet="UserShopMappers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserShopMapper_User" Association="MyshopModel.FK_UserShopMapper_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserShopMapper" EntitySet="UserShopMappers" />
+    </AssociationSet>
+    <EntitySet Name="UserPermissions" EntityType="MyshopModel.UserPermission" />
+    <AssociationSet Name="FK_UserPermission_User" Association="MyshopModel.FK_UserPermission_User">
+      <End Role="User" EntitySet="Users" />
+      <End Role="UserPermission" EntitySet="UserPermissions" />
+    </AssociationSet>
+    <EntitySet Name="ErrorLogs" EntityType="MyshopModel.ErrorLog" />
+    <EntitySet Name="MasterBrands" EntityType="MyshopModel.MasterBrand" />
+    <EntitySet Name="MasterCategories" EntityType="MyshopModel.MasterCategory" />
+    <EntitySet Name="MasterProducts" EntityType="MyshopModel.MasterProduct" />
+    <EntitySet Name="MasterSubCategories" EntityType="MyshopModel.MasterSubCategory" />
+    <EntitySet Name="MasterUnits" EntityType="MyshopModel.MasterUnit" />
+    <AssociationSet Name="FK_MasterBrand_Shop" Association="MyshopModel.FK_MasterBrand_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="MasterBrand" EntitySet="MasterBrands" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_MasterBrand" Association="MyshopModel.FK_MasterProduct_MasterBrand">
+      <End Role="MasterBrand" EntitySet="MasterBrands" />
+      <End Role="MasterProduct" EntitySet="MasterProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterCategory_Shop" Association="MyshopModel.FK_MasterCategory_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="MasterCategory" EntitySet="MasterCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterSubCategory_MasterCategory" Association="MyshopModel.FK_MasterSubCategory_MasterCategory">
+      <End Role="MasterCategory" EntitySet="MasterCategories" />
+      <End Role="MasterSubCategory" EntitySet="MasterSubCategories" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_MasterProduct" Association="MyshopModel.FK_MasterProduct_MasterProduct">
+      <End Role="MasterUnit" EntitySet="MasterUnits" />
+      <End Role="MasterProduct" EntitySet="MasterProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_MasterSubCategory" Association="MyshopModel.FK_MasterProduct_MasterSubCategory">
+      <End Role="MasterSubCategory" EntitySet="MasterSubCategories" />
+      <End Role="MasterProduct" EntitySet="MasterProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_Shop" Association="MyshopModel.FK_MasterProduct_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="MasterProduct" EntitySet="MasterProducts" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterSubCategory_Shop" Association="MyshopModel.FK_MasterSubCategory_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="MasterSubCategory" EntitySet="MasterSubCategories" />
+    </AssociationSet>
+    <EntitySet Name="StockEntries" EntityType="MyshopModel.StockEntry" />
+    <AssociationSet Name="FK_StockEntry_MasterProduct" Association="MyshopModel.FK_StockEntry_MasterProduct">
+      <End Role="MasterProduct" EntitySet="MasterProducts" />
+      <End Role="StockEntry" EntitySet="StockEntries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StockEntry_Shop" Association="MyshopModel.FK_StockEntry_Shop">
+      <End Role="Shop" EntitySet="Shops" />
+      <End Role="StockEntry" EntitySet="StockEntries" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StockEntry_MasterBrand" Association="MyshopModel.FK_StockEntry_MasterBrand">
+      <End Role="MasterBrand" EntitySet="MasterBrands" />
+      <End Role="StockEntry" EntitySet="StockEntries" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
+    <Property Name="UserType" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreationBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UserType1" Relationship="MyshopModel.FK_User_UserType" FromRole="User" ToRole="UserType" />
+    <NavigationProperty Name="Logins" Relationship="MyshopModel.FK_Login_User" FromRole="User" ToRole="Login" />
+    <NavigationProperty Name="Shops" Relationship="MyshopModel.FK_Shop_User" FromRole="User" ToRole="Shop" />
+    <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="User" ToRole="UserShopMapper" />
+    <NavigationProperty Name="UserPermissions" Relationship="MyshopModel.FK_UserPermission_User" FromRole="User" ToRole="UserPermission" />
+    <Property Name="IsActive" Type="Boolean" />
+    <Property Name="IsBlocked" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Users" Relationship="MyshopModel.FK_User_UserType" FromRole="UserType" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_User_UserType">
+    <End Type="MyshopModel.UserType" Role="UserType" Multiplicity="1" />
+    <End Type="MyshopModel.User" Role="User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="LoginDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreationBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MyshopModel.FK_Login_User" FromRole="Login" ToRole="User" />
+    <Property Name="IsReset" Type="Boolean" />
+    <Property Name="GUID" Type="Guid" />
+    <Property Name="ReserExpireTime" Type="DateTime" Precision="3" />
+    <Property Name="OTPid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <Association Name="FK_Login_User">
+    <End Type="MyshopModel.User" Role="User" Multiplicity="1" />
+    <End Type="MyshopModel.Login" Role="Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="Shop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Address" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+    <Property Name="Mobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="false" />
+    <Property Name="Distict" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Owner" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreationBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MyshopModel.FK_Shop_User" FromRole="Shop" ToRole="User" />
+    <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="Shop" ToRole="UserShopMapper" />
+    <NavigationProperty Name="MasterBrands" Relationship="MyshopModel.FK_MasterBrand_Shop" FromRole="Shop" ToRole="MasterBrand" />
+    <NavigationProperty Name="MasterCategories" Relationship="MyshopModel.FK_MasterCategory_Shop" FromRole="Shop" ToRole="MasterCategory" />
+    <NavigationProperty Name="MasterProducts" Relationship="MyshopModel.FK_MasterProduct_Shop" FromRole="Shop" ToRole="MasterProduct" />
+    <NavigationProperty Name="MasterSubCategories" Relationship="MyshopModel.FK_MasterSubCategory_Shop" FromRole="Shop" ToRole="MasterSubCategory" />
+    <NavigationProperty Name="StockEntries" Relationship="MyshopModel.FK_StockEntry_Shop" FromRole="Shop" ToRole="StockEntry" />
+  </EntityType>
+  <EntityType Name="UserShopMapper">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreationBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Shop" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="UserShopMapper" ToRole="Shop" />
+    <NavigationProperty Name="User" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="UserShopMapper" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_Shop_User">
+    <End Type="MyshopModel.User" Role="User" Multiplicity="1" />
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shop">
+        <PropertyRef Name="Owner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserShopMapper_Shop">
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="1" />
+    <End Type="MyshopModel.UserShopMapper" Role="UserShopMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserShopMapper">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserShopMapper_User">
+    <End Type="MyshopModel.User" Role="User" Multiplicity="1" />
+    <End Type="MyshopModel.UserShopMapper" Role="UserShopMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserShopMapper">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="UserPermission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="Read" Type="Boolean" Nullable="false" />
+    <Property Name="Write" Type="Boolean" Nullable="false" />
+    <Property Name="Delete" Type="Boolean" Nullable="false" />
+    <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreationBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="User" Relationship="MyshopModel.FK_UserPermission_User" FromRole="UserPermission" ToRole="User" />
+  </EntityType>
+  <Association Name="FK_UserPermission_User">
+    <End Type="MyshopModel.User" Role="User" Multiplicity="1" />
+    <End Type="MyshopModel.UserPermission" Role="UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Controller" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Action" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Area" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="OuterException" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="InnerException" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="IsResolved" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
+  </EntityType>
+  <EntityType Name="MasterBrand">
+    <Key>
+      <PropertyRef Name="BrandId" />
+    </Key>
+    <Property Name="BrandId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="BrandName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Shop" Relationship="MyshopModel.FK_MasterBrand_Shop" FromRole="MasterBrand" ToRole="Shop" />
+    <NavigationProperty Name="StockEntries" Relationship="MyshopModel.FK_StockEntry_MasterBrand" FromRole="MasterBrand" ToRole="StockEntry" />
+  </EntityType>
+  <EntityType Name="MasterCategory">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="CatName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="Shop" Relationship="MyshopModel.FK_MasterCategory_Shop" FromRole="MasterCategory" ToRole="Shop" />
+    <NavigationProperty Name="MasterSubCategories" Relationship="MyshopModel.FK_MasterSubCategory_MasterCategory" FromRole="MasterCategory" ToRole="MasterSubCategory" />
+  </EntityType>
+  <EntityType Name="MasterProduct">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="SubCatId" Type="Int32" Nullable="false" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="ProductName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="MinQuantity" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="UnitId" Type="Int32" Nullable="false" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="MasterUnit" Relationship="MyshopModel.FK_MasterProduct_MasterProduct" FromRole="MasterProduct" ToRole="MasterUnit" />
+    <NavigationProperty Name="MasterSubCategory" Relationship="MyshopModel.FK_MasterProduct_MasterSubCategory" FromRole="MasterProduct" ToRole="MasterSubCategory" />
+    <NavigationProperty Name="Shop" Relationship="MyshopModel.FK_MasterProduct_Shop" FromRole="MasterProduct" ToRole="Shop" />
+    <Property Name="ProductCode" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="StockEntries" Relationship="MyshopModel.FK_StockEntry_MasterProduct" FromRole="MasterProduct" ToRole="StockEntry" />
+  </EntityType>
+  <EntityType Name="MasterSubCategory">
+    <Key>
+      <PropertyRef Name="SubCatId" />
+    </Key>
+    <Property Name="SubCatId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CatId" Type="Int32" Nullable="false" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="SubCatName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="MasterCategory" Relationship="MyshopModel.FK_MasterSubCategory_MasterCategory" FromRole="MasterSubCategory" ToRole="MasterCategory" />
+    <NavigationProperty Name="MasterProducts" Relationship="MyshopModel.FK_MasterProduct_MasterSubCategory" FromRole="MasterSubCategory" ToRole="MasterProduct" />
+    <NavigationProperty Name="Shop" Relationship="MyshopModel.FK_MasterSubCategory_Shop" FromRole="MasterSubCategory" ToRole="Shop" />
+  </EntityType>
+  <EntityType Name="MasterUnit">
+    <Key>
+      <PropertyRef Name="UnitId" />
+    </Key>
+    <Property Name="UnitId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="UnitName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsActive" Type="Boolean" Nullable="false" />
+    <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="MasterProducts" Relationship="MyshopModel.FK_MasterProduct_MasterProduct" FromRole="MasterUnit" ToRole="MasterProduct" />
+  </EntityType>
+  <Association Name="FK_MasterBrand_Shop">
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="1" />
+    <End Type="MyshopModel.MasterBrand" Role="MasterBrand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterBrand">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_MasterBrand">
+    <End Type="MyshopModel.MasterBrand" Role="MasterBrand" Multiplicity="1" />
+    <End Type="MyshopModel.MasterProduct" Role="MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterBrand">
+        <PropertyRef Name="BrandId" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterCategory_Shop">
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="1" />
+    <End Type="MyshopModel.MasterCategory" Role="MasterCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterCategory">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterSubCategory_MasterCategory">
+    <End Type="MyshopModel.MasterCategory" Role="MasterCategory" Multiplicity="1" />
+    <End Type="MyshopModel.MasterSubCategory" Role="MasterSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterCategory">
+        <PropertyRef Name="CatId" />
+      </Principal>
+      <Dependent Role="MasterSubCategory">
+        <PropertyRef Name="CatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_MasterProduct">
+    <End Type="MyshopModel.MasterUnit" Role="MasterUnit" Multiplicity="1" />
+    <End Type="MyshopModel.MasterProduct" Role="MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUnit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_MasterSubCategory">
+    <End Type="MyshopModel.MasterSubCategory" Role="MasterSubCategory" Multiplicity="1" />
+    <End Type="MyshopModel.MasterProduct" Role="MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterSubCategory">
+        <PropertyRef Name="SubCatId" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="SubCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_Shop">
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="1" />
+    <End Type="MyshopModel.MasterProduct" Role="MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterSubCategory_Shop">
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="1" />
+    <End Type="MyshopModel.MasterSubCategory" Role="MasterSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterSubCategory">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="StockEntry">
+    <Key>
+      <PropertyRef Name="StockId" />
+    </Key>
+    <Property Name="StockId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductId" Type="Int32" Nullable="false" />
+    <Property Name="ShopId" Type="Int32" Nullable="false" />
+    <Property Name="SellPrice" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="PurchasePrice" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="Qty" Type="Decimal" Nullable="false" Precision="18" Scale="4" />
+    <Property Name="Color" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="IsSync" Type="Boolean" Nullable="false" />
+    <Property Name="IsDelete" Type="Boolean" Nullable="false" />
+    <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+    <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MasterProduct" Relationship="MyshopModel.FK_StockEntry_MasterProduct" FromRole="StockEntry" ToRole="MasterProduct" />
+    <NavigationProperty Name="Shop" Relationship="MyshopModel.FK_StockEntry_Shop" FromRole="StockEntry" ToRole="Shop" />
+    <Property Name="BrandId" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="MasterBrand" Relationship="MyshopModel.FK_StockEntry_MasterBrand" FromRole="StockEntry" ToRole="MasterBrand" />
+  </EntityType>
+  <Association Name="FK_StockEntry_MasterProduct">
+    <End Type="MyshopModel.MasterProduct" Role="MasterProduct" Multiplicity="1" />
+    <End Type="MyshopModel.StockEntry" Role="StockEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterProduct">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="StockEntry">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StockEntry_Shop">
+    <End Type="MyshopModel.Shop" Role="Shop" Multiplicity="1" />
+    <End Type="MyshopModel.StockEntry" Role="StockEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StockEntry">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StockEntry_MasterBrand">
+    <End Type="MyshopModel.MasterBrand" Role="MasterBrand" Multiplicity="1" />
+    <End Type="MyshopModel.StockEntry" Role="StockEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterBrand">
+        <PropertyRef Name="BrandId" />
+      </Principal>
+      <Dependent Role="StockEntry">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,189 @@
+﻿/// <reference path="../../../Common/Utility.js" />
+/// <reference path="../../../../jquery-1.10.2.intellisense.js" />
+
+$(document).ready(function () {
+    utility.bindDdlByAjax("GetModuleUrl", 'moduleid');
+    utility.bindDdlByAjaxWithParam("GetUserUrl", 'users',{allList:false},"Name","UserId");
+   
+});
+
+$(document).on('change', '#moduleid', function () {
+    let moduleId = parseInt($(this).find('option:selected').val());
+    let userId = parseInt($('#users').find('option:selected').val());
+    var table = $('#popuptable tbody');
+    table.empty();
+    if (isNaN(userId) ) {
+        utility.SetAlert('Please select user', 'warning');
+    }
+    else if (isNaN(moduleId)) {
+        utility.SetAlert('Please select application module', 'warning');
+    }
+    else {
+        utility.ajaxHelper(utility.urls.GetPermissionJson, { moduleid: moduleId,userid:userId }, function (data) {
+            var tblContainer = $('.popup');
+            if (data.length > 0) {
+                tblContainer.show(); // Show the table
+
+                //Looping data object
+                $(data).each(function (ind, ele) {
+                    var html = '<tr>';
+                    html += '<td>' + (ind + 1) + '</td>';
+                    html += '<td>' + ele.PageName + '</td>';
+                    html += '<td>' + ele.Url + '</td>';
+                    html += '<td><input type="checkbox" id="isblockAccess_' + ind + '" name="isblockAccess"/></td>';
+                    html += '<td><input type="checkbox" id="read_' + ind + '" name="read" /></td>';
+                    html += '<td><input type="checkbox" id="write_' + ind + '" name="write"/></td>';
+                    html += '<td><input type="checkbox" id="update_' + ind + '" name="update"/></td>';
+                    html += '<td><input type="checkbox" id="delete_' + ind + '" name="delete"/></td>';
+                    html += '<td><input type="button"  id="btnUpdate_' + ind + '" name="btnupdate_' + ind + '" value="Update" onclick="updateSingal(this)" data-data=""/><input type="button" value="Delete" onclick="deleteSingal(this)" data-data="' + ele.PermissionId + '"/></td>';
+                    html += '</tr>';
+
+                    $(table).append(html);
+
+                    $('#read_' + ind).attr('checked', ele.Read);
+                    $('#write_' + ind).attr('checked', ele.Write);
+                    $('#update_' + ind).attr('checked', ele.Update);
+                    $('#delete_' + ind).attr('checked', ele.Delete);
+                    $('#isblockAccess_' + ind).attr('checked', ele.IsBlockAccess);
+                    $('#btnUpdate_' + ind).data('data', ele);
+                });
+            }
+        }, utility.errorCall);
+    }
+});
+
+function selectAll(ele) {
+    var isChecked = $(ele).is(':checked');
+    var id = $(ele).attr('id');
+    switch (id) {
+        case 'isBlock':
+            $('[id*="isblockAccess_"]').prop('checked', isChecked);
+            break;
+        case 'isView':
+            $('[id*="read_"]').prop('checked', isChecked);
+            break;
+        case 'isInsert':
+            $('[id*="write_"]').prop('checked', isChecked);
+            break;
+        case 'isUpdate':
+            $('[id*="update_"]').prop('checked', isChecked);
+            break;
+        case 'isDelete':
+            $('[id*="delete_"]').prop('checked', isChecked);
+            break;
+    }
+};
+
+function updateSingal(ctrl) {
+    var val = parseInt($('#users').find('option:selected').val());
+    if (isNaN(val)) {
+        utility.SetAlert('Please select user', 'warning');
+    }
+    else {
+        let data = $(ctrl).data('data');
+        let inputData = [];
+        let $data = {};
+        let type = $(ctrl).attr('value');
+        let checkbox = $(ctrl).parent().parent().find('input');
+        if(type=="Update All")
+        {
+            checkbox = $('[id*="btnUpdate_"]');
+            let newCtrl = "";
+            $(checkbox).each(function (ind, ele) {
+                var newData = {};
+                newCtrl = $(ele).parent().parent().find('input');
+                newData.UserId = val;
+                newData.PageName = $(newCtrl[0]).val();
+                newData.Url = $(newCtrl[1]).val();
+                newData.Read = $(newCtrl[3]).is(':checked');
+                newData.Write = $(newCtrl[4]).is(':checked');
+                newData.Delete = $(newCtrl[6]).is(':checked');
+                newData.Update = $(newCtrl[5]).is(':checked');
+                newData.IsBlockAccess = $(newCtrl[2]).is(':checked');
+                newData.PermissionId = $(newCtrl[7]).data('data') === undefined ? 0 : $(newCtrl[7]).data('data').PermissionId;
+                inputData.push(newData);
+            });
+        }
+        else
+        {
+            $data.UserId = val;
+            $data.PageName = $(checkbox[0]).val();
+            $data.Url = $(checkbox[1]).val();
+            $data.Read = $(checkbox[3]).is(':checked');
+            $data.Write = $(checkbox[4]).is(':checked');
+            $data.Delete = $(checkbox[6]).is(':checked');
+            $data.Update = $(checkbox[5]).is(':checked');
+            $data.IsBlockAccess = $(checkbox[2]).is(':checked');
+            inputData = [];
+            inputData[0] = $data;
+        }
+        let url = "";
+        switch (type) {
+            case 'Insert':
+                url = utility.urls.SaveSinglePermission;
+                $data.PermissionId = 0;
+                break;
+            case 'Delete':
+                url = utility.urls.DeletesSinglePermission;
+                $data.PermissionId = data;
+                break;
+            case 'Update':
+                url = utility.urls.UpdateSinglePermission;
+                $data.PermissionId = data.PermissionId;
+                break;
+            case 'Update All':
+                url = utility.urls.UpdateSinglePermission;
+                break;
+        }
+       
+        utility.ajaxHelper(url, inputData, function (response) {
+            if (response == 'Updated') {
+                utility.SetAlert('Data Updated', 'success');
+            }
+            else if (response == 'Inserted') {
+                utility.SetAlert('Data Saved', 'success');
+                $('#users').change();
+            }
+            else if (response == 'Deleted') {
+                utility.SetAlert('Data Deleted', 'success');
+                $('#users').change();
+            }
+            else
+                utility.SetAlert(response, 'danger');
+        });
+    }
+}
+
+
+function addRow() {
+    var val = parseInt($('#users').find('option:selected').val());
+    let moduleId = parseInt($('#moduleid').find('option:selected').val());
+    if (isNaN(val)) {
+        utility.SetAlert('Please select user', 'warning');
+    }
+    else if (isNaN(moduleId)) {
+        utility.SetAlert('Please select application module', 'warning');
+    }
+    else {
+        var table = $('#popuptable tbody');
+        let trs = $(table).find('tr').length;
+        var html = '<tr>';
+        html += '<td>' + (trs + 1) + '</td>';
+        html += '<td> <select id="pageid" class="ddl" ><option value="value">Select Page</option></select></td>';
+        html += '<td></td>';
+        html += '<td><input type="checkbox" id="isblockAccess_' + trs + '" name="isblockAccess"/></td>';
+        html += '<td><input type="checkbox" id="read_' + trs + '" name="read" /></td>';
+        html += '<td><input type="checkbox" id="write_' + trs + '" name="write"/></td>';
+        html += '<td><input type="checkbox" id="update_' + trs + '" name="update"/></td>';
+        html += '<td><input type="checkbox" id="delete_' + trs + '" name="delete"/></td>';
+        html += '<td><input type="button" value="Insert" id="btnUpdate_" onclick="updateSingal(this)"/><input type="button" value="Remove" onclick="deleteRow(this)"/></td>';
+        html += '</tr>';
+        $(table).append(html);
+
+        utility.bindDdlByAjaxWithParam("GetUserUrl", 'users', { allList: false }, "Name", "UserId");
+    }
+}
+
+function deleteRow(ctrl) {
+    $(ctrl).parent().parent().remove();
+}

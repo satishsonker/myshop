@@ -1,0 +1,75 @@
+﻿
+@{
+    ViewBag.Title = "GetVendor";
+    Layout = "~/Areas/StockManagement/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Stock/Masters/Vendor.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="vendorform">
+    <div class="container">
+
+        <div class="holder">
+            <h3 class="text-center">Vendor Details</h3>
+            <fieldset>
+                <input type="hidden" value="0" id="vendorid" name="vendorid" />
+                <div class="control">
+                    <label>Shop Name</label>
+                    @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })
+                    <p class="requiredControl"> *</p>
+                </div>
+                <div class="control">
+                    <label>Vendor Name</label>
+                    <input type="text" required="required" placeholder="Enter Vendor Name" id="vendorname" name="vendorname" />
+                    <p class="requiredControl">*</p>
+                </div>
+                <div class="control">
+                    <label>Vendor Mobile</label>
+                    <input type="text" required="required" placeholder="Enter Vendor Mobile" id="vendormobile" name="vendormobile" />
+                    <p class="requiredControl">*</p>
+                </div>
+                <div class="control">
+                    <label>Vendor Address</label>
+                    <input type="text" required="required" placeholder="Enter Vendor Address" id="vendoraddress" name="vendoraddress" />
+                </div>
+                <div class="control">
+                    <label>Description</label>
+                    <input type="text" placeholder="Enter Vendor description" id="vendordesc" name="vendordesc" />
+                </div>
+            </fieldset>
+            @{
+                string ViewDataName = "GetVendorJson";
+            }
+            @Html.Partial("_ButtonGroup", ViewDataName)
+
+        </div>
+    </div>
+
+    <div class="popup">
+        <div><img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" /></div>
+        <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="VendorName">Vendor</th>
+                    <th id="VendorMobile">Mobile</th>
+                    <th id="VendorAddress">Address</th>
+                    <th id="Description" title="Product Description">Description</th>
+                    <th id="CreatedDate">Date</th>
+                    <th id="btnSelect">Select</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Vendor</th>
+                    <th>Mobile</th>
+                    <th>Address</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Select</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>

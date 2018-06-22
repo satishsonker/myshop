@@ -1,0 +1,492 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="MyshopModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="ErrorLog">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Controller" Type="nvarchar" MaxLength="50" />
+    <Property Name="Action" Type="nvarchar" MaxLength="50" />
+    <Property Name="Area" Type="nvarchar" MaxLength="50" />
+    <Property Name="Message" Type="nvarchar(max)" />
+    <Property Name="OuterException" Type="nvarchar(max)" />
+    <Property Name="InnerException" Type="nvarchar(max)" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsResolved" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Login">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="LoginDate" Type="datetime" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsReset" Type="bit" />
+    <Property Name="GUID" Type="uniqueidentifier" />
+    <Property Name="ReserExpireTime" Type="datetime" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreationBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="OTPid" Type="varchar" MaxLength="100" />
+  </EntityType>
+  <EntityType Name="MasterBrand">
+    <Key>
+      <PropertyRef Name="BrandId" />
+    </Key>
+    <Property Name="BrandId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="BrandName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterCategory">
+    <Key>
+      <PropertyRef Name="CatId" />
+    </Key>
+    <Property Name="CatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="CatName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterProduct">
+    <Key>
+      <PropertyRef Name="ProductId" />
+    </Key>
+    <Property Name="ProductId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SubCatId" Type="int" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="ProductName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="MinQuantity" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="ProductCode" Type="nvarchar" MaxLength="50" />
+    <Property Name="UnitId" Type="int" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterSubCategory">
+    <Key>
+      <PropertyRef Name="SubCatId" />
+    </Key>
+    <Property Name="SubCatId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CatId" Type="int" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="SubCatName" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MasterUnit">
+    <Key>
+      <PropertyRef Name="UnitId" />
+    </Key>
+    <Property Name="UnitId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="UnitName" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Shop">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+    <Property Name="Address" Type="varchar" MaxLength="300" Nullable="false" />
+    <Property Name="Mobile" Type="varchar" MaxLength="13" Nullable="false" />
+    <Property Name="Distict" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Owner" Type="int" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreationBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StockEntry">
+    <Key>
+      <PropertyRef Name="StockId" />
+    </Key>
+    <Property Name="StockId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ProductId" Type="int" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="BrandId" Type="int" Nullable="false" />
+    <Property Name="SellPrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="PurchasePrice" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="Qty" Type="decimal" Precision="18" Scale="4" Nullable="false" />
+    <Property Name="Color" Type="nvarchar" MaxLength="50" />
+    <Property Name="Description" Type="nvarchar" MaxLength="150" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDelete" Type="bit" Nullable="false" />
+    <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="User">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Username" Type="varchar" MaxLength="50" />
+    <Property Name="Password" Type="varchar" MaxLength="250" />
+    <Property Name="Name" Type="varchar" MaxLength="50" />
+    <Property Name="Mobile" Type="varchar" MaxLength="13" />
+    <Property Name="Photo" Type="varbinary(max)" />
+    <Property Name="UserType" Type="int" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreationBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+    <Property Name="IsActive" Type="bit" />
+    <Property Name="IsBlocked" Type="bit" />
+  </EntityType>
+  <EntityType Name="UserPermission">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="Read" Type="bit" Nullable="false" />
+    <Property Name="Write" Type="bit" Nullable="false" />
+    <Property Name="Delete" Type="bit" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreationBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserShopMapper">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="int" Nullable="false" />
+    <Property Name="ShopId" Type="int" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="CreationBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UserType">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="50" />
+    <Property Name="CreatedBy" Type="int" Nullable="false" />
+    <Property Name="ModifiedBy" Type="int" Nullable="false" />
+    <Property Name="CreationDate" Type="datetime" Nullable="false" />
+    <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+    <Property Name="IsSync" Type="bit" Nullable="false" />
+    <Property Name="IsDeleted" Type="bit" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Login_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Login" Type="Self.Login" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Login">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterBrand_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="MasterBrand" Type="Self.MasterBrand" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterBrand">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterCategory_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="MasterCategory" Type="Self.MasterCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterCategory">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_MasterProduct">
+    <End Role="MasterUnit" Type="Self.MasterUnit" Multiplicity="1" />
+    <End Role="MasterProduct" Type="Self.MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterUnit">
+        <PropertyRef Name="UnitId" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="UnitId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_MasterSubCategory">
+    <End Role="MasterSubCategory" Type="Self.MasterSubCategory" Multiplicity="1" />
+    <End Role="MasterProduct" Type="Self.MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterSubCategory">
+        <PropertyRef Name="SubCatId" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="SubCatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterProduct_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="MasterProduct" Type="Self.MasterProduct" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterProduct">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterSubCategory_MasterCategory">
+    <End Role="MasterCategory" Type="Self.MasterCategory" Multiplicity="1" />
+    <End Role="MasterSubCategory" Type="Self.MasterSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterCategory">
+        <PropertyRef Name="CatId" />
+      </Principal>
+      <Dependent Role="MasterSubCategory">
+        <PropertyRef Name="CatId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MasterSubCategory_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="MasterSubCategory" Type="Self.MasterSubCategory" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="MasterSubCategory">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Shop_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="Shop" Type="Self.Shop" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Shop">
+        <PropertyRef Name="Owner" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StockEntry_MasterBrand">
+    <End Role="MasterBrand" Type="Self.MasterBrand" Multiplicity="1" />
+    <End Role="StockEntry" Type="Self.StockEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterBrand">
+        <PropertyRef Name="BrandId" />
+      </Principal>
+      <Dependent Role="StockEntry">
+        <PropertyRef Name="BrandId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StockEntry_MasterProduct">
+    <End Role="MasterProduct" Type="Self.MasterProduct" Multiplicity="1" />
+    <End Role="StockEntry" Type="Self.StockEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MasterProduct">
+        <PropertyRef Name="ProductId" />
+      </Principal>
+      <Dependent Role="StockEntry">
+        <PropertyRef Name="ProductId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_StockEntry_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="StockEntry" Type="Self.StockEntry" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="StockEntry">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_User_UserType">
+    <End Role="UserType" Type="Self.UserType" Multiplicity="1" />
+    <End Role="User" Type="Self.User" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserType">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="User">
+        <PropertyRef Name="UserType" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserPermission_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserPermission" Type="Self.UserPermission" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserPermission">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserShopMapper_Shop">
+    <End Role="Shop" Type="Self.Shop" Multiplicity="1" />
+    <End Role="UserShopMapper" Type="Self.UserShopMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Shop">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserShopMapper">
+        <PropertyRef Name="ShopId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UserShopMapper_User">
+    <End Role="User" Type="Self.User" Multiplicity="1" />
+    <End Role="UserShopMapper" Type="Self.UserShopMapper" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="User">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UserShopMapper">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="MyshopModelStoreContainer">
+    <EntitySet Name="ErrorLog" EntityType="Self.ErrorLog" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterBrand" EntityType="Self.MasterBrand" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterCategory" EntityType="Self.MasterCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterProduct" EntityType="Self.MasterProduct" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterSubCategory" EntityType="Self.MasterSubCategory" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MasterUnit" EntityType="Self.MasterUnit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Shop" EntityType="Self.Shop" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StockEntry" EntityType="Self.StockEntry" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserPermission" EntityType="Self.UserPermission" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserShopMapper" EntityType="Self.UserShopMapper" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Login_User" Association="Self.FK_Login_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Login" EntitySet="Login" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterBrand_Shop" Association="Self.FK_MasterBrand_Shop">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="MasterBrand" EntitySet="MasterBrand" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterCategory_Shop" Association="Self.FK_MasterCategory_Shop">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="MasterCategory" EntitySet="MasterCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_MasterProduct" Association="Self.FK_MasterProduct_MasterProduct">
+      <End Role="MasterUnit" EntitySet="MasterUnit" />
+      <End Role="MasterProduct" EntitySet="MasterProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_MasterSubCategory" Association="Self.FK_MasterProduct_MasterSubCategory">
+      <End Role="MasterSubCategory" EntitySet="MasterSubCategory" />
+      <End Role="MasterProduct" EntitySet="MasterProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterProduct_Shop" Association="Self.FK_MasterProduct_Shop">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="MasterProduct" EntitySet="MasterProduct" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterSubCategory_MasterCategory" Association="Self.FK_MasterSubCategory_MasterCategory">
+      <End Role="MasterCategory" EntitySet="MasterCategory" />
+      <End Role="MasterSubCategory" EntitySet="MasterSubCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MasterSubCategory_Shop" Association="Self.FK_MasterSubCategory_Shop">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="MasterSubCategory" EntitySet="MasterSubCategory" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Shop_User" Association="Self.FK_Shop_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="Shop" EntitySet="Shop" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StockEntry_MasterBrand" Association="Self.FK_StockEntry_MasterBrand">
+      <End Role="MasterBrand" EntitySet="MasterBrand" />
+      <End Role="StockEntry" EntitySet="StockEntry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StockEntry_MasterProduct" Association="Self.FK_StockEntry_MasterProduct">
+      <End Role="MasterProduct" EntitySet="MasterProduct" />
+      <End Role="StockEntry" EntitySet="StockEntry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_StockEntry_Shop" Association="Self.FK_StockEntry_Shop">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="StockEntry" EntitySet="StockEntry" />
+    </AssociationSet>
+    <AssociationSet Name="FK_User_UserType" Association="Self.FK_User_UserType">
+      <End Role="UserType" EntitySet="UserType" />
+      <End Role="User" EntitySet="User" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserPermission_User" Association="Self.FK_UserPermission_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserPermission" EntitySet="UserPermission" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserShopMapper_Shop" Association="Self.FK_UserShopMapper_Shop">
+      <End Role="Shop" EntitySet="Shop" />
+      <End Role="UserShopMapper" EntitySet="UserShopMapper" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UserShopMapper_User" Association="Self.FK_UserShopMapper_User">
+      <End Role="User" EntitySet="User" />
+      <End Role="UserShopMapper" EntitySet="UserShopMapper" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

@@ -1,0 +1,6 @@
+﻿/// <reference path="../../../Common/Utility.js" />
+/// <reference path="../../../../jquery-1.10.2.intellisense.js" />
+
+function fetchLog(all) {
+    window.location=utility.urls.GetErrorLog+'/all='+all
+}

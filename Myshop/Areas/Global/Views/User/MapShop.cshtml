@@ -1,0 +1,55 @@
+﻿
+@{
+    ViewBag.Title = "MapShop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Global/User/MapShop.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="permissionform">
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="panel panel-info">
+            <div class="panel-heading">User Shop Mapping</div>
+            <div class="panel-body">
+                    <div>
+                        <select id="users" class="ddl" style=" margin: 0px 5px 10px 0 !important; border-radius: 7px; padding: 10px; height: 40px;">
+                            <option value="value">Select User</option>
+                        </select>
+                        <select id="shops" class="ddl" style=" margin: 0px 5px 10px 0 !important; border-radius: 7px; padding: 10px; height: 40px;">
+                            <option value="value">Select Shop</option>
+                        </select>
+                        <div class="col-xs-4 col-sm-4 col-lg-3 col-md-3">
+                            <input type="button" value="Map" id="maps" class="btn-shop" style="float:left !important;height: 39px;border-radius: 8px;margin-left: -14px;" />
+                        </div>
+                    </div>
+                    <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>User</th>
+                                <th>Shop Name</th>
+                                <th>Adddress</th>
+                                <th>Date</th>
+                                <th>Delete</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>User</th>
+                                <th>Shop Name</th>
+                                <th>Adddress</th>
+                                <th>Date</th>
+                                <th>Delete</th>
+                            </tr>
+                        </tfoot>
+                        <tbody></tbody>
+                    </table>
+                </div></div></div>
+</form>
+
+
+
+

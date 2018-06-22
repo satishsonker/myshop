@@ -1,0 +1,179 @@
+﻿@using Myshop.GlobalResource;
+@using Myshop.App_Start;
+<div class="w3-container" id="addEmpContainer">
+    <div class="w3-bar w3-black">
+        <button class="w3-bar-item w3-button tablink w3-red" data-id="Personal" onclick="openCity(event,'Personal')">Personal Information</button>
+        <button class="w3-bar-item w3-button tablink" data-id="Work" onclick="openCity(event,'Work')">Work Experience</button>
+        <button class="w3-bar-item w3-button tablink" data-id="Proof" onclick="openCity(event,'Proof')">Proof</button>
+    </div>
+
+    <div id="Personal" class="w3-container w3-border city">
+        <br />
+        <div class="row">
+            <div class="col-sm-2">
+                <input type="hidden" value="@Model.EmpId" id="empid" name="empid" />
+                <label>@Resource.EmpImage</label>
+                @{
+                    string image = @Model.UserImage == null ? "/Images/Icons/employee.png" : "data:image / jpeg; base64," + @Model.UserImage;
+                    <div class="col-sm-12 text-center" style="border: 1px solid #80808038;height: 152px;border-radius: 4px;padding:10px;">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-4" style="width: 90px;border: 3px solid;height: 128px;padding: 0px !important;border-radius: 5px;">
+                            <img src="@image" id="EmpImage" class="text-center" style="width: 100%;height: 100%;" alt="Employee Image" />
+                        </div>
+                    </div>
+                }
+            </div>
+            <div class="col-sm-4">
+                <label>@Resource.FirstName</label>
+                <input type="text" required="required" value="@Model.FirstName" class="form-control" placeholder="Enter @Resource.FirstName" id="firstname" name="firstname" />
+            </div>
+            <div class="col-sm-6">
+                <label>@Resource.LastName</label>
+                <input type="text" required="required" value="@Model.LastName " class="form-control" placeholder="Enter @Resource.LastName" id="lastname" name="lastname" />
+            </div>
+            <div class="col-sm-4">
+                @*<label>@Resource.FirstName</label>
+                <input type="text" required="required" value="@Model.FirstName" class="form-control" placeholder="Enter @Resource.FirstName" id="firstname" name="firstname" />
+                <label>@Resource.LastName</label>
+                <input type="text" required="required" value="@Model.LastName " class="form-control" placeholder="Enter @Resource.LastName" id="lastname" name="lastname" />*@
+                <label>@Resource.FatherName</label>
+                <input type="text" required="required" value="@Model.FatherName" class=" form-control" placeholder="Enter @Resource.FatherName" id="fathername" name="fathername" />
+            </div>
+            <div class="col-sm-6">
+                <label for="dob">@Resource.Gender</label><br />
+                <input class="w3-radio" type="radio" name="gender" value="male" checked>
+                <label>Male</label>
+
+                <input class="w3-radio" type="radio" name="gender" value="female">
+                <label>Female</label>
+            </div>
+            <div class="col-sm-4">
+                <label>@Resource.EmpImage</label>
+                <input type="file" id="imageUploadForm" name="file" class="btn btn-primary" style="width:100%" />
+            </div>
+            <div class="col-sm-6">
+                <input type="hidden" value="0" id="empid" name="empid" />
+                <label>@Resource.EmpRole</label>
+                <select id="roleid" name="roleid" disabled="disabled" class="disableCtrl form-control" required="required">
+                    <option value="">Select @Resource.EmpRole</option>
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.Mobile</label>
+                <input type="text" value="@Model.Mobile" required="required" maxlength="10" autocomplete="off" class="form-control" placeholder="Enter @Resource.Mobile" id="mobile" name="mobile" />
+            </div>
+            <div class="col-sm-6">
+                <label>@Resource.EmergContact</label>
+                <input type="text" value="@Model.EmergencyContactNo" maxlength="10" class=" form-control" placeholder="Enter @Resource.EmergContact" id="EmergencyContactNo" name="EmergencyContactNo" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <label>@Resource.Address</label>
+                <input type="text" value="@Model.Address" required="required" maxlength="250" class="form-control" placeholder="Enter @Resource.Address" id="address" name="address" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.District</label>
+                <input type="text" value="@Model.Distict" required="required" class="form-control" placeholder="Enter @Resource.District" id="district" name="distict" />
+            </div>
+            <div class="col-sm-6">
+                <label>@Resource.City</label>
+                <input type="text" value="@Model.City" required="required" autocomplete="on" class=" form-control" placeholder="Enter @Resource.City" id="city" name="city" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.State</label>
+                <input type="text" value="@Model.State" required="required" autocomplete="off" class="form-control" placeholder="Enter @Resource.State" id="state" name="State" />
+            </div>
+            <div class="col-sm-6">
+                <label>@Resource.PINCode</label>
+                <input type="number" value="@Model.PINCode" required="required" min="100000" max="999999" maxlength="6" class=" form-control" placeholder="Enter @Resource.PINCode" id="pincode" name="PINCode" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.BloodGroup</label>
+                @Html.Partial("_BloodGroupDropdown")
+            </div>
+            <div class="col-sm-6">
+                <label for="dob">@Resource.DOB</label>
+                <input type="date" value="@Utility.DateControlFormat(Model.DOB)" required="required" class="form-control" placeholder="Enter @Resource.DOB" id="dob" name="dob" />
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div id="Work" class="w3-container w3-border city" style="display:none">
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.Email</label>
+                <input type="text" value="@Model.EmailId" required="required" class="form-control" placeholder="Enter @Resource.Email" id="email" name="emailid" />
+            </div>
+            <div class="col-sm-6">
+                <label>@Resource.DOJ</label>
+                <input type="date" value="@Utility.DateControlFormat(Model.DOJ)" required="required" class=" form-control" placeholder="Enter @Resource.DOJ" id="doj" name="doj" />
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.TotalExp</label>
+                <input type="number" value="@Model.TotalExp" required="required" min="0" max="60" class="form-control" placeholder="Enter @Resource.TotalExp" id="TotalExp" name="TotalExp" />
+            </div>
+        </div>
+        <br />
+    </div>
+
+    <div id="Proof" class="w3-container w3-border city" style="display:none">
+        <br />
+        <div class="row">
+            <div class="col-sm-6">
+                <label>@Resource.PanCard</label>
+                <input type="text" value="@Model.PANCardNo" required="required" maxlength="10" class="form-control" placeholder="Enter @Resource.PanCard (ex. ABCDE1234F)" id="pancard" name="pancardno" />
+            </div>
+            <div class="col-sm-6">
+                <label>@Resource.AadharNo</label>
+                <input type="text" value="@Model.AadharNo" required="required" maxlength="14" class=" form-control" placeholder="____/____/____" value="" id="aadharNo" name="AadharNo" />
+            </div>
+        </div>
+        <br />
+        <div class="row">
+            <div class="col-sm-12">
+                @Html.Partial("_DocProof")
+            </div>
+        </div>
+    </div><br />
+</div>
+
+<script>
+    function openCity(evt, cityName) {
+        if (isValid(cityName)) {
+            var i, x, tablinks;
+            x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            tablinks = document.getElementsByClassName("tablink");
+            for (i = 0; i < x.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" w3-red", "");
+            }
+            document.getElementById(cityName).style.display = "block";
+            evt.currentTarget.className += " w3-red";
+        }
+}
+    function isValid(name) {
+        var tabBtn = $('.w3-bar-item.w3-button.tablink.w3-red').data('id');
+        $('#'+tabBtn+' input[required="required"], #'+tabBtn+' select[required="required"]').each(function(ind,ele) {
+            if ($(ele).val() == '')
+                $(ele).addClass('shopInvalid');
+            else
+                $(ele).removeClass('shopInvalid');
+        });
+        return $('div#' + tabBtn).find('.shopInvalid').length == 0 ? true : false;
+}
+</script>
+

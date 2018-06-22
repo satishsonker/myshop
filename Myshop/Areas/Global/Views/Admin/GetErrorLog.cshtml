@@ -1,0 +1,91 @@
+﻿@using DataLayer;
+@Model
+@{
+    ViewBag.Title = "GetErrorLog";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Global/Admin/ErrorLog.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="errorlogform">
+    <div class="col-sm-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">Error Log</div>
+            <div class="panel-body">
+                <div class="" style="display:block !important;z-index:1 !important">
+                    <div>
+                        <input type="button" onclick="fetchLog(true)" value="Show All" class="btnShop" style="float:left;margin:0 10px 10px 0;width:auto;padding:8px" />
+                        <input type="button" onclick="fetchLog(false)" value="Show All Unresolved" class="btnShop" style="float:left;margin:0 10px 10px 0;width:auto;padding:8px" />
+                    </div>
+                    <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <thead>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Error Id</th>
+                                <th>Path</th>
+                                <th>Message</th>
+                                <th>Outer Exception</th>
+                                <th>Inner Exception</th>
+                                <th>Resolved</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Sr. No.</th>
+                                <th>Error Id</th>
+                                <th>Path</th>
+                                <th>Message</th>
+                                <th>Outer Exception</th>
+                                <th>Inner Exception</th>
+                                <th>Resolved</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            @{
+                                int count = 1;
+                                foreach (ErrorLog item in Model)
+                                {
+                                    <tr>
+                                        <td>@count</td>
+                                        <td>@item.Id</td>
+                                        <td>
+                                            @{
+                                                string str = string.Empty;
+                                                str = string.IsNullOrEmpty(item.Area) ? "/" + @item.Controller + "/" + @item.Action : "/" + @item.Area + "/" + @item.Controller + "/" + @item.Action;
+                                            }
+                                            @str
+                                        </td>
+                                        <td style="cursor:pointer" onclick="utility.popup(this.title, $(this).data('colname'))" data-colname="Message" title="@item.Message"> @item.Message.Substring(0, (item.Message.Length < 50 ? item.Message.Length : 50))</td>
+                                        <td style="cursor:pointer" onclick="utility.popup(this.title, $(this).data('colname'))" data-colname="Outer Exception" title="@item.OuterException"> @item.OuterException.Substring(0, (item.OuterException.Length < 50 ? item.OuterException.Length : 50))</td>
+                                        <td style="cursor:pointer" onclick="utility.popup(this.title,$(this).data('colname'))" data-colname="Inner Exception" title="@item.InnerException">@item.InnerException.Substring(0, (item.InnerException.Length < 50 ? item.InnerException.Length : 50))</td>
+                                        <td>
+                                            @if (item.IsResolved == false)
+                                            { <input type="button" name="name" value="Resolve" data-data="@item.Id" onclick="UpdateLog(this)" />}
+                                        </td>
+                                    </tr>
+                                                    count += 1;
+                                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+                <div id="Popup" class="panel panel-info Popup" style="position: fixed;z-index: 1000000;top: 32%;left: 32%;background-color: white;width: 500px;border: 2px solid #00000073;border-radius: 4px;padding: 5px;display:none">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-sm-11"></div>
+                                <div class="col-sm-1">
+                                    <img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose('Popup')" title="Close" alt="close" />
+                                </div>
+                            </div>
+                    </div>
+                    <div class="panel-body">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+@*}*@

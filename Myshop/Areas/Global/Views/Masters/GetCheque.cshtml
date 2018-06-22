@@ -1,0 +1,90 @@
+﻿
+@{
+    ViewBag.Title = "GetCheque";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Global/Master/Cheque.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="chequeform">
+    <div id="GetBankAccUrl" data-request-url="@Url.Action("GetBankAccounts", "Masters",new {area="Global" })"></div>
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Cheque Book Details</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <input type="hidden" value="0" id="chequeid" name="chequeid" />
+                        <label>Bank Name</label>
+                        <select id="bankaccid" name="bankaccid" disabled="disabled" class="disableCtrl form-control" required="required">
+                            <option value="">Select Bank Account</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Cheque Book No. End</label>
+                        <input type="number" required="required" class="disableCtrl form-control" readonly="readonly" min="100000" max="999999" data-validate-numeric="true" data-validate-numeric-error="Please enter numeric value" placeholder="Enter Cheque Book No. End" id="pageendno" name="pageendno" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Cheque Book Page</label>
+                        <input type="number" class="form-control" required="required" data-validate-numeric="true" min="1" max="100" data-validate-numeric-error="Please enter numeric value" placeholder="Enter Total Cheque Book Pages" id="pagesize" name="pagesize" />
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Cheque Book Issue Date</label>
+                        <input type="date" class="form-control" required="required" placeholder="Enter Cheque Book Issue Date" id="issuedate" name="issuedate" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
+                        <label>Cheque Book No. Start</label>
+                        <input type="number" class="form-control" required="required" data-validate-numeric="true" min="100000" max="999999" data-validate-numeric-error="Please enter numeric value" placeholder="Enter Cheque Book No. Start" id="pagestartno" name="pagestartno" />
+                        
+                    </div>
+                    <div class="col-sm-6">
+                        <label>Description</label>
+                        <input type="text" class="form-control" placeholder="Enter Description" id="desc" name="desc" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                @{
+                    string ViewDataName = "GetChequeJson";
+                }
+                @Html.Partial("_ButtonGroup", ViewDataName)
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div><img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" /></div>
+        <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="AccountNo">Account No</th>
+                    <th id="BankName">Bank Name</th>
+                    <th id="PageSize">Cheque Book total page</th>
+                    <th id="PageStartNo">Cheque Start No</th>
+                    <th id="PageEndNo">Cheque End No</th>
+                    <th id="IssueDate">Check Book Isusse Date</th>
+                    <th id="Desc">Description</th>
+                    <th id="btnSelect">Select</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Account No</th>
+                    <th>Bank Name</th>
+                    <th>Cheque Book total page</th>
+                    <th>Cheque Start No</th>
+                    <th>Cheque End No</th>
+                    <th>Check Book Isusse Date</th>
+                    <th>Description</th>
+                    <th>Select</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>

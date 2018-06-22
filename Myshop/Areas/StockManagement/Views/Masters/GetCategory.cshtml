@@ -1,0 +1,61 @@
+﻿
+@{
+    ViewBag.Title = "GetCategory";
+    Layout = "~/Areas/StockManagement/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Stock/Masters/Cat.js"></script>
+@*@using (Html.BeginForm("SetCategory", "Masters", new { area = "StockManagement" }, FormMethod.Post, new { style = "margin-top:60px" }))
+    {*@
+<form action="/" method="post" style="margin-top:60px" id="catform">
+    <div class="container">
+        <div class="holder">
+            <h3 class="text-center">Product Category</h3>
+            <fieldset>
+                <div class="control">
+                    <input type="hidden" value="0" id="catid" name="catid" />
+                    <label>Shop Name</label>
+                    @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })<p class="requiredControl"> *</p>
+                </div>
+                <div class="control">
+                    <label>Category Name</label><input type="text" required="required" placeholder="Enter Category name" id="catname" name="catname" /><p class="requiredControl">*</p>
+                </div>
+                <div class="control">
+                    <label>Description</label><input type="text" placeholder="Enter Category description" id="catdesc" name="catdesc" />
+                </div>
+            </fieldset>
+
+            @{
+                string ViewDataName = "GetCatogaryJson";
+            }
+            @Html.Partial("_ButtonGroup", ViewDataName)
+
+        </div>
+    </div>
+    <div class="popup">
+        <div><img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close"/></div>
+        <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="CatName">Category</th>
+                    <th id="Description" title="Product Description">Description</th>
+                    <th id="CreatedDate">Date</th>
+                    <th id="btnSelect">Select</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Category</th>
+                    <th>Description</th>
+                    <th>Date</th>
+                    <th>Select</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>
+@*}*@
+

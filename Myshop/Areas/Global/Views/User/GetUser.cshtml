@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Global/User/CreateUser.js"></script>
+<form action="/ method=" post" style="margin-top:60px" id="createuserform">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Create User</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" id="userid" name="userid" value="0" />
+                        <label>Select Category</label>
+                        <select id="usertypeid" name="usertypeid" disabled="disabled" class="disableCtrl form-control" required="required">
+                            <option value="">Select User Type</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>User Name</label>
+                        <input type="text" class="form-control" required="required" data-validate-user="true" data-validate-user-error="User is already exist" placeholder="Enter User Name" id="username" name="username" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Password</label>
+                        <input type="password" class="form-control" required="required" placeholder="Enter Password" id="password" name="password" maxlength="10" data-validate-password-error="Password should be min 6 chars and contain one lower case, one upper case, one number and one special charector" data-validate-password="true" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Confirm Password</label>
+                        <input type="password" class="form-control" required="required" placeholder="Enter Confirm Password" id="conpassword" name="conpassword" maxlength="10" data-validate-compare-error="Password is not matched" data-validate-compare="password" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Name</label>
+                        <input type="text" class="form-control" required="required" placeholder="Enter Name" id="name" name="name" maxlength="50" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Mobile</label>
+                        <input type="text" class="form-control" required="required" placeholder="Enter Mobile" id="mobile" name="mobile" maxlength="13" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                @{
+                    string ViewDataName = "GetUserJson";
+                }
+                @Html.Partial("_ButtonGroup", ViewDataName)
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div><img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" /></div>
+        <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="Username">Username</th>
+                    <th id="Name">Name</th>
+                    <th id="Mobile">Mobile</th>
+                    <th id="UserType">User Type</th>
+                    <th id="CreatedDate">Date</th>
+                    <th id="btnSelect">Select</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Mobile</th>
+                    <th>User Type</th>
+                    <th>Date</th>
+                    <th>Select</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>

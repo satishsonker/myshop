@@ -1,0 +1,54 @@
+﻿
+@{
+    ViewBag.Title = "AddEmployeeRole";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<script src="~/Scripts/App/Area/Employee/Masters/RoleType.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="roletypeform">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Add Employee Role</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <input type="hidden" value="0" id="roleid" name="roleid" />
+                        <label>Role Name</label>
+                        <input type="text" required="required" placeholder="Enter Role Type" class="form-control" maxlength="50" id="roletype" name="roletype" />
+                    </div>                    
+                </div>
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Description</label>
+                        <input type="text" class="form-control" placeholder="Enter Description" id="description" name="description" />
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                @{
+                    string ViewDataName = "GetRoleTypeJson";
+                }
+                @Html.Partial("_ButtonGroup", ViewDataName)
+            </div>
+        </div>
+    </div>
+    <div class="popup">
+        <div><img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" /></div>
+        <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
+            <thead>
+                <tr>
+                    <th id="RoleType">Role Type</th>
+                    <th id="Description">Description</th>
+                    <th id="btnSelect">Select</th>
+                </tr>
+            </thead>
+            <tfoot>
+                <tr>
+                    <th>Role Type</th>
+                    <th>Description</th>
+                    <th>Select</th>
+                </tr>
+            </tfoot>
+            <tbody></tbody>
+        </table>
+    </div>
+</form>

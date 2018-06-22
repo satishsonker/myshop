@@ -1,0 +1,36 @@
+﻿@Model
+@{
+    ViewBag.Title = "NotFound";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="col-lg-8 col-lg-offset-2" style="margin-top:60px;">
+    <div class="panel panel-danger">
+        <div class="panel-heading">@Model.Title</div>
+        <div class="panel-body">
+            <div class="row">
+
+                <div class="col-lg-3">
+                    @{
+                        if (Model.StatusCode == 404)
+                        {
+                            <img src="~/Images/Icons/404.png" alt="Alternate Text" />
+                        }
+                        else if (Model.StatusCode == 500)
+                        {
+                            <img src="~/Images/Icons/500.png" alt="Alternate Text" />
+                        }
+                    }
+                </div>
+                <div class="col-lg-9">
+                    <h5>Path : @Model.Path</h5>
+                    Status Code : @Model.StatusCode
+                    <hr />
+                    <h3>@Model.ErrorMessage</h3>
+                </div>
+
+            </div>
+        </div>
+        <div class="panel-footer"></div>
+    </div>
+</div>

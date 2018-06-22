@@ -1,0 +1,20 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/App/Home/Dashboard.css" rel="stylesheet" />
+<script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
+<script src="~/Scripts/App/Home/Dashboard.js"></script>
+<form action="/" method="post">
+    <div class="container" style="margin-top:60px;">
+     <div class="row">
+         <div class="col-md-3 holder"><div class="bg-info">ffffffff</div></div>
+         <div class="col-md-9 holder">
+             <div class="col-md-4 holder"><div id="chartContainer" style="height:370px; width:100%;"></div></div>
+             <div class="col-md-4 holder"><div id="chartContainer1" style="height:370px; width:100%;"></div></div>
+             <div class="col-md-4 holder"><div id="chartContainer2" style="height:370px; width:100%;"></div></div>
+         </div>
+     </div>
+    </div>
+</form>

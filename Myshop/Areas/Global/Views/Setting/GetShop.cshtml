@@ -1,0 +1,30 @@
+﻿
+@{
+    ViewBag.Title = "GetShop";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<form action="/Global/Setting/setshop" method="post" style="margin-top:60px" id="shopform">
+    <div class="col-sm-6 col-sm-offset-3">
+        <div class="panel panel-info">
+            <div class="panel-heading">Change Current Shop</div>
+            <div class="panel-body">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <label>Shop Name</label>
+                        @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required",@class="form-control" })
+                    </div>
+                </div>
+            </div>
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-4 col-xs-4 col-md-3 col-lg-3 pull-right"><input type="submit" class="btn-shop" value="Change" /></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

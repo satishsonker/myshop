@@ -1,0 +1,230 @@
+﻿@using Myshop.App_Start;
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Stock Management</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+   
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/dataTables.jqueryui.min.css" rel="stylesheet" />
+    <link href="~/Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/dataTables.jqueryui.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js"></script>
+    <script src="~/Scripts/jquery-confirm.js"></script>
+    <script src="~/Scripts/App/Common/App.js"></script>
+    <script src="~/Scripts/App/Common/Utility.js"></script>
+    <link href="~/Content/jquery-confirm.css" rel="stylesheet" />
+    <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top" style="z-index:99999999999;">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink(WebSession.ShopName, "Main", "Stock", new { area = "StockManagement" }, new { @class = "navbar-brand" })
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Stock Home", "Main", "Stock", new { area = "StockManagement" }, null)</li>
+                    @if (Session["username"] != null && Session["username"].ToString() != "" && Session["name"] != null)
+                    {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/brand.png" />
+                                    @Html.ActionLink("Brand", "GetBrand", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/category.png" />
+                                    @Html.ActionLink("Category", "GetCategory", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/subcategory.png" />
+                                    @Html.ActionLink("Sub Category", "GetSubCategory", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/unit.png" />
+                                    @Html.ActionLink("Product Unit", "GetUnit", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/vendor.png" />
+                                    @Html.ActionLink("Vendor", "GetVendor", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/product.png" />
+                                    @Html.ActionLink("Products", "GetProduct", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stock<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/stockEntry.png" />
+                                    @Html.ActionLink("Stock Entry", "StockEntry", "Stock", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/stockEntry.png" />
+                                    @Html.ActionLink("Min Stock", "StockEntry", "Stock", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
+                            <ul class="dropdown-menu" style="min-width:200px !important;">
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/global.png" />
+                                    @Html.ActionLink("Global Setting", "Home", "Main", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/stock.png" />
+                                    @Html.ActionLink("Stock Management", "Main", "Stock", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/employee.png" />
+                                    @Html.ActionLink("Employee Management", "Main", "Employees", new { area = "Employees" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/customer.png" />
+                                    @Html.ActionLink("Customer Management", "Main", "Customers", new { area = "Customers" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/sell.png" />
+                                    @Html.ActionLink("Sell Management", "Main", "sells", new { area = "sells" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/home.png" />
+                                    @Html.ActionLink("App Home", "Dashboard", "Home", new { area = "" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi  @Session["name"].ToString() <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/changePass.png" />
+                                    @Html.ActionLink("Change Password", "ChangePassword", "login", new { area = "" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/logout.png" />
+                                    @Html.ActionLink("Logout", "logout", "login", new { area = "" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>@Html.ActionLink("Login", "Login", "login", new { area = "" }, null)</li>
+                    }
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12 col-md-12 col-sm-12" style="margin-top: -8px;background-color: white;">
+        <div id="mainalertContainer">
+            @*Common Error Alert Code*@
+            @{
+                string message = string.Empty;
+                string alert = string.Empty;
+                if (ViewBag.message != null || TempData["messages"] != null)
+                {
+                    message = ViewBag.message == null ? TempData["messages"] : ViewBag.message;
+                    alert = ViewBag.alert == null ? TempData["alert"] : ViewBag.alert;
+                    if (string.IsNullOrEmpty(alert))
+                    {
+                        alert = "info";
+                    }
+                    <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">
+                                        @if (@alert == "success")
+                                    {
+                                        <text>Success</text>
+                                    }
+                                    else if (@alert == "info")
+                                    {
+                                        <text>Information</text>
+                                    }
+                                    else if (@alert == "danger")
+                                    {
+                                        <text>Error</text>
+                                    }
+                                    else
+                                    {
+                                        <text>Warning</text>
+                                    }
+                                    !
+                                </h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>@message</p>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                }
+                ////Validation Summary Code
+                if (!ViewData.ModelState.IsValid)
+                {
+                    <div class="alert alert-danger text-center alert-dismissible" style="margin-top:55px;" role="alert">
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <strong>Validation Error!</strong> @Html.ValidationSummary(false, "", new { @class = "validSummary" })
+                    </div>
+                }
+            }
+        </div>
+        @RenderBody()
+        <div class="toast"></div>
+    </div>
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    <!-- Modal Start-->
+    <div id="showModel" data-toggle="modal" data-target="#myModal"></div> <!--Model trigger point dont remove-->
+    <div class="col-xs-12 footer-fix-shop" id="layoutFooter-low">
+        <p>&copy; @DateTime.Now.Year - Stock Management powered by Common Soft Solution</p>
+    </div>
+
+    <div class="col-xs-12 footer-shop" id="layoutFooter-high" style="height:100px;position:static;">
+        <p>&copy; @DateTime.Now.Year - Stock Management powered by Common Soft Solution</p>
+    </div>
+    <div class="loader">
+        <img src="~/Images/Icons/loader.gif" />
+    </div>
+</body>
+</html>

@@ -1,0 +1,169 @@
+﻿.holder {
+    width: 664px !important;
+    background-color: #1ea167;
+    border-radius: 5px;
+    padding: 2px 20px 20px 20px;
+    background-image: -webkit-linear-gradient(90deg, #168d59, #1ea167);
+    margin-top: 4%;
+    margin-top: 0% !important;
+    margin-left: 20% !important;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+    .holder fieldset label {
+        font-size: 12px;
+        margin-right: 0%;
+        float: left;
+        width: 154px;
+    }
+
+    .holder fieldset {
+        border: 1px solid rgba(15, 181, 107, 0.38);
+        margin-bottom: 10px;
+    }
+
+    .holder .requiredControl {
+        color: red;
+        margin-left: 4px;
+    }
+
+    .holder fieldset select, input {
+        outline: none;
+        width: 333px;
+        height: 27px;
+        display: block;
+        background: #138050;
+        border: 1px solid #0d6b42;
+        margin: 0;
+        padding: 0px 5px;
+        font-size: 13px;
+        float: left;
+        color: white;
+    }
+
+::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+    color: wheat;
+}
+
+::-moz-placeholder { /* Firefox 19+ */
+    color: white;
+}
+
+:-ms-input-placeholder { /* IE 10+ */
+    color: white;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    color: white;
+}
+
+
+.holder2 {
+    width: 900px !important;
+    background-color: #1ea167;
+    border-radius: 5px;
+    padding: 2px 20px 20px 20px;
+    background-image: -webkit-linear-gradient(90deg, #168d59, #1ea167);
+    margin-top: 4%;
+    margin-top: 0% !important;
+    margin-left: 10% !important;
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.2) inset, 0px 0px 2px rgba(0, 0, 0, 0.5);
+}
+
+    .holder2 fieldset label {
+        font-size: 12px;
+        margin-right: 0%;
+        float: left;
+        width: 132px;
+    }
+
+    .holder2 fieldset {
+        border: 1px solid rgba(15, 181, 107, 0.38);
+        margin-bottom: 10px;
+    }
+
+    .holder2 .requiredControl {
+        color: red;
+        margin-left: 4px;
+    }
+
+    .holder2 fieldset select, input {
+        outline: none;
+        width: 240px;
+        height: 27px;
+        display: block;
+        background: #138050;
+        border: 1px solid #0d6b42;
+        margin: 0;
+        padding: 0px 5px;
+        font-size: 13px;
+        float: left;
+        color: white;
+    }
+
+.control {
+    width: 100%;
+    /* border: 1px solid; */
+    min-height: 39px;
+    padding: 5px;
+}
+
+.holder input[type="submit"] {
+    margin: 0;
+    display: block;
+    padding: 8px 0;
+    width: 148px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 0;
+    text-shadow: 0px 1px 0px rbga(255, 255, 255, 1);
+    background-color: #f6ba35;
+    background-image: -webkit-linear-gradient(90deg, #eca418, #ffcd4e);
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    float: right;
+    color: black;
+}
+
+.holder2 input[type="submit"] {
+    margin: 0;
+    display: block;
+    padding: 8px 0;
+    width: 148px;
+    font-size: 12px;
+    font-weight: bold;
+    border: 0;
+    text-shadow: 0px 1px 0px rbga(255, 255, 255, 1);
+    background-color: #f6ba35;
+    background-image: -webkit-linear-gradient(90deg, #eca418, #ffcd4e);
+    border-radius: 5px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    float: right;
+    color: black;
+}
+
+.validSummary {
+    border-top: 1px solid white;
+    margin-top: 6px;
+    padding-top: 6px;
+    /*position: fixed;
+    z-index: 10001;
+    color: white;
+    */
+    color: black !important;
+}
+
+.disableCtrl {
+    background-color: gray !important;
+    border-color: gray;
+    cursor: not-allowed;
+}
+
+
+.one {
+    /*border: 1px solid;*/
+    padding: 5px;
+    margin: 2px;
+    width: 48%;
+    float: left;
+}

@@ -1,0 +1,50 @@
+﻿@using Myshop.App_Start;
+@using Myshop.GlobalResource
+@{
+    ViewBag.Title = "InputOTP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Home/InputOtp.js"></script>
+<form action='@Url.Action("ValidateOtp", "login")' method="post" style="margin-top:60px" id="otpform">
+    <div class="">
+        @{
+            if (ViewBag.loginStatus != null)
+            {<div class="alert alert-warning text-center alert-dismissible" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <strong>@Resource.Warning</strong> @ViewBag.loginStatus
+        </div>}
+
+        }
+        <div style="margin:10% 0;">
+            <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">@Resource.Heading_ValidateOTP</div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <label>@Resource.Email</label>
+                                <input type="number" required="required" class="form-control" placeholder="@Resource.Otp4Digit" id="otp" name="otp" />
+                            </div>
+                            <div class="col-sm-3 col-sm-offset-6" style="margin-top:10px;">
+                                <input type="submit" value="@Resource.Value_Validate" id="Validate" class="btn-shop" style="float: left;margin-right: 5px;width:126px;" />
+                            </div>
+                            <div class="col-sm-3" style="margin-top:10px;">
+                                <input id="resend" style="float: left;width: 104px;" class="btn-shop" type="button" value="@Resource.Value_Resend" />
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="utilities">
+                            @Html.ActionLink(Resource.Contrller_Login, Resource.Action_Login)
+                            <div class="pull-right"><a href="#">@Resource.SignUp</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
