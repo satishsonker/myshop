@@ -2,6 +2,7 @@
 
 var app = {};
 app.urls = {};
+app.urls.customer = {};
 app.const = {};
 
 app.urls.DefaultPagingUrl = "?PageNo=1&PageSize=20";
@@ -78,9 +79,20 @@ app.urls.isExist = '/Common/IsExist';
 
 app.urls.GetStockProductJosn = "/StockManagement/stock/GetUniqueStockProducts";
 
+//Customer Urls
+app.urls.GetCustmerTypeJson = "/CustomersManagement/master/GetCustmerTypeJson";
+app.urls.GetCustomerTypeSelectListJson = "/CustomersManagement/master/GetCustomerTypeSelectList";
+
+app.urls.GetCustmerJson = "/CustomersManagement/master/GetCustmerJson";
+
+
 //Chart Urls
 app.urls.StockProductLineChart = "/StockManagement/stock/GetStockEntryProductChartData";
 app.urls.StockTotalAmountPieChart = "GetStockEntryTotalAmountChartData";
+app.urls.StockTotalQuantityPieChart = "GetStockEntryTotalQuantityChartData";
+app.urls.GetCustomesChartData = "/CustomersManagement/Customer/GetCustomesChartData";
+app.urls.GetTotalCustomerTypePieChartData = "/CustomersManagement/Customer/GetTotalCustomerTypePieChartData";
+
 //Constant Declaration
 app.const.toastColor = {};
 app.const.toastColor.red = '#ff00006e';

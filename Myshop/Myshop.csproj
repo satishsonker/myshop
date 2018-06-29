@@ -160,7 +160,10 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="App_Start\WebSession.cs" />
     <Compile Include="Areas\CustomersManagement\Controllers\CustomerController.cs" />
+    <Compile Include="Areas\CustomersManagement\Controllers\MasterController.cs" />
     <Compile Include="Areas\CustomersManagement\CustomersManagementAreaRegistration.cs" />
+    <Compile Include="Areas\CustomersManagement\Models\CommonModel.cs" />
+    <Compile Include="Areas\CustomersManagement\Models\MasterModel.cs" />
     <Compile Include="Areas\EmployeesManagement\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\EmployeesManagement\Controllers\MasterController.cs" />
     <Compile Include="Areas\EmployeesManagement\Controllers\ReportsController.cs" />
@@ -250,6 +253,8 @@
     <Content Include="Areas\Global\Views\Masters\GetDocProof.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\Shared\_AddEmp.cshtml" />
     <Content Include="Areas\StockManagement\Views\Masters\_StockEntryView.cshtml" />
+    <Content Include="Areas\CustomersManagement\Views\Master\AddCustmerType.cshtml" />
+    <Content Include="Areas\CustomersManagement\Views\Shared\_ButtonGroup.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -337,6 +342,7 @@
     <Content Include="Images\Icons\type.png" />
     <Content Include="Images\Icons\unit.png" />
     <Content Include="Images\Icons\vendor.png" />
+    <Content Include="Scripts\App\Area\Customer\Master\CustomerType.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
@@ -453,8 +459,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\CustomersManagement\Models\" />
-    <Folder Include="Areas\CustomersManagement\Views\Shared\" />
     <Folder Include="Areas\EmployeesManagement\Views\Reports\" />
     <Folder Include="Areas\SalesManagement\Models\" />
     <Folder Include="Areas\SalesManagement\Views\Shared\" />

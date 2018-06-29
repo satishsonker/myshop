@@ -7,12 +7,13 @@ using System.Web.Mvc;
 using Myshop.Areas.StockManagement.Models;
 using Myshop.Filters;
 using Myshop.GlobalResource;
+using Myshop.Controllers;
 
 namespace Myshop.Areas.StockManagement.Controllers
 {
     [MyshopAuthorize]
     [MyShopPermission]
-    public class MastersController : Controller
+    public class MastersController : CommonController
     {
         // GET: StockManagement/Masters
         public ActionResult GetBrand()
@@ -487,45 +488,6 @@ namespace Myshop.Areas.StockManagement.Controllers
             catch (Exception)
             {
                 return Json("Invalid Error");
-            }
-        }
-
-        private void SetAlertMessage(string message, Enums.AlertType alert)
-        {
-            ViewBag.message = message;
-            TempData["messages"] = message;
-            ViewBag.alert = alert.ToString();
-            TempData["alert"] = alert.ToString();
-        }
-        private void ReturnAlertMessage(Enums.CrudStatus status)
-        {
-            if (status == Enums.CrudStatus.Deleted)
-            {
-                SetAlertMessage(Resource.DataDeleted, Enums.AlertType.success);
-            }
-            else if (status == Enums.CrudStatus.Inserted)
-            {
-                SetAlertMessage(Resource.DataSaved, Enums.AlertType.success);
-            }
-            else if (status == Enums.CrudStatus.Updated)
-            {
-                SetAlertMessage(Resource.DataUpdated, Enums.AlertType.success);
-            }
-            else if (status == Enums.CrudStatus.AlreadyExistForSameShop)
-            {
-                SetAlertMessage(Resource.DataExistWithSameShopName, Enums.AlertType.info);
-            }
-            else if (status == Enums.CrudStatus.NoEffect)
-            {
-                SetAlertMessage(Resource.DataNotSaved, Enums.AlertType.warning);
-            }
-            else if (status == Enums.CrudStatus.Exception)
-            {
-                SetAlertMessage(Resource.Exception, Enums.AlertType.danger);
-            }
-            else if (status == Enums.CrudStatus.AlreadyInUse)
-            {
-                SetAlertMessage(Resource.AlreadyInUse, Enums.AlertType.warning);
             }
         }
     }

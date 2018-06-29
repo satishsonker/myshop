@@ -9,7 +9,7 @@ namespace Myshop.Areas.SalesManagement.Controllers
     public class SaleController : Controller
     {
         // GET: SalesManagement/Sale
-        public ActionResult Home()
+        public ActionResult Dashboard()
         {
             return View();
         }

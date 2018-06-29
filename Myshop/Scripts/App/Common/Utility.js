@@ -141,7 +141,7 @@ utility.popupClose = function (id) {
 utility.popupTableData = function (methodType) {
     var urls;
     var shopDDl = $('#ShopId');
-    var shopid = parseInt($(shopDDl).find(':selected').val());
+    var shopid = parseInt($('#layoutShopId').val());
 
     if (shopDDl.length == 0 || (!isNaN(shopid) && shopid > 0)) {
 
@@ -371,6 +371,11 @@ utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback) {
             if ($('#ddlProduct').length > 0) {
                 $('.ddlProduct').dropdown({
                     limitCount:5
+                });
+            }
+            if ($('#ddlCustType').length > 0) {
+                $('.ddlCustType').dropdown({
+                    limitCount: 5
                 });
             }
         } else if (typeof data === 'string') {

@@ -89,6 +89,12 @@
     <Compile Include="Gbl_Master_City.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Gbl_Master_Customer.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gbl_Master_CustomerType.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gbl_Master_DocProof.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>

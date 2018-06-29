@@ -221,10 +221,10 @@ namespace Myshop.Models
                             newlogin.ModificationDate = DateTime.Now;
                             newlogin.ModifiedBy = isExist.Id;
                             newlogin.UserId = isExist.Id;
-                            login.OTPid = messageId;
-                            login.ReserExpireTime = DateTime.Now.AddMinutes(30);
-                            login.GUID = Guid.NewGuid(); // Create new GUID
-                            login.IsReset = true;
+                            newlogin.OTPid = messageId;
+                            newlogin.ReserExpireTime = DateTime.Now.AddMinutes(30);
+                            newlogin.GUID = Guid.NewGuid(); // Create new GUID
+                            newlogin.IsReset = true;
                             myShop.Logins.Add(newlogin);
                         }
                         int result = myShop.SaveChanges();

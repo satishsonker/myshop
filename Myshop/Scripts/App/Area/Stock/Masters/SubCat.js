@@ -22,19 +22,20 @@ $(document).on('change', '#ShopId', function () {
 function fillCatDDL() {
     var ele = $('#ShopId');
     var selectedId = parseInt(ele.find(':selected').val());
-    selectedId = isNaN(selectedId) ? 0 : selectedId;
-    var urls =app.urls[GetCatogariesUrl];
-    var ddl = $('#catid');
-
-    utility.ajaxHelper(urls, { Shopid: selectedId }, function (data) {
+    var urls = app.urls['GetCatogariesUrl'];
+    //selectedId = isNaN(selectedId) ? 0 : selectedId;
+    
+    //var ddl = $('#catid');
+    utility.bindDdlByAjaxWithParam(urls, 'catid', { Shopid: selectedId });
+    //utility.ajaxHelper(urls, { Shopid: selectedId }, function (data) {
        
-        if (typeof data === 'object') {
-            $(ddl).removeAttr('disabled').removeClass('disableCtrl');           
-            $(data).each(function (ind, ele) {
-                ddl.append('<option value=' + ele.Value + '>' + ele.Text + '</option>');
-            });
-        }
-    });
+    //    if (typeof data === 'object') {
+    //        $(ddl).removeAttr('disabled').removeClass('disableCtrl');           
+    //        $(data).each(function (ind, ele) {
+    //            ddl.append('<option value=' + ele.Value + '>' + ele.Text + '</option>');
+    //        });
+    //    }
+    //});
 }
 
 $(document).on('click', '[id*="btnSelectRow_"]', function () {

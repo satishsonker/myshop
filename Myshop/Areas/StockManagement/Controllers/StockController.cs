@@ -63,7 +63,7 @@ namespace Myshop.Areas.StockManagement.Controllers
             return RedirectToAction("StockEntry");
         }
 
-        [HttpGet]
+        [HttpPost]
         public JsonResult GetStockJosn()
         {
             details = new StockEntryDetails();
@@ -95,7 +95,14 @@ namespace Myshop.Areas.StockManagement.Controllers
         public JsonResult GetStockEntryTotalAmountChartData(int[] ProductId, int Duration = 30)
         {
             DashboardDetail _details = new DashboardDetail();
-            return Json(_details.GetStockEntryChartData(ProductId, Duration), JsonRequestBehavior.AllowGet);
+            return Json(_details.GetStockEntryTotalAmountChartData(ProductId, Duration), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetStockEntryTotalQuantityChartData(int[] ProductId, int Duration = 30)
+        {
+            DashboardDetail _details = new DashboardDetail();
+            return Json(_details.GetStockEntryTotalQuantityChartData(ProductId, Duration), JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿
+﻿@using Myshop.App_Start;
 @{
     ViewBag.Title = "Stock Entry";
     Layout = "~/Areas/StockManagement/Views/Shared/_LayoutFullPage.cshtml";
@@ -11,7 +11,7 @@
 <script src="~/Scripts/App/Area/Stock/Stock/Entry.js"></script>
 
 <form action="/" method="post" style="margin-top:60px" id="stockentryform">
-
+    <input type="hidden" id="layoutShopId" value="@WebSession.ShopId" />
     <div class="row">
         <div class="col-lg-12 col-md-12 col-sm-12">
             <div style="width: 100%;padding: 10px;text-align: center;border-bottom: 1px solid white;"></div>
