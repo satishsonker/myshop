@@ -3,19 +3,8 @@
 /// <reference path="../../../Common/App.js" />
 
 $(document).ready(function () {
-    $('#ShopId').change();
-});
-
-$(document).on('change', '#ShopId', function () {
-    if ($(this).find(':selected').val() > 0) {
-        fillCatDDL();
-        fillUnitDDL();
-    }
-    else
-    {
-        utility.disableCtrl(['catid', 'brandid', 'unitid']);
-    }
-    utility.disableCtrl('subcatid');
+    fillCatDDL();
+    fillUnitDDL();
 });
 
 $(document).on('change', '#catid', function () {

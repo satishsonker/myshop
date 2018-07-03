@@ -7,7 +7,6 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
-using Myshop.App_Start;
 using Myshop.GlobalResource;
 
 namespace Myshop.Controllers
@@ -86,6 +85,11 @@ namespace Myshop.Controllers
             }
         }
 
+        internal IEnumerable<string> GetErrorList()
+        {
+            return ViewData.ModelState.Values.SelectMany(v => v.Errors.Select(x => x.ErrorMessage.ToString()));
+        }
+
         public JsonResult GetChequeNoByAccNo(int AccId,bool isAllCheque=false)
         {
             try
@@ -137,6 +141,11 @@ namespace Myshop.Controllers
         public JsonResult GetCityName(string CityName = "")
         {
             return Json(GlobalMethod.GetCityName(CityName), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetUserSelectList()
+        {
+            return Json(GlobalMethod.GetUserList(), JsonRequestBehavior.AllowGet);
         }
 
 

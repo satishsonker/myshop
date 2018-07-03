@@ -9,40 +9,37 @@
 <script src="~/Scripts/App/Area/Stock/Masters/Vendor.js"></script>
 <form action="/" method="post" style="margin-top:60px" id="vendorform">
     <div class="container">
-
-        <div class="holder">
-            <h3 class="text-center">Vendor Details</h3>
-            <fieldset>
-                <input type="hidden" value="0" id="vendorid" name="vendorid" />
-                <div class="control">
-                    <label>Shop Name</label>
-                    @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })
-                    <p class="requiredControl"> *</p>
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Add Vendor</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" value="0" id="vendorid" name="vendorid" />
+                            <label>Vendor Name</label>
+                            <input type="text" required="required" class="form-control" placeholder="Enter Vendor Name" id="vendorname" name="vendorname" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Vendor Mobile</label>
+                            <input type="text" required="required" class="form-control" placeholder="Enter Vendor Mobile" id="vendormobile" name="vendormobile" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Vendor Address</label>
+                            <input type="text" class="form-control" required="required" placeholder="Enter Vendor Address" id="vendoraddress" name="vendoraddress" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Vendor description" id="vendordesc" name="vendordesc" />
+                        </div>
+                        <div class="col-sm-12">
+                            @{
+                                string ViewDataName = "GetVendorJson";
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="control">
-                    <label>Vendor Name</label>
-                    <input type="text" required="required" placeholder="Enter Vendor Name" id="vendorname" name="vendorname" />
-                    <p class="requiredControl">*</p>
-                </div>
-                <div class="control">
-                    <label>Vendor Mobile</label>
-                    <input type="text" required="required" placeholder="Enter Vendor Mobile" id="vendormobile" name="vendormobile" />
-                    <p class="requiredControl">*</p>
-                </div>
-                <div class="control">
-                    <label>Vendor Address</label>
-                    <input type="text" required="required" placeholder="Enter Vendor Address" id="vendoraddress" name="vendoraddress" />
-                </div>
-                <div class="control">
-                    <label>Description</label>
-                    <input type="text" placeholder="Enter Vendor description" id="vendordesc" name="vendordesc" />
-                </div>
-            </fieldset>
-            @{
-                string ViewDataName = "GetVendorJson";
-            }
-            @Html.Partial("_ButtonGroup", ViewDataName)
-
+                <div class="panel-footer">@Html.Partial("_ButtonGroup", ViewDataName)</div>
+            </div>
         </div>
     </div>
 

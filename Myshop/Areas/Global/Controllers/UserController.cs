@@ -6,12 +6,13 @@ using System.Web.Mvc;
 using System.Collections.Generic;
 using System.Linq;
 using Myshop.GlobalResource;
+using Myshop.Controllers;
 
 namespace Myshop.Areas.Global.Controllers
 {
     [MyshopAuthorize]
     [MyShopPermission]
-    public class UserController : Controller
+    public class UserController : CommonController
     {
         // GET: Global/User
         public ActionResult GetUser()
@@ -316,10 +317,7 @@ namespace Myshop.Areas.Global.Controllers
             }
         }
 
-        private IEnumerable<string> GetErrorList()
-        {
-           return ViewData.ModelState.Values.SelectMany(v => v.Errors.Select(x => x.ErrorMessage.ToString()));
-        }
+        
 
     }
 }

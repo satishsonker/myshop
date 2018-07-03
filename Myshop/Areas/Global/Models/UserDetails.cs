@@ -126,7 +126,7 @@ namespace Myshop.Areas.Global.Models
                     {
                         SelectListModel newItem = new SelectListModel();
                         newItem.Text = currentItem.Name;
-                        newItem.Value = currentItem.Id;
+                        newItem.Value = currentItem.ShopId;
                         list.Add(newItem);
                     }
                 }
@@ -415,7 +415,7 @@ namespace Myshop.Areas.Global.Models
                 myshop = new MyshopDb();
                 var userList = (from map in myshop.User_ShopMapper.Where(x => x.IsDeleted == false && x.UserId.Equals(userid))
                                 from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && map.UserId.Equals(x.Id))
-                                from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false && map.ShopId.Equals(x.Id))
+                                from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false && map.ShopId.Equals(x.ShopId))
                                 orderby user.Name
                                 select new
                                 {
@@ -424,7 +424,7 @@ namespace Myshop.Areas.Global.Models
                                     shop.Address,
                                     CreatedDate = user.CreationDate,
                                     MapId = map.Id,
-                                    ShopId = shop.Id
+                                    ShopId = shop.ShopId
                                 }).ToList();
                 return userList;
             }

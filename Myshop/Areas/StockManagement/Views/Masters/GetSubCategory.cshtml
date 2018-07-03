@@ -12,32 +12,34 @@
 <form action="/" method="post" style="margin-top:60px" id="subcatform">
     <div id="loader" data-request-url="@Url.Action("GetCatogaries", "Masters",new {area="StockManagement" })"></div>
     <div class="container">
-        <div class="holder">
-            <h3 class="text-center">Product Sub Category</h3>
-            <fieldset>
-                <div class="control">
-                    <input type="hidden" value="0" id="subcatid" name="subcatid" />
-                    <label>Shop Name</label>
-                    @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })<p class="requiredControl"> *</p>
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Add Product Sub Category</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" value="0" id="subcatid" name="subcatid" />
+                            <label>Select Category</label>
+                            <select id="catid" name="catid" disabled="disabled" class="disableCtrl form-control" required="required">
+                                <option value="">Select Category</option>
+                            </select>
+                        </div><div class="col-sm-12">
+                                  <label>Sub Category Name</label>
+                        <input type="text" required="required" class="form-control" placeholder="Enter Sub Category name" id="subcatname" name="subcatname" />
+</div>
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Sub Category description" id="subcatdesc" name="subcatdesc" />
+                        </div>
+                        <div class="col-sm-12">
+                            @{
+                                string ViewDataName = "GetSubCatogaryJson";
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="control">
-                    <label>Select Category</label>
-                    <select id="catid" name="catid" disabled="disabled" class="disableCtrl" required="required">
-                        <option value="">Select Category</option>
-                    </select><p class="requiredControl">*</p>
-                </div>
-                <div class="control">
-                    <label>Sub Category Name</label><input type="text" required="required" placeholder="Enter Sub Category name" id="subcatname" name="subcatname" /><p class="requiredControl">*</p>
-                </div>
-                <div class="control">
-                    <label>Description</label><input type="text" placeholder="Enter Sub Category description" id="subcatdesc" name="subcatdesc" />
-                </div>
-            </fieldset>
-            @{
-                string ViewDataName = "GetSubCatogaryJson";
-            }
-            @Html.Partial("_ButtonGroup", ViewDataName)
-
+                <div class="panel-footer">@Html.Partial("_ButtonGroup", ViewDataName)</div>
+            </div>
         </div>
     </div>
     <div class="popup">

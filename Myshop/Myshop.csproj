@@ -163,6 +163,7 @@
     <Compile Include="Areas\CustomersManagement\Controllers\MasterController.cs" />
     <Compile Include="Areas\CustomersManagement\CustomersManagementAreaRegistration.cs" />
     <Compile Include="Areas\CustomersManagement\Models\CommonModel.cs" />
+    <Compile Include="Areas\CustomersManagement\Models\DashboardDetail.cs" />
     <Compile Include="Areas\CustomersManagement\Models\MasterModel.cs" />
     <Compile Include="Areas\EmployeesManagement\Controllers\EmployeeController.cs" />
     <Compile Include="Areas\EmployeesManagement\Controllers\MasterController.cs" />
@@ -241,11 +242,9 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Areas\SalesManagement\Views\web.config" />
-    <Content Include="Areas\SalesManagement\Views\Sale\Home.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\web.config" />
     <Content Include="Areas\EmployeesManagement\Views\Employee\Home.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\web.config" />
-    <Content Include="Areas\CustomersManagement\Views\Customer\Home.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\Master\AddEmployee.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\Master\AddEmployeeRole.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\Shared\_ButtonGroup.cshtml" />
@@ -255,6 +254,11 @@
     <Content Include="Areas\StockManagement\Views\Masters\_StockEntryView.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\Master\AddCustmerType.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\Shared\_ButtonGroup.cshtml" />
+    <Content Include="Areas\CustomersManagement\Views\Master\AddCustmer.cshtml" />
+    <Content Include="Areas\CustomersManagement\Views\Customer\Dashboard.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\Dashboard.cshtml" />
+    <Content Include="Areas\Global\Views\Masters\GetShop.cshtml" />
+    <Content Include="Areas\StockManagement\Views\Shared\_Layout.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -342,6 +346,8 @@
     <Content Include="Images\Icons\type.png" />
     <Content Include="Images\Icons\unit.png" />
     <Content Include="Images\Icons\vendor.png" />
+    <Content Include="Scripts\App\Area\Customer\Home\Dashboard.js" />
+    <Content Include="Scripts\App\Area\Customer\Master\Customer.js" />
     <Content Include="Scripts\App\Area\Customer\Master\CustomerType.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
@@ -353,6 +359,7 @@
     <Content Include="Scripts\App\Area\Global\Master\PayMode.js" />
     <Content Include="Scripts\App\Area\Global\Master\AccType.js" />
     <Content Include="Scripts\App\Area\Global\Master\Banks.js" />
+    <Content Include="Scripts\App\Area\Global\Master\Shops.js" />
     <Content Include="Scripts\App\Area\Global\Menu\AppModule.js" />
     <Content Include="Scripts\App\Area\Global\Menu\AppPage.js" />
     <Content Include="Scripts\App\Area\Global\Setting\Downtime.js" />
@@ -456,6 +463,7 @@
     <Content Include="Views\Error\Error.cshtml" />
     <Content Include="Views\Shared\_BloodGroupDropdown.cshtml" />
     <Content Include="Views\Shared\_DocProof.cshtml" />
+    <Content Include="Views\Login\ShopSelection.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

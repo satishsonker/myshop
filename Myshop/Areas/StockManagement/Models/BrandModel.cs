@@ -33,7 +33,7 @@ namespace Myshop.Areas.StockManagement.Models
         public String VendorAddress { get; set; } = "";
     }
 
-    public class BrandModel : ShopModel
+    public class BrandModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "BrandName is required")]
         [StringLength(maximumLength:50,MinimumLength =3, ErrorMessage = "Invalid BrandName (3 Min and 50 max chars)")]
@@ -44,7 +44,7 @@ namespace Myshop.Areas.StockManagement.Models
 
         public String BrandDesc { get; set; } = "";
     }
-    public class CategoryModel : ShopModel
+    public class CategoryModel 
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Category name is required")]
         [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid Category Name (3 Min and 50 max chars)")]
@@ -56,7 +56,7 @@ namespace Myshop.Areas.StockManagement.Models
         public String CatDesc { get; set; } = "";
     }
 
-    public class UnitModel : ShopModel
+    public class UnitModel 
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Unit name is required")]
         [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid Unit Name (3 Min and 50 max chars)")]
@@ -68,7 +68,7 @@ namespace Myshop.Areas.StockManagement.Models
         public String UnitDesc { get; set; } = "";
     }
 
-    public class SubCategoryModel : ShopModel
+    public class SubCategoryModel 
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Sub Category name is required")]
         [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid Sub Category Name (3 Min and 50 max chars)")]
@@ -84,7 +84,7 @@ namespace Myshop.Areas.StockManagement.Models
         public int SubCatId { get; set; }
     }
 
-    public class ProductModel : ShopModel
+    public class ProductModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Product name is required")]
         [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Product Name (3 Min and 50 max chars)")]

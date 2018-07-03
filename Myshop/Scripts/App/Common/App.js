@@ -57,6 +57,7 @@ app.urls.GetPageUrl = "/Global/Menu/GetAppPages";
 app.urls.GetUserUrl = "/Global/User/GetUserJson";
 app.urls.GetUserTypeUrl = "/Global/User/GetUserType";
 app.urls.GetShopUrl = "/Global/User/GetShopJson";
+app.urls.GetShopJsonUrl = "/Global/Masters/GetShopJson";
 app.urls.GetStockDetailsJosn = "/StockManagement/stock/GetStockDetailsJosn";
 app.urls.GetRoleTypeJson = "/EmployeesManagement/Master/GetRoleTypeJson";
 app.urls.GetEmpRoleTypeListJson = "/EmployeesManagement/Master/GetEmpRoleJson";
@@ -76,13 +77,13 @@ app.urls.GetErrorLog = '/Global/Admin/GetErrorLog';
 app.urls.UpdateErrorLog = '/Global/Admin/UpdateErrorLog';
 app.urls.isUserExist = '/Global/user/isUserExist';
 app.urls.isExist = '/Common/IsExist';
+app.urls.GetUserSelectList = '/Common/GetUserSelectList';
 
 app.urls.GetStockProductJosn = "/StockManagement/stock/GetUniqueStockProducts";
 
 //Customer Urls
 app.urls.GetCustmerTypeJson = "/CustomersManagement/master/GetCustmerTypeJson";
 app.urls.GetCustomerTypeSelectListJson = "/CustomersManagement/master/GetCustomerTypeSelectList";
-
 app.urls.GetCustmerJson = "/CustomersManagement/master/GetCustmerJson";
 
 

@@ -1,7 +1,6 @@
-﻿@using Myshop.App_Start;
-@{
+﻿@{
     ViewBag.Title = "GetBrand";
-    Layout = "~/Areas/StockManagement/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
@@ -11,29 +10,29 @@
     {*@
 <form action="/" method="post" style="margin-top:60px" id="brandform">
     <div class="container">
-
-        <div class="holder">
-            <h3 class="text-center">Product Brand</h3>
-            <fieldset>
-                <input type="hidden" value="0" id="brandid" name="brandid" />
-                <div class="control">
-                    <label>Shop Name</label>
-                    @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })<p class="requiredControl"> *</p>
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Add Product Brand</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" value="0" id="brandid" name="brandid" />          
+                            <label>Brand Name</label>
+                            <input type="text" required="required" class="form-control" placeholder="Enter Brand name" id="brandname" name="brandname" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <input type="text" placeholder="Enter Brand description" class="form-control" id="branddesc" name="branddesc" />
+                        </div>
+                        <div class="col-sm-12">
+                            @{
+                                string ViewDataName = "GetBrandJson";
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="control">
-                    <label>Brand Name</label>
-                    <input type="text" required="required" placeholder="Enter Brand name" id="brandname" name="brandname" /><p class="requiredControl">*</p>
-                </div>
-                <div class="control">
-                    <label>Description</label>
-                    <input type="text" placeholder="Enter Brand description" id="branddesc" name="branddesc" />
-                </div>
-            </fieldset>
-            @{
-                string ViewDataName = "GetBrandJson";
-            }
-            @Html.Partial("_ButtonGroup", ViewDataName)
-
+                <div class="panel-footer">@Html.Partial("_ButtonGroup", ViewDataName)</div>
+            </div>
         </div>
     </div>
 

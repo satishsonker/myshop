@@ -13,26 +13,28 @@
 
 <form action="/" method="post" style="margin-top:60px" id="unitform">
     <div class="container">
-        <div class="holder">
-            <h3 class="text-center">Product Quantity Unit</h3>
-            <fieldset>
-                <div class="control">
-                    <input type="hidden" value="0" id="unitid" name="unitid" />
-                    <label>Shop Name</label>
-                    @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })<p class="requiredControl"> *</p>
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Add Product Quantity Unit</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" value="0" id="unitid" name="unitid" />
+                            <label>Unit Name</label><input type="text" required="required" class="form-control" placeholder="Enter Product Unit Name" id="unitname" name="unitname" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <input type="text" class="form-control" placeholder="Enter Product Unit Description" id="unitdesc" name="unitdesc" />
+                        </div>
+                        <div class="col-sm-12">
+                            @{
+                                string ViewDataName = "GetUnitJson";
+                            }
+                        </div>
+                    </div>
                 </div>
-                <div class="control">
-                    <label>Unit Name</label><input type="text" required="required" placeholder="Enter Product Unit Name" id="unitname" name="unitname" /><p class="requiredControl"> *</p>
-                </div>
-                <div class="control">
-                    <label>Description</label><input type="text" placeholder="Enter Product Unit Description" id="unitdesc" name="unitdesc" />
-                </div>
-            </fieldset>
-            @{ 
-            string ViewDataName = "GetUnitJson";
-            }
-            @Html.Partial("_ButtonGroup", ViewDataName)
-
+                <div class="panel-footer">@Html.Partial("_ButtonGroup", ViewDataName)</div>
+            </div>
         </div>
     </div>
     <div class="popup">

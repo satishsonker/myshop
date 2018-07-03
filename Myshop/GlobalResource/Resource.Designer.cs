@@ -421,6 +421,15 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Select shop is invalid.
+        /// </summary>
+        public static string Invalid_Shop_Selection {
+            get {
+                return ResourceManager.GetString("Invalid_Shop_Selection", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Username/Password is incorrect.
         /// </summary>
         public static string InvalidCredential {

@@ -10,7 +10,7 @@ using System.Web.Mvc;
 
 namespace Myshop.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : CommonController
     {
         [MyshopDowntime]
         public ActionResult Login()
@@ -25,7 +25,6 @@ namespace Myshop.Controllers
             Session.RemoveAll();
             return RedirectToAction("login");
         }
-
        
         public ActionResult GetLogin(string username, string password)
         {
@@ -69,8 +68,37 @@ namespace Myshop.Controllers
             }
             else
             {
-               return RedirectToAction("index", "Home", model);
-                //return RedirectToAction("../Home/dashboard", model);
+               List<ShopListModel> ShopList= model.ShopList();
+                if (ShopList.Count > 0)
+                {
+                    return View("ShopSelection",ShopList);
+                }
+                else
+                {
+                    return RedirectToAction("index", "Home", model);
+                    //return RedirectToAction("../Home/dashboard", model);
+                }
+            }
+        }
+
+        public ActionResult ShopSelection()
+        {
+            return View();
+        }
+
+        public ActionResult SetShopSelection(int shopid,string shopname)
+        {
+            LoginModel model = new LoginModel();
+            if (model.ValidateShopId(shopid))
+            {
+                WebSession.ShopId = shopid;
+                WebSession.ShopName = shopname;
+                return RedirectToAction("index", "Home");
+            }
+            else
+            {
+                SetAlertMessage(Resource.Invalid_Shop_Selection, Enums.AlertType.danger);
+                return View("ShopSelection");
             }
         }
 
@@ -278,14 +306,6 @@ namespace Myshop.Controllers
         {
             ViewBag.username = WebSession.Username;
             return View();
-        }
-
-        private void SetAlertMessage(string message, Enums.AlertType alert)
-        {
-            ViewBag.message = message;
-            TempData["messages"] = message;
-            ViewBag.alert = alert.ToString();
-            TempData["alert"] = alert.ToString();
         }
     }
 }

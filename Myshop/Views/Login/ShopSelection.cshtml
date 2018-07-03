@@ -1,0 +1,32 @@
+﻿@model List<Myshop.App_Start.ShopListModel>
+@{
+    ViewBag.Title = "ShopSelection";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
+<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<script src="~/Scripts/App/Area/Global/Master/Shops.js"></script>
+<form action="/" method="post" style="margin-top:60px" id="shopform">
+    <div class="container">
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Select Shop</div>
+                <div class="panel-body">
+                    <div class="row">
+                        @{
+                            foreach (Myshop.App_Start.ShopListModel item in Model)
+                            {
+
+                                <div class="col-lg-12 col-md-12 col-sm-12">
+                                    <a href="/login/setshopselection?shopid=@item.ShopId&shopname=@item.ShopName"class="btn btn-primary" style="width:100%;margin-bottom:30px">@item.ShopName</a>
+                                </div>
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

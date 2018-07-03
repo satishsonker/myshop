@@ -9,8 +9,36 @@ namespace Myshop.Areas.Global.Models
     public class ShopModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "ShopId is required")]
-        [Range(1, int.MaxValue, ErrorMessage = "ShopId should be greater than 0 (Zero)")]
+        [Range(0, int.MaxValue, ErrorMessage = "ShopId should be greater than 0 (Zero)")]
         public int ShopId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "OwnerId is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "OwnerId should be greater than 0 (Zero)")]
+        public int OwnerId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Shop Name is required")]
+        [StringLength(maximumLength: 50, MinimumLength = 10, ErrorMessage = "Invalid Shop Name (10 Min and 50 max chars)")]
+        public string Name { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Shop Address is required")]
+        [StringLength(maximumLength: 50, MinimumLength = 10, ErrorMessage = "Invalid Address (10 Min and 50 max chars)")]
+        public string Address { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Mobile is required")]
+        [RegularExpression(@"^[0-9]{10}$", ErrorMessage = "Entered Mobile No is not valid.")]
+        public string Mobile { get; set; }
+
+        //[Required(AllowEmptyStrings = false, ErrorMessage = "Email is required")]
+        [StringLength(maximumLength: 50, MinimumLength = 10, ErrorMessage = "Invalid Email (10 Min and 50 max chars)")]
+        public string Email { get; set; }
+
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid District (3 Min and 50 max chars)")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "District is required")]
+        public string District { get; set; }
+
+        [StringLength(maximumLength: 50, MinimumLength = 2, ErrorMessage = "Invalid State (2 Min and 50 max chars)")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "State is required")]
+        public string State { get; set; }
     }
 
     public class BankModel

@@ -12,23 +12,28 @@
     {*@
 <form action="/" method="post" style="margin-top:60px" id="custtypeform">
     <div class="container">
-        <div class="holder">
-            <h3 class="text-center">Add Customer Type</h3>
-            <fieldset>
-                <input type="hidden" value="0" id="customertypeid" name="customertypeid" />
-                <div class="control">
-                    <label>Customer Type</label><input type="text" required="required" placeholder="Enter Customer Type" id="customertype" name="customertype" /><p class="requiredControl">*</p>
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Add Customer Type</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" value="0" id="customertypeid" name="customertypeid" />
+                            <label>Customer Type</label>
+                            <input type="text" required="required" class="form-control" placeholder="Enter Customer Type" id="customertype" name="customertype" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Description</label><input type="text" class="form-control" placeholder="Enter Customer Type description" id="description" name="description" />
+                        </div>
+                        <div class="col-sm-12">                       
+                        @{
+                            string ViewDataName = "GetCustmerTypeJson";
+                        }
+                    </div>
                 </div>
-                <div class="control">
-                    <label>Description</label><input type="text" placeholder="Enter Customer Type description" id="description" name="description" />
-                </div>
-            </fieldset>
-
-            @{
-                string ViewDataName = "GetCustmerTypeJson";
-            }
-            @Html.Partial("_ButtonGroup", ViewDataName)
-
+                    </div>
+                <div class="panel-footer">@Html.Partial("_ButtonGroup", ViewDataName)</div>
+            </div>
         </div>
     </div>
     <div class="popup">

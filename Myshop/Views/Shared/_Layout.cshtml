@@ -38,6 +38,8 @@
         {
             AreaName = ViewContext.RouteData.DataTokens["area"].ToString().ToLower();
         } }
+
+    <input type="hidden" id="layoutShopId" name="layoutShopId" value="@WebSession.ShopId" />
     <div class="navbar navbar-inverse navbar-fixed-top">
         <div class="container">
             <div class="navbar-header">
@@ -57,7 +59,12 @@
                             <li>@Html.ActionLink("Global Home", "Home", "Main", new { area = "Global" })</li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
+                                    <li>
+                                        <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
+                                        @Html.ActionLink("Add Shop", "Getshop", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                    </li>
+                                    <li role="separator" class="divider"></li>
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
                                         @Html.ActionLink("Bank", "GetBank", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
@@ -122,7 +129,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Users<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/createUser.png" />
                                         @Html.ActionLink("Create User", "GetUser", "User", new { area = "Global" }, new { @class = "dropdown-menu-text" })
@@ -147,7 +154,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Admin<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/error.png" />
                                         @Html.ActionLink("Error Log", "GetErrorLog", "Admin", new { area = "Global" }, new { @class = "dropdown-menu-text" })
@@ -161,7 +168,7 @@
                             <li>@Html.ActionLink("Stock Home", "Main", "stock", new { area = "StockManagement" })</li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/brand.png" />
                                         @Html.ActionLink("Brand", "GetBrand", "Masters", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
@@ -195,7 +202,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Stock<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/stockEntry.png" />
                                         @Html.ActionLink("Stock Entry", "StockEntry", "Stock", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
@@ -205,7 +212,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/stockEntry.png" />
                                         @Html.ActionLink("Min Stock", "StockEntry", "Stock", new { area = "StockManagement" }, new { @class = "dropdown-menu-text" })
@@ -219,7 +226,7 @@
                             <li>@Html.ActionLink("Employee Home", "Home", "Employee", new { area = "EmployeesManagement" })</li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/adduser.png" />
                                         @Html.ActionLink("Add Employee", "AddEmployee", "Master", new { area = "employeesmanagement" }, new { @class = "dropdown-menu-text" })
@@ -235,7 +242,7 @@
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Reports<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/brand.png" />
                                         @Html.ActionLink("Employee List", "EmployeeList", "Reports", new { area = "employeesmanagement" }, new { @class = "dropdown-menu-text" })
@@ -249,7 +256,7 @@
                             <li>@Html.ActionLink("Customer Home", "dashboard", "Customer", new { area = "CustomersManagement" })</li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master<span class="caret"></span></a>
-                                <ul class="dropdown-menu">
+                                <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/AddRole.png" />
                                         @Html.ActionLink("Customer Type", "AddCustmerType", "Master", new { area = "CustomersManagement" }, new { @class = "dropdown-menu-text" })
@@ -266,7 +273,7 @@
                         }
                         else if (AreaName == "salesmanagement")
                         {
-                            <li>@Html.ActionLink("Sale Home", "Home", "Sale", new { area = "SalesManagement" })</li>
+                            <li>@Html.ActionLink("Sale Home", "dashboard", "Sale", new { area = "SalesManagement" })</li>
                         }
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Tools<span class="caret"></span></a>
@@ -293,7 +300,7 @@
                                 <li role="separator" class="divider"></li>
                                 <li>
                                     <img class="dropdown-menu-icon" src="~/Images/Icons/sell.png" />
-                                    @Html.ActionLink("Sales Management", "Home", "sale", new { area = "SalesManagement" }, new { @class = "dropdown-menu-text" })
+                                    @Html.ActionLink("Sales Management", "dashboard", "sale", new { area = "SalesManagement" }, new { @class = "dropdown-menu-text" })
                                 </li>
                                 <li role="separator" class="divider"></li>
                                 <li>
@@ -304,7 +311,7 @@
                         </li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi  @Session["name"].ToString() <span class="caret"></span></a>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu" style="min-width:180px !important">
                                 <li>
                                     <img class="dropdown-menu-icon" src="~/Images/Icons/changePass.png" />
                                     @Html.ActionLink("Change Password", "ChangePassword", "login", new { area = "" }, new { @class = "dropdown-menu-text" })

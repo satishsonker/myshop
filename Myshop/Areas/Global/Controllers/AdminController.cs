@@ -5,12 +5,13 @@ using System.Web;
 using System.Web.Mvc;
 using Myshop.Areas.Global.Models;
 using Myshop.Filters;
+using Myshop.Controllers;
 
 namespace Myshop.Areas.Global.Controllers
 {
     [MyshopAuthorize]
     [MyShopPermission]
-    public class AdminController : Controller
+    public class AdminController : CommonController
     {
         // GET: Global/Admin
         public ActionResult GetErrorLog(bool isAllLog=false)

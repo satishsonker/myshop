@@ -570,6 +570,66 @@ namespace Myshop.App_Start
                     myshop = null;
             }
         }
+        public static List<SelectListModel> GetCustomerType()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                List<SelectListModel> list = new List<SelectListModel>();
+                var custTypeList = myshop.Gbl_Master_CustomerType.Where(custType => custType.IsDeleted == false && custType.ShopId==WebSession.ShopId).OrderBy(x => x.CustomerType).ToList();
+                if (custTypeList.Count > 0)
+                {
+                    foreach (Gbl_Master_CustomerType currentItem in custTypeList)
+                    {
+                        SelectListModel newItem = new SelectListModel();
+                        newItem.Text = currentItem.CustomerType;
+                        newItem.Value = currentItem.CustomerTypeId;
+                        list.Add(newItem);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
+        public static List<SelectListModel> GetUserList()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                List<SelectListModel> list = new List<SelectListModel>();
+                var userList = myshop.Gbl_Master_User.Where(user => user.IsDeleted == false && user.ShopId == WebSession.ShopId).OrderBy(x => x.Name).ToList();
+                if (userList.Count > 0)
+                {
+                    foreach (Gbl_Master_User currentItem in userList)
+                    {
+                        SelectListModel newItem = new SelectListModel();
+                        newItem.Text = currentItem.Name;
+                        newItem.Value = currentItem.Id;
+                        list.Add(newItem);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
         public static List<string> GetStateName(string stateName)
         {
             try
@@ -729,6 +789,12 @@ namespace Myshop.App_Start
     {
         public int Value { get; set; }
         public string Text { get; set; }
+    }
+
+    public class ShopListModel
+    {
+        public int ShopId { get; set; }
+        public string ShopName { get; set; }
     }
 
     public class PagingModel

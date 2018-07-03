@@ -18,12 +18,12 @@ namespace Myshop.Areas.StockManagement.Controllers
         // GET: StockManagement/Masters
         public ActionResult GetBrand()
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             return View();
         }
         public ActionResult SetBrand(BrandModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertBrand = new MastersModel();
@@ -35,7 +35,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult UpdateBrand(BrandModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertBrand = new MastersModel();
@@ -47,7 +47,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult DeleteBrand(BrandModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertBrand = new MastersModel();
@@ -60,12 +60,11 @@ namespace Myshop.Areas.StockManagement.Controllers
 
         public ActionResult GetCategory()
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             return View();
         }
         public ActionResult SetCategory(CategoryModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -76,7 +75,6 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult UpdateCategory(CategoryModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -88,7 +86,6 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult DeleteCategory(CategoryModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -101,12 +98,10 @@ namespace Myshop.Areas.StockManagement.Controllers
 
         public ActionResult GetSubCategory()
         {
-            ViewBag.ShopList = WebSession.ShopList;
             return View();
         }
         public ActionResult SetSubCategory(SubCategoryModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -118,7 +113,6 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult UpdateSubCategory(SubCategoryModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -130,7 +124,6 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult DeleteSubCategory(SubCategoryModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -143,12 +136,11 @@ namespace Myshop.Areas.StockManagement.Controllers
 
         public ActionResult GetUnit()
         {
-            ViewBag.ShopList = WebSession.ShopList;
             return View();
         }
         public ActionResult SetUnit(UnitModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -160,7 +152,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult UpdateUnit(UnitModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -172,7 +164,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult DeleteUnit(UnitModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -185,12 +177,12 @@ namespace Myshop.Areas.StockManagement.Controllers
 
         public ActionResult GetProduct()
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             return View();
         }
         public ActionResult SetProduct(ProductModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -202,7 +194,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult UpdateProduct(ProductModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -214,7 +206,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult DeleteProduct(ProductModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertCat = new MastersModel();
@@ -227,12 +219,12 @@ namespace Myshop.Areas.StockManagement.Controllers
 
         public ActionResult GetVendor()
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             return View();
         }
         public ActionResult SetVendor(VendorModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertBrand = new MastersModel();
@@ -244,7 +236,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult UpdateVendor(VendorModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertBrand = new MastersModel();
@@ -256,7 +248,7 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
         public ActionResult DeleteVendor(VendorModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
+            
             if (ModelState.IsValid)
             {
                 MastersModel insertBrand = new MastersModel();
@@ -268,44 +260,30 @@ namespace Myshop.Areas.StockManagement.Controllers
         }
 
         // JSon Result Action Methods
-        public JsonResult GetCatogaries(int shopId=1)
+        public JsonResult GetCatogaries()
         {
             try
             {
-                if (shopId > 0)
-                {
-                    return Json(GlobalMethod.GetCatogaries());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                return Json(GlobalMethod.GetCatogaries());
             }
             catch (Exception)
             {
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetCatogaryJson(int shopId=1)
+        public JsonResult GetCatogaryJson()
         {
             try
             {
-                if (shopId > 0)
-                {
-                    MastersModel model = new MastersModel();
-                    return Json(model.GetCatJson());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                MastersModel model = new MastersModel();
+                return Json(model.GetCatJson());
             }
             catch (Exception)
             {
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetSubCatogaries(int catId,int shopId=1)
+        public JsonResult GetSubCatogaries(int catId, int shopId = 1)
         {
             try
             {
@@ -323,7 +301,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetSubCatogaryJson(int shopId=1)
+        public JsonResult GetSubCatogaryJson(int shopId = 1)
         {
             try
             {
@@ -342,7 +320,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetBrands(int shopId=1)
+        public JsonResult GetBrands(int shopId = 1)
         {
             try
             {
@@ -360,74 +338,46 @@ namespace Myshop.Areas.StockManagement.Controllers
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetBrandJson(int shopId=1)
+        public JsonResult GetBrandJson()
         {
             try
             {
-                if (shopId > 0)
-                {
-                    MastersModel model = new MastersModel();
-                    return Json(model.GetBrandJson());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                MastersModel model = new MastersModel();
+                return Json(model.GetBrandJson());
             }
             catch (Exception)
             {
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetVendors(int shopId=1)
+        public JsonResult GetVendors()
         {
             try
             {
-                if (shopId > 0)
-                {
-                    return Json(GlobalMethod.GetVendors());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                return Json(GlobalMethod.GetVendors());
             }
             catch (Exception)
             {
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetVendorJson(int shopId=1)
+        public JsonResult GetVendorJson(int shopId = 1)
         {
             try
             {
-                if (shopId > 0)
-                {
-                    MastersModel model = new MastersModel();
-                    return Json(model.GetVendorJson());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                MastersModel model = new MastersModel();
+                return Json(model.GetVendorJson());
             }
             catch (Exception)
             {
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetUnits(int shopId=1)
+        public JsonResult GetUnits()
         {
             try
             {
-                if (shopId > 0)
-                {
-                    return Json(GlobalMethod.GetUnit());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                return Json(GlobalMethod.GetUnit());
             }
             catch (Exception)
             {
@@ -452,38 +402,24 @@ namespace Myshop.Areas.StockManagement.Controllers
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetUnitJson(int shopId=1)
+        public JsonResult GetUnitJson()
         {
             try
             {
-                if (shopId > 0)
-                {
-                    MastersModel model = new MastersModel();
-                    return Json(model.GetUnitJson());
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                MastersModel model = new MastersModel();
+                return Json(model.GetUnitJson());
             }
             catch (Exception)
             {
                 return Json("Invalid Error");
             }
         }
-        public JsonResult GetProducts(int shopId=1,int subCatId=0)
+        public JsonResult GetProducts(int shopId = 1, int subCatId = 0)
         {
             try
             {
-                if (shopId > 0)
-                {
-                    MastersModel model = new MastersModel();
-                    return Json(model.GetProducts(subCatId));
-                }
-                else
-                {
-                    return Json("Invalid Parameter");
-                }
+                MastersModel model = new MastersModel();
+                return Json(model.GetProducts(subCatId));
             }
             catch (Exception)
             {

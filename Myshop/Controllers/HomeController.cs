@@ -8,7 +8,7 @@ using Myshop.Filters;
 
 namespace Myshop.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : CommonController
     {       
         [MyshopAuthorize]
         [MyShopPermission]

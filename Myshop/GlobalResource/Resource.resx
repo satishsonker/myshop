@@ -354,4 +354,7 @@
   <data name="TotalExp" xml:space="preserve">
     <value>Total Work Experience</value>
   </data>
+  <data name="Invalid_Shop_Selection" xml:space="preserve">
+    <value>Select shop is invalid</value>
+  </data>
 </root>

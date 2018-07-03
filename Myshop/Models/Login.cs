@@ -84,11 +84,11 @@ namespace Myshop.Models
                                           }).ToList();
                     var shopname =
                         (from shopMap in myShop.User_ShopMapper
-                        join shop in myShop.Gbl_Master_Shop on shopMap.ShopId equals shop.Id
+                        join shop in myShop.Gbl_Master_Shop on shopMap.ShopId equals shop.ShopId
                         where shopMap.IsDeleted == false && shop.IsDeleted == false && shopMap.UserId == isAuthenticated.Id
                         select new
                         {
-                            ShopId = shop.Id,
+                            ShopId = shop.ShopId,
                             ShopName = shop.Name
                         }).ToList();
 
@@ -106,17 +106,17 @@ namespace Myshop.Models
                         }
                     }
 
-                    //var downtime = myShop.Gbl_AppDowntime.Where(x => x.IsDeleted == false && x.DownTimeEnd >= DateTime.Now).FirstOrDefault();
-                    //if(downtime!=null)
-                    //{
-                    //    WebSession.DowntimeEnd= downtime.DownTimeEnd;
-                    //    WebSession.DowntimeStart = downtime.DownTimeStart;
-                    //    WebSession.DowntimeMessage = downtime.Message;
-                    //}
-                    //else
-                    //{
-                    //    WebSession.DowntimeMessage = string.Empty;
-                    //}
+                    var downtime = myShop.Gbl_AppDowntime.Where(x => x.IsDeleted == false && x.DownTimeEnd >= DateTime.Now).FirstOrDefault();
+                    if (downtime != null)
+                    {
+                        WebSession.DowntimeEnd = downtime.DownTimeEnd;
+                        WebSession.DowntimeStart = downtime.DownTimeStart;
+                        WebSession.DowntimeMessage = downtime.Message;
+                    }
+                    else
+                    {
+                        WebSession.DowntimeMessage = string.Empty;
+                    }
                     if (login != null)
                     {
                         login.LoginAttempt = 0;
@@ -384,6 +384,34 @@ namespace Myshop.Models
             {
                 return Enums.ResetLinkStatus.exception;
             }
+        }
+
+        public List<ShopListModel> ShopList()
+        {
+            myShop = new MyshopDb();
+            var shopList = (from shopMap in myShop.User_ShopMapper.Where(x => x.UserId.Equals(WebSession.UserId) && x.IsDeleted == false)
+                            from shop in myShop.Gbl_Master_Shop.Where(x => x.ShopId.Equals(shopMap.ShopId) && x.IsDeleted == false)
+                            orderby shop.Name
+                            select new ShopListModel
+                            {
+                                ShopId=shop.ShopId,
+                                ShopName=shop.Name
+                            }).ToList();
+            return shopList;
+        }
+
+        public bool ValidateShopId(int shopId)
+        {
+            myShop = new MyshopDb();
+            var shopList = (from shopMap in myShop.User_ShopMapper.Where(x => x.UserId.Equals(WebSession.UserId) && x.IsDeleted == false)
+                            from shop in myShop.Gbl_Master_Shop.Where(x => x.ShopId.Equals(shopId) && x.IsDeleted == false)
+                            orderby shop.Name
+                            select new ShopListModel
+                            {
+                                ShopId = shop.ShopId,
+                                ShopName = shop.Name
+                            }).Count();
+            return shopList > 0 ? true : false;
         }
     }
 }

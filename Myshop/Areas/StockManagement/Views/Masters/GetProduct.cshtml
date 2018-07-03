@@ -12,61 +12,55 @@
 {*@
 <form action="/" method="post" style="margin-top:60px" id="proform">
     <div class="container">
-        <div class="holder2">
-            <h3 class="text-center">Product</h3>
-            <fieldset>
-                <div class="one">
-                    <div class="control">
-                        <input type="hidden" value="0" id="productid" name="productid" />
-                        <label>Shop Name</label>
-                        @Html.DropDownList("ShopId", new SelectList(ViewBag.ShopList, "ShopId", "ShopName"), "Select Shop", new { required = "required" })<p class="requiredControl"> *</p>
-                    </div>
-                    <div class="control">
-                        <label>Select Category</label>
-                        <select id="catid" name="catid" disabled="disabled" class="disableCtrl" required="required">
-                            <option value="">Select Category</option>
-                        </select><p class="requiredControl">*</p>
-                    </div>
-                    <div class="control">
-                        <label>Select Sub Category</label>
-                        <select id="subcatid" name="subcatid" disabled="disabled" class="disableCtrl" required="required">
-                            <option value="">Select Sub Category</option>
-                        </select><p class="requiredControl">*</p>
-                    </div>
-                    <div class="control">
-                        <label>Product Name</label>
-                        <input type="text" required="required" placeholder="Enter Product Name" id="productname" name="productname" /><p class="requiredControl"> *</p>
-                    </div>
-                    <div class="control">
-                        <label>Description</label>
-                        <input type="text" placeholder="Enter Product Description" id="desc" name="desc" />
+        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+            <div class="panel panel-info">
+                <div class="panel-heading">Add Product</div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <input type="hidden" value="0" id="productid" name="productid" />
+                            <label>Select Category</label>
+                            <select id="catid" name="catid" disabled="disabled" class="disableCtrl form-control" required="required">
+                                <option value="">Select Category</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Select Sub Category</label>
+                            <select id="subcatid" name="subcatid" disabled="disabled" class="disableCtrl form-control" required="required">
+                                <option value="">Select Sub Category</option>
+                            </select>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Product Name</label>
+                            <input type="text" required="required" class="form-control" placeholder="Enter Product Name" id="productname" name="productname" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Product Code</label>
+                            <input type="text" placeholder="Enter Product Code" id="productcode" class="form-control" name="productcode" />
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Product Min Quantity</label>
+                            <input type="text" required="required" placeholder="Enter Product Min Quantity" id="minquantity" name="minquantity" class="form-control"/>
+                        </div>
+                        <div class="col-sm-12">
+                            <label>Description</label>
+                            <input type="text" placeholder="Enter Product Description" class="form-control" id="desc" name="desc" />
+                        </div>
+                        <div class="col-sm-12">
+                                  <label>Select Product Unit</label>
+                                  <select id="unitid" name="unitid" disabled="disabled" class="disableCtrl form-control" required="required">
+                                      <option value="">Select Product Unit</option>
+                                  </select>
+</div>
+                        <div class="col-sm-12">
+                            @{
+                                string ViewDataName = "GetVendorJson";
+                            }
+                        </div>
                     </div>
                 </div>
-                <div class="one">
-                    <div class="control">
-                        <label>Product Code</label>
-                        <input type="text" placeholder="Enter Product Code" id="productcode" name="productcode" />
-                    </div>
-                    <div class="control">
-                        <label>Product Min Quantity</label>
-                        <input type="text" required="required" placeholder="Enter Product Min Quantity" id="minquantity" name="minquantity" />
-                        <p class="requiredControl"> *</p>
-                    </div>
-                    <div class="control">
-                        <label>Select Product Unit</label>
-                        <select id="unitid" name="unitid" disabled="disabled" class="disableCtrl" required="required">
-                            <option value="">Select Product Unit</option>
-                        </select><p class="requiredControl">*</p>
-                    </div>
-                </div>
-
-            </fieldset>
-
-            @{
-                string ViewDataName = "getProducts";
-            }
-            @Html.Partial("_ButtonGroup", ViewDataName)
-
+                <div class="panel-footer">@Html.Partial("_ButtonGroup", ViewDataName)</div>
+            </div>
         </div>
     </div>
     <div class="popup">

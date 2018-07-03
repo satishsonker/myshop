@@ -18,7 +18,7 @@ namespace Myshop.Areas.StockManagement.Models
                 myshop = new MyshopDb();
 
                 var onldVen = myshop.Gbl_Master_Vendor.Where(ven => (ven.VendorId.Equals(model.VendorId) || (ven.VendorName.ToLower().Equals(model.VendorName) || ven.VendorName.ToLower().Contains(model.VendorName))) && ven.IsDeleted == false).FirstOrDefault();
-                if (onldVen != null && onldVen.ShopId.Equals(model.ShopId))
+                if (onldVen != null && onldVen.ShopId.Equals(WebSession.ShopId))
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
@@ -34,7 +34,7 @@ namespace Myshop.Areas.StockManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        var stock = myshop.Stk_Dtl_Entry.Where(x => x.IsDeleted == false && x.BrandId.Equals(model.VendorId)).FirstOrDefault();
+                        var stock = myshop.Stk_Dtl_Entry.Where(x => x.IsDeleted == false && x.BrandId.Equals(model.VendorId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                         if (stock == null)
                         {
                             onldVen.IsDeleted = true;
@@ -65,7 +65,7 @@ namespace Myshop.Areas.StockManagement.Models
                     newVendor.IsDeleted = false;
                     newVendor.IsSync = false;
                     newVendor.ModifiedBy = WebSession.UserId;
-                    newVendor.ShopId = model.ShopId;
+                    newVendor.ShopId = WebSession.ShopId;
                     newVendor.ModificationDate = DateTime.Now;
                     myshop.Entry(newVendor).State = EntityState.Added;
                 }
@@ -89,7 +89,7 @@ namespace Myshop.Areas.StockManagement.Models
                 myshop = new MyshopDb();
 
                 var oldBrand = myshop.Gbl_Master_Brand.Where(brand => (brand.BrandId.Equals(model.BrandId) || (brand.BrandName.ToLower().Equals(model.BrandName) || brand.BrandName.ToLower().Contains(model.BrandName))) && brand.IsDeleted == false).FirstOrDefault();
-                if (oldBrand != null && oldBrand.ShopId.Equals(model.ShopId))
+                if (oldBrand != null && oldBrand.ShopId.Equals(WebSession.ShopId))
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
@@ -103,7 +103,7 @@ namespace Myshop.Areas.StockManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        var stock = myshop.Stk_Dtl_Entry.Where(x => x.IsDeleted == false && x.BrandId.Equals(model.BrandId)).FirstOrDefault();
+                        var stock = myshop.Stk_Dtl_Entry.Where(x => x.IsDeleted == false && x.BrandId.Equals(model.BrandId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                         if (stock == null)
                         {
                             oldBrand.IsDeleted = true;
@@ -132,7 +132,7 @@ namespace Myshop.Areas.StockManagement.Models
                     newBrand.IsDeleted = false;
                     newBrand.IsSync = false;
                     newBrand.ModifiedBy = WebSession.UserId;
-                    newBrand.ShopId = model.ShopId;
+                    newBrand.ShopId = WebSession.ShopId;
                     newBrand.ModificationDate = DateTime.Now;
                     myshop.Entry(newBrand).State = EntityState.Added;
                 }
@@ -156,7 +156,7 @@ namespace Myshop.Areas.StockManagement.Models
                 myshop = new MyshopDb();
 
                 var oldCat = myshop.Gbl_Master_Category.Where(cat => (cat.CatId.Equals(model.CatId) || (cat.CatName.ToLower().Equals(model.CatName) || cat.CatName.ToLower().Contains(model.CatName))) && cat.IsDeleted == false).FirstOrDefault();
-                if (oldCat != null && oldCat.ShopId.Equals(model.ShopId))
+                if (oldCat != null && oldCat.ShopId.Equals(WebSession.ShopId))
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
@@ -170,7 +170,7 @@ namespace Myshop.Areas.StockManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        var pro = myshop.Gbl_Master_SubCategory.Where(x => x.IsDeleted == false && x.CatId.Equals(model.CatId)).FirstOrDefault();
+                        var pro = myshop.Gbl_Master_SubCategory.Where(x => x.IsDeleted == false && x.CatId.Equals(model.CatId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                         if (pro == null)
                         {
                             oldCat.IsDeleted = true;
@@ -199,7 +199,7 @@ namespace Myshop.Areas.StockManagement.Models
                     newCat.IsDeleted = false;
                     newCat.IsSync = false;
                     newCat.ModifiedBy = WebSession.UserId;
-                    newCat.ShopId = model.ShopId;
+                    newCat.ShopId = WebSession.ShopId;
                     newCat.ModificationDate = DateTime.Now;
                     myshop.Entry(newCat).State = EntityState.Added;
                 }
@@ -222,7 +222,7 @@ namespace Myshop.Areas.StockManagement.Models
             {
                 myshop = new MyshopDb();
                 var oldSubCat = myshop.Gbl_Master_SubCategory.Where(cat => cat.SubCatName.ToLower().Equals(model.SubCatName) || cat.SubCatName.ToLower().Contains(model.SubCatName) && cat.IsDeleted == false).FirstOrDefault();
-                if (oldSubCat != null && oldSubCat.ShopId.Equals(model.ShopId))
+                if (oldSubCat != null && oldSubCat.ShopId.Equals(WebSession.ShopId))
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
@@ -237,7 +237,7 @@ namespace Myshop.Areas.StockManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        var pro = myshop.Gbl_Master_Product.Where(x => x.IsDeleted == false && x.SubCatId.Equals(model.SubCatId)).FirstOrDefault();
+                        var pro = myshop.Gbl_Master_Product.Where(x => x.IsDeleted == false && x.SubCatId.Equals(model.SubCatId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                         if (pro == null)
                         {
                             oldSubCat.IsDeleted = true;
@@ -267,7 +267,7 @@ namespace Myshop.Areas.StockManagement.Models
                     newSubCat.IsDeleted = false;
                     newSubCat.IsSync = false;
                     newSubCat.ModifiedBy = WebSession.UserId;
-                    newSubCat.ShopId = model.ShopId;
+                    newSubCat.ShopId = WebSession.ShopId;
                     newSubCat.ModificationDate = DateTime.Now;
                     myshop.Entry(newSubCat).State = EntityState.Added;
                 }
@@ -291,7 +291,7 @@ namespace Myshop.Areas.StockManagement.Models
                 myshop = new MyshopDb();
 
                 var oldUnit = myshop.Gbl_Master_Unit.Where(unit => unit.UnitName.ToLower().Equals(model.UnitName) || unit.UnitName.ToLower().Contains(model.UnitName) && unit.IsDeleted == false).FirstOrDefault();
-                if (oldUnit != null && oldUnit.ShopId.Equals(model.ShopId))
+                if (oldUnit != null && oldUnit.ShopId.Equals(WebSession.ShopId))
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
@@ -305,7 +305,7 @@ namespace Myshop.Areas.StockManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        var pro = myshop.Gbl_Master_Product.Where(x => x.IsDeleted == false && x.UnitId.Equals(model.UnitId)).FirstOrDefault();
+                        var pro = myshop.Gbl_Master_Product.Where(x => x.IsDeleted == false && x.UnitId.Equals(model.UnitId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                         if (pro == null)
                         {
                             oldUnit.IsDeleted = false;
@@ -334,7 +334,7 @@ namespace Myshop.Areas.StockManagement.Models
                     newUnit.IsDeleted = false;
                     newUnit.IsSync = false;
                     newUnit.ModifiedBy = WebSession.UserId;
-                    newUnit.ShopId = model.ShopId;
+                    newUnit.ShopId = WebSession.ShopId;
                     newUnit.ModificationDate = DateTime.Now;
                     myshop.Entry(newUnit).State = EntityState.Added;
                 }
@@ -358,7 +358,7 @@ namespace Myshop.Areas.StockManagement.Models
                 myshop = new MyshopDb();
 
                 var oldPro = myshop.Gbl_Master_Product.Where(pro => (pro.ProductId.Equals(model.ProductId) || (pro.ProductName.ToLower().Equals(model.ProductName.Trim().ToLower()) || pro.ProductName.ToLower().Contains(model.ProductName.Trim().ToLower()))) && pro.IsDeleted == false && pro.SubCatId.Equals(model.SubCatId)).FirstOrDefault();
-                if (oldPro != null && oldPro.ShopId.Equals(model.ShopId))
+                if (oldPro != null && oldPro.ShopId.Equals(WebSession.ShopId))
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
@@ -374,11 +374,20 @@ namespace Myshop.Areas.StockManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        oldPro.IsDeleted = true;
-                        oldPro.IsSync = false;
-                        oldPro.ModifiedBy = WebSession.UserId;
-                        oldPro.ModificationDate = DateTime.Now;
-                        myshop.Entry(oldPro).State = EntityState.Modified;
+                        var pro = myshop.Stk_Dtl_Entry.Where(x => x.IsDeleted == false && x.ProductId.Equals(model.ProductId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+
+                        if (pro == null)
+                        {
+                            oldPro.IsDeleted = true;
+                            oldPro.IsSync = false;
+                            oldPro.ModifiedBy = WebSession.UserId;
+                            oldPro.ModificationDate = DateTime.Now;
+                            myshop.Entry(oldPro).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            return Enums.CrudStatus.AlreadyInUse;
+                        }
                     }
                     else
                     {
@@ -399,7 +408,7 @@ namespace Myshop.Areas.StockManagement.Models
                     newPro.IsDeleted = false;
                     newPro.IsSync = false;
                     newPro.ModifiedBy = WebSession.UserId;
-                    newPro.ShopId = model.ShopId;
+                    newPro.ShopId = WebSession.ShopId;
                     newPro.ModificationDate = DateTime.Now;
                     myshop.Entry(newPro).State = EntityState.Added;
                 }

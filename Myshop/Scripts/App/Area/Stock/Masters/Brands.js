@@ -3,8 +3,7 @@
 
 $(document).on('click', '[id*="btnSelectRow_"]', function () {
     utility.bottonGroupManager(true);
-    var data = $(this).data('data');   
-    $('#ShopId').val(data.ShopId);
+    var data = $(this).data('data');
     $('#brandid').val(data.BrandId);
     $('#brandname').val(data.BrandName);
     $('#branddesc').val(data.Description === 'No Description' ? '' : data.Description);
