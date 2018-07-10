@@ -71,7 +71,7 @@ namespace Myshop.Areas.Global.Models
         {
             MyshopDb db = new MyshopDb();
             IEnumerable<DowntimeModel> list = (from down in db.Gbl_AppDowntime.Where(x => x.IsDeleted == false && x.DownTimeEnd >= DateTime.Now)
-                                               from user in db.Gbl_Master_User.Where(y => y.Id.Equals(down.CreatedBy))
+                                               from user in db.Gbl_Master_User.Where(y => y.UserId.Equals(down.CreatedBy))
                                                orderby down.DownTimeStart descending
                                                select new DowntimeModel
                                                {

@@ -538,11 +538,20 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to  Add Employee.
+        ///   Looks up a localized string similar to Add Employee.
         /// </summary>
         public static string Module_AddEmployee {
             get {
                 return ResourceManager.GetString("Module_AddEmployee", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upload Shop Logo.
+        /// </summary>
+        public static string Module_ShopLogo {
+            get {
+                return ResourceManager.GetString("Module_ShopLogo", resourceCulture);
             }
         }
         

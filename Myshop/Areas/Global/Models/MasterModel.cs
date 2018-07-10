@@ -9,7 +9,7 @@ namespace Myshop.Areas.Global.Models
     public class ShopModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "ShopId is required")]
-        [Range(0, int.MaxValue, ErrorMessage = "ShopId should be greater than 0 (Zero)")]
+        [Range(0, int.MaxValue, ErrorMessage = "ShopId should be greater than -1")]
         public int ShopId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "OwnerId is required")]
@@ -39,6 +39,32 @@ namespace Myshop.Areas.Global.Models
         [StringLength(maximumLength: 50, MinimumLength = 2, ErrorMessage = "Invalid State (2 Min and 50 max chars)")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "State is required")]
         public string State { get; set; }
+    }
+
+    public class AttachmentModel
+    {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "ShopId is required")]
+        [Range(0, int.MaxValue, ErrorMessage = "ShopId should be greater than -1")]
+        public int ShopId { get; set; }
+
+        [Range(0, int.MaxValue, ErrorMessage = "ShopId should be greater than -1")]
+        public int AttachmentId { get; set; }
+
+        public string FileName { get; set; }
+
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid OriginalFileName (3 Min and 50 max chars)")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "OriginalFileName is required")]
+        public string OriginalFileName { get; set; }
+
+        [StringLength(maximumLength: 6, MinimumLength = 3, ErrorMessage = "Invalid FileExtension (3 Min and 6 max chars)")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "FileExtension is required")]
+        public string FileExtension { get; set; }
+
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid ModuleName (3 Min and 50 max chars)")]
+        [Required(AllowEmptyStrings = false, ErrorMessage = "ModuleName is required")]
+        public string ModuleName { get; set; }
+
+        public byte[] Attachment { get; set; }
     }
 
     public class BankModel

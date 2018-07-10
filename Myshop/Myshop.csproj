@@ -259,6 +259,8 @@
     <Content Include="Areas\SalesManagement\Views\Sale\Dashboard.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetShop.cshtml" />
     <Content Include="Areas\StockManagement\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\NewSells.cshtml" />
+    <Content Include="Areas\Global\Views\Masters\GetLogo.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -352,6 +354,7 @@
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
+    <Content Include="Scripts\App\Area\Global\Master\AddLogo.js" />
     <Content Include="Scripts\App\Area\Global\Master\Cheque.js" />
     <Content Include="Scripts\App\Area\Global\Master\BankAcc.js" />
     <Content Include="Scripts\App\Area\Global\Master\DocProof.js" />
@@ -415,6 +418,7 @@
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\dataTables.jqueryui.min.js" />
+    <Content Include="Scripts\firebase.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />

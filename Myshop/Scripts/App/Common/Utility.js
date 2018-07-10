@@ -1,6 +1,7 @@
 ﻿/// <reference path="App.js" />
 /// <reference path="../../jquery-1.10.2.intellisense.js" />
 var utility = {};
+var firebaseConfig = {};
 utility.promise = {};
 
 //Set Application Base URL
@@ -21,6 +22,16 @@ utility.baseURL = "http://localhost:60543";
 //utility.urls.GetErrorLog = '/Global/Admin/GetErrorLog';
 //utility.urls.UpdateErrorLog = '/Global/Admin/UpdateErrorLog';
 //utility.urls.isUserExist = '/Global/user/isUserExist';
+
+//firebaseConfig = {
+//    apiKey: "AIzaSyAF6K63i3Ihn-uEe8p-33UFZHvivaLGt0k",
+//    authDomain: "myshop-4a2fc.firebaseapp.com",
+//    databaseURL: "https://myshop-4a2fc.firebaseio.com",
+//    projectId: "myshop-4a2fc",
+//    storageBucket: "",
+//    messagingSenderId: "285525393288"
+//};
+//firebase.initializeApp(firebaseConfig);
 
 $(document).ready(function () {
     $('body').css('height', $(document).height()-40);

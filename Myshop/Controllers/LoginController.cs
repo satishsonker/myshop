@@ -69,7 +69,7 @@ namespace Myshop.Controllers
             else
             {
                List<ShopListModel> ShopList= model.ShopList();
-                if (ShopList.Count > 0)
+                if (ShopList.Count > 1)
                 {
                     return View("ShopSelection",ShopList);
                 }

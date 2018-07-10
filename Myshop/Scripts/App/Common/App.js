@@ -57,6 +57,7 @@ app.urls.GetPageUrl = "/Global/Menu/GetAppPages";
 app.urls.GetUserUrl = "/Global/User/GetUserJson";
 app.urls.GetUserTypeUrl = "/Global/User/GetUserType";
 app.urls.GetShopUrl = "/Global/User/GetShopJson";
+app.urls.GetShopSelectList = "/common/GetShopSelectList";
 app.urls.GetShopJsonUrl = "/Global/Masters/GetShopJson";
 app.urls.GetStockDetailsJosn = "/StockManagement/stock/GetStockDetailsJosn";
 app.urls.GetRoleTypeJson = "/EmployeesManagement/Master/GetRoleTypeJson";

@@ -12,6 +12,112 @@ namespace Myshop.Areas.Global.Models
     public class MasterDetails
     {
         MyshopDb myshop;
+
+        public Enums.CrudStatus SetLogo(AttachmentModel model, Enums.CrudType crudType)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+
+                var oldAttachment = myshop.Gbl_Attachment.Where(atta => atta.ShopId.Equals(model.ShopId) && atta.IsDeleted == false && atta.AttachmentId.Equals(model.AttachmentId)).FirstOrDefault();
+                if (oldAttachment != null)
+                {
+                    if (crudType == Enums.CrudType.Update)
+                    {
+                        oldAttachment.Attachment = model.Attachment;
+                        oldAttachment.FileExtension = model.FileExtension;
+                        oldAttachment.FileName = model.FileName;
+                        oldAttachment.ModuleName = model.ModuleName;
+                        oldAttachment.OriginalFileName = model.OriginalFileName;
+                        oldAttachment.IsDeleted = false;
+                        oldAttachment.IsSync = false;
+                        oldAttachment.ModifiedBy = WebSession.UserId;
+                        oldAttachment.ModificationDate = DateTime.Now;
+                        myshop.Entry(oldAttachment).State = EntityState.Modified;
+                    }
+                    else if (crudType == Enums.CrudType.Delete)
+                    {
+                        var stock = myshop.User_ShopMapper.Where(x => x.IsDeleted == false && x.ShopId.Equals(model.ShopId)).FirstOrDefault();
+                        if (stock == null)
+                        {
+                            oldAttachment.IsDeleted = true;
+                            oldAttachment.IsSync = false;
+                            oldAttachment.ModifiedBy = WebSession.UserId;
+                            oldAttachment.ModificationDate = DateTime.Now;
+                            myshop.Entry(oldAttachment).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            return Enums.CrudStatus.AlreadyInUse;
+                        }
+                    }
+                    else
+                    {
+                        return Enums.CrudStatus.AlreadyExistForSameShop;
+                    }
+                }
+                else if (crudType == Enums.CrudType.Insert)
+                {
+                    Gbl_Attachment newAttachment = new Gbl_Attachment();
+                    newAttachment.Attachment = model.Attachment;
+                    newAttachment.FileExtension = model.FileExtension;
+                    newAttachment.FileName = model.FileName;
+                    newAttachment.ModuleName = model.ModuleName;
+                    newAttachment.OriginalFileName = model.OriginalFileName;
+                    newAttachment.IsDeleted = false;
+                    newAttachment.IsSync = false;
+                    newAttachment.CreatedBy = WebSession.UserId;
+                    newAttachment.CreatedDate = DateTime.Now;
+                    newAttachment.ModifiedBy = WebSession.UserId;
+                    newAttachment.ModificationDate = DateTime.Now;
+                    myshop.Entry(newAttachment).State = EntityState.Added;
+                }
+
+                int result = myshop.SaveChanges();
+                return Utility.CrudStatus(result, crudType);
+            }
+            catch (Exception ex)
+            {
+                return Enums.CrudStatus.Exception;
+            }
+            finally
+            {
+
+            }
+        }
+        public IEnumerable<object> GetLogoson()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                var shopList = (from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false)
+                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(shop.Owner))
+                                orderby shop.Name
+                                select new
+                                {
+                                    shop.ShopId,
+                                    shop.Name,
+                                    OwnerId = shop.Owner,
+                                    OwnerName = user.Name,
+                                    shop.Mobile,
+                                    shop.Email,
+                                    shop.Address,
+                                    District = shop.Distict,
+                                    shop.State
+                                }).ToList();
+                return shopList;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
+
         public Enums.CrudStatus SetShop(ShopModel model, Enums.CrudType crudType)
         {
             try
@@ -69,8 +175,8 @@ namespace Myshop.Areas.Global.Models
                     newShop.Owner = model.OwnerId;
                     newShop.IsDeleted = false;
                     newShop.IsSync = false;
-                    newShop.CreationBy = WebSession.UserId;
-                    newShop.CreationDate = DateTime.Now;
+                    newShop.CreatedBy = WebSession.UserId;
+                    newShop.CreatedDate = DateTime.Now;
                     newShop.ModifiedBy = WebSession.UserId;
                     newShop.ModificationDate = DateTime.Now;
                     myshop.Entry(newShop).State = EntityState.Added;
@@ -94,7 +200,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 var shopList = (from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false)
-                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.Id.Equals(shop.Owner))
+                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(shop.Owner))
                                 orderby shop.Name
                                 select new
                                 {

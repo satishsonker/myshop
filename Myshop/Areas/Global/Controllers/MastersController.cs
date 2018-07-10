@@ -18,6 +18,31 @@ namespace Myshop.Areas.Global.Controllers
     {
         // GET: Global/Masters
 
+        public ActionResult GetLogo()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult SetLogo(int shopId)
+        {
+            HttpPostedFileBase Files = Request.Files[0];
+            Tuple<int, byte[]> FileStatus;
+            if (ModelState.IsValid)
+            {
+                Enums.FileValidateStatus fileStatus = ValidateFiles(Request.Files, Enums.FileType.Image, 1024, 1);
+                if (Files != null)
+                {
+                    string DbFileName = GlobalMethod.GetDbFileName(Enums.FileType.Image);
+                    FileStatus = GlobalMethod.FileUpload(Files, Files.FileName, DbFileName, Resource.Module_ShopLogo);
+                    
+                }
+                //ReturnAlertMessage(status.Item1);
+            }
+
+            return View("GetLogo");
+        }
+
         public ActionResult GetShop()
         {
             return View();

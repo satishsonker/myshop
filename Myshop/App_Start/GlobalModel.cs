@@ -613,12 +613,38 @@ namespace Myshop.App_Start
                     {
                         SelectListModel newItem = new SelectListModel();
                         newItem.Text = currentItem.Name;
-                        newItem.Value = currentItem.Id;
+                        newItem.Value = currentItem.UserId;
                         list.Add(newItem);
                     }
                 }
 
                 return list;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
+        public static List<SelectListModel> GetShopList()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                var shopList = (from map in myshop.User_ShopMapper.Where(map => map.IsDeleted == false && map.UserId == WebSession.UserId)
+                                from shop in myshop.Gbl_Master_Shop.Where(shops => shops.IsDeleted == false && shops.ShopId.Equals(map.ShopId))
+                                select new SelectListModel
+                                {
+                                    Text = shop.Name,
+                                    Value = shop.ShopId
+                                }
+                                ).ToList();
+
+                return shopList;
             }
             catch (Exception ex)
             {
@@ -697,7 +723,7 @@ namespace Myshop.App_Start
                     newAttachment.CreatedBy = WebSession.UserId;
                     newAttachment.CreatedDate = DateTime.Now;
                     newAttachment.FileExtension = ext[ext.Length - 1];
-                    newAttachment.FleName = GetDbFileName(Enums.FileType.Image);
+                    newAttachment.FileName = GetDbFileName(Enums.FileType.Image);
                     newAttachment.ModificationDate = DateTime.Now;
                     newAttachment.ModifiedBy = WebSession.UserId;
                     newAttachment.ModuleName = ModuleName;

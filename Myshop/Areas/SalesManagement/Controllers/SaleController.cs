@@ -13,5 +13,10 @@ namespace Myshop.Areas.SalesManagement.Controllers
         {
             return View();
         }
+
+        public ActionResult NewSells()
+        {
+            return View();
+        }
     }
 }

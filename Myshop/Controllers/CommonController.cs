@@ -148,6 +148,11 @@ namespace Myshop.Controllers
             return Json(GlobalMethod.GetUserList(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetShopSelectList()
+        {
+            return Json(GlobalMethod.GetShopList(), JsonRequestBehavior.AllowGet);
+        }
+
 
         /// <summary>
         /// Validate all posted file

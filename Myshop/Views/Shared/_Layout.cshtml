@@ -62,6 +62,11 @@
                                 <ul class="dropdown-menu" style="min-width:180px !important">
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
+                                        @Html.ActionLink("Add Logo", "GetLogo", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                    </li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>
+                                        <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
                                         @Html.ActionLink("Add Shop", "Getshop", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
                                     </li>
                                     <li role="separator" class="divider"></li>

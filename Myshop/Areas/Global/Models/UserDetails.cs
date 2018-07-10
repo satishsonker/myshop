@@ -16,7 +16,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 Gbl_Master_User newUser;
-                var oldUser = myshop.Gbl_Master_User.Where(user => (user.Id.Equals(model.UserId) || (user.Username.ToLower().Equals(model.Username))) && user.IsDeleted == false).FirstOrDefault();
+                var oldUser = myshop.Gbl_Master_User.Where(user => (user.UserId.Equals(model.UserId) || (user.Username.ToLower().Equals(model.Username))) && user.IsDeleted == false).FirstOrDefault();
                 if (oldUser != null)
                 {
                     if (crudType == Enums.CrudType.Update)
@@ -158,7 +158,7 @@ namespace Myshop.Areas.Global.Models
                                     user.Mobile,
                                     UserType = userType.Type,
                                     UserTypeId = user.UserType,
-                                    UserId = user.Id,
+                                    UserId = user.UserId,
                                     CreatedDate = user.CreationDate,
                                     user.IsActive,
                                     user.IsBlocked
@@ -386,7 +386,7 @@ namespace Myshop.Areas.Global.Models
                 myshop = new MyshopDb();
                 foreach (UserAccessModel item in model)
                 {
-                    var user = myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.Id.Equals(item.UserId)).FirstOrDefault();
+                    var user = myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(item.UserId)).FirstOrDefault();
                     if (user != null)
                     {
                         user.IsDeleted = false;
@@ -414,7 +414,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 var userList = (from map in myshop.User_ShopMapper.Where(x => x.IsDeleted == false && x.UserId.Equals(userid))
-                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && map.UserId.Equals(x.Id))
+                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && map.UserId.Equals(x.UserId))
                                 from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false && map.ShopId.Equals(x.ShopId))
                                 orderby user.Name
                                 select new
