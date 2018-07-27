@@ -8,7 +8,7 @@
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
-<form action="/" method="post" style="margin-top:60px" id="logoform">
+<form action="/" method="post" style="margin-top:60px" id="logoform" enctype="multipart/form-data">
     <div class="container">
         <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
             <div class="panel panel-info">
@@ -23,8 +23,14 @@
                             </select>
                         </div>
                         <div class="col-sm-12">
-                            <label>Image</label>
-                            <input type="file" class="form-control" placeholder="Enter Bank Description" id="logoImage" name="logoImage" />
+                            <label>Logo</label>
+                            <br />
+                            <label class="btn btn-primary" for="logoImage">
+                                <input id="logoImage" name="logoImage" type="file" style="display:none"
+                                       onchange="$('#upload-file-info').html(this.files[0].name)">
+                                Select Logo File
+                            </label>
+                            <span class='label label-info' id="upload-file-info"></span>
                         </div>
                         @{
                             string ViewDataName = "GetBankJson";

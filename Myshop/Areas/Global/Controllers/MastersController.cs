@@ -24,21 +24,29 @@ namespace Myshop.Areas.Global.Controllers
         }
 
         [HttpPost]
-        public ActionResult SetLogo(int shopId)
+        public ActionResult SetLogo(int shopId,HttpPostedFileBase logoImage)
         {
-            HttpPostedFileBase Files = Request.Files[0];
-            Tuple<int, byte[]> FileStatus;
-            if (ModelState.IsValid)
+            if (Request.Files.Count > 0)
             {
-                Enums.FileValidateStatus fileStatus = ValidateFiles(Request.Files, Enums.FileType.Image, 1024, 1);
-                if (Files != null)
+                HttpPostedFileBase Files = Request.Files[0];
+                Tuple<int, byte[]> FileStatus=new Tuple<int, byte[]>(0,new byte[0]);
+                    Enums.FileValidateStatus fileStatus = ValidateFiles(Request.Files, Enums.FileType.Image, 1024, 1);
+                    if (Files != null && fileStatus == Enums.FileValidateStatus.ValidFile)
+                    {
+                        FileStatus = GlobalMethod.FileUpload(Files, Files.FileName, Resource.Module_ShopLogo, shopId);
+                    }
+
+                    ReturnFileAlertMessage(fileStatus);
+
+                if(FileStatus.Item1>0)
                 {
-                    string DbFileName = GlobalMethod.GetDbFileName(Enums.FileType.Image);
-                    FileStatus = GlobalMethod.FileUpload(Files, Files.FileName, DbFileName, Resource.Module_ShopLogo);
-                    
+                    MasterDetails _details = new MasterDetails();
+                    _details.DeleteLogo(shopId, Resource.Module_ShopLogo, FileStatus.Item1);
+                    SetAlertMessage(Resource.File_Uploaded, Enums.AlertType.success);
                 }
-                //ReturnAlertMessage(status.Item1);
             }
+            else
+                SetAlertMessage(Resource.File_Not_Selected, Enums.AlertType.danger);
 
             return View("GetLogo");
         }
@@ -91,7 +99,6 @@ namespace Myshop.Areas.Global.Controllers
                 return Json("Invalid Error");
             }
         }
-
 
         public ActionResult GetBank()
         {
@@ -155,7 +162,6 @@ namespace Myshop.Areas.Global.Controllers
             }
         }
 
-
         public ActionResult GetBankAccount()
         {
             return View();
@@ -217,7 +223,6 @@ namespace Myshop.Areas.Global.Controllers
             }
         }
 
-
         public ActionResult GetPayMode()
         {
             return View();
@@ -278,7 +283,6 @@ namespace Myshop.Areas.Global.Controllers
                 return Json("Invalid Error");
             }
         }
-
 
         public ActionResult GetAccountType()
         {
@@ -459,9 +463,7 @@ namespace Myshop.Areas.Global.Controllers
             {
                 return Json("Invalid Error");
             }
-        }
-       
-
+        }   
 
         public ActionResult GetDocProof()
         {
@@ -517,6 +519,56 @@ namespace Myshop.Areas.Global.Controllers
             try
             {
                 return Json(GlobalMethod.GetDocProofs(DocProofTypeId));
+            }
+            catch (Exception)
+            {
+                return Json("Invalid Error");
+            }
+        }
+
+        public ActionResult GetNotificationType()
+        {
+            return View();
+        }
+        public ActionResult SetNotificationType(NotificationTypeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                MasterDetails _details = new MasterDetails();
+                Enums.CrudStatus status = _details.SetNotificationType(model, Enums.CrudType.Insert);
+                ReturnAlertMessage(status);
+            }
+            return RedirectToAction("GetNotificationType");
+        }
+        public ActionResult UpdateNotificationType(NotificationTypeModel model)
+        {
+            ViewBag.ShopList = WebSession.ShopList;
+            if (ModelState.IsValid)
+            {
+                MasterDetails _details = new MasterDetails();
+                Enums.CrudStatus status = _details.SetNotificationType(model, Enums.CrudType.Update);
+                ReturnAlertMessage(status);
+            }
+            return RedirectToAction("GetNotificationType");
+        }
+        public ActionResult DeleteNotificationType(NotificationTypeModel model)
+        {
+            ViewBag.ShopList = WebSession.ShopList;
+            if (ModelState.IsValid)
+            {
+                MasterDetails _details = new MasterDetails();
+                Enums.CrudStatus status = _details.SetNotificationType(model, Enums.CrudType.Delete);
+                ReturnAlertMessage(status);
+            }
+            return RedirectToAction("GetNotificationType");
+        }
+        [HttpGet]
+        public JsonResult GetNotificationTypeJson()
+        {
+            try
+            {
+                MasterDetails model = new MasterDetails();
+                return Json(model.GetNotificationTypeJson(),JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {

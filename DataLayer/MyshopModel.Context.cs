@@ -29,6 +29,7 @@ namespace DataLayer
     
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
         public virtual DbSet<Gbl_AppDowntime> Gbl_AppDowntime { get; set; }
+        public virtual DbSet<Gbl_Attachment> Gbl_Attachment { get; set; }
         public virtual DbSet<Gbl_Master_AppModule> Gbl_Master_AppModule { get; set; }
         public virtual DbSet<Gbl_Master_Bank> Gbl_Master_Bank { get; set; }
         public virtual DbSet<Gbl_Master_BankAccount> Gbl_Master_BankAccount { get; set; }
@@ -37,11 +38,20 @@ namespace DataLayer
         public virtual DbSet<Gbl_Master_BankChequeDetails> Gbl_Master_BankChequeDetails { get; set; }
         public virtual DbSet<Gbl_Master_Brand> Gbl_Master_Brand { get; set; }
         public virtual DbSet<Gbl_Master_Category> Gbl_Master_Category { get; set; }
+        public virtual DbSet<Gbl_Master_City> Gbl_Master_City { get; set; }
+        public virtual DbSet<Gbl_Master_Customer> Gbl_Master_Customer { get; set; }
+        public virtual DbSet<Gbl_Master_CustomerType> Gbl_Master_CustomerType { get; set; }
+        public virtual DbSet<Gbl_Master_DocProof> Gbl_Master_DocProof { get; set; }
+        public virtual DbSet<Gbl_Master_DocProofType> Gbl_Master_DocProofType { get; set; }
+        public virtual DbSet<Gbl_Master_Employee> Gbl_Master_Employee { get; set; }
         public virtual DbSet<Gbl_Master_Employee_Role> Gbl_Master_Employee_Role { get; set; }
+        public virtual DbSet<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
+        public virtual DbSet<Gbl_Master_NotificationType> Gbl_Master_NotificationType { get; set; }
         public virtual DbSet<Gbl_Master_Page> Gbl_Master_Page { get; set; }
         public virtual DbSet<Gbl_Master_PayMode> Gbl_Master_PayMode { get; set; }
         public virtual DbSet<Gbl_Master_Product> Gbl_Master_Product { get; set; }
         public virtual DbSet<Gbl_Master_Shop> Gbl_Master_Shop { get; set; }
+        public virtual DbSet<Gbl_Master_State> Gbl_Master_State { get; set; }
         public virtual DbSet<Gbl_Master_SubCategory> Gbl_Master_SubCategory { get; set; }
         public virtual DbSet<Gbl_Master_Unit> Gbl_Master_Unit { get; set; }
         public virtual DbSet<Gbl_Master_User> Gbl_Master_User { get; set; }
@@ -52,12 +62,6 @@ namespace DataLayer
         public virtual DbSet<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
         public virtual DbSet<Stk_Tr_Entry> Stk_Tr_Entry { get; set; }
         public virtual DbSet<User_ShopMapper> User_ShopMapper { get; set; }
-        public virtual DbSet<Gbl_Master_City> Gbl_Master_City { get; set; }
-        public virtual DbSet<Gbl_Master_State> Gbl_Master_State { get; set; }
-        public virtual DbSet<Gbl_Attachment> Gbl_Attachment { get; set; }
-        public virtual DbSet<Gbl_Master_Employee> Gbl_Master_Employee { get; set; }
-        public virtual DbSet<Gbl_Master_DocProof> Gbl_Master_DocProof { get; set; }
-        public virtual DbSet<Gbl_Master_DocProofType> Gbl_Master_DocProofType { get; set; }
     
         [DbFunction("MyshopDb", "ss")]
         public virtual IQueryable<ss_Result> ss(Nullable<int> id)

@@ -261,6 +261,7 @@
     <Content Include="Areas\StockManagement\Views\Shared\_Layout.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Sale\NewSells.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetLogo.cshtml" />
+    <Content Include="Areas\Global\Views\Masters\GetNotificationType.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -271,6 +272,7 @@
     <Content Include="Images\Icons\bank.png" />
     <Content Include="Images\Icons\BankAccount.png" />
     <Content Include="Images\Icons\brand.png" />
+    <Content Include="Images\Icons\camera.png" />
     <Content Include="Images\Icons\category.png" />
     <Content Include="Images\Icons\change.png" />
     <Content Include="Images\Icons\changePass.png" />
@@ -334,6 +336,7 @@
     <Content Include="Images\Icons\loader.gif" />
     <Content Include="Images\Icons\logout.png" />
     <Content Include="Images\Icons\module.png" />
+    <Content Include="Images\Icons\notifiaction.png" />
     <Content Include="Images\Icons\page.png" />
     <Content Include="Images\Icons\paymentMode.png" />
     <Content Include="Images\Icons\permission.png" />
@@ -354,6 +357,7 @@
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
+    <Content Include="Scripts\App\Area\Global\Master\NotifyType.js" />
     <Content Include="Scripts\App\Area\Global\Master\AddLogo.js" />
     <Content Include="Scripts\App\Area\Global\Master\Cheque.js" />
     <Content Include="Scripts\App\Area\Global\Master\BankAcc.js" />

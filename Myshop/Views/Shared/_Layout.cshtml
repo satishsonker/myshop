@@ -59,7 +59,7 @@
                             <li>@Html.ActionLink("Global Home", "Home", "Main", new { area = "Global" })</li>
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Master<span class="caret"></span></a>
-                                <ul class="dropdown-menu" style="min-width:180px !important">
+                                <ul class="dropdown-menu" style="min-width:180px !important">                                   
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
                                         @Html.ActionLink("Add Logo", "GetLogo", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
@@ -113,8 +113,18 @@
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/page.png" />
                                         @Html.ActionLink("Document Proof", "GetDocProof", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
-                                    </li>
+                                    </li>                                  
                                     <li role="separator" class="divider"></li>
+                                    <li class="dropdown-submenu">
+                                        <img class="dropdown-menu-icon" src="~/Images/Icons/notifiaction.png" />
+                                        <a class="test" tabindex="-1" href="#" style="display: initial;padding: 3px 3px;">Notification<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/notification.png" />
+                                                @Html.ActionLink("Notification Type", "GetNotificationType", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                        </ul>
+                                    </li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -427,5 +437,23 @@
     @*<div class="col-xs-12 footer-shop" id="layoutFooter-high" style="height:100px;position:static;margin-top:20px;">
             <p>&copy; @DateTime.Now.Year - Stock Management powered by Common Soft Solution</p>
         </div>*@
+    <style>
+        .dropdown-submenu {
+    position: relative;
+}
+
+.dropdown-submenu .dropdown-menu {
+    top: 0;
+    left: 100%;
+    margin-top: -1px;
+}
+    </style>
+    <script>$(document).ready(function () {
+    $('.dropdown-submenu a.test').on("click", function (e) {
+        $(this).next('ul').toggle();
+        e.stopPropagation();
+        e.preventDefault();
+    });
+});</script>
 </body>
 </html>

@@ -39,7 +39,7 @@ namespace Myshop.Models
                 }
                 else
                 {
-                    var login = myShop.Logins.Where(log => log.UserId.Equals(isAuthenticated.Id) && log.IsDeleted == false).FirstOrDefault();
+                    var login = myShop.Logins.Where(log => log.UserId.Equals(isAuthenticated.UserId) && log.IsDeleted == false).FirstOrDefault();
                     if(login.IsLoginBlocked)
                     {
                         return Enums.LoginStatus.LoginBlocked;
@@ -48,7 +48,7 @@ namespace Myshop.Models
                     {
                         login.LoginAttempt += 1;
                         login.ModificationDate = DateTime.Now;
-                        login.ModifiedBy = isAuthenticated.Id;
+                        login.ModifiedBy = isAuthenticated.UserId;
                         myShop.Entry(login).State = EntityState.Modified;
                         myShop.SaveChanges();                        
                         return Enums.LoginStatus.InvalidCredential;                        
@@ -57,14 +57,14 @@ namespace Myshop.Models
                     {
                         login.IsLoginBlocked = true;
                         login.ModificationDate = DateTime.Now;
-                        login.ModifiedBy = isAuthenticated.Id;
+                        login.ModifiedBy = isAuthenticated.UserId;
                         myShop.Entry(login).State = EntityState.Modified;
                         myShop.SaveChanges();
                         return Enums.LoginStatus.AttemptExceeded;
                     }
 
                     var userType = myShop.Gbl_Master_UserType.Where(type => type.Id.Equals(isAuthenticated.UserType) && type.IsDeleted == false).FirstOrDefault();                   
-                    List<CustomPermission> userPermission = (from permission in myShop.Gbl_Master_User_Permission.Where(x => x.UserId.Equals(isAuthenticated.Id) && x.IsDeleted == false)
+                    List<CustomPermission> userPermission = (from permission in myShop.Gbl_Master_User_Permission.Where(x => x.UserId.Equals(isAuthenticated.UserId) && x.IsDeleted == false)
                                           from page in myShop.Gbl_Master_Page.Where(x => x.PageId.Equals(permission.PageId) && x.IsDeleted == false)
                                           from module in myShop.Gbl_Master_AppModule.Where(x => x.ModuleId.Equals(page.ModuleId) && x.IsDeleted == false)
                                           select new CustomPermission
@@ -85,8 +85,8 @@ namespace Myshop.Models
                     var shopname =
                         (from shopMap in myShop.User_ShopMapper
                         join shop in myShop.Gbl_Master_Shop on shopMap.ShopId equals shop.ShopId
-                        where shopMap.IsDeleted == false && shop.IsDeleted == false && shopMap.UserId == isAuthenticated.Id
-                        select new
+                        where shopMap.IsDeleted == false && shop.IsDeleted == false && shopMap.UserId == isAuthenticated.UserId
+                         select new
                         {
                             ShopId = shop.ShopId,
                             ShopName = shop.Name
@@ -123,26 +123,26 @@ namespace Myshop.Models
                         login.LoginDate = DateTime.Now;
                         login.ModificationDate = DateTime.Now;
                         login.IsSync = false;
-                        login.ModifiedBy = isAuthenticated.Id;
+                        login.ModifiedBy = isAuthenticated.UserId;
                         myShop.Entry(login).State = EntityState.Modified;
                     }
                     else
                     {
                         Login newlogin = new Login();
-                        newlogin.CreationBy = isAuthenticated.Id;
+                        newlogin.CreationBy = isAuthenticated.UserId;
                         newlogin.CreationDate = DateTime.Now;
                         newlogin.IsDeleted = false;
                         newlogin.IsSync = false;
                         newlogin.LoginDate = DateTime.Now;
                         newlogin.ModificationDate = DateTime.Now;
-                        newlogin.ModifiedBy = isAuthenticated.Id;
-                        newlogin.UserId = isAuthenticated.Id;
+                        newlogin.ModifiedBy = isAuthenticated.UserId;
+                        newlogin.UserId = isAuthenticated.UserId;
                         myShop.Logins.Add(newlogin);
                     }
 
                     myShop.SaveChanges();
 
-                    WebSession.UserId = isAuthenticated.Id;
+                    WebSession.UserId = isAuthenticated.UserId;
                     WebSession.Name = isAuthenticated.Name;
                     WebSession.UserIsActive = isAuthenticated.IsActive;
                     WebSession.UserIsDeleted = isAuthenticated.IsDeleted;
@@ -197,13 +197,13 @@ namespace Myshop.Models
                     else
                     {
                         string messageId = Utility.CreateOTP(isExist.Mobile);
-                        var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.Id) && log.IsDeleted == false).FirstOrDefault();
+                        var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.UserId) && log.IsDeleted == false).FirstOrDefault();
 
                         if (login != null)
                         {
                             login.ModificationDate = DateTime.Now;
                             login.IsSync = false;
-                            login.ModifiedBy = isExist.Id;
+                            login.ModifiedBy = isExist.UserId;
                             login.OTPid = messageId;
                             login.ReserExpireTime = DateTime.Now.AddMinutes(30);
                             login.GUID = Guid.NewGuid(); // Create new GUID
@@ -213,14 +213,14 @@ namespace Myshop.Models
                         else
                         {
                             Login newlogin = new Login();
-                            newlogin.CreationBy = isExist.Id;
+                            newlogin.CreationBy = isExist.UserId;
                             newlogin.CreationDate = DateTime.Now;
                             newlogin.IsDeleted = false;
                             newlogin.IsSync = false;
                             newlogin.LoginDate = DateTime.Now;
                             newlogin.ModificationDate = DateTime.Now;
-                            newlogin.ModifiedBy = isExist.Id;
-                            newlogin.UserId = isExist.Id;
+                            newlogin.ModifiedBy = isExist.UserId;
+                            newlogin.UserId = isExist.UserId;
                             newlogin.OTPid = messageId;
                             newlogin.ReserExpireTime = DateTime.Now.AddMinutes(30);
                             newlogin.GUID = Guid.NewGuid(); // Create new GUID
@@ -230,7 +230,7 @@ namespace Myshop.Models
                         int result = myShop.SaveChanges();
                         if (result > 0)
                         {
-                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Name, isExist.Id.ToString(), login.GUID.ToString()));
+                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Name, isExist.UserId.ToString(), login.GUID.ToString()));
                         }
                         return Enums.ResetLinkStatus.send;
                     }
@@ -259,7 +259,7 @@ namespace Myshop.Models
                 var isExist = myShop.Gbl_Master_User.Where(user => user.Username.ToLower().Equals(username.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false).FirstOrDefault();
                 if (isExist != null)
                 {
-                    var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.Id) && log.IsDeleted == false && log.IsReset==true).FirstOrDefault();
+                    var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.UserId) && log.IsDeleted == false && log.IsReset==true).FirstOrDefault();
                     if (isExist != null)
                     {
                        Enums.OtpStatus status= Utility.VerifyOTP(otp, login.OTPid);
@@ -269,7 +269,7 @@ namespace Myshop.Models
                             login.ReserExpireTime = DateTime.Now.AddHours(-1);
                             login.GUID = null;
                             login.ModificationDate = DateTime.Now;
-                            login.ModifiedBy = isExist.Id;
+                            login.ModifiedBy = isExist.UserId;
                             login.IsSync = false;
                             myShop.Entry(login).State = EntityState.Modified;
                             myShop.SaveChanges();
@@ -306,7 +306,7 @@ namespace Myshop.Models
                 if (IsSet != null)
                 {
                     IsSet.ModificationDate = DateTime.Now;
-                    IsSet.ModifiedBy = IsSet.Id;
+                    IsSet.ModifiedBy = IsSet.UserId;
                     IsSet.IsSync = false;
                     IsSet.Password = passHash;
                     myShop.Entry(IsSet).State = EntityState.Modified;
@@ -333,7 +333,7 @@ namespace Myshop.Models
                 if (IsSet != null)
                 {
                     IsSet.ModificationDate = DateTime.Now;
-                    IsSet.ModifiedBy = IsSet.Id;
+                    IsSet.ModifiedBy = IsSet.UserId;
                     IsSet.IsSync = false;
                     IsSet.Password = newPassHash;
                     myShop.Entry(IsSet).State = EntityState.Modified;
@@ -364,7 +364,7 @@ namespace Myshop.Models
                 var isValid = myShop.Logins.Where(log => log.UserId.Equals(UserId) && log.IsReset == true && log.IsDeleted == false && log.GUID.ToString().Equals(guid)).FirstOrDefault();
                 if (isValid != null)
                 {
-                    var user = myShop.Gbl_Master_User.Where(log => log.Id.Equals(UserId) && log.IsDeleted == false && log.IsActive==true && log.IsBlocked==false).FirstOrDefault();
+                    var user = myShop.Gbl_Master_User.Where(log => log.UserId.Equals(UserId) && log.IsDeleted == false && log.IsActive==true && log.IsBlocked==false).FirstOrDefault();
                     if (user != null)
                     {
                         if (isValid.ReserExpireTime.Value < DateTime.Now)

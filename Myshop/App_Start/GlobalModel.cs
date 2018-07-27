@@ -710,14 +710,15 @@ namespace Myshop.App_Start
                     myshop = null;
             }
         }
-        public static Tuple<int, byte[]> FileUpload(HttpPostedFileBase Files, string fileName, string OriginalFileName, string ModuleName)
+        public static Tuple<int, byte[]> FileUpload(HttpPostedFileBase Files, string OriginalFileName, string ModuleName,int shopid=0)
         {
             try
             {
                 myshop = new MyshopDb();
-                string[] ext = fileName.Split(new char[] { '.' });
+                string[] ext = OriginalFileName.Split(new char[] { '.' });
+                shopid = shopid == 0 ? WebSession.ShopId : shopid;
                 Gbl_Attachment newAttachment = new Gbl_Attachment();
-                if (!string.IsNullOrEmpty(fileName))
+                if (!string.IsNullOrEmpty(OriginalFileName))
                 {
                     newAttachment.Attachment = ReadFile(Files);
                     newAttachment.CreatedBy = WebSession.UserId;
@@ -727,8 +728,10 @@ namespace Myshop.App_Start
                     newAttachment.ModificationDate = DateTime.Now;
                     newAttachment.ModifiedBy = WebSession.UserId;
                     newAttachment.ModuleName = ModuleName;
-                    newAttachment.OriginalFileName = fileName;
-                    newAttachment.ShopId = WebSession.ShopId;
+                    newAttachment.OriginalFileName = OriginalFileName;
+                    newAttachment.ShopId = shopid;
+                    newAttachment.IsDeleted = false;
+                    newAttachment.IsSync = false;
                     myshop.Gbl_Attachment.Add(newAttachment);
                     myshop.SaveChanges();
                 }

@@ -280,4 +280,17 @@ namespace Myshop.Areas.Global.Models
         public string Text { get; set; }
         public string Url { get; set; }
     }
+
+    public class NotificationTypeModel
+    {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "NotificationTypeId is required")]
+        [Range(0, int.MaxValue, ErrorMessage = "NotificationTypeId should be greater than -1")]
+        public int NotificationTypeId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "NotificationType is required")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid NotificationType (3 Min and 50 max chars)")]
+        public string NotificationType { get; set; }
+
+        public string Description { get; set; }
+    }
 }

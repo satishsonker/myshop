@@ -52,6 +52,7 @@ app.urls.GetAppPageJson = '/Global/Menu/GetAppPageJson';
 app.urls.GetUserJson = '/Global/User/GetUserJson';
 app.urls.GetDowntimeJson = '/Global/Setting/GetDowntimeJson';
 app.urls.GetBankAccUrl = '/Global/Masters/GetBankAccounts';
+app.urls.GetNotificationTypeJson = '/Global/Masters/GetNotificationTypeJson';
 app.urls.GetModuleUrl = "/Global/Menu/GetAppModules";
 app.urls.GetPageUrl = "/Global/Menu/GetAppPages";
 app.urls.GetUserUrl = "/Global/User/GetUserJson";

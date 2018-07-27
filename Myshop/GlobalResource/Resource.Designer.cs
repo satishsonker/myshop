@@ -331,6 +331,24 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to File not selected..
+        /// </summary>
+        public static string File_Not_Selected {
+            get {
+                return ResourceManager.GetString("File_Not_Selected", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to File Uploaded successfully.
+        /// </summary>
+        public static string File_Uploaded {
+            get {
+                return ResourceManager.GetString("File_Uploaded", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to First Name.
         /// </summary>
         public static string FirstName {

@@ -896,6 +896,129 @@ namespace Myshop.Areas.Global.Models
             }
         }
 
+        public Enums.CrudStatus DeleteLogo(int ShopId,string ModuleName,int NewAttachmentId)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+
+                var oldAttachment = myshop.Gbl_Attachment.Where(att => att.ShopId.Equals(ShopId) && att.IsDeleted == false && att.ModuleName.Equals(ModuleName) && att.AttachmentId!= NewAttachmentId).FirstOrDefault();
+                if (oldAttachment != null)
+                {
+
+                    oldAttachment.IsDeleted = true;
+                    oldAttachment.IsSync = false;
+                    oldAttachment.ModifiedBy = WebSession.UserId;
+                    oldAttachment.ModificationDate = DateTime.Now;
+                            myshop.Entry(oldAttachment).State = EntityState.Modified;
+                }
+
+                int result = myshop.SaveChanges();
+                return Utility.CrudStatus(result, Enums.CrudType.Delete);
+            }
+            catch (Exception ex)
+            {
+                return Enums.CrudStatus.Exception;
+            }
+            finally
+            {
+
+            }
+        }
+
+        public Enums.CrudStatus SetNotificationType(NotificationTypeModel model, Enums.CrudType crudType)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+
+                var oldNotiType = myshop.Gbl_Master_NotificationType.Where(noti => (noti.ShopId.Equals(WebSession.ShopId) && (noti.NotificationTypeId.Equals(model.NotificationTypeId) || noti.NotificationType.ToLower().Equals(model.NotificationType.Trim()) || noti.NotificationType.ToLower().Contains(model.NotificationType.Trim()))) && noti.IsDeleted == false).FirstOrDefault();
+                if (oldNotiType != null)
+                {
+                    if (crudType == Enums.CrudType.Update)
+                    {
+                        oldNotiType.NotificationType = model.NotificationType;
+                        oldNotiType.Description = model.Description;
+                        oldNotiType.IsDeleted = false;
+                        oldNotiType.IsSync = false;
+                        oldNotiType.ModifiedBy = WebSession.UserId;
+                        oldNotiType.ModificationDate = DateTime.Now;
+                        myshop.Entry(oldNotiType).State = EntityState.Modified;
+                    }
+                    else if (crudType == Enums.CrudType.Delete)
+                    {
+                        var stock = myshop.Gbl_Master_Notification.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+                        if (stock == null)
+                        {
+                            oldNotiType.IsDeleted = true;
+                            oldNotiType.IsSync = false;
+                            oldNotiType.ModifiedBy = WebSession.UserId;
+                            oldNotiType.ModificationDate = DateTime.Now;
+                            myshop.Entry(oldNotiType).State = EntityState.Modified;
+                        }
+                        else
+                        {
+                            return Enums.CrudStatus.AlreadyInUse;
+                        }
+                    }
+                    else
+                    {
+                        return Enums.CrudStatus.AlreadyExistForSameShop;
+                    }
+                }
+                else if (crudType == Enums.CrudType.Insert)
+                {
+                    Gbl_Master_NotificationType newNotiType = new Gbl_Master_NotificationType();
+                    newNotiType.NotificationType = model.NotificationType;
+                    newNotiType.Description = model.Description;
+                    newNotiType.IsDeleted = false;
+                    newNotiType.IsSync = false;
+                    newNotiType.CreatedBy = WebSession.UserId;
+                    newNotiType.CreatedDate = DateTime.Now;
+                    newNotiType.ModifiedBy = WebSession.UserId;
+                    newNotiType.ModificationDate = DateTime.Now;
+                    newNotiType.ShopId = WebSession.ShopId;
+                    myshop.Entry(newNotiType).State = EntityState.Added;
+                }
+
+                int result = myshop.SaveChanges();
+                return Utility.CrudStatus(result, crudType);
+            }
+            catch (Exception ex)
+            {
+                return Enums.CrudStatus.Exception;
+            }
+            finally
+            {
+
+            }
+        }
+        public IEnumerable<object> GetNotificationTypeJson()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                var notiTypeList = (from noti in myshop.Gbl_Master_NotificationType.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
+                                orderby noti.NotificationType
+                                select new
+                                {
+                                    noti.NotificationType,
+                                    noti.Description,
+                                    noti.CreatedDate 
+                                }).ToList();
+                return notiTypeList;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
+
         public IEnumerable<object> GetChequeJson()
         {
             try

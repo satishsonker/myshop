@@ -18,8 +18,7 @@ namespace Myshop.Areas.EmployeesManagement.Models
             {
                 if (files != null)
                 {
-                    string DbFileName = GlobalMethod.GetDbFileName(Enums.FileType.Image);
-                    FileStatus = GlobalMethod.FileUpload(files, files.FileName, DbFileName, GlobalResource.Resource.Module_AddEmployee);
+                    FileStatus = GlobalMethod.FileUpload(files, files.FileName, GlobalResource.Resource.Module_AddEmployee);
                     if (FileStatus.Item1 < 1)
                         return new Tuple<Enums.CrudStatus, Gbl_Master_Employee>(Enums.CrudStatus.FileNotUploaded, model);
                     else if(FileStatus.Item2.Length>0)

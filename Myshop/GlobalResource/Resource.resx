@@ -360,4 +360,10 @@
   <data name="Module_ShopLogo" xml:space="preserve">
     <value>Upload Shop Logo</value>
   </data>
+  <data name="File_Not_Selected" xml:space="preserve">
+    <value>File not selected.</value>
+  </data>
+  <data name="File_Uploaded" xml:space="preserve">
+    <value>File Uploaded successfully</value>
+  </data>
 </root>
