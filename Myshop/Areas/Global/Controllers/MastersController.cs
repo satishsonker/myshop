@@ -562,13 +562,63 @@ namespace Myshop.Areas.Global.Controllers
             }
             return RedirectToAction("GetNotificationType");
         }
-        [HttpGet]
+        [HttpPost]
         public JsonResult GetNotificationTypeJson()
         {
             try
             {
                 MasterDetails model = new MasterDetails();
                 return Json(model.GetNotificationTypeJson(),JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("Invalid Error");
+            }
+        }
+
+        public ActionResult GetNotification()
+        {
+            return View();
+        }
+        public ActionResult SetNotification(NotificationDbModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                MasterDetails _details = new MasterDetails();
+                Enums.CrudStatus status = _details.SetNotification(model, Enums.CrudType.Insert);
+                ReturnAlertMessage(status);
+            }
+            return RedirectToAction("GetNotification");
+        }
+        public ActionResult UpdateNotification(NotificationDbModel model)
+        {
+            ViewBag.ShopList = WebSession.ShopList;
+            if (ModelState.IsValid)
+            {
+                MasterDetails _details = new MasterDetails();
+                Enums.CrudStatus status = _details.SetNotification(model, Enums.CrudType.Update);
+                ReturnAlertMessage(status);
+            }
+            return RedirectToAction("GetNotification");
+        }
+        public ActionResult DeleteNotification(NotificationDbModel model)
+        {
+            ViewBag.ShopList = WebSession.ShopList;
+            if (ModelState.IsValid)
+            {
+                MasterDetails _details = new MasterDetails();
+                Enums.CrudStatus status = _details.SetNotification(model, Enums.CrudType.Delete);
+                ReturnAlertMessage(status);
+            }
+            return RedirectToAction("GetNotification");
+        }
+        [HttpPost]
+        public JsonResult GetNotificationJson()
+        {
+            try
+            {
+                MasterDetails model = new MasterDetails();
+                return Json(model.GetNotificationJson(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {

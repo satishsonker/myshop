@@ -8,9 +8,11 @@ using System.Net.Http;
 using System.Web;
 using System.Web.Mvc;
 using Myshop.GlobalResource;
+using Myshop.Filters;
 
 namespace Myshop.Controllers
 {
+    [MyshopDowntime]
     public class CommonController : Controller
     {
         internal void SetAlertMessage(string message, Enums.AlertType alert)
@@ -146,6 +148,11 @@ namespace Myshop.Controllers
         public JsonResult GetUserSelectList()
         {
             return Json(GlobalMethod.GetUserList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetNotificationTypeSelectList()
+        {
+            return Json(GlobalMethod.GetNotificationTypeList(), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetShopSelectList()

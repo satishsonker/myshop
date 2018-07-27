@@ -55,8 +55,8 @@ namespace DataLayer
         public virtual Gbl_Attachment Gbl_Attachment { get; set; }
         public virtual Gbl_Attachment Gbl_Attachment1 { get; set; }
         public virtual Gbl_Attachment Gbl_Attachment2 { get; set; }
-        public virtual Gbl_Master_Employee_Role Gbl_Master_Employee_Role { get; set; }
         public virtual Gbl_Master_DocProof Gbl_Master_DocProof { get; set; }
         public virtual Gbl_Master_DocProof Gbl_Master_DocProof1 { get; set; }
+        public virtual Gbl_Master_Employee_Role Gbl_Master_Employee_Role { get; set; }
     }
 }

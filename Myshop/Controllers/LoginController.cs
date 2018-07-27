@@ -12,12 +12,12 @@ namespace Myshop.Controllers
 {
     public class LoginController : CommonController
     {
-        [MyshopDowntime]
         public ActionResult Login()
         {
             return View();
         }
 
+        [MyshopAuthorize]
         public ActionResult logout()
         {
             Session.Clear();
@@ -71,7 +71,7 @@ namespace Myshop.Controllers
                List<ShopListModel> ShopList= model.ShopList();
                 if (ShopList.Count > 1)
                 {
-                    return View("ShopSelection",ShopList);
+                    return View("ShopSelection", ShopList);
                 }
                 else
                 {
@@ -81,11 +81,13 @@ namespace Myshop.Controllers
             }
         }
 
+        [MyshopAuthorize]
         public ActionResult ShopSelection()
         {
             return View();
         }
 
+        [MyshopAuthorize]
         public ActionResult SetShopSelection(int shopid,string shopname)
         {
             LoginModel model = new LoginModel();

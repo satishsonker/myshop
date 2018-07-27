@@ -630,6 +630,36 @@ namespace Myshop.App_Start
                     myshop = null;
             }
         }
+        public static List<SelectListModel> GetNotificationTypeList()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                List<SelectListModel> list = new List<SelectListModel>();
+                var NotiTypeList = myshop.Gbl_Master_NotificationType.Where(noti => noti.IsDeleted == false && noti.ShopId == WebSession.ShopId).OrderBy(x => x.NotificationType).ToList();
+                if (NotiTypeList.Count > 0)
+                {
+                    foreach (Gbl_Master_NotificationType currentItem in NotiTypeList)
+                    {
+                        SelectListModel newItem = new SelectListModel();
+                        newItem.Text = currentItem.NotificationType;
+                        newItem.Value = currentItem.NotificationTypeId;
+                        list.Add(newItem);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
         public static List<SelectListModel> GetShopList()
         {
             try

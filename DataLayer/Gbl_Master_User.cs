@@ -19,13 +19,14 @@ namespace DataLayer
         {
             this.Gbl_AppDowntime = new HashSet<Gbl_AppDowntime>();
             this.Gbl_AppDowntime1 = new HashSet<Gbl_AppDowntime>();
-            this.Gbl_Master_Shop = new HashSet<Gbl_Master_Shop>();
+            this.Gbl_Master_Notification = new HashSet<Gbl_Master_Notification>();
+            this.Gbl_Master_Shop1 = new HashSet<Gbl_Master_Shop>();
             this.Logins = new HashSet<Login>();
             this.Gbl_Master_User_Permission = new HashSet<Gbl_Master_User_Permission>();
             this.User_ShopMapper = new HashSet<User_ShopMapper>();
         }
     
-        public int Id { get; set; }
+        public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
         public string Name { get; set; }
@@ -40,13 +41,17 @@ namespace DataLayer
         public bool IsDeleted { get; set; }
         public Nullable<bool> IsActive { get; set; }
         public Nullable<bool> IsBlocked { get; set; }
+        public int ShopId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gbl_Master_Shop> Gbl_Master_Shop { get; set; }
+        public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
+        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Shop> Gbl_Master_Shop1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Login> Logins { get; set; }
         public virtual Gbl_Master_UserType Gbl_Master_UserType { get; set; }

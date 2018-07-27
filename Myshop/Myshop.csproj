@@ -262,6 +262,7 @@
     <Content Include="Areas\SalesManagement\Views\Sale\NewSells.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetLogo.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetNotificationType.cshtml" />
+    <Content Include="Areas\Global\Views\Masters\GetNotification.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -357,6 +358,7 @@
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
+    <Content Include="Scripts\App\Area\Global\Master\Notify.js" />
     <Content Include="Scripts\App\Area\Global\Master\NotifyType.js" />
     <Content Include="Scripts\App\Area\Global\Master\AddLogo.js" />
     <Content Include="Scripts\App\Area\Global\Master\Cheque.js" />
@@ -472,6 +474,7 @@
     <Content Include="Views\Shared\_BloodGroupDropdown.cshtml" />
     <Content Include="Views\Shared\_DocProof.cshtml" />
     <Content Include="Views\Login\ShopSelection.cshtml" />
+    <Content Include="Views\Home\NotificationMessage.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

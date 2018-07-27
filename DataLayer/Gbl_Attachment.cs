@@ -20,19 +20,22 @@ namespace DataLayer
             this.Gbl_Master_Employee = new HashSet<Gbl_Master_Employee>();
             this.Gbl_Master_Employee1 = new HashSet<Gbl_Master_Employee>();
             this.Gbl_Master_Employee2 = new HashSet<Gbl_Master_Employee>();
+            this.Gbl_Master_Shop1 = new HashSet<Gbl_Master_Shop>();
         }
     
         public int AttachmentId { get; set; }
-        public string FleName { get; set; }
+        public string FileName { get; set; }
         public string OriginalFileName { get; set; }
         public string FileExtension { get; set; }
         public string ModuleName { get; set; }
         public byte[] Attachment { get; set; }
+        public int ShopId { get; set; }
+        public Nullable<bool> IsSync { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime ModificationDate { get; set; }
         public int ModifiedBy { get; set; }
-        public int ShopId { get; set; }
     
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -41,5 +44,7 @@ namespace DataLayer
         public virtual ICollection<Gbl_Master_Employee> Gbl_Master_Employee1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Employee> Gbl_Master_Employee2 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Shop> Gbl_Master_Shop1 { get; set; }
     }
 }

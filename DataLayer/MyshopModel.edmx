@@ -336,6 +336,10 @@
           <Property Name="Message" Type="nvarchar" MaxLength="200" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="IsPushed" Type="bit" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+          <Property Name="IsForAll" Type="bit" Nullable="false" />
+          <Property Name="MessageExpireDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
@@ -2181,6 +2185,10 @@
           <NavigationProperty Name="Gbl_Master_NotificationType" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_NotificationType" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_NotificationType" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_Shop" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_User" />
+          <Property Name="IsPushed" Type="Boolean" Nullable="false" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="IsForAll" Type="Boolean" Nullable="false" />
+          <Property Name="MessageExpireDate" Type="DateTime" Nullable="false" Precision="3" />
         </EntityType>
         <EntityType Name="Gbl_Master_NotificationType">
           <Key>
@@ -3539,6 +3547,10 @@
           <EntitySetMapping Name="Gbl_Master_Notification">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Notification">
               <MappingFragment StoreEntitySet="Gbl_Master_Notification">
+                <ScalarProperty Name="MessageExpireDate" ColumnName="MessageExpireDate" />
+                <ScalarProperty Name="IsForAll" ColumnName="IsForAll" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="IsPushed" ColumnName="IsPushed" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />

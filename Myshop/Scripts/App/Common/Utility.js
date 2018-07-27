@@ -180,6 +180,14 @@ utility.isJson = function isJson(str) {
     return true;
 }
 
+utility.isNullOrEmpty = function (str) {
+    return str == null || str === '' || str === undefined ? true : false;
+}
+
+utility.isNullOrUndefined = function (str) {
+    return str == null || str === undefined ? true : false;
+}
+
 utility.tableBinder = function (data, tableid,totalRecord) {
     if (typeof data === 'string' && !utility.isJson(data))
     {
@@ -218,7 +226,7 @@ utility.tableBinder = function (data, tableid,totalRecord) {
                     tblHtml = tblHtml + '<td><img class="shop-thumbnail" src="data:image/png;base64,' + ele[eId] + '" alt="Image" /></td>';
                 }
                 else {
-                    tblHtml = tblHtml + '<td>' + ele[eId] + '</td>';
+                    tblHtml = tblHtml + '<td>' + (utility.isNullOrEmpty(ele[eId]) ? '' : ele[eId]) + '</td>';
                 }
             });
             tblHtml = tblHtml + '</tr>';
@@ -366,17 +374,18 @@ utility.enableCtrl = function (ctrlId, onlyEnable) {
     }
 };
 
-utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback) {
+utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback, CleaarOptionIndex) {
+    CleaarOptionIndex = CleaarOptionIndex === undefined ? 0 : CleaarOptionIndex;
     var urls = app.urls[methodUrl];
     urls = urls === undefined ? methodUrl : urls;
     utility.ajaxWithoutDataHelper(urls, function (data) {
         if (typeof data === 'object') {
             var ddl = $('#' + ddlId);
             utility.enableCtrl(ddl);
-            ddl.find(':gt(0)').remove();
+            ddl.find(':gt('+CleaarOptionIndex+')').remove();
             $(data).each(function (ind, ele) {
-                var Value = value === undefined ? ele["Value"] : ele[value];
-                var Text = text === undefined ? ele["Text"] : ele[text];
+                var Value = utility.isNullOrUndefined(value)? ele["Value"] : ele[value];
+                var Text = utility.isNullOrUndefined(text) ? ele["Text"] : ele[text];
                 ddl.append('<option value=' + Value + '>' + Text + '</option>');
             });
             if ($('#ddlProduct').length > 0) {
@@ -401,7 +410,8 @@ utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback) {
     });
 }
 
-utility.bindDdlByAjaxWithParam = function (methodUrl, ddlId, param, text, value, htmlDataAttr, callback) {
+utility.bindDdlByAjaxWithParam = function (methodUrl, ddlId, param, text, value, htmlDataAttr, callback, CleaarOptionIndex) {
+    CleaarOptionIndex = CleaarOptionIndex === undefined ? 0 : CleaarOptionIndex;
     var urls = app.urls[methodUrl];
     urls = urls === undefined ? methodUrl : urls;
     utility.ajaxHelper(urls, param, function (data) {
@@ -414,11 +424,11 @@ utility.bindDdlByAjaxWithParam = function (methodUrl, ddlId, param, text, value,
 
         utility.enableCtrl(ddl); //Enable Control
 
-        ddl.find(':gt(0)').remove(); // Remove all pre. Options
+        ddl.find(':gt(' + CleaarOptionIndex + ')').remove(); // Remove all pre. Options
 
         $(data).each(function (ind, ele) {
-            var Value = value === undefined ? ele["Value"] : ele[value];
-            var Text = text === undefined ? ele["Text"] : ele[text];
+            var Value = utility.isNullOrUndefined(value) ? ele["Value"] : ele[value];
+            var Text = utility.isNullOrUndefined(text) ? ele["Text"] : ele[text];
             ddl.append('<option value=' + Value + '>' + Text + '</option>');
         });
 

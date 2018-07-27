@@ -23,6 +23,14 @@ namespace Myshop.Controllers
         {
             return View();
         }
+
+        [MyshopAuthorize]
+        [MyShopPermission]
+        public ActionResult NotificationMessage()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             return View();

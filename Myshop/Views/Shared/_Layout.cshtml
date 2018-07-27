@@ -70,30 +70,36 @@
                                         @Html.ActionLink("Add Shop", "Getshop", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
                                     </li>
                                     <li role="separator" class="divider"></li>
-                                    <li>
+                                    <li class="dropdown-submenu">
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
-                                        @Html.ActionLink("Bank", "GetBank", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <img class="dropdown-menu-icon" src="~/Images/Icons/BankAccount.png" />
-                                        @Html.ActionLink("Bank Account", "GetBankAccount", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <img class="dropdown-menu-icon" src="~/Images/Icons/type.png" />
-                                        @Html.ActionLink("Account Type", "GetAccountType", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <img class="dropdown-menu-icon" src="~/Images/Icons/paymentMode.png" />
-                                        @Html.ActionLink("Payment Mode", "GetPayMode", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
-                                    </li>
-                                    <li role="separator" class="divider"></li>
-                                    <li>
-                                        <img class="dropdown-menu-icon" src="~/Images/Icons/cheque.png" />
-                                        @Html.ActionLink("Add Cheque Book", "GetCheque", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
-                                    </li>
+                                        <a class="test" tabindex="-1" href="#" style="display: initial;padding: 3px 3px;">Bank<span class="caret"></span></a>
+                                        <ul class="dropdown-menu">
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/bank.png" />
+                                                @Html.ActionLink("Bank", "GetBank", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/BankAccount.png" />
+                                                @Html.ActionLink("Bank Account", "GetBankAccount", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/type.png" />
+                                                @Html.ActionLink("Account Type", "GetAccountType", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/paymentMode.png" />
+                                                @Html.ActionLink("Payment Mode", "GetPayMode", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/cheque.png" />
+                                                @Html.ActionLink("Add Cheque Book", "GetCheque", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                        </ul>
+                                    </li>                                   
                                     <li role="separator" class="divider"></li>
                                     <li>
                                         <img class="dropdown-menu-icon" src="~/Images/Icons/module.png" />
@@ -120,8 +126,13 @@
                                         <a class="test" tabindex="-1" href="#" style="display: initial;padding: 3px 3px;">Notification<span class="caret"></span></a>
                                         <ul class="dropdown-menu">
                                             <li>
-                                                <img class="dropdown-menu-icon" src="~/Images/Icons/notification.png" />
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/notifiaction.png" />
                                                 @Html.ActionLink("Notification Type", "GetNotificationType", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
+                                            </li>
+                                            <li role="separator" class="divider"></li>
+                                            <li>
+                                                <img class="dropdown-menu-icon" src="~/Images/Icons/notifiaction.png" />
+                                                @Html.ActionLink("Add Notification", "GetNotification", "Masters", new { area = "Global" }, new { @class = "dropdown-menu-text" })
                                             </li>
                                         </ul>
                                     </li>
@@ -325,7 +336,7 @@
                             </ul>
                         </li>
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi  @Session["name"].ToString() <span class="caret"></span></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Hi  @Session["name"].ToString() <span class="badge">@WebSession.NotificationCount</span><span class="caret"></span></a> 
                             <ul class="dropdown-menu" style="min-width:180px !important">
                                 <li>
                                     <img class="dropdown-menu-icon" src="~/Images/Icons/changePass.png" />
@@ -335,6 +346,11 @@
                                 <li>
                                     <img class="dropdown-menu-icon" src="~/Images/Icons/logout.png" />
                                     @Html.ActionLink("Logout", "logout", "login", new { area = "" }, new { @class = "dropdown-menu-text" })
+                                </li>
+                                <li role="separator" class="divider"></li>
+                                <li>
+                                    <img class="dropdown-menu-icon" src="~/Images/Icons/notifiaction.png" />
+                                    <a class="dropdown-menu-text" href="/home/NotificationMessage">Message <span class="badge label-info">@WebSession.NotificationCount</span></a>
                                 </li>
                             </ul>
                         </li>

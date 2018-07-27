@@ -1,8 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Web;
-using DataLayer;
 
 namespace Myshop.App_Start
 {
@@ -191,6 +189,22 @@ namespace Myshop.App_Start
                 }
             }
             set { HttpContext.Current.Session["userpermission"] = value; }
+        }
+
+        public static int NotificationCount
+        {
+            get
+            {
+                if (HttpContext.Current.Session["NotificationCount"] != null)
+                {
+                    return Convert.ToInt32(HttpContext.Current.Session["NotificationCount"]);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set { HttpContext.Current.Session["NotificationCount"] = value; }
         }
     }
 

@@ -293,4 +293,27 @@ namespace Myshop.Areas.Global.Models
 
         public string Description { get; set; }
     }
+
+    public class NotificationDbModel
+    {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "NotificationId is required")]
+        [Range(0, int.MaxValue, ErrorMessage = "NotificationId should be greater than -1")]
+        public int NotificationId { get; set; }       
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "UserId is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "UserId should be greater than 0")]
+        public int UserId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "NotificationTypeId is required")]
+        [Range(1, int.MaxValue, ErrorMessage = "NotificationTypeId should be greater than 0")]
+        public int NotificationTypeId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Message is required")]
+        [StringLength(maximumLength: 200, MinimumLength = 3, ErrorMessage = "Invalid Message (3 Min and 200 max chars)")]
+        public string Message { get; set; }
+
+        public bool IsForAll { set; get; } = false;
+
+        public DateTime MessageExpireDate { set; get; } = DateTime.Now.AddDays(7);
+    }
 }

@@ -160,6 +160,7 @@ namespace Myshop.Models
                         WebSession.Permission = userPermission;
                     }
 
+                    WebSession.NotificationCount = myShop.Gbl_Master_Notification.Where(x => x.IsDeleted == false && x.IsPushed == true && x.IsRead == false && x.ShopId.Equals(WebSession.ShopId) && (x.UserId.Equals(WebSession.UserId) || x.IsForAll == true)).Count();
                     return Enums.LoginStatus.Authenticate;
                 }
             }
