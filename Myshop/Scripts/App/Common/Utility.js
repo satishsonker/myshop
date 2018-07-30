@@ -59,16 +59,16 @@ utility.ajaxHelper = function (url, data, success, error) {
     });
 }
 
-utility.ajaxHelperGet = function (url, success, error) {
-    error = error === undefined ? utility.errorCall : error;
-    $.ajax({
-        url: url,
-        contentType: "application/json",
-        method: "post",
-        success: success,
-        //data: JSON.stringify(data),
-        error: error
-    });
+utility.ajaxHelperGet = function (url, success, error,method) {
+    error = utility.isNullOrUndefined(error) ? utility.errorCall : error;
+    method = utility.isNullOrUndefined(method) ? app.const.ajaxMethod.post : method;
+    var param = {};
+    param.url= url,
+    param.contentTyp= "application/json",
+    param.method = method,
+    param.success=success,
+    param.error=error
+    $.ajax(param);
 }
 
 utility.ajaxWithoutDataHelper = function (url, success, error) {

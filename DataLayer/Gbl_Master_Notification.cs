@@ -29,6 +29,7 @@ namespace DataLayer
         public bool IsRead { get; set; }
         public bool IsForAll { get; set; }
         public System.DateTime MessageExpireDate { get; set; }
+        public Nullable<System.DateTime> PushedDate { get; set; }
     
         public virtual Gbl_Master_NotificationType Gbl_Master_NotificationType { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }

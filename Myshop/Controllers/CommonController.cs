@@ -55,6 +55,41 @@ namespace Myshop.Controllers
             }
         }
 
+        internal Dictionary<int, string> ReturnAjaxAlertMessage(Enums.CrudStatus status)
+        {
+            Dictionary<int, string> result = new Dictionary<int, string>();
+
+            if (status == Enums.CrudStatus.Deleted)
+            {
+                result.Add(100,Resource.DataDeleted);
+            }
+            else if (status == Enums.CrudStatus.Inserted)
+            {
+                result.Add(101, Resource.DataSaved);
+            }
+            else if (status == Enums.CrudStatus.Updated)
+            {
+                result.Add(102, Resource.DataUpdated);
+            }
+            else if (status == Enums.CrudStatus.AlreadyExistForSameShop)
+            {
+                result.Add(103, Resource.DataExistWithSameShopName);
+            }
+            else if (status == Enums.CrudStatus.NoEffect)
+            {
+                result.Add(104, Resource.DataNotSaved);
+            }
+            else if (status == Enums.CrudStatus.Exception)
+            {
+                result.Add(105, Resource.Exception);
+            }
+            else if (status == Enums.CrudStatus.AlreadyInUse)
+            {
+                result.Add(106, Resource.AlreadyInUse);
+            }
+            return result;
+        }
+
         internal void ReturnFileAlertMessage(Enums.FileValidateStatus status)
         {
             if (status == Enums.FileValidateStatus.SizeTooLow)
@@ -254,7 +289,7 @@ namespace Myshop.Controllers
         }
 
         [HttpPost]
-        public JsonResult IsExist(Enums.validateDataOf DataType,string data)
+        public JsonResult IsExist(Enums.ValidateDataOf DataType,string data)
         {
             return Json(GlobalMethod.isExist(DataType,data), JsonRequestBehavior.AllowGet);
         }

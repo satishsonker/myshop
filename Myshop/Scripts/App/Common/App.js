@@ -90,6 +90,11 @@ app.urls.GetCustmerTypeJson = "/CustomersManagement/master/GetCustmerTypeJson";
 app.urls.GetCustomerTypeSelectListJson = "/CustomersManagement/master/GetCustomerTypeSelectList";
 app.urls.GetCustmerJson = "/CustomersManagement/master/GetCustmerJson";
 
+//UsersController
+app.urls.UsersController = {};
+app.urls.UsersController.GetUserNotificationList = '/Users/GetUserNotificationList';
+app.urls.UsersController.DeleteUserNotificationList = '/Users/DeleteUserNotificationList';
+
 
 //Chart Urls
 app.urls.StockProductLineChart = "/StockManagement/stock/GetStockEntryProductChartData";
@@ -116,3 +121,10 @@ app.const.validateDataOf.panCard = 1;
 app.const.validateDataOf.aadharCard = 1;
 app.const.validateDataOf.email = 1;
 app.const.validateDataOf.mobile = 1;
+
+app.const.ajaxMethod = {}
+app.const.ajaxMethod.get = "GET";
+app.const.ajaxMethod.post = "POST";
+app.const.ajaxMethod.put = "PUT";
+app.const.ajaxMethod.delete = "DELETE";
+

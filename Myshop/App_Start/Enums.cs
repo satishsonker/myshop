@@ -109,12 +109,19 @@ namespace Myshop.App_Start
             Text_Plain,
         }
 
-        public enum validateDataOf
+        public enum ValidateDataOf
         {
             PanCard=1,
             AadharCard,
             Email,
             Mobile
+        }
+
+        public enum NotificationType
+        {
+            PushOrWeb = 1,
+            Email,
+            SMS
         }
     }
 }

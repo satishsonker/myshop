@@ -339,6 +339,7 @@
           <Property Name="IsPushed" Type="bit" Nullable="false" />
           <Property Name="IsRead" Type="bit" Nullable="false" />
           <Property Name="IsForAll" Type="bit" Nullable="false" />
+          <Property Name="PushedDate" Type="datetime" />
           <Property Name="MessageExpireDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
@@ -2189,6 +2190,7 @@
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
           <Property Name="IsForAll" Type="Boolean" Nullable="false" />
           <Property Name="MessageExpireDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PushedDate" Type="DateTime" Precision="3" />
         </EntityType>
         <EntityType Name="Gbl_Master_NotificationType">
           <Key>
@@ -3547,6 +3549,7 @@
           <EntitySetMapping Name="Gbl_Master_Notification">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Notification">
               <MappingFragment StoreEntitySet="Gbl_Master_Notification">
+                <ScalarProperty Name="PushedDate" ColumnName="PushedDate" />
                 <ScalarProperty Name="MessageExpireDate" ColumnName="MessageExpireDate" />
                 <ScalarProperty Name="IsForAll" ColumnName="IsForAll" />
                 <ScalarProperty Name="IsRead" ColumnName="IsRead" />

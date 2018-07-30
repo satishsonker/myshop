@@ -799,22 +799,22 @@ namespace Myshop.App_Start
                     return "Common_" + DateTime.Now.Ticks.ToString();
             }
         }
-        public static bool isExist(Enums.validateDataOf DataType, string Data)
+        public static bool isExist(Enums.ValidateDataOf DataType, string Data)
         {
             myshop = new MyshopDb();
             int count = 0;
             switch (DataType)
             {
-                case Enums.validateDataOf.PanCard:
+                case Enums.ValidateDataOf.PanCard:
                     count = myshop.Gbl_Master_Employee.Where(x => x.PANCardNo.ToLower().Equals(Data.ToLower())).Count();
                     return count > 0 ? true : false;
-                case Enums.validateDataOf.AadharCard:
+                case Enums.ValidateDataOf.AadharCard:
                     count = myshop.Gbl_Master_Employee.Where(x => x.AadharNo.ToLower().Equals(Data.ToLower())).Count();
                     return count > 0 ? true : false;
-                case Enums.validateDataOf.Email:
+                case Enums.ValidateDataOf.Email:
                     count = myshop.Gbl_Master_User.Where(x => x.Username.ToLower().Equals(Data.ToLower())).Count();
                     return count > 0 ? true : false;
-                case Enums.validateDataOf.Mobile:
+                case Enums.ValidateDataOf.Mobile:
                     count = myshop.Gbl_Master_User.Where(x => x.Mobile.ToLower().Equals(Data.ToLower())).Count();
                     return count > 0 ? true : false;
                 default:
