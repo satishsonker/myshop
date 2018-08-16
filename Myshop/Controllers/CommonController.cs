@@ -61,7 +61,7 @@ namespace Myshop.Controllers
 
             if (status == Enums.CrudStatus.Deleted)
             {
-                result.Add(100,Resource.DataDeleted);
+                result.Add(100, Resource.DataDeleted);
             }
             else if (status == Enums.CrudStatus.Inserted)
             {
@@ -86,6 +86,22 @@ namespace Myshop.Controllers
             else if (status == Enums.CrudStatus.AlreadyInUse)
             {
                 result.Add(106, Resource.AlreadyInUse);
+            }
+            else if (status == Enums.CrudStatus.AlreadySendNotification)
+            {
+                result.Add(107, Resource.Notification_Already_Pushed);
+            }
+            else if (status == Enums.CrudStatus.NotificationExpired)
+            {
+                result.Add(108, Resource.Notification_Expired);
+            }
+            else if (status == Enums.CrudStatus.NotificationSend)
+            {
+                result.Add(109, Resource.Notification_Send);
+            }
+            else
+            {
+                result.Add(1100, Resource.Status_Not_Defined);
             }
             return result;
         }
@@ -122,18 +138,50 @@ namespace Myshop.Controllers
             }
         }
 
+        internal void ReturnAlertMessagToView(Enums.CrudStatus status)
+        {
+            if (status == Enums.CrudStatus.Deleted)
+            {
+                SetAlertMessage(Resource.DataDeleted, Enums.AlertType.success);
+            }
+            else if (status == Enums.CrudStatus.Inserted)
+            {
+                SetAlertMessage(Resource.DataSaved, Enums.AlertType.success);
+            }
+            else if (status == Enums.CrudStatus.Updated)
+            {
+                SetAlertMessage(Resource.DataUpdated, Enums.AlertType.success);
+            }
+            else if (status == Enums.CrudStatus.AlreadyExistForSameShop)
+            {
+                SetAlertMessage(Resource.DataExistWithSameShopName, Enums.AlertType.info);
+            }
+            else if (status == Enums.CrudStatus.NoEffect)
+            {
+                SetAlertMessage(Resource.DataNotSaved, Enums.AlertType.warning);
+            }
+            else if (status == Enums.CrudStatus.Exception)
+            {
+                SetAlertMessage(Resource.Exception, Enums.AlertType.danger);
+            }
+            else if (status == Enums.CrudStatus.AlreadyInUse)
+            {
+                SetAlertMessage(Resource.AlreadyInUse, Enums.AlertType.warning);
+            }
+        }
+
         internal IEnumerable<string> GetErrorList()
         {
             return ViewData.ModelState.Values.SelectMany(v => v.Errors.Select(x => x.ErrorMessage.ToString()));
         }
 
-        public JsonResult GetChequeNoByAccNo(int AccId,bool isAllCheque=false)
+        public JsonResult GetChequeNoByAccNo(int AccId, bool isAllCheque = false)
         {
             try
             {
                 if (AccId > 0)
                 {
-                    return Json(GlobalMethod.GetChequeNoByAccNo(AccId,isAllCheque));
+                    return Json(GlobalMethod.GetChequeNoByAccNo(AccId, isAllCheque));
                 }
                 else
                 {
@@ -157,22 +205,22 @@ namespace Myshop.Controllers
         }
         public JsonResult GetSubCatListJosn(int CatId)
         {
-            return Json(GlobalMethod.GetSubCatogaries(CatId,WebSession.ShopId));
+            return Json(GlobalMethod.GetSubCatogaries(CatId, WebSession.ShopId));
         }
 
         public JsonResult GetBankAccountJosn()
         {
             return Json(GlobalMethod.GetBankAccounts());
-        }       
+        }
 
         public JsonResult GetPayModeListJosn()
         {
             return Json(GlobalMethod.GetPayModes());
         }
 
-        public JsonResult GetStateName(string stateName="")
+        public JsonResult GetStateName(string stateName = "")
         {
-            return Json(GlobalMethod.GetStateName(stateName),JsonRequestBehavior.AllowGet);
+            return Json(GlobalMethod.GetStateName(stateName), JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult GetCityName(string CityName = "")
@@ -203,7 +251,7 @@ namespace Myshop.Controllers
         /// <param name="FileType">Desire file format to validate</param>
         /// <param name="FileSize">Desire file size(KB) to validate</param>
         /// <returns></returns>
-        protected internal Enums.FileValidateStatus ValidateFiles(HttpFileCollectionBase Files,Enums.FileType FileType,int MaxFileSize,int MaxFiles, int MinFileSize=1)
+        protected internal Enums.FileValidateStatus ValidateFiles(HttpFileCollectionBase Files, Enums.FileType FileType, int MaxFileSize, int MaxFiles, int MinFileSize = 1)
         {
             bool IsInvalidFiles = false;
             bool IsSizeOverflow = false;
@@ -215,11 +263,11 @@ namespace Myshop.Controllers
             {
                 foreach (string file in Files)
                 {
-                    if (Files[file].FileName==string.Empty)
+                    if (Files[file].FileName == string.Empty)
                     {
                         return Enums.FileValidateStatus.NoFiles;
                     }
-                    else if(Enums.FileType.Image==FileType && (Path.GetExtension(Files[file].FileName).ToLower()!=".jpg" && Path.GetExtension(Files[file].FileName).ToLower() != ".jpeg"))
+                    else if (Enums.FileType.Image == FileType && (Path.GetExtension(Files[file].FileName).ToLower() != ".jpg" && Path.GetExtension(Files[file].FileName).ToLower() != ".jpeg"))
                     {
                         IsInvalidFiles = true;
                     }
@@ -227,7 +275,7 @@ namespace Myshop.Controllers
                     {
                         IsInvalidFiles = true;
                     }
-                    else if ((Files[file].ContentLength/1024)>MaxFileSize)
+                    else if ((Files[file].ContentLength / 1024) > MaxFileSize)
                     {
                         IsSizeOverflow = true;
                     }
@@ -258,7 +306,7 @@ namespace Myshop.Controllers
                 HttpPostedFileBase Files = Request.Files[0];
                 string baseFilePath = AppDomain.CurrentDomain.BaseDirectory + Utility.GetAppSettingsValue("TempFilePath");
                 string currentDateFolder = baseFilePath + "\\" + DateTime.Now.Date.ToShortDateString().Replace('/', '-');
-                string FileExt= Path.GetExtension(Request.Files[0].FileName).ToLower();
+                string FileExt = Path.GetExtension(Request.Files[0].FileName).ToLower();
                 string fileName = currentDateFolder + "\\" + DateTime.Now.Ticks.ToString() + FileExt;
                 if (FileExt == ".jpg" || FileExt == ".jpeg")
                 {
@@ -276,10 +324,10 @@ namespace Myshop.Controllers
                     }
 
                     Request.Files[0].SaveAs(fileName);
-                    return Json(new {fileName= Utility.GetAppSettingsValue("TempFilePath")+ "\\" + DateTime.Now.Ticks.ToString() + FileExt, Image = Convert.ToBase64String(GlobalMethod.ReadFile(Files)) });
+                    return Json(new { fileName = Utility.GetAppSettingsValue("TempFilePath") + "\\" + DateTime.Now.Ticks.ToString() + FileExt, Image = Convert.ToBase64String(GlobalMethod.ReadFile(Files)) });
                 }
                 else
-                    return Json(new { fileName = "/Images/Icons/employee.png",Image= GlobalMethod.ReadFile(Files) });
+                    return Json(new { fileName = "/Images/Icons/employee.png", Image = GlobalMethod.ReadFile(Files) });
             }
             catch (Exception)
             {
@@ -289,9 +337,9 @@ namespace Myshop.Controllers
         }
 
         [HttpPost]
-        public JsonResult IsExist(Enums.ValidateDataOf DataType,string data)
+        public JsonResult IsExist(Enums.ValidateDataOf DataType, string data)
         {
-            return Json(GlobalMethod.isExist(DataType,data), JsonRequestBehavior.AllowGet);
+            return Json(GlobalMethod.isExist(DataType, data), JsonRequestBehavior.AllowGet);
         }
     }
 }

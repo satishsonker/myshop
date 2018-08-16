@@ -366,4 +366,16 @@
   <data name="File_Uploaded" xml:space="preserve">
     <value>File Uploaded successfully</value>
   </data>
+  <data name="Notification_Already_Pushed" xml:space="preserve">
+    <value>Notification already has been pushed </value>
+  </data>
+  <data name="Notification_Expired" xml:space="preserve">
+    <value>Notification Expired !</value>
+  </data>
+  <data name="Notification_Send" xml:space="preserve">
+    <value>Notification Send !</value>
+  </data>
+  <data name="Status_Not_Defined" xml:space="preserve">
+    <value>Status Not Defined</value>
+  </data>
 </root>

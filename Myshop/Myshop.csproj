@@ -238,6 +238,7 @@
     <Content Include="Content\jquery.dropdown.min.css" />
     <Content Include="Content\morris.css" />
     <Content Include="Content\W3C.css" />
+    <Content Include="EmailTemplate\Notification.html" />
     <Content Include="EmailTemplate\ChangePassword.html" />
     <Content Include="EmailTemplate\ErrorLog.html" />
     <Content Include="EmailTemplate\PasswordReset.html" />
@@ -266,6 +267,7 @@
     <Content Include="Areas\Global\Views\Masters\GetLogo.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetNotificationType.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetNotification.cshtml" />
+    <Content Include="Areas\Global\Views\Masters\SendNotification.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -371,6 +373,7 @@
     <Content Include="Scripts\App\Area\Global\Master\PayMode.js" />
     <Content Include="Scripts\App\Area\Global\Master\AccType.js" />
     <Content Include="Scripts\App\Area\Global\Master\Banks.js" />
+    <Content Include="Scripts\App\Area\Global\Master\SendNotification.js" />
     <Content Include="Scripts\App\Area\Global\Master\Shops.js" />
     <Content Include="Scripts\App\Area\Global\Menu\AppModule.js" />
     <Content Include="Scripts\App\Area\Global\Menu\AppPage.js" />

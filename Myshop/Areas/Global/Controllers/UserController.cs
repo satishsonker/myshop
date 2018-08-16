@@ -105,7 +105,7 @@ namespace Myshop.Areas.Global.Controllers
                 if (ModelState.IsValid)
                 {
                     UserDetails details = new UserDetails();
-                    return Json(ReturnAlertMessage(details.UpdateSinglePermission(model,Enums.CrudType.Update)));
+                    return Json(ReturnAjaxAlertMessage(details.UpdateSinglePermission(model,Enums.CrudType.Update)));
                 }
                 else
                     return Json(GetErrorList());
@@ -122,7 +122,7 @@ namespace Myshop.Areas.Global.Controllers
                 if (ModelState.IsValid)
                 {
                     UserDetails details = new UserDetails();
-                    return Json(ReturnAlertMessage(details.UpdateSinglePermission(model, Enums.CrudType.Insert)));
+                    return Json(ReturnAjaxAlertMessage(details.UpdateSinglePermission(model, Enums.CrudType.Insert)));
                 }
                 else
                     return Json(GetErrorList());
@@ -139,7 +139,7 @@ namespace Myshop.Areas.Global.Controllers
                 if (ModelState.IsValid)
                 {
                     UserDetails details = new UserDetails();
-                    return Json(ReturnAlertMessage(details.UpdateSinglePermission(model, Enums.CrudType.Delete)));
+                    return Json(ReturnAjaxAlertMessage(details.UpdateSinglePermission(model, Enums.CrudType.Delete)));
                 }
                 else
                     return Json("Invalid User Id");
@@ -209,7 +209,7 @@ namespace Myshop.Areas.Global.Controllers
             try
             {
                 UserDetails details = new UserDetails();
-                return Json(ReturnAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Insert)));
+                return Json(ReturnAjaxAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Insert)));
             }
             catch (Exception)
             {
@@ -221,7 +221,7 @@ namespace Myshop.Areas.Global.Controllers
             try
             {
                 UserDetails details = new UserDetails();
-                return Json(ReturnAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Delete)));
+                return Json(ReturnAjaxAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Delete)));
             }
             catch (Exception)
             {
@@ -239,85 +239,10 @@ namespace Myshop.Areas.Global.Controllers
             if(ModelState.IsValid)
             {
                 UserDetails details=new UserDetails();
-                return Json(ReturnAlertMessage(details.SetAccess(list)));
+                return Json(ReturnAjaxAlertMessage(details.SetAccess(list)));
             }
             return Json(ModelState.Values);
-        }
-        private void SetAlertMessage(string message, Enums.AlertType alert)
-        {
-            ViewBag.message = message;
-            TempData["messages"] = message;
-            ViewBag.alert = alert.ToString();
-            TempData["alert"] = alert.ToString();
-        }
-
-        private string ReturnAlertMessage(Enums.CrudStatus status)
-        {
-            if (status == Enums.CrudStatus.Deleted)
-            {
-                return Resource.DataDeleted;
-            }
-            else if (status == Enums.CrudStatus.Inserted)
-            {
-                return Resource.DataSaved;
-            }
-            else if (status == Enums.CrudStatus.Updated)
-            {
-                return Resource.DataUpdated;
-            }
-            else if (status == Enums.CrudStatus.AlreadyExistForSameShop)
-            {
-                return Resource.DataExistWithSameShopName;
-            }
-            else if (status == Enums.CrudStatus.NoEffect)
-            {
-                return Resource.DataNotSaved;
-            }
-            else if (status == Enums.CrudStatus.Exception)
-            {
-                return Resource.Exception;
-            }
-            else if (status == Enums.CrudStatus.AlreadyInUse)
-            {
-                return Resource.AlreadyInUse;
-            }
-            else
-                return "Nothing happend";
-        }
-
-        private void ReturnAlertMessagToView(Enums.CrudStatus status)
-        {
-            if (status == Enums.CrudStatus.Deleted)
-            {
-                SetAlertMessage(Resource.DataDeleted, Enums.AlertType.success);
-            }
-            else if (status == Enums.CrudStatus.Inserted)
-            {
-                SetAlertMessage(Resource.DataSaved, Enums.AlertType.success);
-            }
-            else if (status == Enums.CrudStatus.Updated)
-            {
-                SetAlertMessage(Resource.DataUpdated, Enums.AlertType.success);
-            }
-            else if (status == Enums.CrudStatus.AlreadyExistForSameShop)
-            {
-                SetAlertMessage(Resource.DataExistWithSameShopName, Enums.AlertType.info);
-            }
-            else if (status == Enums.CrudStatus.NoEffect)
-            {
-                SetAlertMessage(Resource.DataNotSaved, Enums.AlertType.warning);
-            }
-            else if (status == Enums.CrudStatus.Exception)
-            {
-                SetAlertMessage(Resource.Exception, Enums.AlertType.danger);
-            }
-            else if (status == Enums.CrudStatus.AlreadyInUse)
-            {
-                SetAlertMessage(Resource.AlreadyInUse, Enums.AlertType.warning);
-            }
-        }
-
-        
+        }       
 
     }
 }

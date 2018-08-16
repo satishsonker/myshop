@@ -592,6 +592,33 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Notification already has been pushed .
+        /// </summary>
+        public static string Notification_Already_Pushed {
+            get {
+                return ResourceManager.GetString("Notification_Already_Pushed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Expired !.
+        /// </summary>
+        public static string Notification_Expired {
+            get {
+                return ResourceManager.GetString("Notification_Expired", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Notification Send !.
+        /// </summary>
+        public static string Notification_Send {
+            get {
+                return ResourceManager.GetString("Notification_Send", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to 4 digit OTP.
         /// </summary>
         public static string Otp4Digit {
@@ -705,6 +732,15 @@ namespace Myshop.GlobalResource {
         public static string State {
             get {
                 return ResourceManager.GetString("State", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Status Not Defined.
+        /// </summary>
+        public static string Status_Not_Defined {
+            get {
+                return ResourceManager.GetString("Status_Not_Defined", resourceCulture);
             }
         }
         

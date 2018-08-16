@@ -613,12 +613,32 @@ namespace Myshop.Areas.Global.Controllers
             return RedirectToAction("GetNotification");
         }
         [HttpPost]
-        public JsonResult GetNotificationJson()
+        public JsonResult GetNotificationJson(bool fetchAll=true)
         {
             try
             {
                 MasterDetails model = new MasterDetails();
-                return Json(model.GetNotificationJson(), JsonRequestBehavior.AllowGet);
+                return Json(model.GetNotificationJson(fetchAll), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json("Invalid Error");
+            }
+        }
+
+        public ActionResult SendNotification()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ActionName("PushNotification")]
+        public JsonResult SendNotification(int notificationId)
+        {
+            try
+            {
+                MasterDetails model = new MasterDetails();
+                return Json(ReturnAjaxAlertMessage(model.SendNotification(notificationId,Enums.CrudType.Update)).ToList(), JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {

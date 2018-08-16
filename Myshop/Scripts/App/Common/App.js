@@ -3,6 +3,8 @@
 var app = {};
 app.urls = {};
 app.urls.customer = {};
+app.urls.GlobalArea = {};
+app.urls.GlobalArea.MasterController = {};
 app.const = {};
 
 app.urls.DefaultPagingUrl = "?PageNo=1&PageSize=20";
@@ -95,6 +97,9 @@ app.urls.UsersController = {};
 app.urls.UsersController.GetUserNotificationList = '/Users/GetUserNotificationList';
 app.urls.UsersController.DeleteUserNotificationList = '/Users/DeleteUserNotificationList';
 
+//Global Area
+app.urls.GlobalArea.MasterController.GetNotificationJson = '/Global/Masters/GetNotificationJson';
+app.urls.GlobalArea.MasterController.SendNotification = '/Global/Masters/PushNotification';
 
 //Chart Urls
 app.urls.StockProductLineChart = "/StockManagement/stock/GetStockEntryProductChartData";

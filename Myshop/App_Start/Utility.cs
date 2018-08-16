@@ -11,6 +11,7 @@ using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using DataLayer;
 using System.Drawing;
+using System.Collections.Generic;
 
 namespace Myshop.App_Start
 {
@@ -166,28 +167,46 @@ namespace Myshop.App_Start
 
                 mailMessage.To.Add(new MailAddress(toEmail.Trim()));
 
-                SmtpClient smtp = new SmtpClient();
-
-                smtp.Host = GetAppSettingsValue("GmailHost");
-
-                smtp.EnableSsl = Convert.ToBoolean(GetAppSettingsValue("GmailEnableSsl"));
-
-                System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
-
-                NetworkCred.UserName = GetAppSettingsValue("GmailSenderEmail"); //reading from web.config  
-
-                NetworkCred.Password = GetAppSettingsValue("GmailSenderEmailPassword"); //reading from web.config  
-
-                smtp.UseDefaultCredentials = true;
-
-                smtp.Credentials = NetworkCred;
-
-                smtp.Port = int.Parse(GetAppSettingsValue("GmailPort")); //reading from web.config  
-
-                smtp.Send(mailMessage);
+                SendEmail(mailMessage);
 
             }
 
+        }
+        internal static void SendHtmlFormattedEmail(List<string> toEmail, string subject, string body)
+        {
+            using (MailMessage mailMessage = new MailMessage())
+            {
+                mailMessage.From = new MailAddress(GetAppSettingsValue("GmailSenderEmail"));
+
+                mailMessage.Subject = subject;
+
+                mailMessage.Body = body;
+
+                mailMessage.IsBodyHtml = true;
+                foreach (string mailId in toEmail)
+                {
+                    mailMessage.To.Add(new MailAddress(mailId.Trim()));
+                }
+
+                SendEmail(mailMessage);
+
+            }
+
+        }
+
+        internal static string NotificationEmailBody(string userName,string message)
+        {
+            string body = string.Empty;
+            //using streamreader for reading my htmltemplate   
+
+            using (StreamReader reader = new StreamReader(System.Web.HttpContext.Current.Server.MapPath("~/EmailTemplate/Notification.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{username}", userName); //replacing the required things 
+            body = body.Replace("{message}", message); //replacing the required things 
+            body = body.Replace("{shopname}", WebSession.ShopName); //replacing the required things 
+            return body;
         }
 
         private static byte[] GetHash(string inputString)
@@ -243,6 +262,29 @@ namespace Myshop.App_Start
         public static byte[] GetImageThumbnails(byte[] ImageByte,int Size=20)
         {
                return GetImageThumbnails(ImageByte, Size);
+        }
+
+        private static void SendEmail(MailMessage mailMessage)
+        {
+            SmtpClient smtp = new SmtpClient();
+
+            smtp.Host = GetAppSettingsValue("GmailHost");
+
+            smtp.EnableSsl = Convert.ToBoolean(GetAppSettingsValue("GmailEnableSsl"));
+
+            System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
+
+            NetworkCred.UserName = GetAppSettingsValue("GmailSenderEmail"); //reading from web.config  
+
+            NetworkCred.Password = GetAppSettingsValue("GmailSenderEmailPassword"); //reading from web.config  
+
+            smtp.UseDefaultCredentials = true;
+
+            smtp.Credentials = NetworkCred;
+
+            smtp.Port = int.Parse(GetAppSettingsValue("GmailPort")); //reading from web.config  
+
+            smtp.Send(mailMessage);
         }
 
     }

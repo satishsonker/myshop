@@ -47,16 +47,17 @@ $(document).ready(function () {
     $(window).resize(utility.setFooter());
 });
 
-utility.ajaxHelper = function (url, data, success, error) {
-    error = error === undefined ? utility.errorCall : error;
-    $.ajax({
-        url: url,
-        contentType: "application/json",
-        method: "post",
-        success: success,
-        data: JSON.stringify(data),
-        error: error
-    });
+utility.ajaxHelper = function (url, data, success, error,method) {
+    error = utility.isNullOrUndefined(error) ? utility.errorCall : error;
+    method = utility.isNullOrUndefined(method) ? app.const.ajaxMethod.post : method;
+    var param = {};
+    param.url = url;
+    param.contentTyp = "application/json";
+    param.method = method;
+    param.success = success;
+    param.error = error;
+    param.data=JSON.stringify(data),
+    $.ajax(param);
 }
 
 utility.ajaxHelperGet = function (url, success, error,method) {
