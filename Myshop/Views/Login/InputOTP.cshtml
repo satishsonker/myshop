@@ -1,7 +1,7 @@
 ﻿@using Myshop.App_Start;
 @using Myshop.GlobalResource
 @{
-    ViewBag.Title = "InputOTP";
+    ViewBag.Title = "Validate OTP";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -26,7 +26,7 @@
                         <div class="row">
                             <div class="col-sm-12">
                                 <label>@Resource.Email</label>
-                                <input type="number" required="required" class="form-control" placeholder="@Resource.Otp4Digit" id="otp" name="otp" />
+                                <input type="number" required="required" maxlength="4" min="1000" max="9999" class="form-control" placeholder="@Resource.Otp4Digit" id="otp" name="otp" />
                             </div>
                             <div class="col-sm-3 col-sm-offset-6" style="margin-top:10px;">
                                 <input type="submit" value="@Resource.Value_Validate" id="Validate" class="btn-shop" style="float: left;margin-right: 5px;width:126px;" />

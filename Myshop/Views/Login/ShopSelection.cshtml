@@ -1,7 +1,7 @@
-﻿@model List<Myshop.App_Start.ShopListModel>
+﻿@*@model List<Myshop.App_Start.ShopListModel>*@
 @{
     ViewBag.Title = "ShopSelection";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayoutWithoutLeftMenu.cshtml";
 }
 
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
@@ -16,8 +16,9 @@
                 <div class="panel-body">
                     <div class="row">
                         @{
-                            foreach (Myshop.App_Start.ShopListModel item in Model)
-                            {
+                                TempData.Keep("shopList");
+                                foreach (Myshop.App_Start.ShopListModel item in TempData["shopList"] as List<Myshop.App_Start.ShopListModel>)
+                                {
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
                                     <a href="/login/setshopselection?shopid=@item.ShopId&shopname=@item.ShopName"class="btn btn-primary" style="width:100%;margin-bottom:30px">@item.ShopName</a>

@@ -78,7 +78,7 @@ namespace Myshop.App_Start
             {
                 if (HttpContext.Current.Session["username"] == null)
                 {
-                    return "";
+                    return string.Empty;
                 }
                 else
                 {
@@ -90,13 +90,34 @@ namespace Myshop.App_Start
 
         public static string Name
         {
-            get { return HttpContext.Current.Session["name"].ToString(); }
+
+            get
+            {
+                if (HttpContext.Current.Session["name"] == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return HttpContext.Current.Session["name"].ToString();
+                }
+            }
             set { HttpContext.Current.Session["name"] = value; }
         }
 
         public static string UserType
         {
-            get { return HttpContext.Current.Session["usertype"].ToString(); }
+            get
+            {
+                if (HttpContext.Current.Session["usertype"] == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return HttpContext.Current.Session["usertype"].ToString();
+                }
+            }
             set { HttpContext.Current.Session["usertype"] = value; }
         }
 
@@ -205,6 +226,21 @@ namespace Myshop.App_Start
                 }
             }
             set { HttpContext.Current.Session["NotificationCount"] = value; }
+        }
+        public static string UserPhoto
+        {
+            get
+            {
+                if (HttpContext.Current.Session["UserPhoto"] != null)
+                {
+                    return HttpContext.Current.Session["UserPhoto"].ToString();
+                }
+                else
+                {
+                    return string.Empty;
+                }
+            }
+            set { HttpContext.Current.Session["UserPhoto"] = value; }
         }
     }
 

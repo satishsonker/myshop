@@ -28,7 +28,9 @@ namespace Myshop.App_Start
             Exception,
             Failed,
             NotExist,
-            AttemptExceeded
+            AttemptExceeded,
+            SmsSend,
+            MobileNoExist
         }
 
         public enum ResetLinkStatus

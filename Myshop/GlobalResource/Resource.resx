@@ -378,4 +378,13 @@
   <data name="Status_Not_Defined" xml:space="preserve">
     <value>Status Not Defined</value>
   </data>
+  <data name="Heading_ForgetUsername" xml:space="preserve">
+    <value>Forget Username</value>
+  </data>
+  <data name="Mobile_Number_Not_Exist" xml:space="preserve">
+    <value>Entered mobile number not exist</value>
+  </data>
+  <data name="Username_Send_on_SMS" xml:space="preserve">
+    <value>Username sent on your mobile no.</value>
+  </data>
 </root>

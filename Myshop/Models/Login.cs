@@ -150,6 +150,8 @@ namespace Myshop.Models
                     WebSession.UserMobile = isAuthenticated.Mobile;
                     WebSession.Username = isAuthenticated.Username;
                     WebSession.ShopList = shopCol;
+                    WebSession.UserPhoto = isAuthenticated.Photo == null ? string.Empty : Convert.ToBase64String(isAuthenticated.Photo);
+                    WebSession.UserType = isAuthenticated.Gbl_Master_UserType.Type;
 
                     if (userType != null)
                     {
@@ -164,6 +166,7 @@ namespace Myshop.Models
                                                                                         x.IsDeleted == false && 
                                                                                         x.IsPushed == true && 
                                                                                         x.IsRead == false && 
+                                                                                        x.MessageExpireDate>=DateTime.Now &&
                                                                                         x.ShopId.Equals(WebSession.ShopId) && 
                                                                                         (x.UserId.Equals(WebSession.UserId) || x.IsForAll == true) && 
                                                                                         (x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("push")>-1 || x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("web")>-1)
@@ -182,7 +185,7 @@ namespace Myshop.Models
             }
         }
 
-        public Enums.ResetLinkStatus sendPasswordRestLink(string username)
+        public Enums.ResetLinkStatus sendPasswordRestLink(string username,string _os,string _browser)
         {
             try
             {
@@ -204,7 +207,11 @@ namespace Myshop.Models
                         return Enums.ResetLinkStatus.invalidMobile;
                     else
                     {
-                        string messageId = Utility.CreateOTP(isExist.Mobile);
+                        string otp = string.Empty;
+                        int ResetExpireTime = 0;
+                        string ResetExpireTimeFromConfig = Utility.GetAppSettingsValue("PasswordResetExpire","30");
+                        int.TryParse(ResetExpireTimeFromConfig, out ResetExpireTime);
+                        string messageId = Utility.CreateOTP(isExist.Mobile,out otp);
                         var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.UserId) && log.IsDeleted == false).FirstOrDefault();
 
                         if (login != null)
@@ -230,7 +237,7 @@ namespace Myshop.Models
                             newlogin.ModifiedBy = isExist.UserId;
                             newlogin.UserId = isExist.UserId;
                             newlogin.OTPid = messageId;
-                            newlogin.ReserExpireTime = DateTime.Now.AddMinutes(30);
+                            newlogin.ReserExpireTime = DateTime.Now.AddMinutes(ResetExpireTime);
                             newlogin.GUID = Guid.NewGuid(); // Create new GUID
                             newlogin.IsReset = true;
                             myShop.Logins.Add(newlogin);
@@ -238,7 +245,7 @@ namespace Myshop.Models
                         int result = myShop.SaveChanges();
                         if (result > 0)
                         {
-                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Name, isExist.UserId.ToString(), login.GUID.ToString()));
+                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Name, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime),otp));
                         }
                         return Enums.ResetLinkStatus.send;
                     }
@@ -420,6 +427,29 @@ namespace Myshop.Models
                                 ShopName = shop.Name
                             }).Count();
             return shopList > 0 ? true : false;
+        }
+
+        public Enums.LoginStatus GetUsername(string _mobile)
+        {
+            try
+            {
+               
+                myShop = new MyshopDb();
+                var IsExist = myShop.Gbl_Master_User.Where(user => user.Mobile.ToLower().Equals(_mobile.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false ).FirstOrDefault();
+                if (IsExist != null)
+                {
+                    string _body = string.Format("Your username for application {0} is {1}", Utility.GetAppSettingsValue("Shopname", string.Empty), IsExist.Username);
+                    string _to = IsExist.Mobile.Contains("+91") ? IsExist.Mobile : string.Format("+91{0}", IsExist.Mobile);
+                    Utility._SendSMS(_body, _to);
+                    return Enums.LoginStatus.SmsSend;
+                }
+                else
+                    return Enums.LoginStatus.MobileNoExist;
+            }
+            catch (Exception ex)
+            {
+                return Enums.LoginStatus.Exception;
+            }
         }
     }
 }

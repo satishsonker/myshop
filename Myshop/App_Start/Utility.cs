@@ -9,8 +9,6 @@ using System.Linq;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
-using DataLayer;
-using System.Drawing;
 using System.Collections.Generic;
 
 namespace Myshop.App_Start
@@ -68,15 +66,20 @@ namespace Myshop.App_Start
         public static string CreateOTP(string MobileNo, string inputMessageBody = "")
         {
             MobileNo = MobileNo.Contains("+") ? "91" + MobileNo.Trim() : "+91" + MobileNo.Trim();
-            TwilioClient.Init(AccountSid, AuthToken);
-            string MessageBody = "OTP for " + GetAppSettingsValue("Shopname") + " web application is ";
+
+            string MessageBody = string.Format("OTP for {0} web application is ", GetAppSettingsValue("Shopname"));
             Random otp = new Random();
             string newOTP = otp.Next(1000, 9999).ToString();
-            var message = MessageResource.Create(
-                   to: new PhoneNumber(MobileNo),
-                   from: new PhoneNumber(SenderMobileNo),
-                   body: (inputMessageBody == "" ? MessageBody + newOTP : inputMessageBody));
-            return message.Sid;
+            return _SendSMS((string.IsNullOrEmpty(inputMessageBody) ? MessageBody + newOTP : inputMessageBody), MobileNo);
+        }
+        public static string CreateOTP(string MobileNo, out string _outOTP, string inputMessageBody = "")
+        {
+            MobileNo = MobileNo.Contains("+") ? "91" + MobileNo.Trim() : "+91" + MobileNo.Trim();
+            TwilioClient.Init(AccountSid, AuthToken);
+            string MessageBody = string.Format("OTP for {0} web application is ", GetAppSettingsValue("Shopname"));
+            Random otp = new Random();
+            _outOTP = otp.Next(1000, 9999).ToString();
+            return _SendSMS((string.IsNullOrEmpty(inputMessageBody) ? MessageBody + _outOTP : inputMessageBody), MobileNo);
         }
 
         public static Enums.OtpStatus VerifyOTP(string Otp, string messageId)
@@ -129,16 +132,16 @@ namespace Myshop.App_Start
             }
             body = body.Replace("{username}", WebSession.Username); //replacing the required things 
             body = body.Replace("{shopname}", WebSession.ShopName); //replacing the required things 
-            body = body.Replace("{errorid}",log.Id.ToString()); //replacing the required things
+            body = body.Replace("{errorid}", log.Id.ToString()); //replacing the required things
             body = body.Replace("{userid}", WebSession.UserId.ToString()); //replacing the required things
-            body = body.Replace("{path}", log.Area+"/"+log.Controller+"/"+log.Action); //replacing the required things
+            body = body.Replace("{path}", log.Area + "/" + log.Controller + "/" + log.Action); //replacing the required things
             body = body.Replace("{message}", log.Message); //replacing the required things
             body = body.Replace("{outer}", log.OuterException); //replacing the required things
             body = body.Replace("{inner}", log.InnerException); //replacing the required things
             return body;
         }
 
-        internal static string ResetEmailBody(string userName,string userid,string uniqueId)
+        internal static string ResetEmailBody(string _userName, string _userid, string _uniqueId, string _os, string _browser, DateTime _expireTime, string _otp = "")
         {
             string body = string.Empty;
             //using streamreader for reading my htmltemplate   
@@ -147,8 +150,15 @@ namespace Myshop.App_Start
             {
                 body = reader.ReadToEnd();
             }
-            body = body.Replace("{username}", userName); //replacing the required things 
-            body = body.Replace("{link}", GetAppSettingsValue("AppBaseAddress")+ "login/SetPassword?txn="+uniqueId+"&txnid="+userid); //replacing the required things 
+            body = body.Replace("{username}", _userName); //replacing the required things 
+            body = body.Replace("{shopname}", GetAppSettingsValue("Shopname"));
+            body = body.Replace("{datetime}", _expireTime.ToShortDateString() + " " + _expireTime.ToShortTimeString());
+            body = body.Replace("{os}", _os);
+            body = body.Replace("{otp}", _otp);
+            body = body.Replace("{browser}", _browser);
+            body = body.Replace("{supportEmail}", GetAppSettingsValue("SupportEmail"));
+            body = body.Replace("{ProductSupportTeam}", GetAppSettingsValue("ProductSupportTeamName"));
+            body = body.Replace("{link}", GetAppSettingsValue("AppBaseAddress") + "login/SetPassword?txn=" + _uniqueId + "&txnid=" + _userid); //replacing the required things 
             return body;
 
         }
@@ -194,7 +204,7 @@ namespace Myshop.App_Start
 
         }
 
-        internal static string NotificationEmailBody(string userName,string message)
+        internal static string NotificationEmailBody(string userName, string message)
         {
             string body = string.Empty;
             //using streamreader for reading my htmltemplate   
@@ -227,10 +237,23 @@ namespace Myshop.App_Start
             }
 
         }
-
-        internal static Enums.CrudStatus CrudStatus(int result,Enums.CrudType type)
+        internal static string GetAppSettingsValue(string key, string _returnDefault = "")
         {
-         return result>0?  (type == Enums.CrudType.Insert ? Enums.CrudStatus.Inserted : (type == Enums.CrudType.Update ? Enums.CrudStatus.Updated : Enums.CrudStatus.Deleted)) : Enums.CrudStatus.NoEffect;
+            try
+            {
+                return ConfigurationManager.AppSettings[key].ToString().ToLower();
+            }
+            catch (Exception)
+            {
+
+                return _returnDefault == string.Empty ? key + " not found in webconfig AppSetting" : _returnDefault;
+            }
+
+        }
+
+        internal static Enums.CrudStatus CrudStatus(int result, Enums.CrudType type)
+        {
+            return result > 0 ? (type == Enums.CrudType.Insert ? Enums.CrudStatus.Inserted : (type == Enums.CrudType.Update ? Enums.CrudStatus.Updated : Enums.CrudStatus.Deleted)) : Enums.CrudStatus.NoEffect;
         }
 
         internal static bool IsUserExist(string username)
@@ -240,7 +263,7 @@ namespace Myshop.App_Start
                 if (!string.IsNullOrEmpty(username))
                 {
                     MyshopDb myshop = new MyshopDb();
-                    var user = myshop.Gbl_Master_User.FirstOrDefault(x=>x.Username.ToLower().Equals(username.ToLower()));
+                    var user = myshop.Gbl_Master_User.FirstOrDefault(x => x.Username.ToLower().Equals(username.ToLower()));
                     return user == null ? false : true;
                 }
                 else
@@ -257,11 +280,11 @@ namespace Myshop.App_Start
         {
             if (date.Year < 1900)
                 date = DateTime.Now;
-           return date.Date.ToString("yyyy-MM-dd");
+            return date.Date.ToString("yyyy-MM-dd");
         }
-        public static byte[] GetImageThumbnails(byte[] ImageByte,int Size=20)
+        public static byte[] GetImageThumbnails(byte[] ImageByte, int Size = 20)
         {
-               return GetImageThumbnails(ImageByte, Size);
+            return GetImageThumbnails(ImageByte, Size);
         }
 
         private static void SendEmail(MailMessage mailMessage)
@@ -287,5 +310,15 @@ namespace Myshop.App_Start
             smtp.Send(mailMessage);
         }
 
+        internal static string _SendSMS(string _body, string _to, string _from = "")
+        {
+            TwilioClient.Init(AccountSid, AuthToken);
+            string _senderMobile = string.IsNullOrEmpty(_from) ? SenderMobileNo : _from;
+            var message = MessageResource.Create(
+                    to: new PhoneNumber(_to),
+                    from: new PhoneNumber(_senderMobile),
+                    body: _body);
+            return message.Sid;
+        }
     }
 }

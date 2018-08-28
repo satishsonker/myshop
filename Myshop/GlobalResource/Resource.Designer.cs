@@ -385,6 +385,15 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Forget Username.
+        /// </summary>
+        public static string Heading_ForgetUsername {
+            get {
+                return ResourceManager.GetString("Heading_ForgetUsername", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Forget Password.
         /// </summary>
         public static string Heading_PasswordForget {
@@ -552,6 +561,15 @@ namespace Myshop.GlobalResource {
         public static string Mobile {
             get {
                 return ResourceManager.GetString("Mobile", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Entered mobile number not exist.
+        /// </summary>
+        public static string Mobile_Number_Not_Exist {
+            get {
+                return ResourceManager.GetString("Mobile_Number_Not_Exist", resourceCulture);
             }
         }
         
@@ -804,6 +822,15 @@ namespace Myshop.GlobalResource {
         public static string Username {
             get {
                 return ResourceManager.GetString("Username", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Username sent on your mobile no..
+        /// </summary>
+        public static string Username_Send_on_SMS {
+            get {
+                return ResourceManager.GetString("Username_Send_on_SMS", resourceCulture);
             }
         }
         

@@ -1,40 +1,39 @@
-﻿@using Myshop.GlobalResource
+﻿@using Myshop.App_Start;
+@using Myshop.GlobalResource
 @{
-    ViewBag.Title = "ForgetPassword";
+    ViewBag.Title = "Forget Username";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<form action='@Url.Action("SendResetLink", "login")' method="post" style="margin-top:60px">
-    <div class="container">
+<form action='@Url.Action("GetUsername", "login")' method="post" style="margin-top:60px" id="otpform">
+    <div class="">
         @{
             if (ViewBag.loginStatus != null)
-            {
-                <div class="alert alert-warning text-center alert-dismissible" role="alert">
+            {<div class="alert alert-warning text-center alert-dismissible" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <strong>@Resource.Warning</strong> @ViewBag.loginStatus
-        </div>
-            }
+        </div>}
 
         }
         <div style="margin:10% 0;">
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 <div class="panel panel-info">
-                    <div class="panel-heading">@Resource.Heading_PasswordForget</div>
+                    <div class="panel-heading">@Resource.Heading_ForgetUsername</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <label>@Resource.Email</label>
-                                <input type="email" required="required" class="form-control" placeholder="@Resource.Email" name="username" />
+                                <label>@Resource.Mobile</label>
+                                <input type="number" required="required" maxlength="10" min="1000000000" max="9999999999" class="form-control" placeholder="@Resource.Mobile" id="mobile" name="mobile" />
                             </div>
                             <div class="col-sm-3 col-sm-offset-9" style="margin-top:10px;">
-                                <input type="submit" class="btn-shop" value="Reset It" />
+                                <input type="submit" value="Get Username" id="Validate" class="btn-shop" style="float: left;margin-right: 5px;width:126px;" />
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
                         <div class="utilities">
-                            @Html.ActionLink("Forget Username?", "ForgetUsername")
+                            @Html.ActionLink(Resource.Contrller_Login, Resource.Action_Login)
                             <div class="pull-right"><a href="#">@Resource.SignUp</a></div>
                         </div>
                     </div>
@@ -44,3 +43,4 @@
     </div>
 
 </form>
+

@@ -12,6 +12,7 @@ namespace Myshop.Controllers
 {
     public class LoginController : CommonController
     {
+        [HttpGet]
         public ActionResult Login()
         {
             return View();
@@ -71,7 +72,8 @@ namespace Myshop.Controllers
                List<ShopListModel> ShopList= model.ShopList();
                 if (ShopList.Count > 1)
                 {
-                    return View("ShopSelection", ShopList);
+                    TempData["shopList"] = ShopList;
+                    return RedirectToAction("ShopSelection", "Login");
                 }
                 else
                 {
@@ -87,6 +89,7 @@ namespace Myshop.Controllers
             return View();
         }
 
+        
         [MyshopAuthorize]
         public ActionResult SetShopSelection(int shopid,string shopname)
         {
@@ -108,7 +111,7 @@ namespace Myshop.Controllers
         {
             string username = collection.Get("username");
             LoginModel model = new LoginModel();
-            Enums.ResetLinkStatus status = model.sendPasswordRestLink(username);
+            Enums.ResetLinkStatus status = model.sendPasswordRestLink(username,Request.Browser.Platform,Request.Browser.Browser);
             if (status != Enums.ResetLinkStatus.send)
             {
                 if (status == Enums.ResetLinkStatus.InactiveUser)
@@ -141,6 +144,7 @@ namespace Myshop.Controllers
             }
         }
 
+        [HttpPost]
         public ActionResult ValidateOtp(FormCollection coll)
         {
             string otp = coll.Get("otp");
@@ -252,17 +256,46 @@ namespace Myshop.Controllers
             }
         }
 
+        [HttpGet]
         public ActionResult ForgetPassword()
         {
             WebSession.Username = "";
             return View();
         }
 
+        [HttpGet]
+        public ActionResult ForgetUsername()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult GetUsername(string mobile)
+        {
+            LoginModel model = new LoginModel();
+          Enums.LoginStatus status=  model.GetUsername(mobile);
+            if (status != Enums.LoginStatus.SmsSend)
+            {
+                SetAlertMessage(Resource.Username_Send_on_SMS, Enums.AlertType.success);
+            }
+            else if(status != Enums.LoginStatus.MobileNoExist)
+            {
+                SetAlertMessage(Resource.Mobile_Number_Not_Exist, Enums.AlertType.danger);
+            }
+            else
+            {
+                SetAlertMessage(Resource.HttpStatus_InternalServerError, Enums.AlertType.danger);
+            }
+            return View("ForgetUsername");
+        }
+
+        [HttpPost]
         public ActionResult InputOTP()
         {
             return View();
         }
 
+        [HttpPost]
         public ActionResult SetPassword()
         {
             if (Request.QueryString["txn"] != null && Request.QueryString["txnid"] != null)

@@ -231,12 +231,23 @@
     <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\dataTables.jqueryui.min.css" />
     <Content Include="Content\Datetimepicker.css" />
+    <Content Include="Content\Layout\font-awesome.min.css" />
     <Content Include="Content\fSelect.css" />
+    <Content Include="Content\Layout\extra.css" />
+    <Content Include="Content\Layout\header.css" />
+    <Content Include="Content\Layout\hoe.css" />
     <Content Include="Content\jquery-confirm.css" />
     <Content Include="Content\jquery-ui.css" />
     <Content Include="Content\jquery.dataTables.min.css" />
     <Content Include="Content\jquery.dropdown.min.css" />
+    <Content Include="Content\Layout\Horizontal_Nevigation.css" />
+    <Content Include="Content\Layout\Overlay_Effect.css" />
+    <Content Include="Content\Layout\Push_effect.css" />
+    <Content Include="Content\Layout\rightsidebar.css" />
+    <Content Include="Content\Layout\ShrinkEffect.css" />
+    <Content Include="Content\Layout\Theme_Color.css" />
     <Content Include="Content\morris.css" />
+    <Content Include="Content\Layout\switch.css" />
     <Content Include="Content\W3C.css" />
     <Content Include="EmailTemplate\Notification.html" />
     <Content Include="EmailTemplate\ChangePassword.html" />
@@ -268,6 +279,7 @@
     <Content Include="Areas\Global\Views\Masters\GetNotificationType.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetNotification.cshtml" />
     <Content Include="Areas\Global\Views\Masters\SendNotification.cshtml" />
+    <Content Include="Areas\Global\Views\User\UserProfile.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -432,6 +444,7 @@
     <Content Include="Scripts\dataTables.bootstrap.min.js" />
     <Content Include="Scripts\dataTables.jqueryui.min.js" />
     <Content Include="Scripts\firebase.js" />
+    <Content Include="Scripts\hoe.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
@@ -482,6 +495,9 @@
     <Content Include="Views\Shared\_DocProof.cshtml" />
     <Content Include="Views\Login\ShopSelection.cshtml" />
     <Content Include="Views\Users\NotificationList.cshtml" />
+    <Content Include="Views\Login\ForgetUsername.cshtml" />
+    <Content Include="Views\Shared\_MainLayout.cshtml" />
+    <Content Include="Views\Shared\_MainLayoutWithoutLeftMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

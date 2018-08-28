@@ -19,6 +19,10 @@ namespace Myshop.Areas.Global.Controllers
         {
             return View();
         }
+        public ActionResult UserProfile()
+        {
+            return View();
+        }
         public ActionResult SetUser(CreateUserModel model)
         {
             if (ModelState.IsValid)

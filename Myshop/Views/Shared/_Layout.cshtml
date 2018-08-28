@@ -391,7 +391,7 @@
                         <div class="modal-dialog">
                             <!-- Modal content-->
                             <div class="modal-content">
-                                <div class="modal-header">
+                                <div class="modal-header @alert">
                                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                                     <h4 class="modal-title">
                                         @if (@alert == "success")
@@ -467,6 +467,21 @@
     top: 0;
     left: 100%;
     margin-top: -1px;
+}
+
+.danger{
+    background-color: #ff00007d;
+}
+
+.info{
+    background-color: rgba(0, 188, 212, 0.5);
+}
+.warning{
+        background-color: rgba(212, 147, 0, 0.5);
+}
+
+.success{
+    background-color: rgba(0, 128, 0, 0.50);
 }
     </style>
     <script>$(document).ready(function () {
