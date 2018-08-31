@@ -606,13 +606,13 @@ namespace Myshop.App_Start
             {
                 myshop = new MyshopDb();
                 List<SelectListModel> list = new List<SelectListModel>();
-                var userList = myshop.Gbl_Master_User.Where(user => user.IsDeleted == false && user.ShopId == WebSession.ShopId).OrderBy(x => x.Name).ToList();
+                var userList = myshop.Gbl_Master_User.Where(user => user.IsDeleted == false && user.ShopId == WebSession.ShopId).OrderBy(x => x.Firstname).ToList();
                 if (userList.Count > 0)
                 {
                     foreach (Gbl_Master_User currentItem in userList)
                     {
                         SelectListModel newItem = new SelectListModel();
-                        newItem.Text = currentItem.Name;
+                        newItem.Text = string.Format("{0} {1}", currentItem.Firstname, currentItem.Lastname);
                         newItem.Value = currentItem.UserId;
                         list.Add(newItem);
                     }

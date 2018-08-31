@@ -1,13 +1,13 @@
-﻿
+﻿@using Myshop.App_Start;
 @{
     ViewBag.Title = "UserProfile";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <div class="card">
-    <img src="img.jpg" alt="John" style="width:100%">
-    <h1>John Doe</h1>
-    <p class="title">CEO & Founder, Example</p>
+    <img src="data:image/jpg;base64,@WebSession.UserPhoto" alt="@WebSession.Firstname" style="width:100%">
+    <h1>@string.Format("{0} {1}", WebSession.Firstname,WebSession.Lastname)</h1>
+    <p class="title">@WebSession.UserType</p>
     <p>Harvard University</p>
     <a href="#"><i class="fa fa-dribbble"></i></a>
     <a href="#"><i class="fa fa-twitter"></i></a>
@@ -15,4 +15,39 @@
     <a href="#"><i class="fa fa-facebook"></i></a>
     <p><button>Contact</button></p>
 </div>
+<style>
+    .card {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+    max-width: 300px;
+    margin: auto;
+    text-align: center;
+}
 
+.title {
+    color: grey;
+    font-size: 18px;
+}
+
+.card button {
+    border: none;
+    outline: 0;
+    display: inline-block;
+    padding: 8px;
+    color: white;
+    background-color: #000;
+    text-align: center;
+    cursor: pointer;
+    width: 100%;
+    font-size: 18px;
+}
+
+.card a {
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+}
+
+.card button:hover, a:hover {
+    opacity: 0.7;
+}
+</style>

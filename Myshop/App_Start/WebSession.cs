@@ -88,21 +88,37 @@ namespace Myshop.App_Start
             set { HttpContext.Current.Session["username"] = value; }
         }
 
-        public static string Name
+        public static string Firstname
         {
 
             get
             {
-                if (HttpContext.Current.Session["name"] == null)
+                if (HttpContext.Current.Session["Firstname"] == null)
                 {
                     return string.Empty;
                 }
                 else
                 {
-                    return HttpContext.Current.Session["name"].ToString();
+                    return HttpContext.Current.Session["Firstname"].ToString();
                 }
             }
-            set { HttpContext.Current.Session["name"] = value; }
+            set { HttpContext.Current.Session["Firstname"] = value; }
+        }
+        public static string Lastname
+        {
+
+            get
+            {
+                if (HttpContext.Current.Session["Lastname"] == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return HttpContext.Current.Session["Lastname"].ToString();
+                }
+            }
+            set { HttpContext.Current.Session["Lastname"] = value; }
         }
 
         public static string UserGender

@@ -216,19 +216,27 @@ namespace Myshop.Areas.Global.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "User name is required")]
         [StringLength(maximumLength: 50, MinimumLength = 6, ErrorMessage = "Invalid User Name (6 Min and 50 max chars)")]
         [RegularExpression(@"^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$", ErrorMessage = "Invalid Email Address (6 Min and 50 max chars)")]
-        public String Username { get; set; }
+        public string Username { get; set; }
 
         //[Required(AllowEmptyStrings = false, ErrorMessage = "Password is required")]
         [StringLength(maximumLength: 10, MinimumLength = 6, ErrorMessage = "Invalid Password (6 Min and 10 max chars)")]
-        public String Password { get; set; }
+        public string Password { get; set; }
 
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Name is required")]
-        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid  Name (3 Min and 50 max chars)")]
-        public String Name { get; set; }
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Firstname is required")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid  Firstname (3 Min and 50 max chars)")]
+        public string Firstname { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Lastname is required")]
+        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid  Lastname (3 Min and 50 max chars)")]
+        public string Lastname { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "Mobile is required")]
         [StringLength(maximumLength: 13, MinimumLength = 10, ErrorMessage = "Invalid Mobile (10 Min and 13 max chars)")]
-        public String Mobile { get; set; }
+        public string Mobile { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Gender is required")]
+        [StringLength(maximumLength: 1, MinimumLength = 1, ErrorMessage = "Invalid Gender (only 1 char)")]
+        public string Gender { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "User Type Id  is required")]
         [Range(1, int.MaxValue, ErrorMessage = "UserType Id should be greater or Equal than 0 (Zero)")]

@@ -486,8 +486,9 @@
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="250" />
-          <Property Name="Name" Type="varchar" MaxLength="50" />
-          <Property Name="Mobile" Type="varchar" MaxLength="13" />
+          <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Photo" Type="varbinary(max)" />
           <Property Name="UserType" Type="int" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
@@ -499,7 +500,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsBlocked" Type="bit" />
           <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="Gender" Type="char" MaxLength="1" />
+          <Property Name="Gender" Type="char" MaxLength="1" Nullable="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -1694,6 +1695,10 @@
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
           </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Notification_Gbl_Master_User_Sender" Association="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
+          </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_NotificationType_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_NotificationType_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Gbl_Master_NotificationType" EntitySet="Gbl_Master_NotificationType" />
@@ -2194,6 +2199,11 @@
           <Property Name="Message" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="IsPushed" Type="Boolean" Nullable="false" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="IsForAll" Type="Boolean" Nullable="false" />
+          <Property Name="PushedDate" Type="DateTime" Precision="3" />
+          <Property Name="MessageExpireDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
@@ -2203,11 +2213,7 @@
           <NavigationProperty Name="Gbl_Master_NotificationType" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_NotificationType" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_NotificationType" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_Shop" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_User" />
-          <Property Name="IsPushed" Type="Boolean" Nullable="false" />
-          <Property Name="IsRead" Type="Boolean" Nullable="false" />
-          <Property Name="IsForAll" Type="Boolean" Nullable="false" />
-          <Property Name="MessageExpireDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PushedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_User" />
         </EntityType>
         <EntityType Name="Gbl_Master_NotificationType">
           <Key>
@@ -2379,8 +2385,9 @@
           <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
-          <Property Name="Name" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="Firstname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
           <Property Name="UserType" Type="Int32" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
@@ -2392,16 +2399,17 @@
           <Property Name="IsActive" Type="Boolean" />
           <Property Name="IsBlocked" Type="Boolean" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="1" FixedLength="true" Unicode="false" />
           <NavigationProperty Name="Gbl_AppDowntime" Relationship="MyshopModel.FK_Gbl_AppDowntime_User_CreatedBy" FromRole="Gbl_Master_User" ToRole="Gbl_AppDowntime" />
           <NavigationProperty Name="Gbl_AppDowntime1" Relationship="MyshopModel.FK_Gbl_AppDowntime_User_ModifiedBy" FromRole="Gbl_Master_User" ToRole="Gbl_AppDowntime" />
           <NavigationProperty Name="Gbl_Master_Notification" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Notification" />
+          <NavigationProperty Name="Gbl_Master_Notification1" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Notification" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_Shop" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_Shop1" Relationship="MyshopModel.FK_Shop_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Logins" Relationship="MyshopModel.FK_Login_User" FromRole="Gbl_Master_User" ToRole="Login" />
           <NavigationProperty Name="Gbl_Master_UserType" Relationship="MyshopModel.FK_User_UserType" FromRole="Gbl_Master_User" ToRole="Gbl_Master_UserType" />
           <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_UserPermission_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
           <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="User_ShopMapper" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -2911,6 +2919,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gbl_Master_Notification_Gbl_Master_User">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Notification" Role="Gbl_Master_Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Notification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Notification_Gbl_Master_User_Sender">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Notification" Role="Gbl_Master_Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3567,17 +3587,17 @@
           <EntitySetMapping Name="Gbl_Master_Notification">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Notification">
               <MappingFragment StoreEntitySet="Gbl_Master_Notification">
-                <ScalarProperty Name="PushedDate" ColumnName="PushedDate" />
-                <ScalarProperty Name="MessageExpireDate" ColumnName="MessageExpireDate" />
-                <ScalarProperty Name="IsForAll" ColumnName="IsForAll" />
-                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
-                <ScalarProperty Name="IsPushed" ColumnName="IsPushed" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="MessageExpireDate" ColumnName="MessageExpireDate" />
+                <ScalarProperty Name="PushedDate" ColumnName="PushedDate" />
+                <ScalarProperty Name="IsForAll" ColumnName="IsForAll" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="IsPushed" ColumnName="IsPushed" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
@@ -3741,7 +3761,8 @@
                 <ScalarProperty Name="UserType" ColumnName="UserType" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
+                <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />

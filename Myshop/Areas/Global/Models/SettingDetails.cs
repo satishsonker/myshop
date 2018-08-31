@@ -79,7 +79,7 @@ namespace Myshop.Areas.Global.Models
                                                    Message=down.Message,
                                                    DownTimeEndDate=down.DownTimeEnd,
                                                    DownTimeStartDate=down.DownTimeStart,
-                                                   UserName=user.Name,
+                                                   UserName= string.Format("{0} {1}", user.Firstname, user.Lastname),
                                                    CreatedDate=down.CreatedDate
                                                }                                               
                                               ).ToList();

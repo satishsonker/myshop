@@ -143,7 +143,8 @@ namespace Myshop.Models
                     myShop.SaveChanges();
 
                     WebSession.UserId = isAuthenticated.UserId;
-                    WebSession.Name = isAuthenticated.Name;
+                    WebSession.Firstname = isAuthenticated.Firstname;
+                    WebSession.Lastname = isAuthenticated.Lastname;
                     WebSession.UserIsActive = isAuthenticated.IsActive;
                     WebSession.UserIsDeleted = isAuthenticated.IsDeleted;
                     WebSession.UserIsBlocked = isAuthenticated.IsBlocked;
@@ -177,7 +178,7 @@ namespace Myshop.Models
                     {
                         WebSessionNotificationList _newItem= new WebSessionNotificationList();
                         _newItem.Message = item.Message;
-                        _newItem.Sender = item.Gbl_Master_User.Name;
+                        _newItem.Sender = string.Format("{0} {1}", item.Gbl_Master_User.Firstname, item.Gbl_Master_User.Lastname);
                         _newItem.Photo = Convert.ToBase64String(item.Gbl_Master_User.Photo);
                         _newItem.ReceiveDate =Convert.ToDateTime(item.PushedDate);
                         TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.PushedDate));
@@ -219,7 +220,8 @@ namespace Myshop.Models
                 if (isExist != null)
                 {
                     //Setting session properties
-                    WebSession.Name = isExist.Name;
+                    WebSession.Firstname = isExist.Firstname;
+                    WebSession.Lastname = isExist.Lastname;
                     WebSession.Username = isExist.Username;
 
                     if (isExist.IsDeleted == true)
@@ -270,7 +272,7 @@ namespace Myshop.Models
                         int result = myShop.SaveChanges();
                         if (result > 0)
                         {
-                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Name, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime),otp));
+                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Firstname+" "+isExist.Lastname, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime),otp));
                         }
                         return Enums.ResetLinkStatus.send;
                     }

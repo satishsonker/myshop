@@ -98,7 +98,7 @@ namespace Myshop.Areas.Global.Models
                                     shop.ShopId,
                                     shop.Name,
                                     OwnerId = shop.Owner,
-                                    OwnerName = user.Name,
+                                    OwnerName = string.Format("{0} {1}", user.Firstname, user.Lastname),
                                     shop.Mobile,
                                     shop.Email,
                                     shop.Address,
@@ -207,7 +207,7 @@ namespace Myshop.Areas.Global.Models
                                     shop.ShopId,
                                     shop.Name,
                                     OwnerId = shop.Owner,
-                                    OwnerName = user.Name,
+                                    OwnerName = string.Format("{0} {1}", user.Firstname, user.Lastname),
                                     shop.Mobile,
                                     shop.Email,
                                     shop.Address,
@@ -1115,15 +1115,15 @@ namespace Myshop.Areas.Global.Models
                         {
                             if (oldNotiType.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("email") > -1)
                             {
-
+                                string _username = string.Format("{0} {1}", oldNotiType.Gbl_Master_User.Firstname, oldNotiType.Gbl_Master_User.Lastname);
                                 if (!oldNotiType.IsForAll)
                                 {
-                                    Utility.SendHtmlFormattedEmail(oldNotiType.Gbl_Master_User.Username.Trim(), "Notification from " + WebSession.ShopName, Utility.NotificationEmailBody(oldNotiType.Gbl_Master_User.Name, oldNotiType.Message));
+                                    Utility.SendHtmlFormattedEmail(oldNotiType.Gbl_Master_User.Username.Trim(), "Notification from " + WebSession.ShopName, Utility.NotificationEmailBody(_username, oldNotiType.Message));
                                 }
                                 else
                                 {
                                     List<string> email = myshop.Gbl_Master_User.Where(x => x.ShopId.Equals(WebSession.ShopId) && x.IsActive == true && !x.IsDeleted).Select(x => x.Username).ToList();
-                                    Utility.SendHtmlFormattedEmail(email, "Notification from " + WebSession.ShopName, Utility.NotificationEmailBody(oldNotiType.Gbl_Master_User.Name, oldNotiType.Message));
+                                    Utility.SendHtmlFormattedEmail(email, "Notification from " + WebSession.ShopName, Utility.NotificationEmailBody(_username, oldNotiType.Message));
                                 }
 
                             }
@@ -1185,7 +1185,7 @@ namespace Myshop.Areas.Global.Models
                                         noti.NotificationId,
                                         noti.Gbl_Master_NotificationType.NotificationType,
                                         noti.UserId,
-                                        UserName = noti.Gbl_Master_User.Name,
+                                        UserName = string.Format("{0} {1}", noti.Gbl_Master_User.Firstname, noti.Gbl_Master_User.Lastname),
                                         noti.CreatedDate,
                                         noti.IsForAll
                                     }).ToList();

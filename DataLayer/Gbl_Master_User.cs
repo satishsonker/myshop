@@ -20,6 +20,7 @@ namespace DataLayer
             this.Gbl_AppDowntime = new HashSet<Gbl_AppDowntime>();
             this.Gbl_AppDowntime1 = new HashSet<Gbl_AppDowntime>();
             this.Gbl_Master_Notification = new HashSet<Gbl_Master_Notification>();
+            this.Gbl_Master_Notification1 = new HashSet<Gbl_Master_Notification>();
             this.Gbl_Master_Shop1 = new HashSet<Gbl_Master_Shop>();
             this.Logins = new HashSet<Login>();
             this.Gbl_Master_User_Permission = new HashSet<Gbl_Master_User_Permission>();
@@ -29,7 +30,8 @@ namespace DataLayer
         public int UserId { get; set; }
         public string Username { get; set; }
         public string Password { get; set; }
-        public string Name { get; set; }
+        public string Firstname { get; set; }
+        public string Lastname { get; set; }
         public string Mobile { get; set; }
         public byte[] Photo { get; set; }
         public int UserType { get; set; }
@@ -50,6 +52,8 @@ namespace DataLayer
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification1 { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Shop> Gbl_Master_Shop1 { get; set; }

@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>HOE Responsive Bootstrap sidebar Menu</title>
+    <title>@ViewBag.title - @WebSession.ShopName</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Layout/extra.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -225,7 +225,7 @@
                                     <img class="img-circle" src="~/Images/Icons/@userAvtar">
                                 }
                             </span>
-                            <span><b>@WebSession.Name</b> <i class="fa fa-angle-down"></i></span>
+                            <span><b>@WebSession.Firstname @WebSession.Lastname</b> <i class="fa fa-angle-down"></i></span>
                         </a>
                         <ul class="dropdown-menu ">
                             @if (!string.IsNullOrEmpty(WebSession.Username))

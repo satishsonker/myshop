@@ -21,7 +21,9 @@ namespace Myshop.Areas.Global.Models
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
-                        oldUser.Name = model.Name;
+                        oldUser.Firstname = model.Firstname;
+                        oldUser.Lastname = model.Lastname;
+                        oldUser.Gender = model.Gender;
                         oldUser.Mobile = model.Mobile;
                         oldUser.UserType = model.UserTypeId;
                         oldUser.IsDeleted = false;
@@ -56,7 +58,9 @@ namespace Myshop.Areas.Global.Models
                     newUser = new Gbl_Master_User();
                     newUser.Username = model.Username;
                     newUser.Mobile = model.Mobile;
-                    newUser.Name = model.Name;
+                    newUser.Firstname = model.Firstname;
+                    newUser.Lastname = model.Lastname;
+                    newUser.Gender = model.Gender;
                     newUser.UserType = model.UserTypeId;
                     newUser.IsActive = true;
                     newUser.IsBlocked = false;
@@ -150,11 +154,11 @@ namespace Myshop.Areas.Global.Models
                 myshop = new MyshopDb();
                 var userList = (from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false)
                                 from userType in myshop.Gbl_Master_UserType.Where(x => x.IsDeleted == false && user.UserType.Equals(x.Id))
-                                orderby user.Name
+                                orderby user.Firstname
                                 select new
                                 {
                                     user.Username,
-                                    user.Name,
+                                    Name=string.Format("{0} {1}",user.Firstname,user.Lastname),
                                     user.Mobile,
                                     UserType = userType.Type,
                                     UserTypeId = user.UserType,
@@ -416,10 +420,10 @@ namespace Myshop.Areas.Global.Models
                 var userList = (from map in myshop.User_ShopMapper.Where(x => x.IsDeleted == false && x.UserId.Equals(userid))
                                 from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && map.UserId.Equals(x.UserId))
                                 from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false && map.ShopId.Equals(x.ShopId))
-                                orderby user.Name
+                                orderby user.Firstname
                                 select new
                                 {
-                                    user.Name,
+                                    Name= string.Format("{0} {1}", user.Firstname, user.Lastname),
                                     ShopName = shop.Name,
                                     shop.Address,
                                     CreatedDate = user.CreationDate,
