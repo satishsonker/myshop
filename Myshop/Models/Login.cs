@@ -152,6 +152,7 @@ namespace Myshop.Models
                     WebSession.ShopList = shopCol;
                     WebSession.UserPhoto = isAuthenticated.Photo == null ? string.Empty : Convert.ToBase64String(isAuthenticated.Photo);
                     WebSession.UserType = isAuthenticated.Gbl_Master_UserType.Type;
+                    WebSession.UserGender = isAuthenticated.Gender.ToUpper();
 
                     if (userType != null)
                     {
@@ -162,7 +163,7 @@ namespace Myshop.Models
                         WebSession.Permission = userPermission;
                     }
 
-                    WebSession.NotificationCount = myShop.Gbl_Master_Notification.Where(x => 
+                    var notification = myShop.Gbl_Master_Notification.Where(x => 
                                                                                         x.IsDeleted == false && 
                                                                                         x.IsPushed == true && 
                                                                                         x.IsRead == false && 
@@ -170,7 +171,31 @@ namespace Myshop.Models
                                                                                         x.ShopId.Equals(WebSession.ShopId) && 
                                                                                         (x.UserId.Equals(WebSession.UserId) || x.IsForAll == true) && 
                                                                                         (x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("push")>-1 || x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("web")>-1)
-                                                                                        ).Count();
+                                                                                        ).ToList();
+                    List<WebSessionNotificationList> _notificationList = new List<WebSessionNotificationList>();
+                    foreach (Gbl_Master_Notification item in notification)
+                    {
+                        WebSessionNotificationList _newItem= new WebSessionNotificationList();
+                        _newItem.Message = item.Message;
+                        _newItem.Sender = item.Gbl_Master_User.Name;
+                        _newItem.Photo = Convert.ToBase64String(item.Gbl_Master_User.Photo);
+                        _newItem.ReceiveDate =Convert.ToDateTime(item.PushedDate);
+                        TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.PushedDate));
+                        if (span.Days == 1)
+                            _newItem.ReceiveTime = string.Format("{0} day ago", span.Days.ToString());
+                        else if(span.Days>1)
+                            _newItem.ReceiveTime = string.Format("{0} days ago", span.Days.ToString());
+                        else if (span.Hours >= 1 && span.Hours <= 23)
+                            _newItem.ReceiveTime = string.Format("{0} hour ago", span.Hours.ToString());
+                        else //if (span.Minutes < 60)
+                            _newItem.ReceiveTime = string.Format("{0} min ago", span.Minutes.ToString());
+                       
+                       
+                        
+                        _notificationList.Add(_newItem);
+                    }
+                    WebSession.NotificationList = _notificationList;
+                    WebSession.NotificationCount = notification.Count();
                     return Enums.LoginStatus.Authenticate;
                 }
             }

@@ -306,6 +306,8 @@
     <Content Include="Images\Icons\globe.png" />
     <Content Include="Images\Icons\gnome_preferences_system.png" />
     <Content Include="Images\Icons\home.png" />
+    <Content Include="Images\Icons\MaleUser.png" />
+    <Content Include="Images\Icons\FemaleUser.png" />
     <Content Include="Images\Icons\if_arrow_down_70957 %281%29.png" />
     <Content Include="Images\Icons\if_arrow_down_70957.png" />
     <Content Include="Images\Icons\if_arrow_right_70963.png" />

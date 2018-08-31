@@ -499,6 +499,7 @@
           <Property Name="IsActive" Type="bit" />
           <Property Name="IsBlocked" Type="bit" />
           <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="Gender" Type="char" MaxLength="1" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -894,6 +895,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gbl_Master_Notification_Gbl_Master_User">
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
+          <End Role="Gbl_Master_Notification" Type="Self.Gbl_Master_Notification" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Notification">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Notification_Gbl_Master_User_Sender">
           <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
           <End Role="Gbl_Master_Notification" Type="Self.Gbl_Master_Notification" Multiplicity="*" />
           <ReferentialConstraint>
@@ -1389,6 +1402,10 @@
             <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Notification_Gbl_Master_User" Association="Self.FK_Gbl_Master_Notification_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Notification_Gbl_Master_User_Sender" Association="Self.FK_Gbl_Master_Notification_Gbl_Master_User_Sender">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
           </AssociationSet>
@@ -2384,6 +2401,7 @@
           <NavigationProperty Name="Gbl_Master_UserType" Relationship="MyshopModel.FK_User_UserType" FromRole="Gbl_Master_User" ToRole="Gbl_Master_UserType" />
           <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_UserPermission_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
           <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="User_ShopMapper" />
+          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -3710,6 +3728,7 @@
           <EntitySetMapping Name="Gbl_Master_User">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_User">
               <MappingFragment StoreEntitySet="Gbl_Master_User">
+                <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />

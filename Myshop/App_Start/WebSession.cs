@@ -105,6 +105,22 @@ namespace Myshop.App_Start
             set { HttpContext.Current.Session["name"] = value; }
         }
 
+        public static string UserGender
+        {
+            get
+            {
+                if (HttpContext.Current.Session["UserGender"] == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return HttpContext.Current.Session["UserGender"].ToString();
+                }
+            }
+            set { HttpContext.Current.Session["UserGender"] = value; }
+        }
+
         public static string UserType
         {
             get
@@ -242,6 +258,22 @@ namespace Myshop.App_Start
             }
             set { HttpContext.Current.Session["UserPhoto"] = value; }
         }
+
+        public static List<WebSessionNotificationList> NotificationList
+        {
+            get
+            {
+                if (HttpContext.Current.Session["NotificationList"] != null)
+                {
+                    return HttpContext.Current.Session["NotificationList"] as List<WebSessionNotificationList>;
+                }
+                else
+                {
+                    return new List<WebSessionNotificationList>();
+                }
+            }
+            set { HttpContext.Current.Session["NotificationList"] = value; }
+        }
     }
 
     public  class ShopCollection
@@ -264,5 +296,14 @@ namespace Myshop.App_Start
         public int ParentId { get; set; }
         public int ModuleId { get; set; }
         public string ModuleName { get; set; }
+    }
+
+    public class WebSessionNotificationList
+    {
+        public string Message { get; set; }
+        public string Photo { get; set; }
+        public string Sender { get; set; }
+        public string ReceiveTime { get; set; }
+        public DateTime ReceiveDate { get; set; }
     }
 }

@@ -42,6 +42,7 @@ namespace DataLayer
         public Nullable<bool> IsActive { get; set; }
         public Nullable<bool> IsBlocked { get; set; }
         public int ShopId { get; set; }
+        public string Gender { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime { get; set; }
