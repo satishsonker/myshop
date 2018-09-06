@@ -1,68 +1,74 @@
 ﻿
 @{
     ViewBag.Title = "Create User";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="~/Scripts/App/Area/Global/User/CreateUser.js"></script>
-<form action="/ method=" post" style="margin-top:60px" id="createuserform">
-    <div class="col-sm-6 col-sm-offset-3">
+<form action="/" method="post" style="margin-top:60px" id="createuserform">
+    <div class="col-sm-10 col-sm-offset-1">
         <div class="panel panel-info">
             <div class="panel-heading">Create User</div>
             <div class="panel-body">
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="user_profile col-sm-12">
+                        <img src="~/Images/Icons/500.png" alt="User Picture" id="imguserpicture"/>
+                        <span>
+                            <img src="~/Images/Icons/camera.png" id="changeProfile"/>
+                        </span>
+                    </div>
+                    <div class="col-sm-12" hidden>
+                        <input type="file" class="filestyle" name="userpicture" id="userpicture" />
+
+                        <input type="hidden" name="picturename" id="picturename" />
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-6">
                         <input type="hidden" id="userid" name="userid" value="0" />
                         <label>Select Category</label>
                         <select id="usertypeid" name="usertypeid" disabled="disabled" class="disableCtrl form-control" required="required">
                             <option value="">Select User Type</option>
                         </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label>User Name</label>
                         <input type="text" class="form-control" required="required" data-validate-user="true" data-validate-user-error="User is already exist" placeholder="Enter User Name" id="username" name="username" maxlength="50" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label>Password</label>
                         <input type="password" class="form-control" required="required" placeholder="Enter Password" id="password" name="password" maxlength="10" data-validate-password-error="Password should be min 6 chars and contain one lower case, one upper case, one number and one special charector" data-validate-password="true" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label>Confirm Password</label>
                         <input type="password" class="form-control" required="required" placeholder="Enter Confirm Password" id="conpassword" name="conpassword" maxlength="10" data-validate-compare-error="Password is not matched" data-validate-compare="password" />
                     </div>
                 </div>
+
                 <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label>First Name</label>
                         <input type="text" class="form-control" required="required" placeholder="Enter First Name" id="firstname" name="firstname" maxlength="50" />
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label>Last Name</label>
                         <input type="text" class="form-control" required="required" placeholder="Enter Kast Name" id="lastname" name="lastname" maxlength="50" />
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-12">
-                        <label>Gender</label>                        
-                        <select class="form-control" required>
+                    <div class="col-sm-6">
+                        <label>Gender</label>
+                        <select class="form-control" required name="Gender">
                             <option value="">Select Gender</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>
                         </select>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-sm-12">
+                    <div class="col-sm-6">
                         <label>Mobile</label>
                         <input type="text" class="form-control" required="required" placeholder="Enter Mobile" id="mobile" name="mobile" maxlength="13" />
                     </div>
@@ -103,3 +109,25 @@
         </table>
     </div>
 </form>
+<style>
+    .user_profile {
+        text-align: center;
+        padding: 0px 0 10px 0;
+    }
+
+        .user_profile #imguserpicture {
+            border: 1px solid;
+            border-radius: 83px;
+            margin-top: -9px;
+            width: 150px;
+    height: 150px;
+        }
+
+        .user_profile #changeProfile{
+            position: absolute;
+    height: 30px;
+    bottom: 16px;
+    left: 55%;
+    cursor: pointer;
+        }
+</style>

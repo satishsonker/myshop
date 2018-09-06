@@ -238,6 +238,9 @@ namespace Myshop.Areas.Global.Models
         [StringLength(maximumLength: 1, MinimumLength = 1, ErrorMessage = "Invalid Gender (only 1 char)")]
         public string Gender { get; set; }
 
+        [StringLength(maximumLength: 250, MinimumLength = 4, ErrorMessage = "Invalid Picturename (4 Min and 250 max chars)")]
+        public string Picturename { get; set; }
+
         [Required(AllowEmptyStrings = false, ErrorMessage = "User Type Id  is required")]
         [Range(1, int.MaxValue, ErrorMessage = "UserType Id should be greater or Equal than 0 (Zero)")]
         public int UserTypeId { get; set; }

@@ -16,6 +16,9 @@ namespace Myshop.App_Start
 
     public static class Utility
     {
+        public static string AppBaseDirectory { get {
+                return AppDomain.CurrentDomain.BaseDirectory.ToString();
+            } }
 
         #region Constant Variable
         /// <summary>

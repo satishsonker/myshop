@@ -52,3 +52,31 @@ $(document).on('click', '[id*="btnDelete"]', function () {
     });
     return false;
 });
+$(document).on('click', '[id*="changeProfile"]', function () {
+
+    $('#userpicture').click();
+});
+$(document).on('change', '[id*="userpicture"]', function () {
+    var formData = new FormData();
+    var totalFiles = document.getElementById("userpicture").files.length;
+    for (var i = 0; i < totalFiles; i++) {
+        var file = document.getElementById("userpicture").files[i];
+        formData.append("imageUploadForm", file);
+    }
+    $.ajax({
+        type: "POST",
+        url: '/common/FileSaveOnServer',
+        data: formData,
+        dataType: 'json',
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            $('#imguserpicture').attr('src', 'data:image/png;base64,' + response.Image);
+            $('#picturename').val(response.fileName)
+        },
+        error: function (error) {
+            $('#picturename').val('')
+        }
+    })
+    return false;
+});

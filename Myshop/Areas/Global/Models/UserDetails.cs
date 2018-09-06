@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
+using System.IO;
 
 namespace Myshop.Areas.Global.Models
 {
@@ -15,6 +16,14 @@ namespace Myshop.Areas.Global.Models
             try
             {
                 myshop = new MyshopDb();
+                byte[] picture = null;
+                if(!string.IsNullOrEmpty(model.Picturename))
+                {
+                    if (Directory.Exists(Utility.AppBaseDirectory+ model.Picturename.Split(new char[] {'\\'})[1]))
+                    {
+                        picture = File.ReadAllBytes(model.Picturename);
+                    }
+                }
                 Gbl_Master_User newUser;
                 var oldUser = myshop.Gbl_Master_User.Where(user => (user.UserId.Equals(model.UserId) || (user.Username.ToLower().Equals(model.Username))) && user.IsDeleted == false).FirstOrDefault();
                 if (oldUser != null)
@@ -30,6 +39,7 @@ namespace Myshop.Areas.Global.Models
                         oldUser.IsSync = false;
                         oldUser.ModifiedBy = WebSession.UserId;
                         oldUser.ModificationDate = DateTime.Now;
+                        oldUser.Photo = picture;
                         myshop.Entry(oldUser).State = EntityState.Modified;
                     }
                     else if (crudType == Enums.CrudType.Delete)
@@ -71,6 +81,7 @@ namespace Myshop.Areas.Global.Models
                     newUser.IsSync = false;
                     newUser.ModifiedBy = WebSession.UserId;
                     newUser.ModificationDate = DateTime.Now;
+                    newUser.Photo = picture;
                     myshop.Entry(newUser).State = EntityState.Added;
                 }
 
