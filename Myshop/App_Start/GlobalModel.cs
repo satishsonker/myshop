@@ -840,7 +840,7 @@ namespace Myshop.App_Start
             myshop.SaveChanges();
 
             //Fire email notification
-            Utility.SendHtmlFormattedEmail(Utility.GetAppSettingsValue("ErrorLogEmail"), Custom.Message.ErrorLogEmailSubject, Utility.ErrorLogEmailBody(newLog));
+            Utility.EmailSendHtmlFormatted(Utility.GetAppSettingsValue("ErrorLogEmail"), Custom.Message.ErrorLogEmailSubject, Utility.EmailErrorLogBody(newLog));
         }
     }
 

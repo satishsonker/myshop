@@ -16,9 +16,13 @@ namespace Myshop.App_Start
 
     public static class Utility
     {
-        public static string AppBaseDirectory { get {
+        public static string AppBaseDirectory
+        {
+            get
+            {
                 return AppDomain.CurrentDomain.BaseDirectory.ToString();
-            } }
+            }
+        }
 
         #region Constant Variable
         /// <summary>
@@ -124,7 +128,7 @@ namespace Myshop.App_Start
             return body;
         }
 
-        internal static string ErrorLogEmailBody(ErrorLog log)
+        internal static string EmailErrorLogBody(ErrorLog log)
         {
             string body = string.Empty;
             //using streamreader for reading my htmltemplate   
@@ -144,7 +148,7 @@ namespace Myshop.App_Start
             return body;
         }
 
-        internal static string ResetEmailBody(string _userName, string _userid, string _uniqueId, string _os, string _browser, DateTime _expireTime, string _otp = "")
+        internal static string EmailResetBody(string _userName, string _userid, string _uniqueId, string _os, string _browser, DateTime _expireTime, string _otp = "")
         {
             string body = string.Empty;
             //using streamreader for reading my htmltemplate   
@@ -166,7 +170,7 @@ namespace Myshop.App_Start
 
         }
 
-        internal static void SendHtmlFormattedEmail(string toEmail, string subject, string body)
+        internal static void EmailSendHtmlFormatted(string toEmail, string subject, string body)
         {
             using (MailMessage mailMessage = new MailMessage())
             {
@@ -185,7 +189,7 @@ namespace Myshop.App_Start
             }
 
         }
-        internal static void SendHtmlFormattedEmail(List<string> toEmail, string subject, string body)
+        internal static void EmailSendHtmlFormatted(List<string> toEmail, string subject, string body)
         {
             using (MailMessage mailMessage = new MailMessage())
             {
@@ -207,7 +211,7 @@ namespace Myshop.App_Start
 
         }
 
-        internal static string NotificationEmailBody(string userName, string message)
+        internal static string EmailNotificationBody(string userName, string message)
         {
             string body = string.Empty;
             //using streamreader for reading my htmltemplate   
@@ -222,13 +226,33 @@ namespace Myshop.App_Start
             return body;
         }
 
+        internal static string EmailUserCreationBody(string userName, string email,string mobile,string password,string resetlink,string expiretime)
+        {
+            string body = string.Empty;
+            string shopname = string.IsNullOrEmpty(WebSession.ShopName) ? GetAppSettingsValue("Shopname") : WebSession.ShopName;
+            //using streamreader for reading my htmltemplate   
+
+            using (StreamReader reader = new StreamReader(System.Web.HttpContext.Current.Server.MapPath("~/EmailTemplate/UserCreation.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{username}", userName); //replacing the required things 
+            body = body.Replace("{email}", email); //replacing the required things 
+            body = body.Replace("{mobile}", mobile); //replacing the required things
+            body = body.Replace("{password}", password); //replacing the required things
+            body = body.Replace("{resetlink}", resetlink); //replacing the required things
+            body = body.Replace("{expiretime}", expiretime); //replacing the required things
+            body = body.Replace("{shopname}", shopname); //replacing the required things 
+            return body;
+        }
+
         private static byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = MD5.Create();  //or use SHA256.Create();
             return algorithm.ComputeHash(Encoding.UTF8.GetBytes(inputString));
         }
 
-        internal static string GetAppSettingsValue(string key)
+        public static string GetAppSettingsValue(string key)
         {
             try
             {

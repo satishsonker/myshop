@@ -36,6 +36,12 @@ namespace Myshop.Filters
                
                 return;
             }
+            else if (WebSession.ShopList.Count < 1)
+            {
+                filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "login", action = "NoShopMapped", area = "" }));
+
+                return;
+            }
             if (this.allowedroles!=null && this.allowedroles.Length > 0)
             {
                 if (!this.allowedroles.Contains(WebSession.UserType))

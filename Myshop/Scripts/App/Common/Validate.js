@@ -12,7 +12,7 @@ validate.invalidImage = function (title) {
 
 //Password Validation
 
-$('input[data-validate-password="true"]').change(function () {
+$(document).on('change', 'input[data-validate-password="true"]',function () {
     var isValid = utility.validatePassword($(this).val());
     let message = $(this).data('validate-password-error');
     $(this).next('img[data-validate]').remove();
@@ -23,10 +23,10 @@ $('input[data-validate-password="true"]').change(function () {
         $(this).after(validate.invalidImage('Not Validated'));
         utility.SetAlert(message, 'danger');
     }
-
+    $('[name="' + $(this).data('validate-compare') + '"]').val('').next('img[data-validate]').remove(); //reset value on dependent password field
 });
 
-$('input[data-validate-user="true"]').change(function () {
+$(document).on('change','input[data-validate-user="true"]',function () {
     var ctrl = $(this);
     let message = $(this).data('validate-user-error');
     utility.ajaxHelper(app.urls.isUserExist, { username: $(this).val().trim() }, function (data) {       
@@ -41,7 +41,7 @@ $('input[data-validate-user="true"]').change(function () {
     });    
 });
 
-$('input[data-validate-compare]').change(function () {
+$(document).on('change', 'input[data-validate-compare]',function () {
     var isValid = $('[name="' + $(this).data('validate-compare') + '"]').val() == $(this).val() ? true : false;
     let message = $(this).data('validate-compare-error');
     $(this).next('img[data-validate]').remove();
@@ -54,7 +54,7 @@ $('input[data-validate-compare]').change(function () {
     }
 });
 
-$('input[data-validate-numeric]').change(function () {
+$(document).on('change', 'input[data-validate-numeric]',function () {
     var isValid = /^-?(0|[1-9]\d*|(?=\.))(\.\d+)?$/.test($(this).val()) ? true : false;
     let message = $(this).data('validate-numeric-error');
     $(this).next('img[data-validate]').remove();

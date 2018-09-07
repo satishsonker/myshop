@@ -87,6 +87,7 @@ utility.ajaxWithoutDataHelper = function (url, success, error) {
 utility.SetAlert = function (message, alertType) {
     alertType = alertType === undefined ? "info" : alertType;
     var alertColor;
+    let className = 'alert-'+alertType;
     switch (alertType) {
         case 'info':
             alertColor = 'Information';
@@ -104,9 +105,11 @@ utility.SetAlert = function (message, alertType) {
     }
     var ele = $("#mainAlert");
     if (ele.length > 0) {
-        ele.show().fadeIn(300);;
+        ele.show().fadeIn(300);
+        $(ele).addClass(className);
         $("#alertColor").empty().text(alertColor + '!');
         $("#message").empty().text(message);
+        $("#alertmessage").empty().text(message);
     }
     else {
         $("#mainalertContainer").empty().append('<div class="alert alert-' + alertType + ' text-center alert-dismissible" id="mainAlert" style="margin-top: 0px;position: fixed !important;width: 80% !important;display: none;z-index: 100000000 !important;margin-left: 10% !important;" role="alert">' +
@@ -127,7 +130,7 @@ utility.errorCall = function (e, x, settings, exception) {
         '503': "Service unavailable."
     };
     if (x.status) {
-        message = statusErrorMap[x.status];
+        message = statusErrorMap[e.status];
         if (!message) {
             message = "Unknown Error \n.";
         }
@@ -633,3 +636,18 @@ $(document).on('click', '.shop-thumbnail', function () {
         $('.shop-thumbnail-pre').show();
     }
 });
+
+utility.alertType=
+{
+    information: 'info',
+    error: 'danger',
+    warning: 'warning',
+    success: 'success'
+}
+
+utility.setAjaxAlert = function (response) {
+    if (response[0].Key == 110)
+        utility.SetAlert(response[0].Value, utility.alertType.error);
+    if (response[0].Key == 101 || response[0].Key == 100)
+        utility.SetAlert(response[0].Value, utility.alertType.success);
+}

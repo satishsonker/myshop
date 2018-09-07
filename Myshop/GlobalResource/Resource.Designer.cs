@@ -448,6 +448,15 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Supplied parameter is invalid.
+        /// </summary>
+        public static string Invalid_Parameter {
+            get {
+                return ResourceManager.GetString("Invalid_Parameter", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Select shop is invalid.
         /// </summary>
         public static string Invalid_Shop_Selection {

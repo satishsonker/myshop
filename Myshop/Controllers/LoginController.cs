@@ -18,6 +18,12 @@ namespace Myshop.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult NoShopMapped()
+        {
+            return View();
+        }
+
         [MyshopAuthorize]
         public ActionResult logout()
         {
@@ -64,6 +70,10 @@ namespace Myshop.Controllers
                 else if (status == Enums.LoginStatus.UserDeleted)
                 {
                     SetAlertMessage(Resource.UserDeleted, Enums.AlertType.warning);
+                }
+                else if (status == Enums.LoginStatus.NoShopMapped)
+                {
+                    return RedirectToAction("NoShopMapped");
                 }
                 return RedirectToAction("login");
             }

@@ -30,7 +30,8 @@ namespace Myshop.App_Start
             NotExist,
             AttemptExceeded,
             SmsSend,
-            MobileNoExist
+            MobileNoExist,
+            NoShopMapped
         }
 
         public enum ResetLinkStatus
@@ -64,7 +65,8 @@ namespace Myshop.App_Start
             NotificationSend,
             Exception,
             FileUploaded,
-            FileNotUploaded
+            FileNotUploaded,
+            InvalidParameter
         }
 
         public enum CrudType

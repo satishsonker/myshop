@@ -213,7 +213,7 @@ namespace Myshop.Areas.Global.Controllers
             try
             {
                 UserDetails details = new UserDetails();
-                return Json(ReturnAjaxAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Insert)));
+                return Json(ReturnAjaxAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Insert)).ToList(),JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {
@@ -225,7 +225,7 @@ namespace Myshop.Areas.Global.Controllers
             try
             {
                 UserDetails details = new UserDetails();
-                return Json(ReturnAjaxAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Delete)));
+                return Json(ReturnAjaxAlertMessage(details.SetShopMap(userid, shopid, Enums.CrudType.Delete)).ToList(),JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {

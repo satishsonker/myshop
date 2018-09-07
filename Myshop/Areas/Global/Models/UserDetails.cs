@@ -19,12 +19,12 @@ namespace Myshop.Areas.Global.Models
                 byte[] picture = null;
                 if(!string.IsNullOrEmpty(model.Picturename))
                 {
-                    if (Directory.Exists(Utility.AppBaseDirectory+ model.Picturename.Split(new char[] {'\\'})[1]))
+                    if (Directory.Exists(model.Picturename.Substring(0, model.Picturename.LastIndexOf("\\"))))
                     {
                         picture = File.ReadAllBytes(model.Picturename);
                     }
                 }
-                Gbl_Master_User newUser;
+                Gbl_Master_User newUser=new Gbl_Master_User();
                 var oldUser = myshop.Gbl_Master_User.Where(user => (user.UserId.Equals(model.UserId) || (user.Username.ToLower().Equals(model.Username))) && user.IsDeleted == false).FirstOrDefault();
                 if (oldUser != null)
                 {
@@ -65,7 +65,6 @@ namespace Myshop.Areas.Global.Models
                 }
                 else if (crudType == Enums.CrudType.Insert)
                 {
-                    newUser = new Gbl_Master_User();
                     newUser.Username = model.Username;
                     newUser.Mobile = model.Mobile;
                     newUser.Firstname = model.Firstname;
@@ -82,10 +81,35 @@ namespace Myshop.Areas.Global.Models
                     newUser.ModifiedBy = WebSession.UserId;
                     newUser.ModificationDate = DateTime.Now;
                     newUser.Photo = picture;
+                    newUser.ShopId = WebSession.ShopId;
                     myshop.Entry(newUser).State = EntityState.Added;
                 }
 
                 int result = myshop.SaveChanges();
+                if (result > 0)
+                {
+                    Login newlogin = new Login();
+                    int ResetExpireTime = 0;
+                    string ResetExpireTimeFromConfig = Utility.GetAppSettingsValue("DefaultPasswordResetExpire", "1440");
+                    int.TryParse(ResetExpireTimeFromConfig, out ResetExpireTime);
+                    newlogin.CreationBy = WebSession.UserId;
+                    newlogin.CreationDate = DateTime.Now;
+                    newlogin.IsDeleted = false;
+                    newlogin.IsSync = false;
+                    newlogin.LoginDate = DateTime.Now;
+                    newlogin.ModificationDate = DateTime.Now;
+                    newlogin.ModifiedBy = WebSession.UserId;
+                    newlogin.UserId = WebSession.UserId;
+                    newlogin.OTPid = string.Empty;
+                    newlogin.ReserExpireTime = DateTime.Now.AddMinutes(ResetExpireTime);
+                    newlogin.GUID = Guid.NewGuid(); // Create new GUID
+                    newlogin.IsReset = true;
+                    myshop.Logins.Add(newlogin);
+                    myshop.SaveChanges();
+                    string emailBody = Utility.EmailUserCreationBody(model.Firstname + " " + model.Lastname, model.Username, model.Mobile, model.Password, "", newlogin.ReserExpireTime.ToString());
+                    Utility.EmailSendHtmlFormatted(model.Username, "Account Created", emailBody);
+                   
+                }
                 return Utility.CrudStatus(result, crudType);
             }
             catch (Exception ex)
@@ -94,7 +118,8 @@ namespace Myshop.Areas.Global.Models
             }
             finally
             {
-
+                if (myshop != null)
+                    myshop = null;
             }
         }
 
@@ -169,7 +194,7 @@ namespace Myshop.Areas.Global.Models
                                 select new
                                 {
                                     user.Username,
-                                    Name=string.Format("{0} {1}",user.Firstname,user.Lastname),
+                                    Name=user.Firstname+" "+user.Lastname,
                                     user.Mobile,
                                     UserType = userType.Type,
                                     UserTypeId = user.UserType,
@@ -434,7 +459,7 @@ namespace Myshop.Areas.Global.Models
                                 orderby user.Firstname
                                 select new
                                 {
-                                    Name= string.Format("{0} {1}", user.Firstname, user.Lastname),
+                                    Name= user.Firstname+" "+ user.Lastname,
                                     ShopName = shop.Name,
                                     shop.Address,
                                     CreatedDate = user.CreationDate,

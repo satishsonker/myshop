@@ -387,4 +387,7 @@
   <data name="Username_Send_on_SMS" xml:space="preserve">
     <value>Username sent on your mobile no.</value>
   </data>
+  <data name="Invalid_Parameter" xml:space="preserve">
+    <value>Supplied parameter is invalid</value>
+  </data>
 </root>

@@ -702,7 +702,62 @@
             </aside>
             <section id="main-content" style="min-height: 279px;">
                 <div class="inner-content">
-
+                    @{
+                        string message = string.Empty;
+                        string alert = string.Empty;
+                        if (ViewBag.message != null || TempData["messages"] != null)
+                        {
+                            message = ViewBag.message == null ? TempData["messages"] : ViewBag.message;
+                            alert = ViewBag.alert == null ? TempData["alert"] : ViewBag.alert;
+                            if (string.IsNullOrEmpty(alert))
+                            {
+                                alert = "info";
+                            }
+                            <div class="modal fade" id="myModal" role="dialog">
+                                <div class="modal-dialog">
+                                    <!-- Modal content-->
+                                    <div class="modal-content">
+                                        <div class="modal-header @alert">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title">
+                                                @if (@alert == "success")
+                                                {
+                                                    <text>Success</text>
+                                                }
+                                                else if (@alert == "info")
+                                                {
+                                                    <text>Information</text>
+                                                }
+                                                else if (@alert == "danger")
+                                                {
+                                                    <text>Error</text>
+                                                }
+                                                else
+                                                {
+                                                    <text>Warning</text>
+                                                }
+                                                !
+                                            </h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            <p>@message</p>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        ////Validation Summary Code
+                        if (!ViewData.ModelState.IsValid)
+                        {
+                            <div class="alert alert-danger text-center alert-dismissible" style="margin-top: 0px;position: fixed !important;width: 80% !important;display: none;z-index: 100000000 !important;margin-left: 10% !important;" role="alert">
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                                <strong>Validation Error!</strong> @Html.ValidationSummary(false, "", new { @class = "validSummary" })
+                            </div>
+                        }
+                    }
                     @RenderBody()
                 </div>
             </section>
@@ -824,6 +879,10 @@
     <!--End Thumbnail Popup-->
     <!-- Modal Start-->
     <div id="showModel" data-toggle="modal" data-target="#myModal"></div> <!--Model trigger point dont remove-->
+    <div id="mainAlert" class="alert text-center alert-dismissible" style="margin-top: 0px;position: absolute !important;width: 70% !important;display: none;z-index: 100000000 !important;margin-left: 10% !important;top:60px;left:11%" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong id="alertColor">Validation Error!</strong> <span id="alertmessage"></span>
+    </div>
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/hoe.js"></script>
@@ -832,6 +891,7 @@
 
 <script>
     $(document).ready(function () {
+        $('#myModal').modal();
         let interval = setInterval(function () {
             let height = $('body').css('height');
             if (height == 'auto !important') {
@@ -856,3 +916,20 @@
         });
     });
 </script>
+<style>
+    .danger {
+        background-color: #ff00007d;
+    }
+
+    .info {
+        background-color: rgba(0, 188, 212, 0.5);
+    }
+
+    .warning {
+        background-color: rgba(212, 147, 0, 0.5);
+    }
+
+    .success {
+        background-color: rgba(0, 128, 0, 0.50);
+    }
+</style>

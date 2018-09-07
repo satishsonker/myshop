@@ -40,29 +40,48 @@ namespace Myshop.Models
                 else
                 {
                     var login = myShop.Logins.Where(log => log.UserId.Equals(isAuthenticated.UserId) && log.IsDeleted == false).FirstOrDefault();
-                    if(login.IsLoginBlocked)
+                    if (login!=null)
                     {
-                        return Enums.LoginStatus.LoginBlocked;
-                    }
-                    else if (isAuthenticated.Password != passHash)
-                    {
-                        login.LoginAttempt += 1;
-                        login.ModificationDate = DateTime.Now;
-                        login.ModifiedBy = isAuthenticated.UserId;
-                        myShop.Entry(login).State = EntityState.Modified;
-                        myShop.SaveChanges();                        
-                        return Enums.LoginStatus.InvalidCredential;                        
-                    }
-                    else if (login.LoginAttempt >=3)
-                    {
-                        login.IsLoginBlocked = true;
-                        login.ModificationDate = DateTime.Now;
-                        login.ModifiedBy = isAuthenticated.UserId;
-                        myShop.Entry(login).State = EntityState.Modified;
-                        myShop.SaveChanges();
-                        return Enums.LoginStatus.AttemptExceeded;
-                    }
+                        if (login.IsLoginBlocked)
+                        {
+                            return Enums.LoginStatus.LoginBlocked;
+                        }
+                        else if (isAuthenticated.Password != passHash)
+                        {
+                            login.LoginAttempt += 1;
+                            login.ModificationDate = DateTime.Now;
+                            login.ModifiedBy = isAuthenticated.UserId;
+                            myShop.Entry(login).State = EntityState.Modified;
+                            myShop.SaveChanges();
+                            return Enums.LoginStatus.InvalidCredential;
+                        }
+                        else if (login.LoginAttempt >= 3)
+                        {
+                            login.IsLoginBlocked = true;
+                            login.ModificationDate = DateTime.Now;
+                            login.ModifiedBy = isAuthenticated.UserId;
+                            myShop.Entry(login).State = EntityState.Modified;
+                            myShop.SaveChanges();
+                            return Enums.LoginStatus.AttemptExceeded;
+                        }
 
+                    }
+                    else
+                    {
+                        Login newLogin = new Login();
+                        newLogin.CreationBy = WebSession.UserId;
+                        newLogin.UserId = isAuthenticated.UserId;
+                        newLogin.ModifiedBy = WebSession.UserId;
+                        newLogin.ModificationDate = DateTime.Now;
+                        newLogin.LoginDate = DateTime.Now;
+                        newLogin.IsSync = false;
+                        newLogin.IsReset = false;
+                        newLogin.IsLoginBlocked = false;
+                        newLogin.IsDeleted = false;
+                        newLogin.CreationDate = DateTime.Now;
+                        myShop.Entry(newLogin).State = EntityState.Added;
+                        myShop.SaveChanges();
+                    }
                     var userType = myShop.Gbl_Master_UserType.Where(type => type.Id.Equals(isAuthenticated.UserType) && type.IsDeleted == false).FirstOrDefault();                   
                     List<CustomPermission> userPermission = (from permission in myShop.Gbl_Master_User_Permission.Where(x => x.UserId.Equals(isAuthenticated.UserId) && x.IsDeleted == false)
                                           from page in myShop.Gbl_Master_Page.Where(x => x.PageId.Equals(permission.PageId) && x.IsDeleted == false)
@@ -126,21 +145,6 @@ namespace Myshop.Models
                         login.ModifiedBy = isAuthenticated.UserId;
                         myShop.Entry(login).State = EntityState.Modified;
                     }
-                    else
-                    {
-                        Login newlogin = new Login();
-                        newlogin.CreationBy = isAuthenticated.UserId;
-                        newlogin.CreationDate = DateTime.Now;
-                        newlogin.IsDeleted = false;
-                        newlogin.IsSync = false;
-                        newlogin.LoginDate = DateTime.Now;
-                        newlogin.ModificationDate = DateTime.Now;
-                        newlogin.ModifiedBy = isAuthenticated.UserId;
-                        newlogin.UserId = isAuthenticated.UserId;
-                        myShop.Logins.Add(newlogin);
-                    }
-
-                    myShop.SaveChanges();
 
                     WebSession.UserId = isAuthenticated.UserId;
                     WebSession.Firstname = isAuthenticated.Firstname;
@@ -197,7 +201,7 @@ namespace Myshop.Models
                     }
                     WebSession.NotificationList = _notificationList;
                     WebSession.NotificationCount = notification.Count();
-                    return Enums.LoginStatus.Authenticate;
+                    return shopname.Count>0?Enums.LoginStatus.Authenticate:Enums.LoginStatus.NoShopMapped;
                 }
             }
             catch (Exception)
@@ -272,7 +276,7 @@ namespace Myshop.Models
                         int result = myShop.SaveChanges();
                         if (result > 0)
                         {
-                           Utility.SendHtmlFormattedEmail(isExist.Username, "Password Reset Link", Utility.ResetEmailBody(isExist.Firstname+" "+isExist.Lastname, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime),otp));
+                           Utility.EmailSendHtmlFormatted(isExist.Username, "Password Reset Link", Utility.EmailResetBody(isExist.Firstname+" "+isExist.Lastname, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime),otp));
                         }
                         return Enums.ResetLinkStatus.send;
                     }
@@ -382,7 +386,7 @@ namespace Myshop.Models
                     int count= myShop.SaveChanges();
                     if (count > 0)
                     {
-                        Utility.SendHtmlFormattedEmail("btech.csit@gmail.com", "Password Changed", Utility.ChangePasswordEmailBody("Satish Kumar Sonkar"));
+                        Utility.EmailSendHtmlFormatted("btech.csit@gmail.com", "Password Changed", Utility.ChangePasswordEmailBody("Satish Kumar Sonkar"));
                         return Enums.LoginStatus.Authenticate;
                     }
                     else

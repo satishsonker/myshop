@@ -41,7 +41,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Password</label>
-                        <input type="password" class="form-control" required="required" placeholder="Enter Password" id="password" name="password" maxlength="10" data-validate-password-error="Password should be min 6 chars and contain one lower case, one upper case, one number and one special charector" data-validate-password="true" />
+                        <input type="password" data-validate-compare="conpassword" class="form-control" required="required" placeholder="Enter Password" id="password" name="password" maxlength="10" data-validate-password-error="Password should be min 6 chars and contain one lower case, one upper case, one number and one special charector" data-validate-password="true" />
                     </div>
                     <div class="col-sm-6">
                         <label>Confirm Password</label>
@@ -62,7 +62,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <label>Gender</label>
-                        <select class="form-control" required name="Gender">
+                        <select class="form-control" required="required" name="gender">
                             <option value="">Select Gender</option>
                             <option value="M">Male</option>
                             <option value="F">Female</option>

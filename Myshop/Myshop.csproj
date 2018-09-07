@@ -249,6 +249,7 @@
     <Content Include="Content\morris.css" />
     <Content Include="Content\Layout\switch.css" />
     <Content Include="Content\W3C.css" />
+    <Content Include="EmailTemplate\UserCreation.html" />
     <Content Include="EmailTemplate\Notification.html" />
     <Content Include="EmailTemplate\ChangePassword.html" />
     <Content Include="EmailTemplate\ErrorLog.html" />
@@ -500,6 +501,7 @@
     <Content Include="Views\Login\ForgetUsername.cshtml" />
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_MainLayoutWithoutLeftMenu.cshtml" />
+    <Content Include="Views\Login\NoShopMapped.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

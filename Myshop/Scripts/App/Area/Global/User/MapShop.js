@@ -42,10 +42,10 @@ $(document).on('click', "#maps", function () {
         utility.SetAlert('Please select shop', 'warning');
     }
     else {
-        utility.ajaxHelper(app.urls.SetShopJson, { userid: userId,shopid:shopId }, function (response) {
-            alert(response);
+        utility.ajaxHelper(app.urls.SetShopJson, { userid: userId, shopid: shopId }, function (response) {
+            utility.setAjaxAlert(response);
             $('#users').change();       
-        });
+        },utility.errorCall);
     }
 });
 
@@ -54,11 +54,11 @@ function deleteMap(ctrl) {
         let userId = parseInt($('#users').find(':selected').val());
         let shopId = $(ctrl).data('data');
         if (isNaN(userId) || userId < 1) {
-            utility.SetAlert('Please select user', 'warning');
+            utility.SetAlert('Please select user', utility.alertType.warning);
         }
         else {
             utility.ajaxHelper(app.urls.DeleteShopMaps, { userid: userId, shopid: shopId }, function (response) {
-                alert(response);
+                utility.setAjaxAlert(response);
                 $('#users').change();
             });
         }

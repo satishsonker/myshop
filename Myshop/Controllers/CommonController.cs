@@ -99,6 +99,14 @@ namespace Myshop.Controllers
             {
                 result.Add(109, Resource.Notification_Send);
             }
+            else if (status == Enums.CrudStatus.AlreadyExist)
+            {
+                result.Add(110, Resource.DataExistWithSameShopName);
+            }
+            else if (status == Enums.CrudStatus.InvalidParameter)
+            {
+                result.Add(111, Resource.Invalid_Parameter);
+            }
             else
             {
                 result.Add(1100, Resource.Status_Not_Defined);
@@ -324,7 +332,7 @@ namespace Myshop.Controllers
                     }
 
                     Request.Files[0].SaveAs(fileName);
-                    return Json(new { fileName = Utility.GetAppSettingsValue("TempFilePath") + "\\" + DateTime.Now.Ticks.ToString() + FileExt, Image = Convert.ToBase64String(GlobalMethod.ReadFile(Files)) });
+                    return Json(new { fileName = fileName, Image = Convert.ToBase64String(GlobalMethod.ReadFile(Files)) });
                 }
                 else
                     return Json(new { fileName = "/Images/Icons/employee.png", Image = GlobalMethod.ReadFile(Files) });

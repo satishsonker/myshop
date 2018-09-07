@@ -1118,12 +1118,12 @@ namespace Myshop.Areas.Global.Models
                                 string _username = string.Format("{0} {1}", oldNotiType.Gbl_Master_User.Firstname, oldNotiType.Gbl_Master_User.Lastname);
                                 if (!oldNotiType.IsForAll)
                                 {
-                                    Utility.SendHtmlFormattedEmail(oldNotiType.Gbl_Master_User.Username.Trim(), "Notification from " + WebSession.ShopName, Utility.NotificationEmailBody(_username, oldNotiType.Message));
+                                    Utility.EmailSendHtmlFormatted(oldNotiType.Gbl_Master_User.Username.Trim(), "Notification from " + WebSession.ShopName, Utility.EmailNotificationBody(_username, oldNotiType.Message));
                                 }
                                 else
                                 {
                                     List<string> email = myshop.Gbl_Master_User.Where(x => x.ShopId.Equals(WebSession.ShopId) && x.IsActive == true && !x.IsDeleted).Select(x => x.Username).ToList();
-                                    Utility.SendHtmlFormattedEmail(email, "Notification from " + WebSession.ShopName, Utility.NotificationEmailBody(_username, oldNotiType.Message));
+                                    Utility.EmailSendHtmlFormatted(email, "Notification from " + WebSession.ShopName, Utility.EmailNotificationBody(_username, oldNotiType.Message));
                                 }
 
                             }
