@@ -187,6 +187,7 @@
     <Compile Include="Areas\Global\Models\SettingDetails.cs" />
     <Compile Include="Areas\Global\Models\SettingModel.cs" />
     <Compile Include="Areas\Global\Models\UserDetails.cs" />
+    <Compile Include="Areas\Global\Models\UserModel.cs" />
     <Compile Include="Areas\SalesManagement\Controllers\SaleController.cs" />
     <Compile Include="Areas\SalesManagement\SalesManagementAreaRegistration.cs" />
     <Compile Include="Areas\StockManagement\Controllers\MastersController.cs" />
@@ -281,6 +282,7 @@
     <Content Include="Areas\Global\Views\Masters\GetNotification.cshtml" />
     <Content Include="Areas\Global\Views\Masters\SendNotification.cshtml" />
     <Content Include="Areas\Global\Views\User\UserProfile.cshtml" />
+    <Content Include="Areas\Global\Views\Admin\ResetUserPassword.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -378,6 +380,7 @@
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
+    <Content Include="Scripts\App\Area\Global\Admin\ResetUserPassword.js" />
     <Content Include="Scripts\App\Area\Global\Master\Notify.js" />
     <Content Include="Scripts\App\Area\Global\Master\NotifyType.js" />
     <Content Include="Scripts\App\Area\Global\Master\AddLogo.js" />

@@ -486,6 +486,7 @@
           <Property Name="UserId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="Username" Type="varchar" MaxLength="50" />
           <Property Name="Password" Type="varchar" MaxLength="250" />
+          <Property Name="HasDefaultPassword" Type="bit" Nullable="false" />
           <Property Name="Firstname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Mobile" Type="nvarchar" MaxLength="50" Nullable="false" />
@@ -2410,6 +2411,7 @@
           <NavigationProperty Name="Gbl_Master_UserType" Relationship="MyshopModel.FK_User_UserType" FromRole="Gbl_Master_User" ToRole="Gbl_Master_UserType" />
           <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_UserPermission_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
           <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="User_ShopMapper" />
+          <Property Name="HasDefaultPassword" Type="Boolean" Nullable="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -3748,6 +3750,7 @@
           <EntitySetMapping Name="Gbl_Master_User">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_User">
               <MappingFragment StoreEntitySet="Gbl_Master_User">
+                <ScalarProperty Name="HasDefaultPassword" ColumnName="HasDefaultPassword" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />

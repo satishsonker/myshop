@@ -225,9 +225,10 @@ utility.tableBinder = function (data, tableid,totalRecord) {
                     else if (format === 'short')
                         tblHtml = tblHtml + '<td>' + date.toDateString()+ '</td>';
                 }
-                else if (eId.toLowerCase().indexOf('image')>-1)
+                else if (eId.toLowerCase().indexOf('image') > -1 || eId.toLowerCase().indexOf('photo') > -1)
                 {
-                    tblHtml = tblHtml + '<td><img class="shop-thumbnail" src="data:image/png;base64,' + ele[eId] + '" alt="Image" /></td>';
+                    let imagePath = ele[eId] == "" ? '/Images/Icons/FemaleUser.png' : 'data:image/png;base64,'+ele[eId];
+                    tblHtml = tblHtml + '<td><img class="shop-thumbnail" style="border-radius: 30px;padding-bottom: 0px !Important;" src="' + imagePath + '" alt="Image" /></td>';
                 }
                 else {
                     tblHtml = tblHtml + '<td>' + (utility.isNullOrEmpty(ele[eId]) ? '' : ele[eId]) + '</td>';
@@ -281,6 +282,7 @@ utility.bottonGroupManager = function (rowSelect, isCancel) {
     if (isCancel == true) {
         var ctrl = $(btnCancel).parent().parent().find('fieldset');
         $(ctrl).find('input').val('');
+        $(ctrl).find('img').attr('scr','/Images/Icons/FemaleUser.png');
         $(ctrl).find('select#ShopId').val('').change();
         if(panelBody)
         {

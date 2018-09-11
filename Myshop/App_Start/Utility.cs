@@ -10,6 +10,7 @@ using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 using System.Collections.Generic;
+using System.Drawing;
 
 namespace Myshop.App_Start
 {
@@ -49,6 +50,11 @@ namespace Myshop.App_Start
         /// Same OTP will be sent within this time frame
         /// </summary>
         private const int SameOTPMinutes = 15;
+
+        private const string CapitalAlphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        private static readonly string SmallAlphabets = CapitalAlphabets.ToLower();
+        private static readonly string Symbols = "!@#$%^&*()_+-=";
+        private static readonly string Digits = "0123456789";
         #endregion
 
         /// <summary>
@@ -226,7 +232,7 @@ namespace Myshop.App_Start
             return body;
         }
 
-        internal static string EmailUserCreationBody(string userName, string email,string mobile,string password,string resetlink,string expiretime)
+        internal static string EmailUserCreationBody(string userName, string email, string mobile, string password, string resetlink, string expiretime)
         {
             string body = string.Empty;
             string shopname = string.IsNullOrEmpty(WebSession.ShopName) ? GetAppSettingsValue("Shopname") : WebSession.ShopName;
@@ -311,9 +317,18 @@ namespace Myshop.App_Start
         }
         public static byte[] GetImageThumbnails(byte[] ImageByte, int Size = 20)
         {
-            return GetImageThumbnails(ImageByte, Size);
+            return GetThumbnail(ImageByte, Size);
         }
 
+        private static byte[] GetThumbnail(byte[] ByteArray, int size)
+        {
+            using (MemoryStream ms = new MemoryStream())
+            using (Image thumbnail = Image.FromStream(new MemoryStream(ByteArray)).GetThumbnailImage(size, size, null, new IntPtr()))
+            {
+                thumbnail.Save(ms, System.Drawing.Imaging.ImageFormat.Png);
+                return ms.ToArray();
+            }
+        }
         private static void SendEmail(MailMessage mailMessage)
         {
             SmtpClient smtp = new SmtpClient();
@@ -346,6 +361,27 @@ namespace Myshop.App_Start
                     from: new PhoneNumber(_senderMobile),
                     body: _body);
             return message.Sid;
+        }
+
+        internal static string GetDefaultPassword(int _passwordLength)
+        {
+            string _password = string.Empty;
+            int _nextChar = 1;
+            for (int i = 0; i < _passwordLength-1; i++)
+            {
+                Random _ran = new Random();
+                _nextChar = _ran.Next(1, 4);
+                if (_nextChar == 1)
+                    _password += CapitalAlphabets.ToCharArray()[_ran.Next(0, 25)].ToString();
+                else if (_nextChar == 2)
+                    _password += SmallAlphabets.ToCharArray()[_ran.Next(0, 25)].ToString();
+                else if (_nextChar == 3)
+                    _password += SmallAlphabets.ToCharArray()[_ran.Next(0, 13)].ToString();
+                else if (_nextChar == 4)
+                    _password += SmallAlphabets.ToCharArray()[_ran.Next(0, 9)].ToString();
+            }
+
+            return _password;
         }
     }
 }

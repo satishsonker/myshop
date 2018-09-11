@@ -52,5 +52,35 @@ namespace Myshop.Areas.Global.Models
                 return Enums.CrudStatus.Exception;
             }
         }
+
+        public Enums.CrudStatus ResetUserPassword(int _userId)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                var _user = myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(_userId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+                if (_user == null)
+                {
+                    return Enums.CrudStatus.NotExist;
+                }
+                else
+                {
+                    _user.Password = Utility.getHash(Utility.GetDefaultPassword(10));
+                    _user.HasDefaultPassword = true;
+                    _user.ModificationDate = DateTime.Now;
+                    _user.ModifiedBy = WebSession.UserId;
+                    _user.IsSync = false;
+                    myshop.Entry(_user).State = EntityState.Modified;
+                    int result = myshop.SaveChanges();
+                    return result > 0 ? Utility.CrudStatus(result, Enums.CrudType.Update) : Enums.CrudStatus.NoEffect;
+                }
+            }
+            catch (Exception ex)
+            {
+                return Enums.CrudStatus.Exception;
+            }
+        }
+
+
     }
 }

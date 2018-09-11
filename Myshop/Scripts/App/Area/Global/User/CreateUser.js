@@ -4,15 +4,23 @@
 
 $(document).ready(function () {
     utility.bindDdlByAjax(app.urls.GetUserTypeUrl, 'usertypeid');
+    if($('.shop-').attr('src')=='data:image/png;base64,')
+    {
+        $('.shop-').attr('src', '/Images/Icons/FemaleUser.png');
+    }
 });
 
 $(document).on('click', '[id*="btnSelectRow_"]', function () {
     utility.bottonGroupManager(true);
     var data = $(this).data('data');
-    $('#username').val(data.Username);
+    $('#username').val(data.Username); $('#usertypeid').val(data.UserTypeId);
     $('#mobile').val(data.Mobile);
-    $('#name').val(data.Name);
-    $('#usertypeid').val(data.UserTypeId);
+    $('#firstname').val(data.Name.split(' ')[0]);
+    $('#lastname').val(data.Name.split(' ')[1]);
+    $('#gender').val(data.Gender);
+    if (data.Photo != '') {
+        $('#imguserpicture').attr('src', 'data:image/png;base64,' + data.Photo);
+    }
     $('.popup').hide();
 });
 

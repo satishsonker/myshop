@@ -20,6 +20,19 @@ namespace Myshop.Areas.Global.Controllers
             return View(details.GetErrorLog(isAllLog));
         }
 
+        [HttpGet]
+        public ActionResult ResetUserPassword()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult ResetUserPassword(int _userId)
+        {
+            AdminDetails details = new AdminDetails();
+            return Json(ReturnAjaxAlertMessage(details.ResetUserPassword(_userId)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult UpdateErrorLog(int ErrorId)
         {
             AdminDetails details = new AdminDetails();

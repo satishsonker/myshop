@@ -68,12 +68,12 @@ namespace Myshop.Areas.Global.Controllers
             }
             return View("GetUser");
         }
-        public JsonResult GetUserJson(bool allList=false)
+        public JsonResult GetUserJson(bool allList=false,string searchValue="")
         {
             try
             {
                 UserDetails model = new UserDetails();
-                return Json(model.GetUserJson(allList));
+                return Json(model.GetUserJson(allList, searchValue));
             }
             catch (Exception)
             {

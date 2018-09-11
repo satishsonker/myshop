@@ -107,7 +107,8 @@ namespace Myshop.Areas.Global.Models
                     myshop.Logins.Add(newlogin);
                     myshop.SaveChanges();
                     string emailBody = Utility.EmailUserCreationBody(model.Firstname + " " + model.Lastname, model.Username, model.Mobile, model.Password, "", newlogin.ReserExpireTime.ToString());
-                    Utility.EmailSendHtmlFormatted(model.Username, "Account Created", emailBody);
+                    string _mailSubject = crudType == Enums.CrudType.Insert ? "Account Created" : "Account Updated";
+                    Utility.EmailSendHtmlFormatted(model.Username, _mailSubject, emailBody);
                    
                 }
                 return Utility.CrudStatus(result, crudType);
@@ -183,25 +184,33 @@ namespace Myshop.Areas.Global.Models
                     myshop = null;
             }
         }
-        public IEnumerable<object> GetUserJson(bool allList = false)
+        public IEnumerable<object> GetUserJson(bool allList = false, string searchValue = "")
         {
             try
             {
                 myshop = new MyshopDb();
-                var userList = (from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false)
+                var userList = (from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false
+                                && (searchValue=="" || x.Firstname.ToLower().Contains(searchValue))
+                                || (searchValue == "" || x.Lastname.ToLower().Contains(searchValue))
+                                || ( searchValue == "" || x.Username.ToLower().Contains(searchValue))
+                                || ( searchValue == "" || x.Mobile.ToLower().Contains(searchValue))
+                                )
                                 from userType in myshop.Gbl_Master_UserType.Where(x => x.IsDeleted == false && user.UserType.Equals(x.Id))
                                 orderby user.Firstname
-                                select new
+                                select new UserModel
                                 {
-                                    user.Username,
-                                    Name=user.Firstname+" "+user.Lastname,
-                                    user.Mobile,
+                                    Username = user.Username,
+                                    Name = user.Firstname + " " + user.Lastname,
+                                    Mobile = user.Mobile,
+                                    Gender=user.Gender,
                                     UserType = userType.Type,
                                     UserTypeId = user.UserType,
                                     UserId = user.UserId,
                                     CreatedDate = user.CreationDate,
-                                    user.IsActive,
-                                    user.IsBlocked
+                                    IsActive = user.IsActive ?? false,
+                                    IsBlocked = user.IsBlocked ?? false,
+                                    Img = user.Photo,
+                                    Photo=string.Empty
                                 }).ToList();
                 if (allList)
                 {
@@ -209,6 +218,14 @@ namespace Myshop.Areas.Global.Models
                     if (currentUser != null)
                     {
                         userList.Remove(currentUser);
+                    }
+                }
+
+                foreach (var item in userList)
+                {
+                    if (item.Img != null)
+                    {
+                        item.Photo = Convert.ToBase64String(Utility.GetImageThumbnails(item.Img, 100));
                     }
                 }
 
