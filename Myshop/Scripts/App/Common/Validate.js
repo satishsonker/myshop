@@ -67,3 +67,4 @@ $(document).on('change', 'input[data-validate-numeric]',function () {
     }
 });
 
+
