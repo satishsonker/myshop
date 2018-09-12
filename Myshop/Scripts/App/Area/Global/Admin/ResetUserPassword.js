@@ -10,7 +10,7 @@ $(document).on('keydown', '#txtSearchUser', function () {
                 list += '<li data-id="' + ele.UserId + '"><img src="data:image/png;base64,' + ele.Photo + '" style="border-radius: 60px;width: 32px;height: 32px;padding: 0px;margin: 5px;"/>' +
                 '<span>' + ele.Name + ' (' + ele.Username + ')</span></li>';
             });
-            list = list == "" ? '<li style="border-radius: 60px;width: 32px;height: 32px;padding: 0px;margin: 5px;"/><span>No Record Found</span></li>' : list;
+            list = list == "" ? '<li style="padding: 10px;text-align: center;"><span>No Record Found</span></li>' : list;
             $($searchList).empty().append(list);
         })
     }
@@ -20,17 +20,27 @@ $(document).on('keydown', '#txtSearchUser', function () {
     }
 });
 $(document).on('click', '#searchList li', function () {
-    if ($(this).data('id') !== '') {
+    if ($(this).data('id') !== undefined) {
         $('#txtSearchUser').val($(this).find('span').text());
-        $('#userid').val('0');
+        $('#userid').val($(this).data('id'));
     }
     else {
-        $('#userid').val($(this).data('id'));
+        $('#userid').val('0');
+        $('#txtSearchUser').val('');
     }
     $(this).parent().empty();
 });
 
 $(document).on('click', '#btnResetPassword', function () {
-    utility.setFormPostUrl('resetpasswordform', 'ResetUserPassword', 'admin', 'Global');
-    $(document).submit();
+    if ($('#txtSearchUser').val() !== '') {
+        utility.confirmBox('Are you sure! want to Reset the password.', function () {
+            utility.setFormPostUrl('resetpasswordform', 'ResetUserPassword', 'admin', 'Global');
+            $(document).submit();
+        });
+    }
+    else {
+       // utility.SetAlert("Please set the user", utility.alertType.warning);
+        return false;
+    }
+   
 });
