@@ -250,6 +250,7 @@
     <Content Include="Content\morris.css" />
     <Content Include="Content\Layout\switch.css" />
     <Content Include="Content\W3C.css" />
+    <Content Include="EmailTemplate\PasswordResetbyAdmin.html" />
     <Content Include="EmailTemplate\UserCreation.html" />
     <Content Include="EmailTemplate\Notification.html" />
     <Content Include="EmailTemplate\ChangePassword.html" />

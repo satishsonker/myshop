@@ -177,7 +177,9 @@ namespace Myshop.Models
                                                                                         (x.UserId.Equals(WebSession.UserId) || x.IsForAll == true) && 
                                                                                         (x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("push")>-1 || x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("web")>-1)
                                                                                         ).ToList();
+
                     List<WebSessionNotificationList> _notificationList = new List<WebSessionNotificationList>();
+
                     foreach (Gbl_Master_Notification item in notification)
                     {
                         WebSessionNotificationList _newItem= new WebSessionNotificationList();
@@ -194,14 +196,19 @@ namespace Myshop.Models
                             _newItem.ReceiveTime = string.Format("{0} hour ago", span.Hours.ToString());
                         else //if (span.Minutes < 60)
                             _newItem.ReceiveTime = string.Format("{0} min ago", span.Minutes.ToString());
-                       
-                       
-                        
+
                         _notificationList.Add(_newItem);
                     }
                     WebSession.NotificationList = _notificationList;
                     WebSession.NotificationCount = notification.Count();
-                    return shopname.Count>0?Enums.LoginStatus.Authenticate:Enums.LoginStatus.NoShopMapped;
+
+                    if (isAuthenticated.HasDefaultPassword)
+                    {
+                        WebSession.HasDefaultPassword = true;
+                        return Enums.LoginStatus.HasDefaultPassword;
+                    }
+                    else
+                        return shopname.Count > 0 ? Enums.LoginStatus.Authenticate : Enums.LoginStatus.NoShopMapped;
                 }
             }
             catch (Exception)
@@ -375,18 +382,20 @@ namespace Myshop.Models
                 string oldPassHash = Utility.getHash(oldPassword);
                 string newPassHash = Utility.getHash(newPassword);
                 myShop = new MyshopDb();
-                var IsSet = myShop.Gbl_Master_User.Where(user => user.Username.ToLower().Equals(username.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false && user.Password.Equals(oldPassHash)).FirstOrDefault();
-                if (IsSet != null)
+                var _user = myShop.Gbl_Master_User.Where(user => user.Username.ToLower().Equals(username.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false && user.Password.Equals(oldPassHash)).FirstOrDefault();
+                if (_user != null)
                 {
-                    IsSet.ModificationDate = DateTime.Now;
-                    IsSet.ModifiedBy = IsSet.UserId;
-                    IsSet.IsSync = false;
-                    IsSet.Password = newPassHash;
-                    myShop.Entry(IsSet).State = EntityState.Modified;
+                    _user.ModificationDate = DateTime.Now;
+                    _user.ModifiedBy = WebSession.UserId;
+                    _user.IsSync = false;
+                    _user.HasDefaultPassword = false;
+                    _user.Password = newPassHash;
+                    myShop.Entry(_user).State = EntityState.Modified;
                     int count= myShop.SaveChanges();
                     if (count > 0)
                     {
-                        Utility.EmailSendHtmlFormatted("btech.csit@gmail.com", "Password Changed", Utility.ChangePasswordEmailBody("Satish Kumar Sonkar"));
+                        string _userFullname = string.Format("{0} {1}", _user.Firstname, _user.Lastname);
+                        Utility.EmailSendHtmlFormatted(_user.Username, "Password Changed", Utility.ChangePasswordEmailBody(_userFullname));
                         return Enums.LoginStatus.Authenticate;
                     }
                     else

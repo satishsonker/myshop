@@ -252,6 +252,23 @@ namespace Myshop.App_Start
             return body;
         }
 
+        internal static string EmailUserAdminPasswordResetBody(string userName, string email, string password)
+        {
+            string body = string.Empty;
+            string shopname = string.IsNullOrEmpty(WebSession.ShopName) ? GetAppSettingsValue("Shopname") : WebSession.ShopName;
+            //using streamreader for reading my htmltemplate   
+
+            using (StreamReader reader = new StreamReader(System.Web.HttpContext.Current.Server.MapPath("~/EmailTemplate/PasswordResetbyAdmin.html")))
+            {
+                body = reader.ReadToEnd();
+            }
+            body = body.Replace("{username}", userName); //replacing the required things 
+            body = body.Replace("{email}", email); //replacing the required things 
+            body = body.Replace("{password}", password); //replacing the required things
+            body = body.Replace("{shopname}", shopname); //replacing the required things 
+            return body;
+        }
+
         private static byte[] GetHash(string inputString)
         {
             HashAlgorithm algorithm = MD5.Create();  //or use SHA256.Create();
@@ -366,21 +383,20 @@ namespace Myshop.App_Start
         internal static string GetDefaultPassword(int _passwordLength)
         {
             string _password = string.Empty;
-            int _nextChar = 1;
+            int _nextChar = -1;
+            Random _ran = new Random();
             for (int i = 0; i < _passwordLength-1; i++)
-            {
-                Random _ran = new Random();
+            {               
                 _nextChar = _ran.Next(1, 4);
                 if (_nextChar == 1)
                     _password += CapitalAlphabets.ToCharArray()[_ran.Next(0, 25)].ToString();
                 else if (_nextChar == 2)
                     _password += SmallAlphabets.ToCharArray()[_ran.Next(0, 25)].ToString();
                 else if (_nextChar == 3)
-                    _password += SmallAlphabets.ToCharArray()[_ran.Next(0, 13)].ToString();
+                    _password += Symbols.ToCharArray()[_ran.Next(0, 13)].ToString();
                 else if (_nextChar == 4)
-                    _password += SmallAlphabets.ToCharArray()[_ran.Next(0, 9)].ToString();
+                    _password += Digits.ToCharArray()[_ran.Next(0, 9)].ToString();
             }
-
             return _password;
         }
     }

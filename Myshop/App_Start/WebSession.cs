@@ -90,7 +90,6 @@ namespace Myshop.App_Start
 
         public static string Firstname
         {
-
             get
             {
                 if (HttpContext.Current.Session["Firstname"] == null)
@@ -104,6 +103,23 @@ namespace Myshop.App_Start
             }
             set { HttpContext.Current.Session["Firstname"] = value; }
         }
+
+        public static bool HasDefaultPassword
+        {
+            get
+            {
+                if (HttpContext.Current.Session["HasDefaultPassword"] == null)
+                {
+                    return false;
+                }
+                else
+                {
+                    return Convert.ToBoolean(HttpContext.Current.Session["HasDefaultPassword"].ToString());
+                }
+            }
+            set { HttpContext.Current.Session["HasDefaultPassword"] = value; }
+        }
+
         public static string Lastname
         {
 

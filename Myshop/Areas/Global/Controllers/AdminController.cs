@@ -27,10 +27,11 @@ namespace Myshop.Areas.Global.Controllers
         }
 
         [HttpPost]
-        public JsonResult ResetUserPassword(int _userId)
+        public ActionResult ResetUserPassword(int _userId)
         {
             AdminDetails details = new AdminDetails();
-            return Json(ReturnAjaxAlertMessage(details.ResetUserPassword(_userId)).ToList(), JsonRequestBehavior.AllowGet);
+            ReturnAlertMessage(details.ResetUserPassword(_userId));
+            return View("ResetUserPassword");
         }
 
         public JsonResult UpdateErrorLog(int ErrorId)

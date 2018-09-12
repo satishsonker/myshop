@@ -75,6 +75,10 @@ namespace Myshop.Controllers
                 {
                     return RedirectToAction("NoShopMapped");
                 }
+                else if (status == Enums.LoginStatus.HasDefaultPassword)
+                {
+                    return RedirectToAction("ChangePassword");
+                }
                 return RedirectToAction("login");
             }
             else
@@ -232,7 +236,6 @@ namespace Myshop.Controllers
         [MyshopAuthorize]
         public ActionResult SetChangePassword(FormCollection collection)
         {
-            string username = WebSession.Username;
             string oldPassword = collection.Get("oldpassword");
             string newPassword = collection.Get("newpassword");
             string newConPassword = collection.Get("confirmnewpassword");
@@ -240,11 +243,10 @@ namespace Myshop.Controllers
             if (newPassword != newConPassword)
             {
                 SetAlertMessage(Resource.PasswordNotMatch, Enums.AlertType.warning);
-                ViewBag.username = WebSession.Username;
                 return RedirectToAction("SetPassword");
             }
             LoginModel model = new LoginModel();
-            Enums.LoginStatus status = model.ChangePassword(username, newPassword,oldPassword);
+            Enums.LoginStatus status = model.ChangePassword(WebSession.Username, newPassword,oldPassword);
             if (status != Enums.LoginStatus.Authenticate)
             {
                 if (status == Enums.LoginStatus.InvalidUser)
@@ -255,14 +257,27 @@ namespace Myshop.Controllers
                 {
                     SetAlertMessage(Resource.Exception, Enums.AlertType.danger);
                 }
-                ViewBag.username = WebSession.Username;
+                if(WebSession.HasDefaultPassword)
+                {
+                    WebSession.HasDefaultPassword = false;
+                    List<ShopListModel> ShopList = model.ShopList();
+                    if (ShopList.Count > 1)
+                    {
+                        TempData["shopList"] = ShopList;
+                        return RedirectToAction("ShopSelection", "Login");
+                    }
+                    else
+                    {
+                        return RedirectToAction("index", "Home", model);
+                        //return RedirectToAction("../Home/dashboard", model);
+                    }
+                }
                 return RedirectToAction("changepassword");
             }
             else
             {
                 SetAlertMessage(Resource.PasswordSet, Enums.AlertType.success);
-                WebSession.Username = "";
-                return RedirectToAction("changepassword");
+                return RedirectToAction("login");
             }
         }
 

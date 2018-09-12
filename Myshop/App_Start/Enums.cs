@@ -31,7 +31,8 @@ namespace Myshop.App_Start
             AttemptExceeded,
             SmsSend,
             MobileNoExist,
-            NoShopMapped
+            NoShopMapped,
+            HasDefaultPassword
         }
 
         public enum ResetLinkStatus

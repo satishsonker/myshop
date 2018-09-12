@@ -33,7 +33,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 var log = myshop.ErrorLogs.Where(x => x.IsDeleted == false && x.Id.Equals(ErrorId)).FirstOrDefault();
-                if(log==null)
+                if (log == null)
                 {
                     return Enums.CrudStatus.NotExist;
                 }
@@ -44,7 +44,7 @@ namespace Myshop.Areas.Global.Models
                     log.ModifiedDate = DateTime.Now;
                     myshop.Entry(log).State = EntityState.Modified;
                     result = myshop.SaveChanges();
-                    return result > 0 ? Utility.CrudStatus(result, Enums.CrudType.Update):Enums.CrudStatus.NoEffect;
+                    return result > 0 ? Utility.CrudStatus(result, Enums.CrudType.Update) : Enums.CrudStatus.NoEffect;
                 }
             }
             catch (Exception ex)
@@ -65,14 +65,25 @@ namespace Myshop.Areas.Global.Models
                 }
                 else
                 {
-                    _user.Password = Utility.getHash(Utility.GetDefaultPassword(10));
+                    string _randomPassword = Utility.GetDefaultPassword(10);
+                    _user.Password = Utility.getHash(_randomPassword);
                     _user.HasDefaultPassword = true;
                     _user.ModificationDate = DateTime.Now;
                     _user.ModifiedBy = WebSession.UserId;
                     _user.IsSync = false;
                     myshop.Entry(_user).State = EntityState.Modified;
                     int result = myshop.SaveChanges();
-                    return result > 0 ? Utility.CrudStatus(result, Enums.CrudType.Update) : Enums.CrudStatus.NoEffect;
+                    if (result > 0)
+                    {
+                        string _userFullname = _user.Firstname + " " + _user.Lastname;
+                        string _emailBody = Utility.EmailUserAdminPasswordResetBody(_userFullname, _user.Username, _randomPassword);
+                        Utility.EmailSendHtmlFormatted(_user.Username, "Password Reset by Admin", _emailBody);
+                        return Utility.CrudStatus(result, Enums.CrudType.Update);
+                    }
+                    else
+                    {
+                        return Enums.CrudStatus.NoEffect;
+                    }
                 }
             }
             catch (Exception ex)
