@@ -131,6 +131,9 @@
     <Compile Include="Gbl_Master_SubCategory.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Gbl_Master_Task.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gbl_Master_Unit.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>

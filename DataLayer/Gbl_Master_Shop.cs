@@ -33,6 +33,7 @@ namespace DataLayer
             this.Stk_Tr_Entry = new HashSet<Stk_Tr_Entry>();
             this.Stk_Dtl_Entry = new HashSet<Stk_Dtl_Entry>();
             this.User_ShopMapper = new HashSet<User_ShopMapper>();
+            this.Gbl_Master_Task = new HashSet<Gbl_Master_Task>();
         }
     
         public int ShopId { get; set; }
@@ -85,5 +86,7 @@ namespace DataLayer
         public virtual ICollection<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_ShopMapper> User_ShopMapper { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Task> Gbl_Master_Task { get; set; }
     }
 }

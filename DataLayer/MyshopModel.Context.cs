@@ -62,6 +62,7 @@ namespace DataLayer
         public virtual DbSet<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
         public virtual DbSet<Stk_Tr_Entry> Stk_Tr_Entry { get; set; }
         public virtual DbSet<User_ShopMapper> User_ShopMapper { get; set; }
+        public virtual DbSet<Gbl_Master_Task> Gbl_Master_Task { get; set; }
     
         [DbFunction("MyshopDb", "ss")]
         public virtual IQueryable<ss_Result> ss(Nullable<int> id)

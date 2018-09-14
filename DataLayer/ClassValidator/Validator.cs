@@ -123,4 +123,23 @@ namespace DataLayer
         [Range(minimum:1,maximum:int.MaxValue, ErrorMessage = "DocProofTypeId should be greater than 0")]
         public int DocProofTypeId { get; set; }
     }
+
+    [MetadataType(typeof(TaskMeta))]
+    public partial class Gbl_Master_Task
+    {
+    }
+
+    public class TaskMeta
+    {
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Task Details is Required")]
+        [StringLength(maximumLength: 500, MinimumLength = 10, ErrorMessage = "Invalid TaskDetails (min char:10 & Max char:500)")]
+        public string TaskDetails { get; set; }
+
+        [Range(minimum: 0, maximum: int.MaxValue, ErrorMessage = "TaskId should be greater than -1")]
+        public int TaskId { get; set; }
+
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Priority is Required")]
+        [Range(minimum: 1, maximum: 7, ErrorMessage = "Priority should be greater than 0")]
+        public byte Priority { get; set; }
+    }
 }

@@ -1,0 +1,60 @@
+﻿<input type="text" class="form-control" autocomplete="off" id="@Model" maxlength="50" readonly="readonly" placeholder="Click here to populate user list" />
+<ul id="userList"></ul>
+<input type="hidden" value="0" id="@Model" name="@Model" />
+<script>
+    $(document).on('click', '#@Model', function () {
+        let userList = $('#userList');
+        if ($(userList).find('li').length == 0) {
+            utility.ajaxHelper(app.urls.GetUserSelectListWithPhoto, { 'searchValue': '' }, function (data) {
+                var list = "";
+                $(data).each(function (ind, ele) {
+                    list += '<li data-id="' + ele.UserId + '"><img src="data:image/png;base64,' + ele.Photo + '" style="border-radius: 60px;width: 32px;height: 32px;padding: 0px;margin: 5px;"/>' +
+                    '<span>' + ele.Name + ' (' + ele.Username + ')</span></li>';
+                });
+                list = list == "" ? '<li style="padding: 10px;text-align: center;"><span>No Record Found</span></li>' : list;
+                $(userList).empty().append(list);
+            });
+            $('#userList').show(300);
+        }
+    });
+    $(document).on('click', '#userList li', function () {
+        if ($(this).data('id') !== undefined) {
+            $('input[type="text"]#@Model').val($(this).find('span').text());
+            $('input[type="hidden"]#@Model').val($(this).data('id'));
+        }
+        else {
+            $('#userid').val('0');
+            $('#txtSearchUser').val('');
+        }
+        $(this).parent().hide(100).empty();
+    });
+</script>
+<style>
+    #userList {
+        margin: 0;
+        padding: 0;
+            position: absolute;
+    width: 96%;
+    z-index: 9999;
+    border: 1px solid;
+    max-height: 150px;
+    overflow-y: scroll;
+    display:none;
+    }
+
+        #userList li {
+            background-color: #e4eeff;
+            list-style: none;
+            color: black;
+            cursor: pointer;
+                border-bottom: 1px solid #80808038;
+        }
+        #userList li:nth-child(:even)
+        {
+             background-color: darkolivegreen;
+        }
+
+            #userList li:hover {
+                background-color: cornflowerblue;
+            }
+</style>

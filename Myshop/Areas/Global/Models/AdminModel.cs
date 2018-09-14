@@ -15,4 +15,29 @@ namespace Myshop.Areas.Global.Models
         [Required(AllowEmptyStrings = false, ErrorMessage = "IsResolved is required")]
         public bool IsResolved { get; set; } = false;
     }
+
+    public class TaskUserModel
+    {
+        public string TaskDetails { get; set; }
+
+        public bool IsCompleted { get; set; }
+
+        public bool IsImporatant { get; set; }
+
+        public byte Priority { get; set; }
+
+        public string TaskAssignedUserName { get; set; }
+
+        public int TaskAssignedUserId { get; set; }
+
+        public int TaskId { get; set; }
+
+        public string TaskCreatedByName { get; set; }
+
+        public string TaskCreatedByPhoto { get; set; } = string.Empty;
+
+        public int TaskCreatedById { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+    }
 }

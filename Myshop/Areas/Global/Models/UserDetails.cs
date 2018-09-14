@@ -186,60 +186,7 @@ namespace Myshop.Areas.Global.Models
         }
         public IEnumerable<object> GetUserJson(bool allList = false, string searchValue = "")
         {
-            try
-            {
-                myshop = new MyshopDb();
-                var userList = (from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false
-                                && (searchValue=="" || x.Firstname.ToLower().Contains(searchValue))
-                                || (searchValue == "" || x.Lastname.ToLower().Contains(searchValue))
-                                || ( searchValue == "" || x.Username.ToLower().Contains(searchValue))
-                                || ( searchValue == "" || x.Mobile.ToLower().Contains(searchValue))
-                                )
-                                from userType in myshop.Gbl_Master_UserType.Where(x => x.IsDeleted == false && user.UserType.Equals(x.Id))
-                                orderby user.Firstname
-                                select new UserModel
-                                {
-                                    Username = user.Username,
-                                    Name = user.Firstname + " " + user.Lastname,
-                                    Mobile = user.Mobile,
-                                    Gender=user.Gender,
-                                    UserType = userType.Type,
-                                    UserTypeId = user.UserType,
-                                    UserId = user.UserId,
-                                    CreatedDate = user.CreationDate,
-                                    IsActive = user.IsActive ?? false,
-                                    IsBlocked = user.IsBlocked ?? false,
-                                    Img = user.Photo,
-                                    Photo=string.Empty
-                                }).ToList();
-                if (allList)
-                {
-                    var currentUser = userList.Where(x => x.UserId.Equals(WebSession.UserId)).FirstOrDefault();
-                    if (currentUser != null)
-                    {
-                        userList.Remove(currentUser);
-                    }
-                }
-
-                foreach (var item in userList)
-                {
-                    if (item.Img != null)
-                    {
-                        item.Photo = Convert.ToBase64String(Utility.GetImageThumbnails(item.Img, 100));
-                    }
-                }
-
-                return userList;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                if (myshop != null)
-                    myshop = null;
-            }
+           return GlobalMethod.GetUserJsonWithPhoto(allList, searchValue);
         }
         public IEnumerable<object> GetPermissionJson(int userid, int moduleid)
         {

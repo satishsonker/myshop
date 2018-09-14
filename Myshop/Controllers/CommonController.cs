@@ -211,6 +211,7 @@ namespace Myshop.Controllers
         {
             return Json(GlobalMethod.GetCatogaries(WebSession.ShopId));
         }
+
         public JsonResult GetSubCatListJosn(int CatId)
         {
             return Json(GlobalMethod.GetSubCatogaries(CatId, WebSession.ShopId));
@@ -241,6 +242,10 @@ namespace Myshop.Controllers
             return Json(GlobalMethod.GetUserList(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetUserSelectListWithPhoto(string searchValue="")
+        {
+            return Json(GlobalMethod.GetUserJsonWithPhoto(false, searchValue), JsonRequestBehavior.AllowGet);
+        }
         public JsonResult GetNotificationTypeSelectList()
         {
             return Json(GlobalMethod.GetNotificationTypeList(), JsonRequestBehavior.AllowGet);

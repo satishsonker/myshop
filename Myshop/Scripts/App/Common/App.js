@@ -5,6 +5,7 @@ app.urls = {};
 app.urls.customer = {};
 app.urls.GlobalArea = {};
 app.urls.GlobalArea.MasterController = {};
+app.urls.GlobalArea.AdminController = {};
 app.const = {};
 
 app.urls.DefaultPagingUrl = "?PageNo=1&PageSize=20";
@@ -84,6 +85,7 @@ app.urls.UpdateErrorLog = '/Global/Admin/UpdateErrorLog';
 app.urls.isUserExist = '/Global/user/isUserExist';
 app.urls.isExist = '/Common/IsExist';
 app.urls.GetUserSelectList = '/Common/GetUserSelectList';
+app.urls.GetUserSelectListWithPhoto = '/Common/GetUserSelectListWithPhoto';
 
 app.urls.GetStockProductJosn = "/StockManagement/stock/GetUniqueStockProducts";
 
@@ -100,6 +102,11 @@ app.urls.UsersController.DeleteUserNotificationList = '/Users/DeleteUserNotifica
 //Global Area
 app.urls.GlobalArea.MasterController.GetNotificationJson = '/Global/Masters/GetNotificationJson';
 app.urls.GlobalArea.MasterController.SendNotification = '/Global/Masters/PushNotification';
+app.urls.GlobalArea.AdminController.SaveUserTask = '/Global/Admin/SaveUserTask';
+app.urls.GlobalArea.AdminController.UpdateUserTask = '/Global/Admin/UpdateUserTask';
+app.urls.GlobalArea.AdminController.DeleteUserTask = '/Global/Admin/DeleteUserTask';
+app.urls.GlobalArea.AdminController.TaskMarkComplete = '/Global/Admin/TaskMarkComplete';
+app.urls.GlobalArea.AdminController.TaskUserList = '/Global/Admin/TaskUserList';
 
 //Chart Urls
 app.urls.StockProductLineChart = "/StockManagement/stock/GetStockEntryProductChartData";

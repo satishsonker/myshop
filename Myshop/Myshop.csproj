@@ -284,6 +284,7 @@
     <Content Include="Areas\Global\Views\Masters\SendNotification.cshtml" />
     <Content Include="Areas\Global\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\Global\Views\Admin\ResetUserPassword.cshtml" />
+    <Content Include="Areas\Global\Views\Admin\CreateUserTask.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -380,6 +381,7 @@
     <Content Include="Scripts\App\Area\Customer\Master\CustomerType.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
+    <Content Include="Scripts\App\Area\Global\Admin\CreateTask.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ResetUserPassword.js" />
     <Content Include="Scripts\App\Area\Global\Master\Notify.js" />
@@ -506,6 +508,7 @@
     <Content Include="Views\Shared\_MainLayout.cshtml" />
     <Content Include="Views\Shared\_MainLayoutWithoutLeftMenu.cshtml" />
     <Content Include="Views\Login\NoShopMapped.cshtml" />
+    <Content Include="Views\Shared\_UserList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

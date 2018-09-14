@@ -463,6 +463,25 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModificationDate" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Gbl_Master_Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="AssignedUserId" Type="int" Nullable="false" />
+          <Property Name="TaskDetails" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="Priority" Type="tinyint" Nullable="false" />
+          <Property Name="IsImportant" Type="bit" Nullable="false" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="Gbl_Master_Unit">
           <Key>
             <PropertyRef Name="UnitId" />
@@ -968,6 +987,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_CreatedUser">
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
+          <End Role="Gbl_Master_Task" Type="Self.Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_Shop">
+          <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
+          <End Role="Gbl_Master_Task" Type="Self.Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User">
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
+          <End Role="Gbl_Master_Task" Type="Self.Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="AssignedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gbl_Master_User_Gbl_Master_Shop">
           <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
           <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="*" />
@@ -1306,6 +1361,7 @@
           <EntitySet Name="Gbl_Master_Shop" EntityType="Self.Gbl_Master_Shop" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_State" EntityType="Self.Gbl_Master_State" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_SubCategory" EntityType="Self.Gbl_Master_SubCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Gbl_Master_Task" EntityType="Self.Gbl_Master_Task" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_Unit" EntityType="Self.Gbl_Master_Unit" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_User" EntityType="Self.Gbl_Master_User" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_User_Permission" EntityType="Self.Gbl_Master_User_Permission" Schema="dbo" store:Type="Tables" />
@@ -1426,6 +1482,18 @@
           <AssociationSet Name="FK_Gbl_Master_Shop_Gbl_Attachment" Association="Self.FK_Gbl_Master_Shop_Gbl_Attachment">
             <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_CreatedUser" Association="Self.FK_Gbl_Master_Task_Gbl_Master_CreatedUser">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Shop" Association="Self.FK_Gbl_Master_Task_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User" Association="Self.FK_Gbl_Master_Task_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_User_Gbl_Master_Shop" Association="Self.FK_Gbl_Master_User_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
@@ -1779,6 +1847,19 @@
           <AssociationSet Name="FK_StockEntry_Stk_Tr_Entry" Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry">
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
             <End Role="Stk_Dtl_Entry" EntitySet="Stk_Dtl_Entry" />
+          </AssociationSet>
+          <EntitySet Name="Gbl_Master_Task" EntityType="MyshopModel.Gbl_Master_Task" />
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Task" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="ss_Result">
@@ -2327,6 +2408,7 @@
           <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Tr_Entry" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Dtl_Entry" />
           <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="Gbl_Master_Shop" ToRole="User_ShopMapper" />
+          <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Task" />
         </EntityType>
         <EntityType Name="Gbl_Master_State">
           <Key>
@@ -2412,6 +2494,8 @@
           <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_UserPermission_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
           <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="User_ShopMapper" />
           <Property Name="HasDefaultPassword" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
+          <NavigationProperty Name="Gbl_Master_Task1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -3184,6 +3268,64 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Gbl_Master_Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskDetails" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Priority" Type="Byte" Nullable="false" />
+          <Property Name="IsImportant" Type="Boolean" Nullable="false" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_User" />
+          <Property Name="AssignedUserId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_User" />
+        </EntityType>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_Shop">
+          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_Task">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="AssignedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3905,6 +4047,26 @@
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Gbl_Master_Task">
+            <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Task">
+              <MappingFragment StoreEntitySet="Gbl_Master_Task">
+                <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="IsImportant" ColumnName="IsImportant" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

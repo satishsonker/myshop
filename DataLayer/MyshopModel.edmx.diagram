@@ -92,6 +92,10 @@
         <AssociationConnector Association="MyshopModel.FK_UserShopMapper_User" />
         <AssociationConnector Association="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" />
         <AssociationConnector Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Task" Width="1.5" PointX="12.5" PointY="29.75" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

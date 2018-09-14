@@ -25,6 +25,8 @@ namespace DataLayer
             this.Logins = new HashSet<Login>();
             this.Gbl_Master_User_Permission = new HashSet<Gbl_Master_User_Permission>();
             this.User_ShopMapper = new HashSet<User_ShopMapper>();
+            this.Gbl_Master_Task = new HashSet<Gbl_Master_Task>();
+            this.Gbl_Master_Task1 = new HashSet<Gbl_Master_Task>();
         }
     
         public int UserId { get; set; }
@@ -65,5 +67,9 @@ namespace DataLayer
         public virtual ICollection<Gbl_Master_User_Permission> Gbl_Master_User_Permission { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User_ShopMapper> User_ShopMapper { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Task> Gbl_Master_Task { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Task> Gbl_Master_Task1 { get; set; }
     }
 }

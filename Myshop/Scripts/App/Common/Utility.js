@@ -161,7 +161,16 @@ utility.popupTableData = function (methodType) {
     if (shopDDl.length == 0 || (!isNaN(shopid) && shopid > 0)) {
 
         urls = app.urls[methodType]; //Fetching URLs
+        if (urls === undefined && methodType.split('.').length > 0)
+        {
+            let urlParts = methodType.split('.');
+            var tempUrl = app.urls;
+            $(urlParts).each(function (ind, ele) {
+                tempUrl = tempUrl[ele];
+            });
+            urls = tempUrl;
 
+        }
         //Call Ajax helper
         utility.ajaxHelper(urls, { shopid: shopid }, function (data) {
             var list = data.objList !== undefined ? data.objList : data;
