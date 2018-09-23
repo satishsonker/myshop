@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Web;
 using DataLayer;
 using Myshop.App_Start;
 using System.Data.Entity;
-using System.Text;
+using Myshop.Areas.Global.Models;
 
 namespace Myshop.Models
 {
@@ -40,7 +39,7 @@ namespace Myshop.Models
                 else
                 {
                     var login = myShop.Logins.Where(log => log.UserId.Equals(isAuthenticated.UserId) && log.IsDeleted == false).FirstOrDefault();
-                    if (login!=null)
+                    if (login != null)
                     {
                         if (login.IsLoginBlocked)
                         {
@@ -64,7 +63,6 @@ namespace Myshop.Models
                             myShop.SaveChanges();
                             return Enums.LoginStatus.AttemptExceeded;
                         }
-
                     }
                     else
                     {
@@ -82,40 +80,40 @@ namespace Myshop.Models
                         myShop.Entry(newLogin).State = EntityState.Added;
                         myShop.SaveChanges();
                     }
-                    var userType = myShop.Gbl_Master_UserType.Where(type => type.Id.Equals(isAuthenticated.UserType) && type.IsDeleted == false).FirstOrDefault();                   
+                    var userType = myShop.Gbl_Master_UserType.Where(type => type.Id.Equals(isAuthenticated.UserType) && type.IsDeleted == false).FirstOrDefault();
                     List<CustomPermission> userPermission = (from permission in myShop.Gbl_Master_User_Permission.Where(x => x.UserId.Equals(isAuthenticated.UserId) && x.IsDeleted == false)
-                                          from page in myShop.Gbl_Master_Page.Where(x => x.PageId.Equals(permission.PageId) && x.IsDeleted == false)
-                                          from module in myShop.Gbl_Master_AppModule.Where(x => x.ModuleId.Equals(page.ModuleId) && x.IsDeleted == false)
-                                          select new CustomPermission
-                                          {
-                                              Delete = permission.Delete,
-                                              IsBlockAccess = permission.IsBlockAccess,
-                                              Read = permission.Read,
-                                              Update = permission.Update,
-                                              Write = permission.Write,
-                                              UserId = permission.UserId,
-                                              PageId = permission.PageId,
-                                              PageName = page.PageName,
-                                              Url = page.Url,
-                                              ParentId = page.ParentId,
-                                              ModuleId = page.ModuleId,
-                                              ModuleName = module.ModuleName
-                                          }).ToList();
+                                                             from page in myShop.Gbl_Master_Page.Where(x => x.PageId.Equals(permission.PageId) && x.IsDeleted == false)
+                                                             from module in myShop.Gbl_Master_AppModule.Where(x => x.ModuleId.Equals(page.ModuleId) && x.IsDeleted == false)
+                                                             select new CustomPermission
+                                                             {
+                                                                 Delete = permission.Delete,
+                                                                 IsBlockAccess = permission.IsBlockAccess,
+                                                                 Read = permission.Read,
+                                                                 Update = permission.Update,
+                                                                 Write = permission.Write,
+                                                                 UserId = permission.UserId,
+                                                                 PageId = permission.PageId,
+                                                                 PageName = page.PageName,
+                                                                 Url = page.Url,
+                                                                 ParentId = page.ParentId,
+                                                                 ModuleId = page.ModuleId,
+                                                                 ModuleName = module.ModuleName
+                                                             }).ToList();
                     var shopname =
                         (from shopMap in myShop.User_ShopMapper
-                        join shop in myShop.Gbl_Master_Shop on shopMap.ShopId equals shop.ShopId
-                        where shopMap.IsDeleted == false && shop.IsDeleted == false && shopMap.UserId == isAuthenticated.UserId
+                         join shop in myShop.Gbl_Master_Shop on shopMap.ShopId equals shop.ShopId
+                         where shopMap.IsDeleted == false && shop.IsDeleted == false && shopMap.UserId == isAuthenticated.UserId
                          select new
-                        {
-                            ShopId = shop.ShopId,
-                            ShopName = shop.Name
-                        }).ToList();
+                         {
+                             ShopId = shop.ShopId,
+                             ShopName = shop.Name
+                         }).ToList();
 
                     List<ShopCollection> shopCol = new List<ShopCollection>();
-                    if(shopname.Count>0)
+                    if (shopname.Count > 0)
                     {
                         WebSession.ShopId = shopname[0].ShopId;
-                        WebSession.ShopName= shopname[0].ShopName;
+                        WebSession.ShopName = shopname[0].ShopName;
                         foreach (var item in shopname)
                         {
                             ShopCollection newShop = new ShopCollection();
@@ -168,29 +166,29 @@ namespace Myshop.Models
                         WebSession.Permission = userPermission;
                     }
 
-                    var notification = myShop.Gbl_Master_Notification.Where(x => 
-                                                                                        x.IsDeleted == false && 
-                                                                                        x.IsPushed == true && 
-                                                                                        x.IsRead == false && 
-                                                                                        x.MessageExpireDate>=DateTime.Now &&
-                                                                                        x.ShopId.Equals(WebSession.ShopId) && 
-                                                                                        (x.UserId.Equals(WebSession.UserId) || x.IsForAll == true) && 
-                                                                                        (x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("push")>-1 || x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("web")>-1)
+                    var notification = myShop.Gbl_Master_Notification.Where(x =>
+                                                                                        x.IsDeleted == false &&
+                                                                                        x.IsPushed == true &&
+                                                                                        x.IsRead == false &&
+                                                                                        x.MessageExpireDate >= DateTime.Now &&
+                                                                                        x.ShopId.Equals(WebSession.ShopId) &&
+                                                                                        (x.UserId.Equals(WebSession.UserId) || x.IsForAll == true) &&
+                                                                                        (x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("push") > -1 || x.Gbl_Master_NotificationType.NotificationType.ToLower().IndexOf("web") > -1)
                                                                                         ).ToList();
 
                     List<WebSessionNotificationList> _notificationList = new List<WebSessionNotificationList>();
 
                     foreach (Gbl_Master_Notification item in notification)
                     {
-                        WebSessionNotificationList _newItem= new WebSessionNotificationList();
+                        WebSessionNotificationList _newItem = new WebSessionNotificationList();
                         _newItem.Message = item.Message;
                         _newItem.Sender = string.Format("{0} {1}", item.Gbl_Master_User.Firstname, item.Gbl_Master_User.Lastname);
                         _newItem.Photo = Convert.ToBase64String(item.Gbl_Master_User.Photo);
-                        _newItem.ReceiveDate =Convert.ToDateTime(item.PushedDate);
+                        _newItem.ReceiveDate = Convert.ToDateTime(item.PushedDate);
                         TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.PushedDate));
                         if (span.Days == 1)
                             _newItem.ReceiveTime = string.Format("{0} day ago", span.Days.ToString());
-                        else if(span.Days>1)
+                        else if (span.Days > 1)
                             _newItem.ReceiveTime = string.Format("{0} days ago", span.Days.ToString());
                         else if (span.Hours >= 1 && span.Hours <= 23)
                             _newItem.ReceiveTime = string.Format("{0} hour ago", span.Hours.ToString());
@@ -202,7 +200,43 @@ namespace Myshop.Models
                     WebSession.NotificationList = _notificationList;
                     WebSession.NotificationCount = notification.Count();
 
-                    if (isAuthenticated.HasDefaultPassword)
+
+
+                    var taskUser = myShop.Gbl_Master_Task.Where(x =>
+                                                                                       x.IsDeleted == false &&
+                                                                                       !x.IsCompleted &&
+                                                                                       x.ShopId.Equals(WebSession.ShopId) &&
+                                                                                       x.AssignedUserId.Equals(WebSession.UserId)).ToList();
+
+                    List<TaskUserModel> _taskList = new List<TaskUserModel>();
+                    foreach (Gbl_Master_Task item in taskUser)
+                    {
+                        TaskUserModel _newItem = new TaskUserModel();
+                        _newItem.CreatedDate = item.CreatedDate;
+                        _newItem.TaskCreatedByName = item.Gbl_Master_User.Firstname+" "+item.Gbl_Master_User.Lastname;
+                        _newItem.TaskCreatedById = item.Gbl_Master_User.UserId;
+                        _newItem.TaskCreatedByPhoto = Convert.ToBase64String(Utility.GetImageThumbnails(item.Gbl_Master_User.Photo,30));
+                        _newItem.IsImporatant = item.IsImportant;
+                        _newItem.TaskAssignedUserId = item.AssignedUserId;
+                        _newItem.TaskAssignedUserName = item.Gbl_Master_User1.Firstname + " " + item.Gbl_Master_User1.Lastname; ;
+                        _newItem.Priority = item.Priority;
+                        _newItem.TaskDetails = item.TaskDetails;
+                        TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.CreatedDate));
+                        if (span.Days == 1)
+                            _newItem.TaskAssignedTime = string.Format("{0} day ago", span.Days.ToString());
+                        else if (span.Days > 1)
+                            _newItem.TaskAssignedTime = string.Format("{0} days ago", span.Days.ToString());
+                        else if (span.Hours >= 1 && span.Hours <= 23)
+                            _newItem.TaskAssignedTime = string.Format("{0} hour ago", span.Hours.ToString());
+                        else //if (span.Minutes < 60)
+                            _newItem.TaskAssignedTime = string.Format("{0} min ago", span.Minutes.ToString());
+
+                        _taskList.Add(_newItem);
+                    }
+                    WebSession.TaskCount = taskUser.Count();
+                    WebSession.TaskList = _taskList;
+
+                    if (isAuthenticated.HasDefaultPassword ?? false)
                     {
                         WebSession.HasDefaultPassword = true;
                         return Enums.LoginStatus.HasDefaultPassword;
@@ -222,7 +256,7 @@ namespace Myshop.Models
             }
         }
 
-        public Enums.ResetLinkStatus sendPasswordRestLink(string username,string _os,string _browser)
+        public Enums.ResetLinkStatus sendPasswordRestLink(string username, string _os, string _browser)
         {
             try
             {
@@ -247,9 +281,9 @@ namespace Myshop.Models
                     {
                         string otp = string.Empty;
                         int ResetExpireTime = 0;
-                        string ResetExpireTimeFromConfig = Utility.GetAppSettingsValue("PasswordResetExpire","30");
+                        string ResetExpireTimeFromConfig = Utility.GetAppSettingsValue("PasswordResetExpire", "30");
                         int.TryParse(ResetExpireTimeFromConfig, out ResetExpireTime);
-                        string messageId = Utility.CreateOTP(isExist.Mobile,out otp);
+                        string messageId = Utility.CreateOTP(isExist.Mobile, out otp);
                         var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.UserId) && log.IsDeleted == false).FirstOrDefault();
 
                         if (login != null)
@@ -283,7 +317,7 @@ namespace Myshop.Models
                         int result = myShop.SaveChanges();
                         if (result > 0)
                         {
-                           Utility.EmailSendHtmlFormatted(isExist.Username, "Password Reset Link", Utility.EmailResetBody(isExist.Firstname+" "+isExist.Lastname, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime),otp));
+                            Utility.EmailSendHtmlFormatted(isExist.Username, "Password Reset Link", Utility.EmailResetBody(isExist.Firstname + " " + isExist.Lastname, isExist.UserId.ToString(), login.GUID.ToString(), _os, _browser, DateTime.Now.AddMinutes(ResetExpireTime), otp));
                         }
                         return Enums.ResetLinkStatus.send;
                     }
@@ -312,11 +346,11 @@ namespace Myshop.Models
                 var isExist = myShop.Gbl_Master_User.Where(user => user.Username.ToLower().Equals(username.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false).FirstOrDefault();
                 if (isExist != null)
                 {
-                    var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.UserId) && log.IsDeleted == false && log.IsReset==true).FirstOrDefault();
+                    var login = myShop.Logins.Where(log => log.UserId.Equals(isExist.UserId) && log.IsDeleted == false && log.IsReset == true).FirstOrDefault();
                     if (isExist != null)
                     {
-                       Enums.OtpStatus status= Utility.VerifyOTP(otp, login.OTPid);
-                        if(status==Enums.OtpStatus.Valid)
+                        Enums.OtpStatus status = Utility.VerifyOTP(otp, login.OTPid);
+                        if (status == Enums.OtpStatus.Valid)
                         {
                             login.IsReset = false;
                             login.ReserExpireTime = DateTime.Now.AddHours(-1);
@@ -349,7 +383,7 @@ namespace Myshop.Models
             }
         }
 
-        public Enums.LoginStatus ResetPassword(string username,string password)
+        public Enums.LoginStatus ResetPassword(string username, string password)
         {
             try
             {
@@ -371,11 +405,11 @@ namespace Myshop.Models
             }
             catch (Exception)
             {
-               return Enums.LoginStatus.Exception;
+                return Enums.LoginStatus.Exception;
             }
         }
 
-        public Enums.LoginStatus ChangePassword(string username, string newPassword,string oldPassword)
+        public Enums.LoginStatus ChangePassword(string username, string newPassword, string oldPassword)
         {
             try
             {
@@ -391,7 +425,7 @@ namespace Myshop.Models
                     _user.HasDefaultPassword = false;
                     _user.Password = newPassHash;
                     myShop.Entry(_user).State = EntityState.Modified;
-                    int count= myShop.SaveChanges();
+                    int count = myShop.SaveChanges();
                     if (count > 0)
                     {
                         string _userFullname = string.Format("{0} {1}", _user.Firstname, _user.Lastname);
@@ -410,7 +444,7 @@ namespace Myshop.Models
             }
         }
 
-        public Enums.ResetLinkStatus CheckResetLink(string guid,string userid)
+        public Enums.ResetLinkStatus CheckResetLink(string guid, string userid)
         {
             try
             {
@@ -419,7 +453,7 @@ namespace Myshop.Models
                 var isValid = myShop.Logins.Where(log => log.UserId.Equals(UserId) && log.IsReset == true && log.IsDeleted == false && log.GUID.ToString().Equals(guid)).FirstOrDefault();
                 if (isValid != null)
                 {
-                    var user = myShop.Gbl_Master_User.Where(log => log.UserId.Equals(UserId) && log.IsDeleted == false && log.IsActive==true && log.IsBlocked==false).FirstOrDefault();
+                    var user = myShop.Gbl_Master_User.Where(log => log.UserId.Equals(UserId) && log.IsDeleted == false && log.IsActive == true && log.IsBlocked == false).FirstOrDefault();
                     if (user != null)
                     {
                         if (isValid.ReserExpireTime.Value < DateTime.Now)
@@ -449,8 +483,8 @@ namespace Myshop.Models
                             orderby shop.Name
                             select new ShopListModel
                             {
-                                ShopId=shop.ShopId,
-                                ShopName=shop.Name
+                                ShopId = shop.ShopId,
+                                ShopName = shop.Name
                             }).ToList();
             return shopList;
         }
@@ -473,9 +507,8 @@ namespace Myshop.Models
         {
             try
             {
-               
                 myShop = new MyshopDb();
-                var IsExist = myShop.Gbl_Master_User.Where(user => user.Mobile.ToLower().Equals(_mobile.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false ).FirstOrDefault();
+                var IsExist = myShop.Gbl_Master_User.Where(user => user.Mobile.ToLower().Equals(_mobile.ToLower()) && user.IsActive == true && user.IsBlocked == false && user.IsDeleted == false).FirstOrDefault();
                 if (IsExist != null)
                 {
                     string _body = string.Format("Your username for application {0} is {1}", Utility.GetAppSettingsValue("Shopname", string.Empty), IsExist.Username);

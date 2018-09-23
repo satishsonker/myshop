@@ -28,6 +28,8 @@ namespace Myshop.Areas.Global.Models
 
         public string TaskAssignedUserName { get; set; }
 
+        public string TaskAssignedTime { get; set; }
+
         public int TaskAssignedUserId { get; set; }
 
         public int TaskId { get; set; }

@@ -18,6 +18,9 @@
     <link href="~/Content/Layout/Theme_Color.css" rel="stylesheet" />
     <link href="~/Content/Layout/ShrinkEffect.css" rel="stylesheet" />
     <link href="~/Content/Layout/rightsidebar.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-1.10.2.js"></script>
+    <script src="~/Scripts/App/Common/App.js"></script>
+    <script src="~/Scripts/App/Common/Utility.js"></script>
     <!-- Bootstrap -->
 
     <link href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900" rel="stylesheet" type="text/css">
@@ -154,52 +157,24 @@
                         <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
                             <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
                                 <i class="fa fa-tasks"></i>
-                                <span class="badge badge-danger">4</span>
+                                <span class="badge badge-danger">@WebSession.TaskCount</span>
                             </a>
                             <ul class="dropdown-menu ">
                                 <li class="hoe-submenu-label">
-                                    <h3> You have <span class="bold">4 </span>pending Task <a href="#">view all</a></h3>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img alt="Avatar" class="img-circle notification-avatar" src="images/avatar-1.jpg">
-                                        <span class="notification-title"> Smith Doe Assigned new task </span>
-                                        <span class="notification-ago-1 ">5 min ago</span>
-                                        <p class="notification-message">Provide an Overview key mention characteristics for selected Keyword.</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img alt="Avatar" class="img-circle notification-avatar" src="images/avatar-2.jpg">
-                                        <span class="notification-title"> Polly Paton Done his work</span>
-                                        <span class="notification-ago-1 ">10 min ago</span>
-                                        <p class="notification-message">Polly Paton has completed his work. please assign her new task. </p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img alt="Avatar" class="img-circle notification-avatar" src="images/avatar-5.jpg">
-                                        <span class="notification-title">Alan Installing App v1.2.1</span>
-                                        <span class="notification-ago-1 ">15 min ago</span>
-                                        <p class="notification-message">
-                                            Alan Installing App v1.2.1 on server Sav3080
-                                        </p><div class="progress">
-                                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                                                60%
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <img alt="Avatar" class="img-circle notification-avatar" src="images/avatar-4.jpg">
-                                        <span class="notification-title"> Zoey Lombardo like your task</span>
-                                        <span class="notification-ago-1 ">20 min ago</span>
-                                        <p class="notification-message">Zoey Lombardo like your server installation task.</p>
-                                    </a>
-                                </li>
-
+                                    <h3> You have <span class="bold">@WebSession.TaskCount </span>pending Task <a href="#">view all</a></h3>
+                                </li>@{
+                                    foreach (var item in WebSession.TaskList)
+                                    {
+                                        <li>
+                                            <a href="#" class="clearfix">
+                                                <img alt="Avatar" class="img-circle notification-avatar" src="data:image/jpg;base64,@item.TaskCreatedByPhoto">
+                                                <span class="notification-title"> @item.TaskCreatedByName Assigned new task </span>
+                                                <span class="notification-ago-1 ">@item.TaskAssignedTime</span>
+                                                <p class="notification-message">@item.TaskDetails</p>
+                                            </a>
+                                        </li>
+                                    }
+                                }
                             </ul>
                         </li>
                         <li>
@@ -209,7 +184,7 @@
                             </form>
                         </li>
                     </ul>
-                }
+                                    }
 
                 <ul class="right-navbar">
                     <li class="dropdown hoe-rheader-submenu hoe-header-profile">
@@ -246,7 +221,7 @@
                                         </span>
                                     </a>
                                 </li>
-                                <li><a href="#"><i class="fa fa-lock"></i>Lock Screen</a></li>
+                                <li id="_layoutLockScreen"><a href="#"><i class="fa fa-lock"></i>Lock Screen</a></li>
                                 <li><a href="\login\logout"><i class="fa fa-power-off"></i>Logout</a></li>
                             }
                             else
@@ -450,10 +425,36 @@
     <!--End Thumbnail Popup-->
     <!-- Modal Start-->
     <div id="showModel" data-toggle="modal" data-target="#myModal"></div> <!--Model trigger point dont remove-->
+
+    <div class="lock">
+        <div class="row">
+            <div class="col-lg-6" style="margin-left: 25%;margin-top: 15%;">
+                <div style="text-align:center;color:white;"><h2 id="_layoutScreenLockMsg">Your Screen is locked</h2></div>
+                <hr />
+                <div class="input-group">
+                    <input type="password" class="form-control" autocomplete="off" id="_layoutUnlockPassword" placeholder="Enter your account password..">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" id="_layoutUnlockScreen" type="button">Unlock!</button>
+                    </span>
+                </div><!-- /input-group -->
+            </div><!-- /.col-lg-6 -->
+        </div><!-- /.row -->
+    </div>
     <script src="~/Scripts/jquery-1.10.2.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/hoe.js"></script>
     <style>
+        .lock {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000000a3;
+            z-index: 99999999999;
+            display: none;
+        }
+
         .danger {
             background-color: #ff00007d;
         }
@@ -471,8 +472,35 @@
         }
     </style>
     <script>
+        let _screenTime = null;
         $(document).ready(function () {
             $('#myModal').modal();
+        });
+
+        $(document).on('click', '#_layoutUnlockScreen', function () {
+            let $password = $('#_layoutUnlockPassword');
+            utility.ajaxHelper(app.urls.CommonController.CheckPassword, { password: $password.val() }, function (data) {
+                if (data) {
+                    clearInterval(_screenTime);
+                    $('.lock').hide(500);
+                    $password.val('');
+                }
+                else
+                {
+                    $('#_layoutScreenLockMsg').text('Password is invalid');
+                    setTimeout(function () {
+                        $('#_layoutScreenLockMsg').text('Your Screen is locked');
+                    },2000);
+                }
+            });
+        });
+
+        $(document).on('click', '#_layoutLockScreen', function () {
+            _screenTime = setInterval(function () {
+                $('.lock').show();
+            }, 100);
+            //$('.lock').show(100);
+            return false;
         });
     </script>
 </body>

@@ -75,11 +75,11 @@ namespace Myshop.Areas.Global.Models
                                                orderby down.DownTimeStart descending
                                                select new DowntimeModel
                                                {
-                                                   Id=down.Id,
-                                                   Message=down.Message,
-                                                   DownTimeEndDate=down.DownTimeEnd,
-                                                   DownTimeStartDate=down.DownTimeStart,
-                                                   UserName= string.Format("{0} {1}", user.Firstname, user.Lastname),
+                                                   Id = down.Id,
+                                                   Message = down.Message,
+                                                   DownTimeEndDate = down.DownTimeEnd,
+                                                   DownTimeStartDate = down.DownTimeStart,
+                                                   UserName = user.Firstname + " " + user.Lastname,
                                                    CreatedDate=down.CreatedDate
                                                }                                               
                                               ).ToList();

@@ -1,22 +1,31 @@
 ﻿@using Myshop.GlobalResource
 @{
     ViewBag.Title = "Downtime";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayoutwithoutleftmenu.cshtml";
 }
 
 <div class="container" style="margin-top: 100px;text-align: center;">
-    <div class="jumbotron">
-        @Resource.AppUnderMaint
-        <br/>
-        @TempData["message"]
-        <br />
-        Downtime Start @@ @TempData["DowntimeStart"]
-        <br />
-        Downtime End @@ @TempData["DowntimeEnd"]
-        @{ 
-            TempData.Keep();
-        }
+    <div class="panel panel-danger">
+        <div class="panel-heading">@Resource.AppUnderMaint</div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-sm-12">
+                    @TempData["message"]
+                </div>
+                <div class="col-sm-12">
+                    Downtime Start @@ @TempData["DowntimeStart"]
+                </div>
+                <div class="col-sm-12">
+                    Downtime End @@ @TempData["DowntimeEnd"]
+                    @{
+                        TempData.Keep();
+                    }
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer">
+            <h6>If this screen is still showing after the @TempData["DowntimeEnd"]. So please close this application and re-open the same again.</h6>
+        </div>
     </div>
-    <div class="text-center alert  alert-info">If this screen is still showing after the @TempData["DowntimeEnd"]. So please close this application and re-open the same again.</div>
 </div>
 

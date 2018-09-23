@@ -901,6 +901,13 @@ namespace Myshop.App_Start
             //Fire email notification
             Utility.EmailSendHtmlFormatted(Utility.GetAppSettingsValue("ErrorLogEmail"), Custom.Message.ErrorLogEmailSubject, Utility.EmailErrorLogBody(newLog));
         }
+        public static bool CheckPassword(string _password)
+        {
+            myshop = new MyshopDb();
+            string _passwordHash = Utility.getHash(_password ?? string.Empty);
+            var _hasRecord = myshop.Gbl_Master_User.Where(x => x.UserId.Equals(WebSession.UserId) && !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && x.Password.Equals(_passwordHash)).Count();
+            return _hasRecord > 0 ? true : false;
+        }
     }
 
     public class SelectListModel

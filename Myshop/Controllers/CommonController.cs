@@ -256,7 +256,10 @@ namespace Myshop.Controllers
             return Json(GlobalMethod.GetShopList(), JsonRequestBehavior.AllowGet);
         }
 
-
+        public JsonResult CheckPassword(string password)
+        {
+            return Json(GlobalMethod.CheckPassword(password), JsonRequestBehavior.AllowGet);
+        }
         /// <summary>
         /// Validate all posted file
         /// </summary>

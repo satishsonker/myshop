@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Myshop.Areas.Global.Models;
+using System;
 using System.Collections.Generic;
 using System.Web;
 
@@ -305,6 +306,38 @@ namespace Myshop.App_Start
                 }
             }
             set { HttpContext.Current.Session["NotificationList"] = value; }
+        }
+
+        public static int TaskCount
+        {
+            get
+            {
+                if (HttpContext.Current.Session["NotificationCount"] != null)
+                {
+                    return Convert.ToInt32(HttpContext.Current.Session["NotificationCount"]);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
+            set { HttpContext.Current.Session["NotificationCount"] = value; }
+        }
+
+        public static List<TaskUserModel> TaskList
+        {
+            get
+            {
+                if (HttpContext.Current.Session["TaskList"] != null)
+                {
+                    return HttpContext.Current.Session["TaskList"] as List<TaskUserModel>;
+                }
+                else
+                {
+                    return new List<TaskUserModel>();
+                }
+            }
+            set { HttpContext.Current.Session["TaskList"] = value; }
         }
     }
 

@@ -2,6 +2,7 @@
 
 var app = {};
 app.urls = {};
+app.urls.CommonController = {};
 app.urls.customer = {};
 app.urls.GlobalArea = {};
 app.urls.GlobalArea.MasterController = {};
@@ -114,6 +115,9 @@ app.urls.StockTotalAmountPieChart = "GetStockEntryTotalAmountChartData";
 app.urls.StockTotalQuantityPieChart = "GetStockEntryTotalQuantityChartData";
 app.urls.GetCustomesChartData = "/CustomersManagement/Customer/GetCustomesChartData";
 app.urls.GetTotalCustomerTypePieChartData = "/CustomersManagement/Customer/GetTotalCustomerTypePieChartData";
+
+//Common Controller
+app.urls.CommonController.CheckPassword = '/Common/CheckPassword';
 
 //Constant Declaration
 app.const.toastColor = {};

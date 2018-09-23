@@ -106,6 +106,8 @@ namespace Myshop.Areas.Global.Models
                     _newTask.CreatedDate = DateTime.Now;
                     _newTask.IsCompleted = false;
                     _newTask.IsDeleted = false;
+                    _newTask.CompletedDate = null;
+                    _newTask.ModifiedDate = DateTime.Now;
                     _newTask.IsImportant = _model.IsImportant;
                     _newTask.IsSync = false;
                     _newTask.Priority = _model.Priority;
@@ -123,6 +125,7 @@ namespace Myshop.Areas.Global.Models
                         _oldTask.IsSync = false;
                         _oldTask.AssignedUserId = _model.AssignedUserId;
                         _oldTask.IsCompleted = false;
+                        _oldTask.CompletedDate = null;
                         _oldTask.IsImportant = _model.IsImportant;
                         _oldTask.ModifiedBy = WebSession.UserId;
                         _oldTask.ModifiedDate = DateTime.Now;

@@ -311,6 +311,7 @@
     <Content Include="Images\Icons\globe.png" />
     <Content Include="Images\Icons\gnome_preferences_system.png" />
     <Content Include="Images\Icons\home.png" />
+    <Content Include="Images\Icons\icons8-expired-50.png" />
     <Content Include="Images\Icons\MaleUser.png" />
     <Content Include="Images\Icons\FemaleUser.png" />
     <Content Include="Images\Icons\if_arrow_down_70957 %281%29.png" />
@@ -509,6 +510,7 @@
     <Content Include="Views\Shared\_MainLayoutWithoutLeftMenu.cshtml" />
     <Content Include="Views\Login\NoShopMapped.cshtml" />
     <Content Include="Views\Shared\_UserList.cshtml" />
+    <Content Include="Views\Error\SessionExpired.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

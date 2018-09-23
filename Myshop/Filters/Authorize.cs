@@ -30,7 +30,13 @@ namespace Myshop.Filters
                 filterContext.Controller.TempData["DowntimeEnd"] = WebSession.DowntimeEnd.ToString("dd-MMM-yyyy"); ;
                 return;
             }
-            if (WebSession.UserId < 1)
+            else if(string.IsNullOrEmpty(WebSession.Username)) //Session Expired
+            {
+filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Error", action = "SessionExpired", area=""}));
+               
+                return;
+            }
+            else if (WebSession.UserId < 1)
             {
                 filterContext.Result = new RedirectToRouteResult(new RouteValueDictionary(new { controller = "Error", action = "UnAuthorized", area=""}));
                

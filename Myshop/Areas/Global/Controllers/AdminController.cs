@@ -38,8 +38,15 @@ namespace Myshop.Areas.Global.Controllers
         [HttpPost]
         public ActionResult SaveUserTask(Gbl_Master_Task _model)
         {
-            _details = new AdminDetails();
-            ReturnAlertMessage(_details.TaskCreate(Enums.CrudType.Insert, _model));
+            if (ModelState.IsValid)
+            {
+                _details = new AdminDetails();
+                ReturnAlertMessage(_details.TaskCreate(Enums.CrudType.Insert, _model));
+            }
+            else
+            {
+                //GetErrorList();
+            }
             return View("CreateUserTask");
         }
 
