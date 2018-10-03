@@ -26,3 +26,7 @@ Myshop/obj/Debug/Myshop.dll
 Myshop/obj/Debug/Myshop.csprojResolveAssemblyReference.cache
 Myshop/bin/Myshop.dll
 Myshop/obj/Debug/DesignTimeResolveAssemblyReferencesInput.cache
+/.vs/Myshop/v15/Server/sqlite3
+/DataLayer/obj/Debug
+/Myshop/obj/Debug
+/Myshop.Tests/obj/Debug
