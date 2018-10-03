@@ -285,6 +285,7 @@
     <Content Include="Areas\Global\Views\User\UserProfile.cshtml" />
     <Content Include="Areas\Global\Views\Admin\ResetUserPassword.cshtml" />
     <Content Include="Areas\Global\Views\Admin\CreateUserTask.cshtml" />
+    <Content Include="Areas\Global\Views\User\UserTaskList.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
