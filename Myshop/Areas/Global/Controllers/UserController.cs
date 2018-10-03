@@ -248,5 +248,10 @@ namespace Myshop.Areas.Global.Controllers
             return Json(ModelState.Values);
         }       
 
+        public ActionResult UserTaskList()
+        {
+            return View();
+        }
+
     }
 }
