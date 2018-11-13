@@ -20,15 +20,15 @@ namespace DataLayer
             this.Gbl_Master_User = new HashSet<Gbl_Master_User>();
         }
     
-        public int Id { get; set; }
-        public string Type { get; set; }
+        public int UserTypeId { get; set; }
+        public string UserType { get; set; }
         public string Description { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsSync { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
-        public System.DateTime CreationDate { get; set; }
         public System.DateTime ModificationDate { get; set; }
-        public bool IsSync { get; set; }
-        public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_User> Gbl_Master_User { get; set; }

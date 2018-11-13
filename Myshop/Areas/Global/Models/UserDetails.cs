@@ -34,7 +34,7 @@ namespace Myshop.Areas.Global.Models
                         oldUser.Lastname = model.Lastname;
                         oldUser.Gender = model.Gender;
                         oldUser.Mobile = model.Mobile;
-                        oldUser.UserType = model.UserTypeId;
+                        oldUser.UserTypeId = model.UserTypeId;
                         oldUser.IsDeleted = false;
                         oldUser.IsSync = false;
                         oldUser.ModifiedBy = WebSession.UserId;
@@ -70,7 +70,7 @@ namespace Myshop.Areas.Global.Models
                     newUser.Firstname = model.Firstname;
                     newUser.Lastname = model.Lastname;
                     newUser.Gender = model.Gender;
-                    newUser.UserType = model.UserTypeId;
+                    newUser.UserTypeId = model.UserTypeId;
                     newUser.IsActive = true;
                     newUser.IsBlocked = false;
                     newUser.CreationBy = WebSession.UserId;
@@ -130,14 +130,14 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 List<SelectListModel> list = new List<SelectListModel>();
-                var bankList = myshop.Gbl_Master_UserType.Where(bank => bank.IsDeleted == false).OrderBy(x => x.Type).ToList();
+                var bankList = myshop.Gbl_Master_UserType.Where(bank => bank.IsDeleted == false).OrderBy(x => x.UserType).ToList();
                 if (bankList.Count > 0)
                 {
                     foreach (Gbl_Master_UserType currentItem in bankList)
                     {
                         SelectListModel newItem = new SelectListModel();
-                        newItem.Text = currentItem.Type;
-                        newItem.Value = currentItem.Id;
+                        newItem.Text = currentItem.UserType;
+                        newItem.Value = currentItem.UserTypeId;
                         list.Add(newItem);
                     }
                 }
@@ -344,8 +344,8 @@ namespace Myshop.Areas.Global.Models
                         map.ModificationDate = DateTime.Now;
                         map.IsSync = false;
                         map.IsDeleted = false;
-                        map.CreationDate = DateTime.Now;
-                        map.CreationBy = WebSession.UserId;
+                        map.CreatedDate = DateTime.Now;
+                        map.CreatedBy = WebSession.UserId;
                         myshop.User_ShopMapper.Add(map);
                         result = myshop.SaveChanges();
                         return Utility.CrudStatus(result, crudType);

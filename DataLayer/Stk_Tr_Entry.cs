@@ -44,7 +44,7 @@ namespace DataLayer
         public virtual Gbl_Master_BankChequeDetails Gbl_Master_BankChequeDetails { get; set; }
         public virtual Gbl_Master_PayMode Gbl_Master_PayMode { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
-        public virtual Gbl_Master_Vendor Gbl_Master_Vendor { get; set; }
+        public virtual MasterVendor MasterVendor { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
     }

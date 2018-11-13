@@ -642,7 +642,7 @@ namespace Myshop.App_Start
                                 || (searchValue == "" || x.Username.ToLower().Contains(searchValue))
                                 || (searchValue == "" || x.Mobile.ToLower().Contains(searchValue))
                                 )
-                                from userType in myshop.Gbl_Master_UserType.Where(x => x.IsDeleted == false && user.UserType.Equals(x.Id))
+                                from userType in myshop.Gbl_Master_UserType.Where(x => x.IsDeleted == false && user.UserTypeId.Equals(x.UserTypeId))
                                 orderby user.Firstname
                                 select new UserModel
                                 {
@@ -650,12 +650,12 @@ namespace Myshop.App_Start
                                     Name = user.Firstname + " " + user.Lastname,
                                     Mobile = user.Mobile,
                                     Gender = user.Gender,
-                                    UserType = userType.Type,
-                                    UserTypeId = user.UserType,
+                                    UserType = userType.UserType,
+                                    UserTypeId = user.UserTypeId,
                                     UserId = user.UserId,
                                     CreatedDate = user.CreationDate,
-                                    IsActive = user.IsActive ?? false,
-                                    IsBlocked = user.IsBlocked ?? false,
+                                    IsActive = user.IsActive,
+                                    IsBlocked = user.IsBlocked,
                                     Img = user.Photo,
                                     Photo = string.Empty
                                 }).ToList();

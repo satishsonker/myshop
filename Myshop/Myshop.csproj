@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -226,6 +227,7 @@
   <ItemGroup>
     <Content Include="Content\App\Area\StockManagement\Main.css" />
     <Content Include="Content\App\Home\Dashboard.css" />
+    <Content Include="Content\App\Home\Common.css" />
     <Content Include="Content\App\Home\Login.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
@@ -277,7 +279,6 @@
     <Content Include="Areas\SalesManagement\Views\Sale\Dashboard.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetShop.cshtml" />
     <Content Include="Areas\StockManagement\Views\Shared\_Layout.cshtml" />
-    <Content Include="Areas\SalesManagement\Views\Sale\NewSells.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetLogo.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetNotificationType.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetNotification.cshtml" />
@@ -286,6 +287,7 @@
     <Content Include="Areas\Global\Views\Admin\ResetUserPassword.cshtml" />
     <Content Include="Areas\Global\Views\Admin\CreateUserTask.cshtml" />
     <Content Include="Areas\Global\Views\User\UserTaskList.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\NewSales.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -405,6 +407,7 @@
     <Content Include="Scripts\App\Area\Global\User\CreateUser.js" />
     <Content Include="Scripts\App\Area\Global\User\MapShop.js" />
     <Content Include="Scripts\App\Area\Global\User\Permission.js" />
+    <Content Include="Scripts\App\Area\Sales\SaleDashboard.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Vendor.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Brands.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Cat.js" />

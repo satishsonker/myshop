@@ -15,25 +15,24 @@ namespace DataLayer
     public partial class Gbl_Master_Customer
     {
         public int CustomerId { get; set; }
-        public int CustomerTypeId { get; set; }
         public string FirstName { get; set; }
         public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public int CustomerTypeId { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public string District { get; set; }
-        public string State { get; set; }
+        public Nullable<int> State { get; set; }
+        public Nullable<int> District { get; set; }
         public string PINCode { get; set; }
-        public int ShopId { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime ModificationDate { get; set; }
-        public int ModifiedBy { get; set; }
-        public bool IsSync { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsSync { get; set; }
+        public int ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int ShopId { get; set; }
     
         public virtual Gbl_Master_CustomerType Gbl_Master_CustomerType { get; set; }
-        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
     }
 }

@@ -23,16 +23,15 @@ namespace DataLayer
         public int CustomerTypeId { get; set; }
         public string CustomerType { get; set; }
         public string Description { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime ModificationDate { get; set; }
-        public int ModifiedBy { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSync { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public int ShopId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Customer> Gbl_Master_Customer { get; set; }
-        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
     }
 }

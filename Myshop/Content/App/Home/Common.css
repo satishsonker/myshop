@@ -1,0 +1,12 @@
+﻿.shop_addIcon {
+    width: 60px;
+    height: 60px;
+    position: fixed;
+    bottom: 16px;
+    right: 16px;
+    box-shadow: 6px 6px 9px grey;
+    border-radius: 60px;
+    border: 1px solid #2a7fb8;
+    background: #2a7fb8;
+    cursor:pointer;
+}

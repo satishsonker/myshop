@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.title - @WebSession.ShopName</title>
-
+    <link href="~/Content/App/Home/Common.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Layout/extra.css" rel="stylesheet" />
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
@@ -51,7 +51,7 @@
     <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
         <header id="hoe-header" hoe-lpanel-effect="shrink" class="">
             <div class="hoe-left-header">
-                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Click here to go to dashboard" })</span></a>
+                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Click here to go to dashboard",style= "font-size: 13px;" })</span></a>
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
             </div>
 

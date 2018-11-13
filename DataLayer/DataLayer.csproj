@@ -152,6 +152,9 @@
     <Compile Include="Login.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="MasterVendor.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="MyshopModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -178,6 +181,12 @@
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Stk_Tr_Entry.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserShopMapper.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="UserType.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="User_ShopMapper.cs">

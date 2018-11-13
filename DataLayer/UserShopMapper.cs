@@ -12,25 +12,19 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class Login
+    public partial class UserShopMapper
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-        public System.DateTime LoginDate { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsSync { get; set; }
-        public Nullable<bool> IsReset { get; set; }
-        public Nullable<System.Guid> GUID { get; set; }
-        public Nullable<System.DateTime> ReserExpireTime { get; set; }
+        public int ShopId { get; set; }
         public System.DateTime CreationDate { get; set; }
-        public Nullable<System.DateTime> ModificationDate { get; set; }
+        public System.DateTime ModificationDate { get; set; }
         public int CreationBy { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
-        public string OTPid { get; set; }
-        public bool IsLoginBlocked { get; set; }
-        public int LoginAttempt { get; set; }
-        public Nullable<bool> HasDefaultPassword { get; set; }
+        public int ModifiedBy { get; set; }
+        public bool IsSync { get; set; }
+        public bool IsDeleted { get; set; }
     
+        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         public virtual Gbl_Master_User Gbl_Master_User { get; set; }
     }
 }

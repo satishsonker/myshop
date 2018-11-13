@@ -5,48 +5,50 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="6ead5d1a7e8d47a790d75f471606cee9" Name="Diagram1" ZoomLevel="86">
-        <EntityTypeShape EntityType="MyshopModel.ErrorLog" Width="1.5" PointX="0.75" PointY="4.75" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_AppDowntime" Width="1.5" PointX="5.25" PointY="59.375" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Attachment" Width="1.5" PointX="7.5" PointY="29" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_AppModule" Width="1.5" PointX="3.75" PointY="49.125" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Bank" Width="1.5" PointX="11.25" PointY="20.25" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankAccount" Width="1.5" PointX="13.5" PointY="35.125" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankAccountType" Width="1.5" PointX="11.25" PointY="53" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankCheque" Width="1.5" PointX="15.75" PointY="35.5" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankChequeDetails" Width="1.5" PointX="18" PointY="35.625" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Brand" Width="1.5" PointX="7.5" PointY="25" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Category" Width="1.5" PointX="7.5" PointY="53.625" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_City" Width="1.5" PointX="3" PointY="1" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Customer" Width="1.5" PointX="9.75" PointY="47.25" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_CustomerType" Width="1.5" PointX="7.5" PointY="62.25" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_DocProof" Width="1.5" PointX="7.5" PointY="15.625" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_DocProofType" Width="1.5" PointX="5.25" PointY="15.875" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Employee" Width="1.5" PointX="9.75" PointY="24.625" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Employee_Role" Width="1.5" PointX="7.5" PointY="20.5" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Notification" Width="1.5" PointX="10.5" PointY="35.125" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_NotificationType" Width="1.5" PointX="7.5" PointY="44" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Page" Width="1.5" PointX="6" PointY="48.75" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_PayMode" Width="1.5" PointX="18" PointY="46.25" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Product" Width="1.5" PointX="16" PointY="40.375" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Shop" Width="1.5" PointX="5.25" PointY="33.875" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_State" Width="1.5" PointX="0.75" PointY="1" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_SubCategory" Width="1.5" PointX="12.75" PointY="43.625" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Unit" Width="1.5" PointX="13.75" PointY="49" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_User" Width="1.5" PointX="3" PointY="34.375" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_User_Permission" Width="1.5" PointX="8.25" PointY="35.5" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_UserType" Width="1.5" PointX="0.75" PointY="36.125" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Vendor" Width="1.5" PointX="7.5" PointY="57.75" />
-        <EntityTypeShape EntityType="MyshopModel.Login" Width="1.5" PointX="5.25" PointY="74.125" />
-        <EntityTypeShape EntityType="MyshopModel.Stk_Dtl_Entry" Width="1.5" PointX="22.5" PointY="35.375" />
-        <EntityTypeShape EntityType="MyshopModel.Stk_Tr_Entry" Width="1.5" PointX="20.25" PointY="44.75" />
-        <EntityTypeShape EntityType="MyshopModel.User_ShopMapper" Width="1.5" PointX="10.5" PointY="41" />
+        <EntityTypeShape EntityType="MyshopModel.ErrorLog" Width="1.5" PointX="10.75" PointY="2.375" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_AppDowntime" Width="1.5" PointX="5.25" PointY="23.625" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Attachment" Width="1.5" PointX="0.75" PointY="5.375" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_AppModule" Width="1.5" PointX="0.75" PointY="24.875" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Bank" Width="1.5" PointX="8.25" PointY="54.25" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankAccount" Width="1.5" PointX="10.5" PointY="42.375" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankAccountType" Width="1.5" PointX="8.25" PointY="28.5" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankCheque" Width="1.5" PointX="12.75" PointY="42.875" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_BankChequeDetails" Width="1.5" PointX="15" PointY="42.25" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Brand" Width="1.5" PointX="7.5" PointY="45.625" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Category" Width="1.5" PointX="7.5" PointY="32.75" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_City" Width="1.5" PointX="8" PointY="2.625" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Customer" Width="1.5" PointX="8" PointY="6.625" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_CustomerType" Width="1.5" PointX="5.75" PointY="7.5" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_DocProof" Width="1.5" PointX="0.75" PointY="10.875" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_DocProofType" Width="1.5" PointX="1.5" PointY="15.125" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Employee" Width="1.5" PointX="3" PointY="2.875" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Employee_Role" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Notification" Width="1.5" PointX="9.75" PointY="48.375" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_NotificationType" Width="1.5" PointX="7.5" PointY="64.125" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Page" Width="1.5" PointX="3" PointY="24.5" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_PayMode" Width="1.5" PointX="15" PointY="47" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Product" Width="1.5" PointX="13" PointY="36.75" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Shop" Width="1.5" PointX="5.25" PointY="39.5" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_State" Width="1.5" PointX="5.75" PointY="2.625" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_SubCategory" Width="1.5" PointX="9.75" PointY="37.625" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Task" Width="1.5" PointX="10.5" PointY="32" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Unit" Width="1.5" PointX="10.75" PointY="27.25" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_User" Width="1.5" PointX="3" PointY="29.875" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_User_Permission" Width="1.5" PointX="5.25" PointY="31.375" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_UserType" Width="1.5" PointX="0.75" PointY="31.875" />
+        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Vendor" Width="1.5" PointX="7.5" PointY="59.875" />
+        <EntityTypeShape EntityType="MyshopModel.Login" Width="1.5" PointX="5.25" PointY="18.625" />
+        <EntityTypeShape EntityType="MyshopModel.MasterVendor" Width="1.5" PointX="7.5" PointY="49.625" />
+        <EntityTypeShape EntityType="MyshopModel.Stk_Dtl_Entry" Width="1.5" PointX="19.5" PointY="40.625" />
+        <EntityTypeShape EntityType="MyshopModel.Stk_Tr_Entry" Width="1.5" PointX="17.25" PointY="43.5" />
+        <EntityTypeShape EntityType="MyshopModel.User_ShopMapper" Width="1.5" PointX="10.75" PointY="7.375" />
+        <EntityTypeShape EntityType="MyshopModel.UserShopMapper" Width="1.5" PointX="7.5" PointY="37.5" />
+        <EntityTypeShape EntityType="MyshopModel.UserType" Width="1.5" PointX="5.75" PointY="12.375" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_AppDowntime_User_CreatedBy" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_AppDowntime_User_ModifiedBy" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Attachment_Gbl_Master_Shop" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment_AddressProof" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment_IdentityProof" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Shop_Gbl_Attachment" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Page_Gbl_Master_AppModule" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_BankAccount_Gbl_Master_Bank" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_BankAccount_Gbl_Master_BankAccount" />
@@ -62,8 +64,6 @@
         <AssociationConnector Association="MyshopModel.FK_MasterSubCategory_MasterCategory" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_City_Gbl_Master_State" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_CustomerType" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_Shop" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_CustomerType_Gbl_Master_Shop1" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_DocProof_Gbl_Master_DocProofType" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Master_AddressDocProof" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Master_IdentityDocProof" />
@@ -71,31 +71,31 @@
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_NotificationType" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_Shop" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_NotificationType_Gbl_Master_Shop" />
         <AssociationConnector Association="MyshopModel.FK_UserPermission_Gbl_Master_Page" />
         <AssociationConnector Association="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_PayMode" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Unit" />
-        <AssociationConnector Association="MyshopModel.FK_MasterProduct_MasterSubCategory" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Product" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_SubCategory" />
         <AssociationConnector Association="MyshopModel.FK_MasterProduct_Shop" />
         <AssociationConnector Association="MyshopModel.FK_StockEntry_MasterProduct" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_User_Gbl_Master_Shop" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Vendor_Gbl_Master_Shop" />
         <AssociationConnector Association="MyshopModel.FK_MasterSubCategory_Shop" />
         <AssociationConnector Association="MyshopModel.FK_MasterVendor_Shop" />
         <AssociationConnector Association="MyshopModel.FK_Shop_User" />
         <AssociationConnector Association="MyshopModel.FK_Stk_Tr_Entry_Shop" />
         <AssociationConnector Association="MyshopModel.FK_StockEntry_Shop" />
         <AssociationConnector Association="MyshopModel.FK_UserShopMapper_Shop" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_User_Gbl_Master_User" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_User_Gbl_Master_UserType" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_User_Permission_Gbl_Master_User" />
         <AssociationConnector Association="MyshopModel.FK_Login_User" />
-        <AssociationConnector Association="MyshopModel.FK_User_UserType" />
-        <AssociationConnector Association="MyshopModel.FK_UserPermission_User" />
         <AssociationConnector Association="MyshopModel.FK_UserShopMapper_User" />
         <AssociationConnector Association="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" />
         <AssociationConnector Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry" />
-        <EntityTypeShape EntityType="MyshopModel.Gbl_Master_Task" Width="1.5" PointX="12.5" PointY="29.75" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task" />
-        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

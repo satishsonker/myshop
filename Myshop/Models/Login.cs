@@ -80,7 +80,7 @@ namespace Myshop.Models
                         myShop.Entry(newLogin).State = EntityState.Added;
                         myShop.SaveChanges();
                     }
-                    var userType = myShop.Gbl_Master_UserType.Where(type => type.Id.Equals(isAuthenticated.UserType) && type.IsDeleted == false).FirstOrDefault();
+                    var userType = myShop.Gbl_Master_UserType.Where(type => type.UserTypeId.Equals(isAuthenticated.UserTypeId) && type.IsDeleted == false).FirstOrDefault();
                     List<CustomPermission> userPermission = (from permission in myShop.Gbl_Master_User_Permission.Where(x => x.UserId.Equals(isAuthenticated.UserId) && x.IsDeleted == false)
                                                              from page in myShop.Gbl_Master_Page.Where(x => x.PageId.Equals(permission.PageId) && x.IsDeleted == false)
                                                              from module in myShop.Gbl_Master_AppModule.Where(x => x.ModuleId.Equals(page.ModuleId) && x.IsDeleted == false)
@@ -154,12 +154,12 @@ namespace Myshop.Models
                     WebSession.Username = isAuthenticated.Username;
                     WebSession.ShopList = shopCol;
                     WebSession.UserPhoto = isAuthenticated.Photo == null ? string.Empty : Convert.ToBase64String(isAuthenticated.Photo);
-                    WebSession.UserType = isAuthenticated.Gbl_Master_UserType.Type;
+                    WebSession.UserType = isAuthenticated.Gbl_Master_UserType.UserType;
                     WebSession.UserGender = isAuthenticated.Gender.ToUpper();
 
                     if (userType != null)
                     {
-                        WebSession.UserType = userType.Type;
+                        WebSession.UserType = userType.UserType;
                     }
                     if (userPermission != null)
                     {

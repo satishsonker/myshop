@@ -16,18 +16,18 @@ namespace DataLayer
     {
         public int TaskId { get; set; }
         public string TaskDetails { get; set; }
-        public byte Priority { get; set; }
-        public bool IsImportant { get; set; }
-        public bool IsCompleted { get; set; }
-        public Nullable<System.DateTime> CompletedDate { get; set; }
-        public bool IsSync { get; set; }
-        public bool IsDeleted { get; set; }
         public int ShopId { get; set; }
-        public int CreatedBy { get; set; }
+        public byte Priority { get; set; }
+        public bool IsSync { get; set; }
+        public bool IsImportant { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<System.DateTime> CompletedDate { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsCompleted { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public System.DateTime ModifiedDate { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
         public int AssignedUserId { get; set; }
+        public int CreatedBy { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
     
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         public virtual Gbl_Master_User Gbl_Master_User { get; set; }

@@ -15,25 +15,24 @@ namespace DataLayer
     public partial class Gbl_Master_Notification
     {
         public int NotificationId { get; set; }
-        public int NotificationTypeId { get; set; }
-        public string Message { get; set; }
-        public int UserId { get; set; }
-        public int ShopId { get; set; }
-        public bool IsPushed { get; set; }
-        public bool IsRead { get; set; }
-        public bool IsForAll { get; set; }
-        public Nullable<System.DateTime> PushedDate { get; set; }
-        public System.DateTime MessageExpireDate { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int ModifiedBy { get; set; }
-        public System.DateTime ModificationDate { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSync { get; set; }
+        public bool IsPushed { get; set; }
+        public System.DateTime MessageExpireDate { get; set; }
+        public int ShopId { get; set; }
+        public int UserId { get; set; }
+        public bool IsForAll { get; set; }
+        public bool IsRead { get; set; }
+        public System.DateTime PushedDate { get; set; }
+        public int NotificationTypeId { get; set; }
+        public string Message { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
     
         public virtual Gbl_Master_NotificationType Gbl_Master_NotificationType { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         public virtual Gbl_Master_User Gbl_Master_User { get; set; }
-        public virtual Gbl_Master_User Gbl_Master_User1 { get; set; }
     }
 }

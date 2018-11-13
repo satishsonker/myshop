@@ -15,16 +15,13 @@ namespace DataLayer
     public partial class User_ShopMapper
     {
         public int Id { get; set; }
-        public int UserId { get; set; }
         public int ShopId { get; set; }
-        public System.DateTime CreationDate { get; set; }
-        public System.DateTime ModificationDate { get; set; }
-        public int CreationBy { get; set; }
-        public int ModifiedBy { get; set; }
-        public bool IsSync { get; set; }
+        public int UserId { get; set; }
         public bool IsDeleted { get; set; }
-    
-        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
-        public virtual Gbl_Master_User Gbl_Master_User { get; set; }
+        public bool IsSync { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
     }
 }

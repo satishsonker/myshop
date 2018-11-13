@@ -35,8 +35,8 @@ namespace Myshop.Areas.CustomersManagement.Models
 
         public string Email { get; set; }
         public string Address { get; set; }
-        public string District { get; set; }
-        public string State { get; set; }
+        public int District { get; set; }
+        public int State { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "PINCode is Required")]
         [StringLength(maximumLength: 6, MinimumLength = 6, ErrorMessage = "PINCode Min:6 chars & max:6 chars are required")]

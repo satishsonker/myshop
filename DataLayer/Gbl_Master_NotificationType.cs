@@ -23,13 +23,13 @@ namespace DataLayer
         public int NotificationTypeId { get; set; }
         public string NotificationType { get; set; }
         public string Description { get; set; }
-        public int ShopId { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int ModifiedBy { get; set; }
-        public System.DateTime ModificationDate { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSync { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
+        public int ShopId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }

@@ -21,9 +21,6 @@
           <Property Name="IsResolved" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
-          <Property Name="Source" Type="nvarchar" MaxLength="250" />
-          <Property Name="ErrorCode" Type="int" />
-          <Property Name="Severity" Type="nvarchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Gbl_AppDowntime">
           <Key>
@@ -46,18 +43,19 @@
             <PropertyRef Name="AttachmentId" />
           </Key>
           <Property Name="AttachmentId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FileName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="FleName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="OriginalFileName" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="FileExtension" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="ModuleName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="Attachment" Type="varbinary(max)" Nullable="false" />
-          <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="IsSync" Type="bit" />
-          <Property Name="IsDeleted" Type="bit" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" />
+          <Property Name="IsSync" Type="bit" />
+          <Property Name="FileName" Type="nvarchar" MaxLength="250" />
         </EntityType>
         <EntityType Name="Gbl_Master_AppModule">
           <Key>
@@ -207,23 +205,23 @@
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="CustomerTypeId" Type="int" Nullable="false" />
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="MiddleName" Type="nvarchar" MaxLength="50" />
-          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
-          <Property Name="Mobile" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CustomerTypeId" Type="int" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="13" />
           <Property Name="Email" Type="nvarchar" MaxLength="50" />
           <Property Name="Address" Type="nvarchar" MaxLength="250" />
-          <Property Name="District" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="State" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="PINCode" Type="nvarchar" MaxLength="6" Nullable="false" />
-          <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="State" Type="int" />
+          <Property Name="District" Type="int" />
+          <Property Name="PINCode" Type="nvarchar" MaxLength="6" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_CustomerType">
           <Key>
@@ -231,13 +229,13 @@
           </Key>
           <Property Name="CustomerTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="CustomerType" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_DocProof">
@@ -332,21 +330,21 @@
             <PropertyRef Name="NotificationId" />
           </Key>
           <Property Name="NotificationId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="NotificationTypeId" Type="int" Nullable="false" />
-          <Property Name="Message" Type="nvarchar" MaxLength="200" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="IsPushed" Type="bit" Nullable="false" />
-          <Property Name="IsRead" Type="bit" Nullable="false" />
-          <Property Name="IsForAll" Type="bit" Nullable="false" />
-          <Property Name="PushedDate" Type="datetime" />
-          <Property Name="MessageExpireDate" Type="datetime" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsPushed" Type="bit" Nullable="false" />
+          <Property Name="MessageExpireDate" Type="datetime" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="IsForAll" Type="bit" Nullable="false" />
+          <Property Name="IsRead" Type="bit" Nullable="false" />
+          <Property Name="PushedDate" Type="datetime" Nullable="false" />
+          <Property Name="NotificationTypeId" Type="int" Nullable="false" />
+          <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModificationDate" Type="datetime" />
         </EntityType>
         <EntityType Name="Gbl_Master_NotificationType">
           <Key>
@@ -354,14 +352,14 @@
           </Key>
           <Property Name="NotificationTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NotificationType" Type="nvarchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="nvarchar" MaxLength="50" />
-          <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_Page">
           <Key>
@@ -425,13 +423,12 @@
           <Property Name="Distict" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="State" Type="varchar" MaxLength="50" Nullable="false" />
           <Property Name="Owner" Type="int" Nullable="false" />
-          <Property Name="LogoAttachmentId" Type="int" />
-          <Property Name="IsSync" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="Gbl_Master_State">
           <Key>
@@ -469,18 +466,18 @@
           </Key>
           <Property Name="TaskId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TaskDetails" Type="nvarchar" MaxLength="500" Nullable="false" />
-          <Property Name="Priority" Type="tinyint" Nullable="false" />
-          <Property Name="IsImportant" Type="bit" Nullable="false" />
-          <Property Name="IsCompleted" Type="bit" Nullable="false" />
-          <Property Name="CompletedDate" Type="datetime" />
-          <Property Name="IsSync" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="Priority" Type="tinyint" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsImportant" Type="bit" Nullable="false" />
+          <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="CompletedDate" Type="datetime" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsCompleted" Type="bit" Nullable="false" />
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" />
           <Property Name="AssignedUserId" Type="int" Nullable="false" />
-          <Property Name="ModifiedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
         </EntityType>
         <EntityType Name="Gbl_Master_Unit">
           <Key>
@@ -508,18 +505,18 @@
           <Property Name="Firstname" Type="varchar" MaxLength="50" />
           <Property Name="Mobile" Type="varchar" MaxLength="13" />
           <Property Name="Photo" Type="varbinary(max)" />
-          <Property Name="UserType" Type="int" Nullable="false" />
+          <Property Name="UserTypeId" Type="int" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="CreationBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="IsActive" Type="bit" />
-          <Property Name="IsBlocked" Type="bit" />
+          <Property Name="IsActive" Type="bit" Nullable="false" />
+          <Property Name="IsBlocked" Type="bit" Nullable="false" />
+          <Property Name="Lastname" Type="nvarchar" MaxLength="50" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
-          <Property Name="Lastname" Type="nvarchar" MaxLength="50" />
-          <Property Name="Gender" Type="nchar" MaxLength="1" />
+          <Property Name="Gender" Type="nvarchar" MaxLength="6" Nullable="false" />
           <Property Name="HasDefaultPassword" Type="bit" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
@@ -543,19 +540,57 @@
         </EntityType>
         <EntityType Name="Gbl_Master_UserType">
           <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserType" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="150" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Gbl_Master_Vendor">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="VendorName" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="VendorAddress" Type="nvarchar" MaxLength="250" Nullable="false" />
+          <Property Name="VendorMobile" Type="nvarchar" MaxLength="13" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Login">
+          <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="CreationDate" Type="datetime" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="LoginDate" Type="datetime" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsReset" Type="bit" />
+          <Property Name="GUID" Type="uniqueidentifier" />
+          <Property Name="ReserExpireTime" Type="datetime" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" />
+          <Property Name="CreationBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="OTPid" Type="varchar" MaxLength="100" />
+          <Property Name="IsLoginBlocked" Type="bit" Nullable="false" />
+          <Property Name="LoginAttempt" Type="int" Nullable="false" />
+          <Property Name="HasDefaultPassword" Type="bit" />
         </EntityType>
-        <EntityType Name="Gbl_Master_Vendor">
+        <EntityType Name="MasterVendor">
           <Key>
             <PropertyRef Name="VendorId" />
           </Key>
@@ -570,26 +605,6 @@
           <Property Name="CreatedDate" Type="datetime" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Login">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="UserId" Type="int" Nullable="false" />
-          <Property Name="LoginDate" Type="datetime" Nullable="false" />
-          <Property Name="LoginAttempt" Type="int" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-          <Property Name="IsSync" Type="bit" Nullable="false" />
-          <Property Name="IsReset" Type="bit" />
-          <Property Name="IsLoginBlocked" Type="bit" Nullable="false" />
-          <Property Name="GUID" Type="uniqueidentifier" />
-          <Property Name="OTPid" Type="varchar" MaxLength="100" />
-          <Property Name="ReserExpireTime" Type="datetime" />
-          <Property Name="CreationDate" Type="datetime" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
-          <Property Name="CreationBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Stk_Dtl_Entry">
@@ -642,12 +657,40 @@
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShopId" Type="int" Nullable="false" />
+          <Property Name="UserId" Type="int" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="CreatedDate" Type="datetime" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" />
+          <Property Name="ModificationDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="UserShopMapper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="ShopId" Type="int" Nullable="false" />
           <Property Name="CreationDate" Type="datetime" Nullable="false" />
           <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="CreationBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="IsSync" Type="bit" Nullable="false" />
+          <Property Name="IsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="50" />
+          <Property Name="CreatedBy" Type="int" Nullable="false" />
+          <Property Name="ModifiedBy" Type="int" Nullable="false" />
+          <Property Name="CreationDate" Type="datetime" Nullable="false" />
+          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
@@ -672,18 +715,6 @@
             </Principal>
             <Dependent Role="Gbl_AppDowntime">
               <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Attachment_Gbl_Master_Shop">
-          <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
-          <End Role="Gbl_Attachment" Type="Self.Gbl_Attachment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Attachment">
-              <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -780,30 +811,6 @@
             </Principal>
             <Dependent Role="Gbl_Master_Customer">
               <PropertyRef Name="CustomerTypeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Customer_Gbl_Master_Shop">
-          <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
-          <End Role="Gbl_Master_Customer" Type="Self.Gbl_Master_Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Customer">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_CustomerType_Gbl_Master_Shop1">
-          <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
-          <End Role="Gbl_Master_CustomerType" Type="Self.Gbl_Master_CustomerType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_CustomerType">
-              <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -951,7 +958,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Gbl_Master_Product_Gbl_Master_Unit">
+        <Association Name="FK_Gbl_Master_Product_Gbl_Master_Product">
           <End Role="Gbl_Master_Unit" Type="Self.Gbl_Master_Unit" Multiplicity="1" />
           <End Role="Gbl_Master_Product" Type="Self.Gbl_Master_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -963,15 +970,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Gbl_Master_Shop_Gbl_Attachment">
-          <End Role="Gbl_Attachment" Type="Self.Gbl_Attachment" Multiplicity="0..1" />
-          <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="*" />
+        <Association Name="FK_Gbl_Master_Product_Gbl_Master_SubCategory">
+          <End Role="Gbl_Master_SubCategory" Type="Self.Gbl_Master_SubCategory" Multiplicity="1" />
+          <End Role="Gbl_Master_Product" Type="Self.Gbl_Master_Product" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gbl_Attachment">
-              <PropertyRef Name="AttachmentId" />
+            <Principal Role="Gbl_Master_SubCategory">
+              <PropertyRef Name="SubCatId" />
             </Principal>
-            <Dependent Role="Gbl_Master_Shop">
-              <PropertyRef Name="LogoAttachmentId" />
+            <Dependent Role="Gbl_Master_Product">
+              <PropertyRef Name="SubCatId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1023,6 +1030,54 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Gbl_Master_User_Gbl_Master_User">
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
+          <End Role="Gbl_Master_User1" Type="Self.Gbl_Master_User" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_User1">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_User_Gbl_Master_UserType">
+          <End Role="Gbl_Master_UserType" Type="Self.Gbl_Master_UserType" Multiplicity="1" />
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_User">
+              <PropertyRef Name="UserTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_User_Permission_Gbl_Master_User">
+          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
+          <End Role="Gbl_Master_User_Permission" Type="Self.Gbl_Master_User_Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_User_Permission">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Vendor_Gbl_Master_Shop">
+          <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
+          <End Role="Gbl_Master_Vendor" Type="Self.Gbl_Master_Vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Vendor">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Login_User">
           <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
           <End Role="Login" Type="Self.Login" Multiplicity="*" />
@@ -1056,18 +1111,6 @@
             </Principal>
             <Dependent Role="Gbl_Master_Category">
               <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_MasterProduct_MasterSubCategory">
-          <End Role="Gbl_Master_SubCategory" Type="Self.Gbl_Master_SubCategory" Multiplicity="1" />
-          <End Role="Gbl_Master_Product" Type="Self.Gbl_Master_Product" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_SubCategory">
-              <PropertyRef Name="SubCatId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Product">
-              <PropertyRef Name="SubCatId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1109,12 +1152,12 @@
         </Association>
         <Association Name="FK_MasterVendor_Shop">
           <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
-          <End Role="Gbl_Master_Vendor" Type="Self.Gbl_Master_Vendor" Multiplicity="*" />
+          <End Role="MasterVendor" Type="Self.MasterVendor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_Shop">
               <PropertyRef Name="ShopId" />
             </Principal>
-            <Dependent Role="Gbl_Master_Vendor">
+            <Dependent Role="MasterVendor">
               <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1168,10 +1211,10 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stk_Tr_Entry_MasterVendor">
-          <End Role="Gbl_Master_Vendor" Type="Self.Gbl_Master_Vendor" Multiplicity="1" />
+          <End Role="MasterVendor" Type="Self.MasterVendor" Multiplicity="1" />
           <End Role="Stk_Tr_Entry" Type="Self.Stk_Tr_Entry" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Vendor">
+            <Principal Role="MasterVendor">
               <PropertyRef Name="VendorId" />
             </Principal>
             <Dependent Role="Stk_Tr_Entry">
@@ -1239,18 +1282,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_UserType">
-          <End Role="Gbl_Master_UserType" Type="Self.Gbl_Master_UserType" Multiplicity="1" />
-          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_UserType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Gbl_Master_User">
-              <PropertyRef Name="UserType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserPermission_Gbl_Master_Page">
           <End Role="Gbl_Master_Page" Type="Self.Gbl_Master_Page" Multiplicity="1" />
           <End Role="Gbl_Master_User_Permission" Type="Self.Gbl_Master_User_Permission" Multiplicity="*" />
@@ -1263,38 +1294,26 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_UserPermission_User">
-          <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
-          <End Role="Gbl_Master_User_Permission" Type="Self.Gbl_Master_User_Permission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_User_Permission">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserShopMapper_Shop">
           <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
-          <End Role="User_ShopMapper" Type="Self.User_ShopMapper" Multiplicity="*" />
+          <End Role="UserShopMapper" Type="Self.UserShopMapper" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_Shop">
               <PropertyRef Name="ShopId" />
             </Principal>
-            <Dependent Role="User_ShopMapper">
+            <Dependent Role="UserShopMapper">
               <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_UserShopMapper_User">
           <End Role="Gbl_Master_User" Type="Self.Gbl_Master_User" Multiplicity="1" />
-          <End Role="User_ShopMapper" Type="Self.User_ShopMapper" Multiplicity="*" />
+          <End Role="UserShopMapper" Type="Self.UserShopMapper" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="User_ShopMapper">
+            <Dependent Role="UserShopMapper">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
@@ -1351,9 +1370,12 @@
           <EntitySet Name="Gbl_Master_UserType" EntityType="Self.Gbl_Master_UserType" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Gbl_Master_Vendor" EntityType="Self.Gbl_Master_Vendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Login" EntityType="Self.Login" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="MasterVendor" EntityType="Self.MasterVendor" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stk_Dtl_Entry" EntityType="Self.Stk_Dtl_Entry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stk_Tr_Entry" EntityType="Self.Stk_Tr_Entry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_ShopMapper" EntityType="Self.User_ShopMapper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserShopMapper" EntityType="Self.UserShopMapper" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Gbl_AppDowntime_User_CreatedBy" Association="Self.FK_Gbl_AppDowntime_User_CreatedBy">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_AppDowntime" EntitySet="Gbl_AppDowntime" />
@@ -1361,10 +1383,6 @@
           <AssociationSet Name="FK_Gbl_AppDowntime_User_ModifiedBy" Association="Self.FK_Gbl_AppDowntime_User_ModifiedBy">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_AppDowntime" EntitySet="Gbl_AppDowntime" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Attachment_Gbl_Master_Shop" Association="Self.FK_Gbl_Attachment_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_BankAccount_Gbl_Master_Bank" Association="Self.FK_Gbl_Master_BankAccount_Gbl_Master_Bank">
             <End Role="Gbl_Master_Bank" EntitySet="Gbl_Master_Bank" />
@@ -1397,14 +1415,6 @@
           <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_CustomerType" Association="Self.FK_Gbl_Master_Customer_Gbl_Master_CustomerType">
             <End Role="Gbl_Master_CustomerType" EntitySet="Gbl_Master_CustomerType" />
             <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_Shop" Association="Self.FK_Gbl_Master_Customer_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_CustomerType_Gbl_Master_Shop1" Association="Self.FK_Gbl_Master_CustomerType_Gbl_Master_Shop1">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_CustomerType" EntitySet="Gbl_Master_CustomerType" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_DocProof_Gbl_Master_DocProofType" Association="Self.FK_Gbl_Master_DocProof_Gbl_Master_DocProofType">
             <End Role="Gbl_Master_DocProofType" EntitySet="Gbl_Master_DocProofType" />
@@ -1454,13 +1464,13 @@
             <End Role="Gbl_Master_AppModule" EntitySet="Gbl_Master_AppModule" />
             <End Role="Gbl_Master_Page" EntitySet="Gbl_Master_Page" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_Unit" Association="Self.FK_Gbl_Master_Product_Gbl_Master_Unit">
+          <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_Product" Association="Self.FK_Gbl_Master_Product_Gbl_Master_Product">
             <End Role="Gbl_Master_Unit" EntitySet="Gbl_Master_Unit" />
             <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Shop_Gbl_Attachment" Association="Self.FK_Gbl_Master_Shop_Gbl_Attachment">
-            <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+          <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_SubCategory" Association="Self.FK_Gbl_Master_Product_Gbl_Master_SubCategory">
+            <End Role="Gbl_Master_SubCategory" EntitySet="Gbl_Master_SubCategory" />
+            <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Shop" Association="Self.FK_Gbl_Master_Task_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
@@ -1478,6 +1488,22 @@
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
           </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_User_Gbl_Master_User" Association="Self.FK_Gbl_Master_User_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_User1" EntitySet="Gbl_Master_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_User_Gbl_Master_UserType" Association="Self.FK_Gbl_Master_User_Gbl_Master_UserType">
+            <End Role="Gbl_Master_UserType" EntitySet="Gbl_Master_UserType" />
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_User_Permission_Gbl_Master_User" Association="Self.FK_Gbl_Master_User_Permission_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_User_Permission" EntitySet="Gbl_Master_User_Permission" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Vendor_Gbl_Master_Shop" Association="Self.FK_Gbl_Master_Vendor_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Gbl_Master_Vendor" EntitySet="Gbl_Master_Vendor" />
+          </AssociationSet>
           <AssociationSet Name="FK_Login_User" Association="Self.FK_Login_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Login" EntitySet="Login" />
@@ -1489,10 +1515,6 @@
           <AssociationSet Name="FK_MasterCategory_Shop" Association="Self.FK_MasterCategory_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Gbl_Master_Category" EntitySet="Gbl_Master_Category" />
-          </AssociationSet>
-          <AssociationSet Name="FK_MasterProduct_MasterSubCategory" Association="Self.FK_MasterProduct_MasterSubCategory">
-            <End Role="Gbl_Master_SubCategory" EntitySet="Gbl_Master_SubCategory" />
-            <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
           </AssociationSet>
           <AssociationSet Name="FK_MasterProduct_Shop" Association="Self.FK_MasterProduct_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
@@ -1508,7 +1530,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_MasterVendor_Shop" Association="Self.FK_MasterVendor_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_Vendor" EntitySet="Gbl_Master_Vendor" />
+            <End Role="MasterVendor" EntitySet="MasterVendor" />
           </AssociationSet>
           <AssociationSet Name="FK_Shop_User" Association="Self.FK_Shop_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
@@ -1527,7 +1549,7 @@
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
           </AssociationSet>
           <AssociationSet Name="FK_Stk_Tr_Entry_MasterVendor" Association="Self.FK_Stk_Tr_Entry_MasterVendor">
-            <End Role="Gbl_Master_Vendor" EntitySet="Gbl_Master_Vendor" />
+            <End Role="MasterVendor" EntitySet="MasterVendor" />
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
           </AssociationSet>
           <AssociationSet Name="FK_Stk_Tr_Entry_Shop" Association="Self.FK_Stk_Tr_Entry_Shop">
@@ -1550,25 +1572,17 @@
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
             <End Role="Stk_Dtl_Entry" EntitySet="Stk_Dtl_Entry" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_UserType" Association="Self.FK_User_UserType">
-            <End Role="Gbl_Master_UserType" EntitySet="Gbl_Master_UserType" />
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserPermission_Gbl_Master_Page" Association="Self.FK_UserPermission_Gbl_Master_Page">
             <End Role="Gbl_Master_Page" EntitySet="Gbl_Master_Page" />
             <End Role="Gbl_Master_User_Permission" EntitySet="Gbl_Master_User_Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK_UserPermission_User" Association="Self.FK_UserPermission_User">
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="Gbl_Master_User_Permission" EntitySet="Gbl_Master_User_Permission" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserShopMapper_Shop" Association="Self.FK_UserShopMapper_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="User_ShopMapper" EntitySet="User_ShopMapper" />
+            <End Role="UserShopMapper" EntitySet="UserShopMapper" />
           </AssociationSet>
           <AssociationSet Name="FK_UserShopMapper_User" Association="Self.FK_UserShopMapper_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="User_ShopMapper" EntitySet="User_ShopMapper" />
+            <End Role="UserShopMapper" EntitySet="UserShopMapper" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1610,15 +1624,19 @@
           <EntitySet Name="Gbl_Master_Shop" EntityType="MyshopModel.Gbl_Master_Shop" />
           <EntitySet Name="Gbl_Master_State" EntityType="MyshopModel.Gbl_Master_State" />
           <EntitySet Name="Gbl_Master_SubCategory" EntityType="MyshopModel.Gbl_Master_SubCategory" />
+          <EntitySet Name="Gbl_Master_Task" EntityType="MyshopModel.Gbl_Master_Task" />
           <EntitySet Name="Gbl_Master_Unit" EntityType="MyshopModel.Gbl_Master_Unit" />
           <EntitySet Name="Gbl_Master_User" EntityType="MyshopModel.Gbl_Master_User" />
           <EntitySet Name="Gbl_Master_User_Permission" EntityType="MyshopModel.Gbl_Master_User_Permission" />
           <EntitySet Name="Gbl_Master_UserType" EntityType="MyshopModel.Gbl_Master_UserType" />
           <EntitySet Name="Gbl_Master_Vendor" EntityType="MyshopModel.Gbl_Master_Vendor" />
           <EntitySet Name="Logins" EntityType="MyshopModel.Login" />
+          <EntitySet Name="MasterVendors" EntityType="MyshopModel.MasterVendor" />
           <EntitySet Name="Stk_Dtl_Entry" EntityType="MyshopModel.Stk_Dtl_Entry" />
           <EntitySet Name="Stk_Tr_Entry" EntityType="MyshopModel.Stk_Tr_Entry" />
           <EntitySet Name="User_ShopMapper" EntityType="MyshopModel.User_ShopMapper" />
+          <EntitySet Name="UserShopMappers" EntityType="MyshopModel.UserShopMapper" />
+          <EntitySet Name="UserTypes" EntityType="MyshopModel.UserType" />
           <AssociationSet Name="FK_Gbl_AppDowntime_User_CreatedBy" Association="MyshopModel.FK_Gbl_AppDowntime_User_CreatedBy">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_AppDowntime" EntitySet="Gbl_AppDowntime" />
@@ -1626,10 +1644,6 @@
           <AssociationSet Name="FK_Gbl_AppDowntime_User_ModifiedBy" Association="MyshopModel.FK_Gbl_AppDowntime_User_ModifiedBy">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_AppDowntime" EntitySet="Gbl_AppDowntime" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Attachment_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Attachment_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Employee_Gbl_Attachment" Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment">
             <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
@@ -1642,10 +1656,6 @@
           <AssociationSet Name="FK_Gbl_Master_Employee_Gbl_Attachment_IdentityProof" Association="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment_IdentityProof">
             <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
             <End Role="Gbl_Master_Employee" EntitySet="Gbl_Master_Employee" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Shop_Gbl_Attachment" Association="MyshopModel.FK_Gbl_Master_Shop_Gbl_Attachment">
-            <End Role="Gbl_Attachment" EntitySet="Gbl_Attachment" />
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Page_Gbl_Master_AppModule" Association="MyshopModel.FK_Gbl_Master_Page_Gbl_Master_AppModule">
             <End Role="Gbl_Master_AppModule" EntitySet="Gbl_Master_AppModule" />
@@ -1707,14 +1717,6 @@
             <End Role="Gbl_Master_CustomerType" EntitySet="Gbl_Master_CustomerType" />
             <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_CustomerType_Gbl_Master_Shop1" Association="MyshopModel.FK_Gbl_Master_CustomerType_Gbl_Master_Shop1">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_CustomerType" EntitySet="Gbl_Master_CustomerType" />
-          </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_DocProof_Gbl_Master_DocProofType" Association="MyshopModel.FK_Gbl_Master_DocProof_Gbl_Master_DocProofType">
             <End Role="Gbl_Master_DocProofType" EntitySet="Gbl_Master_DocProofType" />
             <End Role="Gbl_Master_DocProof" EntitySet="Gbl_Master_DocProof" />
@@ -1743,10 +1745,6 @@
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Notification_Gbl_Master_User_Sender" Association="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender">
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="Gbl_Master_Notification" EntitySet="Gbl_Master_Notification" />
-          </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_NotificationType_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_NotificationType_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Gbl_Master_NotificationType" EntitySet="Gbl_Master_NotificationType" />
@@ -1759,11 +1757,11 @@
             <End Role="Gbl_Master_PayMode" EntitySet="Gbl_Master_PayMode" />
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
           </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_Unit" Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Unit">
+          <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_Product" Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Product">
             <End Role="Gbl_Master_Unit" EntitySet="Gbl_Master_Unit" />
             <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
           </AssociationSet>
-          <AssociationSet Name="FK_MasterProduct_MasterSubCategory" Association="MyshopModel.FK_MasterProduct_MasterSubCategory">
+          <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_SubCategory" Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_SubCategory">
             <End Role="Gbl_Master_SubCategory" EntitySet="Gbl_Master_SubCategory" />
             <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
           </AssociationSet>
@@ -1775,9 +1773,17 @@
             <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
             <End Role="Stk_Dtl_Entry" EntitySet="Stk_Dtl_Entry" />
           </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_User_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_User_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Vendor_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_Vendor_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Gbl_Master_Vendor" EntitySet="Gbl_Master_Vendor" />
           </AssociationSet>
           <AssociationSet Name="FK_MasterSubCategory_Shop" Association="MyshopModel.FK_MasterSubCategory_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
@@ -1785,7 +1791,7 @@
           </AssociationSet>
           <AssociationSet Name="FK_MasterVendor_Shop" Association="MyshopModel.FK_MasterVendor_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_Vendor" EntitySet="Gbl_Master_Vendor" />
+            <End Role="MasterVendor" EntitySet="MasterVendors" />
           </AssociationSet>
           <AssociationSet Name="FK_Shop_User" Association="MyshopModel.FK_Shop_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
@@ -1801,42 +1807,41 @@
           </AssociationSet>
           <AssociationSet Name="FK_UserShopMapper_Shop" Association="MyshopModel.FK_UserShopMapper_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="User_ShopMapper" EntitySet="User_ShopMapper" />
+            <End Role="UserShopMapper" EntitySet="UserShopMappers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_User_Gbl_Master_User" Association="MyshopModel.FK_Gbl_Master_User_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_User1" EntitySet="Gbl_Master_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_User_Gbl_Master_UserType" Association="MyshopModel.FK_Gbl_Master_User_Gbl_Master_UserType">
+            <End Role="Gbl_Master_UserType" EntitySet="Gbl_Master_UserType" />
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_User_Permission_Gbl_Master_User" Association="MyshopModel.FK_Gbl_Master_User_Permission_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_User_Permission" EntitySet="Gbl_Master_User_Permission" />
           </AssociationSet>
           <AssociationSet Name="FK_Login_User" Association="MyshopModel.FK_Login_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Login" EntitySet="Logins" />
           </AssociationSet>
-          <AssociationSet Name="FK_User_UserType" Association="MyshopModel.FK_User_UserType">
-            <End Role="Gbl_Master_UserType" EntitySet="Gbl_Master_UserType" />
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-          </AssociationSet>
-          <AssociationSet Name="FK_UserPermission_User" Association="MyshopModel.FK_UserPermission_User">
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="Gbl_Master_User_Permission" EntitySet="Gbl_Master_User_Permission" />
-          </AssociationSet>
           <AssociationSet Name="FK_UserShopMapper_User" Association="MyshopModel.FK_UserShopMapper_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="User_ShopMapper" EntitySet="User_ShopMapper" />
+            <End Role="UserShopMapper" EntitySet="UserShopMappers" />
           </AssociationSet>
           <AssociationSet Name="FK_Stk_Tr_Entry_MasterVendor" Association="MyshopModel.FK_Stk_Tr_Entry_MasterVendor">
-            <End Role="Gbl_Master_Vendor" EntitySet="Gbl_Master_Vendor" />
+            <End Role="MasterVendor" EntitySet="MasterVendors" />
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
           </AssociationSet>
           <AssociationSet Name="FK_StockEntry_Stk_Tr_Entry" Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry">
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
             <End Role="Stk_Dtl_Entry" EntitySet="Stk_Dtl_Entry" />
           </AssociationSet>
-          <EntitySet Name="Gbl_Master_Task" EntityType="MyshopModel.Gbl_Master_Task" />
-          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Shop" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_Task" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task">
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User">
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User1" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
           </AssociationSet>
@@ -1905,9 +1910,6 @@
           <Property Name="IsResolved" Type="Boolean" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="Source" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ErrorCode" Type="Int32" />
-          <Property Name="Severity" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Gbl_AppDowntime">
           <Key>
@@ -1932,23 +1934,22 @@
             <PropertyRef Name="AttachmentId" />
           </Key>
           <Property Name="AttachmentId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FileName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="FleName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="OriginalFileName" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="FileExtension" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="ModuleName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Attachment" Type="Binary" Nullable="false" MaxLength="Max" FixedLength="false" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="IsSync" Type="Boolean" />
-          <Property Name="IsDeleted" Type="Boolean" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Attachment_Gbl_Master_Shop" FromRole="Gbl_Attachment" ToRole="Gbl_Master_Shop" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" />
+          <Property Name="IsSync" Type="Boolean" />
+          <Property Name="FileName" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Gbl_Master_Employee" Relationship="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment" FromRole="Gbl_Attachment" ToRole="Gbl_Master_Employee" />
           <NavigationProperty Name="Gbl_Master_Employee1" Relationship="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment_AddressProof" FromRole="Gbl_Attachment" ToRole="Gbl_Master_Employee" />
           <NavigationProperty Name="Gbl_Master_Employee2" Relationship="MyshopModel.FK_Gbl_Master_Employee_Gbl_Attachment_IdentityProof" FromRole="Gbl_Attachment" ToRole="Gbl_Master_Employee" />
-          <NavigationProperty Name="Gbl_Master_Shop1" Relationship="MyshopModel.FK_Gbl_Master_Shop_Gbl_Attachment" FromRole="Gbl_Attachment" ToRole="Gbl_Master_Shop" />
         </EntityType>
         <EntityType Name="Gbl_Master_AppModule">
           <Key>
@@ -2116,25 +2117,24 @@
             <PropertyRef Name="CustomerId" />
           </Key>
           <Property Name="CustomerId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerTypeId" Type="Int32" Nullable="false" />
           <Property Name="FirstName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="MiddleName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="LastName" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Mobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="LastName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="CustomerTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="true" />
           <Property Name="Email" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="District" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="PINCode" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="State" Type="Int32" />
+          <Property Name="District" Type="Int32" />
+          <Property Name="PINCode" Type="String" MaxLength="6" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Gbl_Master_CustomerType" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_CustomerType" FromRole="Gbl_Master_Customer" ToRole="Gbl_Master_CustomerType" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_Shop" FromRole="Gbl_Master_Customer" ToRole="Gbl_Master_Shop" />
         </EntityType>
         <EntityType Name="Gbl_Master_CustomerType">
           <Key>
@@ -2142,16 +2142,15 @@
           </Key>
           <Property Name="CustomerTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="CustomerType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Gbl_Master_Customer" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_CustomerType" FromRole="Gbl_Master_CustomerType" ToRole="Gbl_Master_Customer" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_CustomerType_Gbl_Master_Shop1" FromRole="Gbl_Master_CustomerType" ToRole="Gbl_Master_Shop" />
         </EntityType>
         <EntityType Name="Gbl_Master_DocProof">
           <Key>
@@ -2256,25 +2255,24 @@
             <PropertyRef Name="NotificationId" />
           </Key>
           <Property Name="NotificationId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="NotificationTypeId" Type="Int32" Nullable="false" />
-          <Property Name="Message" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="IsPushed" Type="Boolean" Nullable="false" />
-          <Property Name="IsRead" Type="Boolean" Nullable="false" />
-          <Property Name="IsForAll" Type="Boolean" Nullable="false" />
-          <Property Name="PushedDate" Type="DateTime" Precision="3" />
-          <Property Name="MessageExpireDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsPushed" Type="Boolean" Nullable="false" />
+          <Property Name="MessageExpireDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="IsForAll" Type="Boolean" Nullable="false" />
+          <Property Name="IsRead" Type="Boolean" Nullable="false" />
+          <Property Name="PushedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="NotificationTypeId" Type="Int32" Nullable="false" />
+          <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
           <NavigationProperty Name="Gbl_Master_NotificationType" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_NotificationType" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_NotificationType" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_Shop" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_User" />
-          <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender" FromRole="Gbl_Master_Notification" ToRole="Gbl_Master_User" />
         </EntityType>
         <EntityType Name="Gbl_Master_NotificationType">
           <Key>
@@ -2282,14 +2280,14 @@
           </Key>
           <Property Name="NotificationTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="NotificationType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Gbl_Master_Notification" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_NotificationType" FromRole="Gbl_Master_NotificationType" ToRole="Gbl_Master_Notification" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_NotificationType_Gbl_Master_Shop" FromRole="Gbl_Master_NotificationType" ToRole="Gbl_Master_Shop" />
         </EntityType>
@@ -2345,8 +2343,8 @@
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_Unit" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Unit" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_Unit" />
-          <NavigationProperty Name="Gbl_Master_SubCategory" Relationship="MyshopModel.FK_MasterProduct_MasterSubCategory" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_SubCategory" />
+          <NavigationProperty Name="Gbl_Master_Unit" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Product" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_Unit" />
+          <NavigationProperty Name="Gbl_Master_SubCategory" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_SubCategory" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_SubCategory" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_MasterProduct_Shop" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_MasterProduct" FromRole="Gbl_Master_Product" ToRole="Stk_Dtl_Entry" />
         </EntityType>
@@ -2362,32 +2360,28 @@
           <Property Name="Distict" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="State" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Owner" Type="Int32" Nullable="false" />
-          <Property Name="LogoAttachmentId" Type="Int32" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Attachment" Relationship="MyshopModel.FK_Gbl_Attachment_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Attachment" />
-          <NavigationProperty Name="Gbl_Attachment1" Relationship="MyshopModel.FK_Gbl_Master_Shop_Gbl_Attachment" FromRole="Gbl_Master_Shop" ToRole="Gbl_Attachment" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Gbl_Master_BankAccount" Relationship="MyshopModel.FK_Gbl_Master_BankAccount_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_BankAccount" />
           <NavigationProperty Name="Gbl_Master_BankChequeDetails" Relationship="MyshopModel.FK_Gbl_Master_BankChequeDetails_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_BankChequeDetails" />
           <NavigationProperty Name="Gbl_Master_Brand" Relationship="MyshopModel.FK_MasterBrand_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Brand" />
           <NavigationProperty Name="Gbl_Master_Category" Relationship="MyshopModel.FK_MasterCategory_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Category" />
-          <NavigationProperty Name="Gbl_Master_Customer" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Customer" />
-          <NavigationProperty Name="Gbl_Master_CustomerType" Relationship="MyshopModel.FK_Gbl_Master_CustomerType_Gbl_Master_Shop1" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_CustomerType" />
           <NavigationProperty Name="Gbl_Master_Notification" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Notification" />
           <NavigationProperty Name="Gbl_Master_NotificationType" Relationship="MyshopModel.FK_Gbl_Master_NotificationType_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_NotificationType" />
           <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_MasterProduct_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Product" />
+          <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Task" />
           <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_Vendor" Relationship="MyshopModel.FK_Gbl_Master_Vendor_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Vendor" />
           <NavigationProperty Name="Gbl_Master_SubCategory" Relationship="MyshopModel.FK_MasterSubCategory_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_SubCategory" />
-          <NavigationProperty Name="Gbl_Master_Vendor" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Vendor" />
+          <NavigationProperty Name="MasterVendors" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="Gbl_Master_Shop" ToRole="MasterVendor" />
           <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Shop_User" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_User" />
           <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Tr_Entry" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Dtl_Entry" />
-          <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="Gbl_Master_Shop" ToRole="User_ShopMapper" />
-          <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Task" />
+          <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="Gbl_Master_Shop" ToRole="UserShopMapper" />
         </EntityType>
         <EntityType Name="Gbl_Master_State">
           <Key>
@@ -2420,8 +2414,30 @@
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Gbl_Master_Category" Relationship="MyshopModel.FK_MasterSubCategory_MasterCategory" FromRole="Gbl_Master_SubCategory" ToRole="Gbl_Master_Category" />
-          <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_MasterProduct_MasterSubCategory" FromRole="Gbl_Master_SubCategory" ToRole="Gbl_Master_Product" />
+          <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_SubCategory" FromRole="Gbl_Master_SubCategory" ToRole="Gbl_Master_Product" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_MasterSubCategory_Shop" FromRole="Gbl_Master_SubCategory" ToRole="Gbl_Master_Shop" />
+        </EntityType>
+        <EntityType Name="Gbl_Master_Task">
+          <Key>
+            <PropertyRef Name="TaskId" />
+          </Key>
+          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TaskDetails" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="Priority" Type="Byte" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsImportant" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="AssignedUserId" Type="Int32" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_User" />
         </EntityType>
         <EntityType Name="Gbl_Master_Unit">
           <Key>
@@ -2438,7 +2454,7 @@
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Unit" FromRole="Gbl_Master_Unit" ToRole="Gbl_Master_Product" />
+          <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Product" FromRole="Gbl_Master_Unit" ToRole="Gbl_Master_Product" />
         </EntityType>
         <EntityType Name="Gbl_Master_User">
           <Key>
@@ -2448,33 +2464,34 @@
           <Property Name="Username" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="Password" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
           <Property Name="Firstname" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Lastname" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="Mobile" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
           <Property Name="Photo" Type="Binary" MaxLength="Max" FixedLength="false" />
-          <Property Name="UserType" Type="Int32" Nullable="false" />
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" />
           <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CreationBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="IsActive" Type="Boolean" />
-          <Property Name="IsBlocked" Type="Boolean" />
+          <Property Name="IsActive" Type="Boolean" Nullable="false" />
+          <Property Name="IsBlocked" Type="Boolean" Nullable="false" />
+          <Property Name="Lastname" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="Gender" Type="String" MaxLength="1" FixedLength="true" Unicode="true" />
+          <Property Name="Gender" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="true" />
+          <Property Name="HasDefaultPassword" Type="Boolean" />
           <NavigationProperty Name="Gbl_AppDowntime" Relationship="MyshopModel.FK_Gbl_AppDowntime_User_CreatedBy" FromRole="Gbl_Master_User" ToRole="Gbl_AppDowntime" />
           <NavigationProperty Name="Gbl_AppDowntime1" Relationship="MyshopModel.FK_Gbl_AppDowntime_User_ModifiedBy" FromRole="Gbl_Master_User" ToRole="Gbl_AppDowntime" />
           <NavigationProperty Name="Gbl_Master_Notification" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Notification" />
-          <NavigationProperty Name="Gbl_Master_Notification1" Relationship="MyshopModel.FK_Gbl_Master_Notification_Gbl_Master_User_Sender" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Notification" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_Shop" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_Shop1" Relationship="MyshopModel.FK_Shop_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
+          <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User1" />
+          <NavigationProperty Name="Gbl_Master_User2" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_User" FromRole="Gbl_Master_User1" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_UserType" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_UserType" FromRole="Gbl_Master_User" ToRole="Gbl_Master_UserType" />
+          <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_Gbl_Master_User_Permission_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
           <NavigationProperty Name="Logins" Relationship="MyshopModel.FK_Login_User" FromRole="Gbl_Master_User" ToRole="Login" />
-          <NavigationProperty Name="Gbl_Master_UserType" Relationship="MyshopModel.FK_User_UserType" FromRole="Gbl_Master_User" ToRole="Gbl_Master_UserType" />
-          <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_UserPermission_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
-          <NavigationProperty Name="User_ShopMapper" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="User_ShopMapper" />
-          <Property Name="HasDefaultPassword" Type="Boolean" />
-          <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
-          <NavigationProperty Name="Gbl_Master_Task1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
+          <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="UserShopMapper" />
+          <NavigationProperty Name="Gbl_Master_Task1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -2495,24 +2512,64 @@
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gbl_Master_Page" Relationship="MyshopModel.FK_UserPermission_Gbl_Master_Page" FromRole="Gbl_Master_User_Permission" ToRole="Gbl_Master_Page" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_UserPermission_User" FromRole="Gbl_Master_User_Permission" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_User_Permission_Gbl_Master_User" FromRole="Gbl_Master_User_Permission" ToRole="Gbl_Master_User" />
         </EntityType>
         <EntityType Name="Gbl_Master_UserType">
+          <Key>
+            <PropertyRef Name="UserTypeId" />
+          </Key>
+          <Property Name="UserTypeId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserType" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_UserType" FromRole="Gbl_Master_UserType" ToRole="Gbl_Master_User" />
+        </EntityType>
+        <EntityType Name="Gbl_Master_Vendor">
+          <Key>
+            <PropertyRef Name="VendorId" />
+          </Key>
+          <Property Name="VendorId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="VendorName" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="VendorAddress" Type="String" Nullable="false" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="VendorMobile" Type="String" Nullable="false" MaxLength="13" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Vendor_Gbl_Master_Shop" FromRole="Gbl_Master_Vendor" ToRole="Gbl_Master_Shop" />
+        </EntityType>
+        <EntityType Name="Login">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
           <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="LoginDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_User_UserType" FromRole="Gbl_Master_UserType" ToRole="Gbl_Master_User" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsReset" Type="Boolean" />
+          <Property Name="GUID" Type="Guid" />
+          <Property Name="ReserExpireTime" Type="DateTime" Precision="3" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+          <Property Name="CreationBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="OTPid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsLoginBlocked" Type="Boolean" Nullable="false" />
+          <Property Name="LoginAttempt" Type="Int32" Nullable="false" />
+          <Property Name="HasDefaultPassword" Type="Boolean" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Login_User" FromRole="Login" ToRole="Gbl_Master_User" />
         </EntityType>
-        <EntityType Name="Gbl_Master_Vendor">
+        <EntityType Name="MasterVendor">
           <Key>
             <PropertyRef Name="VendorId" />
           </Key>
@@ -2528,29 +2585,8 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="Gbl_Master_Vendor" ToRole="Gbl_Master_Shop" />
-          <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" FromRole="Gbl_Master_Vendor" ToRole="Stk_Tr_Entry" />
-        </EntityType>
-        <EntityType Name="Login">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="UserId" Type="Int32" Nullable="false" />
-          <Property Name="LoginDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="LoginAttempt" Type="Int32" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
-          <Property Name="IsReset" Type="Boolean" />
-          <Property Name="IsLoginBlocked" Type="Boolean" Nullable="false" />
-          <Property Name="GUID" Type="Guid" />
-          <Property Name="OTPid" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="ReserExpireTime" Type="DateTime" Precision="3" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreationBy" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Login_User" FromRole="Login" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="MasterVendor" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" FromRole="MasterVendor" ToRole="Stk_Tr_Entry" />
         </EntityType>
         <EntityType Name="Stk_Dtl_Entry">
           <Key>
@@ -2604,10 +2640,24 @@
           <NavigationProperty Name="Gbl_Master_BankChequeDetails" Relationship="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_BankChequeDetails" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_BankChequeDetails" />
           <NavigationProperty Name="Gbl_Master_PayMode" Relationship="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_PayMode" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_PayMode" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Stk_Tr_Entry_Shop" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_Shop" />
-          <NavigationProperty Name="Gbl_Master_Vendor" Relationship="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_Vendor" />
+          <NavigationProperty Name="MasterVendor" Relationship="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" FromRole="Stk_Tr_Entry" ToRole="MasterVendor" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_Stk_Tr_Entry" FromRole="Stk_Tr_Entry" ToRole="Stk_Dtl_Entry" />
         </EntityType>
         <EntityType Name="User_ShopMapper">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="UserId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModificationDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="UserShopMapper">
           <Key>
             <PropertyRef Name="Id" />
           </Key>
@@ -2620,8 +2670,22 @@
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="User_ShopMapper" ToRole="Gbl_Master_Shop" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="User_ShopMapper" ToRole="Gbl_Master_User" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="UserShopMapper" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="UserShopMapper" ToRole="Gbl_Master_User" />
+        </EntityType>
+        <EntityType Name="UserType">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Gbl_AppDowntime_User_CreatedBy">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
@@ -2644,18 +2708,6 @@
             </Principal>
             <Dependent Role="Gbl_AppDowntime">
               <PropertyRef Name="ModifiedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Attachment_Gbl_Master_Shop">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Attachment" Role="Gbl_Attachment" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Attachment">
-              <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2692,18 +2744,6 @@
             </Principal>
             <Dependent Role="Gbl_Master_Employee">
               <PropertyRef Name="IdentityDocProofImageId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Shop_Gbl_Attachment">
-          <End Type="MyshopModel.Gbl_Attachment" Role="Gbl_Attachment" Multiplicity="0..1" />
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Attachment">
-              <PropertyRef Name="AttachmentId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Shop">
-              <PropertyRef Name="LogoAttachmentId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -2887,30 +2927,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Gbl_Master_Customer_Gbl_Master_Shop">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Customer">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_CustomerType_Gbl_Master_Shop1">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_CustomerType" Role="Gbl_Master_CustomerType" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_CustomerType">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Gbl_Master_DocProof_Gbl_Master_DocProofType">
           <End Type="MyshopModel.Gbl_Master_DocProofType" Role="Gbl_Master_DocProofType" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_DocProof" Role="Gbl_Master_DocProof" Multiplicity="*" />
@@ -2995,18 +3011,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Gbl_Master_Notification_Gbl_Master_User_Sender">
-          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_Notification" Role="Gbl_Master_Notification" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Notification">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Gbl_Master_NotificationType_Gbl_Master_Shop">
           <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_NotificationType" Role="Gbl_Master_NotificationType" Multiplicity="*" />
@@ -3043,7 +3047,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Gbl_Master_Product_Gbl_Master_Unit">
+        <Association Name="FK_Gbl_Master_Product_Gbl_Master_Product">
           <End Type="MyshopModel.Gbl_Master_Unit" Role="Gbl_Master_Unit" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Product" Role="Gbl_Master_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3055,7 +3059,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_MasterProduct_MasterSubCategory">
+        <Association Name="FK_Gbl_Master_Product_Gbl_Master_SubCategory">
           <End Type="MyshopModel.Gbl_Master_SubCategory" Role="Gbl_Master_SubCategory" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Product" Role="Gbl_Master_Product" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3091,6 +3095,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_Shop">
+          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gbl_Master_User_Gbl_Master_Shop">
           <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="*" />
@@ -3099,6 +3115,18 @@
               <PropertyRef Name="ShopId" />
             </Principal>
             <Dependent Role="Gbl_Master_User">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Vendor_Gbl_Master_Shop">
+          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Vendor" Role="Gbl_Master_Vendor" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Vendor">
               <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3117,12 +3145,12 @@
         </Association>
         <Association Name="FK_MasterVendor_Shop">
           <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_Vendor" Role="Gbl_Master_Vendor" Multiplicity="*" />
+          <End Type="MyshopModel.MasterVendor" Role="MasterVendor" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_Shop">
               <PropertyRef Name="ShopId" />
             </Principal>
-            <Dependent Role="Gbl_Master_Vendor">
+            <Dependent Role="MasterVendor">
               <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
@@ -3165,13 +3193,61 @@
         </Association>
         <Association Name="FK_UserShopMapper_Shop">
           <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.User_ShopMapper" Role="User_ShopMapper" Multiplicity="*" />
+          <End Type="MyshopModel.UserShopMapper" Role="UserShopMapper" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_Shop">
               <PropertyRef Name="ShopId" />
             </Principal>
-            <Dependent Role="User_ShopMapper">
+            <Dependent Role="UserShopMapper">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="AssignedUserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_User_Gbl_Master_User">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_User1">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_User_Gbl_Master_UserType">
+          <End Type="MyshopModel.Gbl_Master_UserType" Role="Gbl_Master_UserType" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_UserType">
+              <PropertyRef Name="UserTypeId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_User">
+              <PropertyRef Name="UserTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_User_Permission_Gbl_Master_User">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_User_Permission" Role="Gbl_Master_User_Permission" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_User_Permission">
+              <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3187,47 +3263,23 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_User_UserType">
-          <End Type="MyshopModel.Gbl_Master_UserType" Role="Gbl_Master_UserType" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_UserType">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Gbl_Master_User">
-              <PropertyRef Name="UserType" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_UserPermission_User">
-          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_User_Permission" Role="Gbl_Master_User_Permission" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_User_Permission">
-              <PropertyRef Name="UserId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_UserShopMapper_User">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
-          <End Type="MyshopModel.User_ShopMapper" Role="User_ShopMapper" Multiplicity="*" />
+          <End Type="MyshopModel.UserShopMapper" Role="UserShopMapper" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_User">
               <PropertyRef Name="UserId" />
             </Principal>
-            <Dependent Role="User_ShopMapper">
+            <Dependent Role="UserShopMapper">
               <PropertyRef Name="UserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Stk_Tr_Entry_MasterVendor">
-          <End Type="MyshopModel.Gbl_Master_Vendor" Role="Gbl_Master_Vendor" Multiplicity="1" />
+          <End Type="MyshopModel.MasterVendor" Role="MasterVendor" Multiplicity="1" />
           <End Type="MyshopModel.Stk_Tr_Entry" Role="Stk_Tr_Entry" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Vendor">
+            <Principal Role="MasterVendor">
               <PropertyRef Name="VendorId" />
             </Principal>
             <Dependent Role="Stk_Tr_Entry">
@@ -3247,41 +3299,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityType Name="Gbl_Master_Task">
-          <Key>
-            <PropertyRef Name="TaskId" />
-          </Key>
-          <Property Name="TaskId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="TaskDetails" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="Priority" Type="Byte" Nullable="false" />
-          <Property Name="IsImportant" Type="Boolean" Nullable="false" />
-          <Property Name="IsCompleted" Type="Boolean" Nullable="false" />
-          <Property Name="CompletedDate" Type="DateTime" Precision="3" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" Nullable="false" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Shop" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_Shop" />
-          <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_Task" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_User" />
-          <Property Name="AssignedUserId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_Task" ToRole="Gbl_Master_User" />
-        </EntityType>
-        <Association Name="FK_Gbl_Master_Task_Gbl_Master_Shop">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Task">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Task_Gbl_Master_Task">
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User1">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3290,18 +3308,6 @@
             </Principal>
             <Dependent Role="Gbl_Master_Task">
               <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User">
-          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Task">
-              <PropertyRef Name="AssignedUserId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3329,9 +3335,6 @@
           <EntitySetMapping Name="ErrorLogs">
             <EntityTypeMapping TypeName="MyshopModel.ErrorLog">
               <MappingFragment StoreEntitySet="ErrorLog">
-                <ScalarProperty Name="Severity" ColumnName="Severity" />
-                <ScalarProperty Name="ErrorCode" ColumnName="ErrorCode" />
-                <ScalarProperty Name="Source" ColumnName="Source" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="IsResolved" ColumnName="IsResolved" />
@@ -3367,18 +3370,19 @@
           <EntitySetMapping Name="Gbl_Attachment">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Attachment">
               <MappingFragment StoreEntitySet="Gbl_Attachment">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="Attachment" ColumnName="Attachment" />
                 <ScalarProperty Name="ModuleName" ColumnName="ModuleName" />
                 <ScalarProperty Name="FileExtension" ColumnName="FileExtension" />
                 <ScalarProperty Name="OriginalFileName" ColumnName="OriginalFileName" />
-                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="FleName" ColumnName="FleName" />
                 <ScalarProperty Name="AttachmentId" ColumnName="AttachmentId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3538,23 +3542,23 @@
           <EntitySetMapping Name="Gbl_Master_Customer">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Customer">
               <MappingFragment StoreEntitySet="Gbl_Master_Customer">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="PINCode" ColumnName="PINCode" />
-                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="District" ColumnName="District" />
+                <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="Email" ColumnName="Email" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
                 <ScalarProperty Name="LastName" ColumnName="LastName" />
                 <ScalarProperty Name="MiddleName" ColumnName="MiddleName" />
                 <ScalarProperty Name="FirstName" ColumnName="FirstName" />
-                <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
                 <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3563,12 +3567,12 @@
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_CustomerType">
               <MappingFragment StoreEntitySet="Gbl_Master_CustomerType">
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="CustomerType" ColumnName="CustomerType" />
                 <ScalarProperty Name="CustomerTypeId" ColumnName="CustomerTypeId" />
@@ -3669,21 +3673,21 @@
           <EntitySetMapping Name="Gbl_Master_Notification">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Notification">
               <MappingFragment StoreEntitySet="Gbl_Master_Notification">
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="MessageExpireDate" ColumnName="MessageExpireDate" />
-                <ScalarProperty Name="PushedDate" ColumnName="PushedDate" />
-                <ScalarProperty Name="IsForAll" ColumnName="IsForAll" />
-                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
-                <ScalarProperty Name="IsPushed" ColumnName="IsPushed" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
                 <ScalarProperty Name="Message" ColumnName="Message" />
                 <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
+                <ScalarProperty Name="PushedDate" ColumnName="PushedDate" />
+                <ScalarProperty Name="IsRead" ColumnName="IsRead" />
+                <ScalarProperty Name="IsForAll" ColumnName="IsForAll" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="MessageExpireDate" ColumnName="MessageExpireDate" />
+                <ScalarProperty Name="IsPushed" ColumnName="IsPushed" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="NotificationId" ColumnName="NotificationId" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -3691,13 +3695,13 @@
           <EntitySetMapping Name="Gbl_Master_NotificationType">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_NotificationType">
               <MappingFragment StoreEntitySet="Gbl_Master_NotificationType">
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="NotificationType" ColumnName="NotificationType" />
                 <ScalarProperty Name="NotificationTypeId" ColumnName="NotificationTypeId" />
@@ -3760,13 +3764,12 @@
           <EntitySetMapping Name="Gbl_Master_Shop">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Shop">
               <MappingFragment StoreEntitySet="Gbl_Master_Shop">
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="LogoAttachmentId" ColumnName="LogoAttachmentId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Owner" ColumnName="Owner" />
                 <ScalarProperty Name="State" ColumnName="State" />
                 <ScalarProperty Name="Distict" ColumnName="Distict" />
@@ -3810,6 +3813,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Gbl_Master_Task">
+            <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Task">
+              <MappingFragment StoreEntitySet="Gbl_Master_Task">
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="IsImportant" ColumnName="IsImportant" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="Priority" ColumnName="Priority" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
+                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Gbl_Master_Unit">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Unit">
               <MappingFragment StoreEntitySet="Gbl_Master_Unit">
@@ -3833,6 +3856,7 @@
                 <ScalarProperty Name="HasDefaultPassword" ColumnName="HasDefaultPassword" />
                 <ScalarProperty Name="Gender" ColumnName="Gender" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
                 <ScalarProperty Name="IsBlocked" ColumnName="IsBlocked" />
                 <ScalarProperty Name="IsActive" ColumnName="IsActive" />
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
@@ -3841,10 +3865,9 @@
                 <ScalarProperty Name="CreationBy" ColumnName="CreationBy" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
                 <ScalarProperty Name="Photo" ColumnName="Photo" />
                 <ScalarProperty Name="Mobile" ColumnName="Mobile" />
-                <ScalarProperty Name="Lastname" ColumnName="Lastname" />
                 <ScalarProperty Name="Firstname" ColumnName="Firstname" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Username" ColumnName="Username" />
@@ -3875,21 +3898,61 @@
           <EntitySetMapping Name="Gbl_Master_UserType">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_UserType">
               <MappingFragment StoreEntitySet="Gbl_Master_UserType">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserType" ColumnName="UserType" />
+                <ScalarProperty Name="UserTypeId" ColumnName="UserTypeId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="Gbl_Master_Vendor">
             <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Vendor">
               <MappingFragment StoreEntitySet="Gbl_Master_Vendor">
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="VendorMobile" ColumnName="VendorMobile" />
+                <ScalarProperty Name="VendorAddress" ColumnName="VendorAddress" />
+                <ScalarProperty Name="VendorName" ColumnName="VendorName" />
+                <ScalarProperty Name="VendorId" ColumnName="VendorId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Logins">
+            <EntityTypeMapping TypeName="MyshopModel.Login">
+              <MappingFragment StoreEntitySet="Login">
+                <ScalarProperty Name="HasDefaultPassword" ColumnName="HasDefaultPassword" />
+                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
+                <ScalarProperty Name="IsLoginBlocked" ColumnName="IsLoginBlocked" />
+                <ScalarProperty Name="OTPid" ColumnName="OTPid" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreationBy" ColumnName="CreationBy" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ReserExpireTime" ColumnName="ReserExpireTime" />
+                <ScalarProperty Name="GUID" ColumnName="GUID" />
+                <ScalarProperty Name="IsReset" ColumnName="IsReset" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="MasterVendors">
+            <EntityTypeMapping TypeName="MyshopModel.MasterVendor">
+              <MappingFragment StoreEntitySet="MasterVendor">
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
                 <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
                 <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
@@ -3902,27 +3965,6 @@
                 <ScalarProperty Name="VendorName" ColumnName="VendorName" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="VendorId" ColumnName="VendorId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Logins">
-            <EntityTypeMapping TypeName="MyshopModel.Login">
-              <MappingFragment StoreEntitySet="Login">
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreationBy" ColumnName="CreationBy" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ReserExpireTime" ColumnName="ReserExpireTime" />
-                <ScalarProperty Name="OTPid" ColumnName="OTPid" />
-                <ScalarProperty Name="GUID" ColumnName="GUID" />
-                <ScalarProperty Name="IsLoginBlocked" ColumnName="IsLoginBlocked" />
-                <ScalarProperty Name="IsReset" ColumnName="IsReset" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="LoginAttempt" ColumnName="LoginAttempt" />
-                <ScalarProperty Name="LoginDate" ColumnName="LoginDate" />
-                <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -3976,6 +4018,21 @@
           <EntitySetMapping Name="User_ShopMapper">
             <EntityTypeMapping TypeName="MyshopModel.User_ShopMapper">
               <MappingFragment StoreEntitySet="User_ShopMapper">
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="UserShopMappers">
+            <EntityTypeMapping TypeName="MyshopModel.UserShopMapper">
+              <MappingFragment StoreEntitySet="UserShopMapper">
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -3988,23 +4045,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="Gbl_Master_Task">
-            <EntityTypeMapping TypeName="MyshopModel.Gbl_Master_Task">
-              <MappingFragment StoreEntitySet="Gbl_Master_Task">
-                <ScalarProperty Name="AssignedUserId" ColumnName="AssignedUserId" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+          <EntitySetMapping Name="UserTypes">
+            <EntityTypeMapping TypeName="MyshopModel.UserType">
+              <MappingFragment StoreEntitySet="UserType">
                 <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
                 <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="CompletedDate" ColumnName="CompletedDate" />
-                <ScalarProperty Name="IsCompleted" ColumnName="IsCompleted" />
-                <ScalarProperty Name="IsImportant" ColumnName="IsImportant" />
-                <ScalarProperty Name="Priority" ColumnName="Priority" />
-                <ScalarProperty Name="TaskDetails" ColumnName="TaskDetails" />
-                <ScalarProperty Name="TaskId" ColumnName="TaskId" />
+                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Type" ColumnName="Type" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

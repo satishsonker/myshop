@@ -12,19 +12,16 @@ namespace DataLayer
     using System;
     using System.Collections.Generic;
     
-    public partial class ErrorLog
+    public partial class UserType
     {
         public int Id { get; set; }
-        public string Controller { get; set; }
-        public string Action { get; set; }
-        public string Area { get; set; }
-        public string Message { get; set; }
-        public string OuterException { get; set; }
-        public string InnerException { get; set; }
+        public string Type { get; set; }
+        public string Description { get; set; }
+        public int CreatedBy { get; set; }
+        public int ModifiedBy { get; set; }
+        public System.DateTime CreationDate { get; set; }
+        public System.DateTime ModificationDate { get; set; }
         public bool IsSync { get; set; }
         public bool IsDeleted { get; set; }
-        public bool IsResolved { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public System.DateTime ModifiedDate { get; set; }
     }
 }
