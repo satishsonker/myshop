@@ -18,6 +18,7 @@ namespace DataLayer
         public Gbl_Master_PayMode()
         {
             this.Stk_Tr_Entry = new HashSet<Stk_Tr_Entry>();
+            this.Sale_Tr_Invoice = new HashSet<Sale_Tr_Invoice>();
         }
     
         public int PayModeId { get; set; }
@@ -32,5 +33,7 @@ namespace DataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stk_Tr_Entry> Stk_Tr_Entry { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }
     }
 }

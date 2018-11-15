@@ -190,6 +190,8 @@
     <Compile Include="Areas\Global\Models\UserDetails.cs" />
     <Compile Include="Areas\Global\Models\UserModel.cs" />
     <Compile Include="Areas\SalesManagement\Controllers\SaleController.cs" />
+    <Compile Include="Areas\SalesManagement\Models\SalesDetails.cs" />
+    <Compile Include="Areas\SalesManagement\Models\SalesModel.cs" />
     <Compile Include="Areas\SalesManagement\SalesManagementAreaRegistration.cs" />
     <Compile Include="Areas\StockManagement\Controllers\MastersController.cs" />
     <Compile Include="Areas\StockManagement\Controllers\StockController.cs" />
@@ -288,6 +290,7 @@
     <Content Include="Areas\Global\Views\Admin\CreateUserTask.cshtml" />
     <Content Include="Areas\Global\Views\User\UserTaskList.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Sale\NewSales.cshtml" />
+    <Content Include="Areas\CustomersManagement\Views\Shared\_SearchCustomer.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -407,6 +410,7 @@
     <Content Include="Scripts\App\Area\Global\User\CreateUser.js" />
     <Content Include="Scripts\App\Area\Global\User\MapShop.js" />
     <Content Include="Scripts\App\Area\Global\User\Permission.js" />
+    <Content Include="Scripts\App\Area\Sales\NewSales.js" />
     <Content Include="Scripts\App\Area\Sales\SaleDashboard.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Vendor.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Brands.js" />
@@ -515,11 +519,11 @@
     <Content Include="Views\Login\NoShopMapped.cshtml" />
     <Content Include="Views\Shared\_UserList.cshtml" />
     <Content Include="Views\Error\SessionExpired.cshtml" />
+    <Content Include="Views\Shared\_SearchProduct.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\EmployeesManagement\Views\Reports\" />
-    <Folder Include="Areas\SalesManagement\Models\" />
     <Folder Include="Areas\SalesManagement\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>

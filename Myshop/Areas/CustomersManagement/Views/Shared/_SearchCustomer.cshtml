@@ -1,0 +1,34 @@
+﻿<div class="form-group col-sm-5">
+    <label style="margin-top:7px;">Customer Mobile</label>
+    <input style="max-width:300px;float:right;" autocomplete="off" id="_ptlSearchCustomer" placeholder="Customer Mobile" type="text" class="form-control">
+    <ul class="shop_SearchControl" id="_ptlSearchCustomerList">
+      
+    </ul>
+</div>
+
+<script>
+    $(document).on('keypress keydown keyup', '#_ptlSearchCustomer', function () {
+        let $ul = $('#_ptlSearchCustomerList');
+        if ($(this).val().length > 1) {
+            utility.ajaxHelper(app.urls.GetCustmerJson, { mobile: $(this).val() }, function (data) {
+
+                let $html = '';
+                $(data).each(function (ind, ele) {
+                    $html += "<li data-data='" + JSON.stringify(ele) + "'>" + ele.FirstName + " " + ele.LastName + "</li>";
+                });
+                if ($html == '') {
+                    $html += "<li class='norecord'>Add New Customer</li>";
+                }
+                $ul.empty().append($html).show();
+            });
+        }
+        else
+            $ul.empty().hide();
+    });
+    $(document).on('click', '#_ptlSearchCustomerList li', function () {
+        $('#_ptlSearchCustomerList').hide();
+        if (!$(this).hasClass('norecord')) {
+            $('#_ptlSearchCustomer').val($(this).text());
+        }
+    });
+</script>

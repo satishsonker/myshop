@@ -171,6 +171,12 @@
       <DependentUpon>MyshopModel.edmx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sale_Dtl_Invoice.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Sale_Tr_Invoice.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="SpGetEmpList_Result.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>

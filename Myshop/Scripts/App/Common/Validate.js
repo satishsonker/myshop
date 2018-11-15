@@ -67,4 +67,29 @@ $(document).on('change', 'input[data-validate-numeric]',function () {
     }
 });
 
+validate.form = function ($formId) {
+    let $form = $('#' + $formId);
+    let $isValid = true;
+    $form.find('input[type="text"]').each(function ($ind, $ele) {
+        var $textValue = $($ele).val();
+        var $isRequired = $($ele).attr('required') === 'required' ? true : false;
+        var $minLength = parseInt($($ele).attr('minlength'));
+        if ($isRequired && $textValue.length == 0) {
+            $($ele).addClass('shop_hasError');
+            $isValid = false;
+        }
+        else {
+            $($ele).removeClass('shop_hasError');
+        }
+        if (!isNaN($minLength) && $textValue.length < $minLength) {
+            $($ele).addClass('shop_hasError');
+            $isValid = false;
+        }
+        else {
+            $($ele).removeClass('shop_hasError');
+        }
+    });
+    return $isValid;
+}
+
 

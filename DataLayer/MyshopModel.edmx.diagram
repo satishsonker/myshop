@@ -96,6 +96,11 @@
         <AssociationConnector Association="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" />
         <AssociationConnector Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry" />
         <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1" />
+        <EntityTypeShape EntityType="MyshopModel.Sale_Dtl_Invoice" Width="1.5" PointX="19.5" PointY="46.75" />
+        <EntityTypeShape EntityType="MyshopModel.Sale_Tr_Invoice" Width="1.5" PointX="17.25" PointY="50.375" />
+        <AssociationConnector Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode" />
+        <AssociationConnector Association="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product" />
+        <AssociationConnector Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -1,0 +1,39 @@
+﻿<div class="form-group col-sm-8 col-sm-offset-4" style="margin-bottom:2px;">
+    <label style="margin-top:7px;">Product</label>
+    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductPrint" style="float:right;margin-right:10px;" value="Print Invoice" />
+    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductSave" style="float:right;margin-right:10px;" value="Save Invoice" />
+    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductAdd" style="float:right;margin-right:10px;" value="Add Product" />
+    <input style="max-width:280px;float:right;margin-right:10px;" id="_ptlSearchProduct" placeholder="Search Product Name, Code" type="text" class="form-control">
+
+    <ul class="shop_SearchControl" style="left:167px;width:251px;" id="_ptlSearchProductList"></ul>
+</div>
+
+<script>
+    $(document).on('keypress keydown keyup', '#_ptlSearchProduct', function () {
+        let $ul = $('#_ptlSearchProductList');
+        if ($(this).val().length > 1) {
+            utility.ajaxHelper(app.urls.SaleArea.SalesController.SearchProduct, { searchValue: $(this).val() }, function (data) {
+                let $html = '';
+                $(data).each(function (ind, ele) {
+                    $html += "<li data-data='" + JSON.stringify(ele) + "'>" + ele.ProductName + ' ' + ele.ProductCode + '</li>';
+                });
+                if ($html == '') {
+                    $html += "<li class='norecord' >No Record</li>";
+                }
+                $ul.empty().append($html).show();
+            });
+        }
+        else
+            $ul.empty().hide();
+    });
+    $(document).on('click', '#_ptlSearchProductList li', function () {
+        $('#_ptlSearchProductList').hide();
+        if (!$(this).hasClass('norecord')) {
+            $('#_ptlSearchProduct').val($(this).text());
+            $('#_ptlSearchProductAdd').data('productinfo', $(this).data('data'));
+        }
+        else {
+            $('#_ptlSearchProduct').val('');
+        }
+    });
+</script>

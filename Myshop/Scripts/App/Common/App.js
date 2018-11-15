@@ -5,8 +5,10 @@ app.urls = {};
 app.urls.CommonController = {};
 app.urls.customer = {};
 app.urls.GlobalArea = {};
+app.urls.SaleArea = {};
 app.urls.GlobalArea.MasterController = {};
 app.urls.GlobalArea.AdminController = {};
+app.urls.SaleArea.SalesController = {};
 app.const = {};
 
 app.urls.DefaultPagingUrl = "?PageNo=1&PageSize=20";
@@ -118,6 +120,11 @@ app.urls.GetTotalCustomerTypePieChartData = "/CustomersManagement/Customer/GetTo
 
 //Common Controller
 app.urls.CommonController.CheckPassword = '/Common/CheckPassword';
+
+//Sale Area
+app.urls.SaleArea.SalesController.SearchProduct = "/SalesManagement/Sale/SearchProduct";
+app.urls.SaleArea.SalesController.SaveInvoice = "/SalesManagement/Sale/SaveInvoice";
+app.urls.SaleArea.SalesController.AddCustomer = "/SalesManagement/Sale/AddCustomer";
 
 //Constant Declaration
 app.const.toastColor = {};

@@ -189,12 +189,15 @@ namespace Myshop.Areas.CustomersManagement.Models
             }
         }
 
-        public IEnumerable<object> GetCustomerJson()
+        public IEnumerable<object> GetCustomerJson(string mobile="")
         {
             try
             {
                 myshop = new MyshopDb();
-                var catList = (from cust in myshop.Gbl_Master_Customer.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
+                var catList = (from cust in myshop.Gbl_Master_Customer
+                               .Where(  x => x.IsDeleted == false && 
+                                        x.ShopId.Equals(WebSession.ShopId) && 
+                                        (mobile==string.Empty || x.Mobile.IndexOf(mobile)>-1))
                                orderby cust.FirstName
                                select new
                                {

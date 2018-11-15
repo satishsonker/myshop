@@ -55,10 +55,13 @@ namespace Myshop.Controllers
             }
         }
 
-        internal Dictionary<int, string> ReturnAjaxAlertMessage(Enums.CrudStatus status)
+        internal Dictionary<int, string> ReturnAjaxAlertMessage(Enums.CrudStatus status,int returnId=0)
         {
             Dictionary<int, string> result = new Dictionary<int, string>();
-
+            if (returnId > 0)
+            {
+                result.Add(returnId, "ReturnId");
+            }
             if (status == Enums.CrudStatus.Deleted)
             {
                 result.Add(100, Resource.DataDeleted);

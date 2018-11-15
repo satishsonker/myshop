@@ -109,12 +109,12 @@ namespace Myshop.Areas.CustomersManagement.Controllers
             }
         }
 
-        public JsonResult GetCustmerJson()
+        public JsonResult GetCustmerJson(string mobile="")
         {
             try
             {
                 _details = new MasterModel();
-                return Json(_details.GetCustomerJson(), JsonRequestBehavior.AllowGet);
+                return Json(_details.GetCustomerJson(mobile), JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

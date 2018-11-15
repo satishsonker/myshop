@@ -34,7 +34,7 @@ utility.baseURL = "http://localhost:60543";
 //firebase.initializeApp(firebaseConfig);
 
 $(document).ready(function () {
-    $('body').css('height', $(document).height()-40);
+    $('body').css('height', $(document).height() - 40);
     $("#mainAlert").fadeOut(6500);
     if ($('#myModal').length > 0) {
         $('#showModel').click();
@@ -47,7 +47,7 @@ $(document).ready(function () {
     $(window).resize(utility.setFooter());
 });
 
-utility.ajaxHelper = function (url, data, success, error,method) {
+utility.ajaxHelper = function (url, data, success, error, method) {
     error = utility.isNullOrUndefined(error) ? utility.errorCall : error;
     method = utility.isNullOrUndefined(method) ? app.const.ajaxMethod.post : method;
     var param = {};
@@ -56,19 +56,19 @@ utility.ajaxHelper = function (url, data, success, error,method) {
     param.method = method;
     param.success = success;
     param.error = error;
-    param.data=JSON.stringify(data),
-    $.ajax(param);
+    param.data = JSON.stringify(data),
+        $.ajax(param);
 }
 
-utility.ajaxHelperGet = function (url, success, error,method) {
+utility.ajaxHelperGet = function (url, success, error, method) {
     error = utility.isNullOrUndefined(error) ? utility.errorCall : error;
     method = utility.isNullOrUndefined(method) ? app.const.ajaxMethod.post : method;
     var param = {};
-    param.url= url,
-    param.contentType = "application/json",
-    param.method = method,
-    param.success=success,
-    param.error=error
+    param.url = url,
+        param.contentType = "application/json",
+        param.method = method,
+        param.success = success,
+        param.error = error
     $.ajax(param);
 }
 
@@ -87,7 +87,7 @@ utility.ajaxWithoutDataHelper = function (url, success, error) {
 utility.SetAlert = function (message, alertType) {
     alertType = alertType === undefined ? "info" : alertType;
     var alertColor;
-    let className = 'alert-'+alertType;
+    let className = 'alert-' + alertType;
     switch (alertType) {
         case 'info':
             alertColor = 'Information';
@@ -103,21 +103,47 @@ utility.SetAlert = function (message, alertType) {
             break;
 
     }
-    var ele = $("#mainAlert");
-    if (ele.length > 0) {
-        ele.show().fadeIn(300);
-        $(ele).addClass(className);
-        $("#alertColor").empty().text(alertColor + '!');
-        $("#message").empty().text(message);
-        $("#alertmessage").empty().text(message);
-    }
-    else {
-        $("#mainalertContainer").empty().append('<div class="alert alert-' + alertType + ' text-center alert-dismissible" id="mainAlert" style="margin-top: 0px;position: fixed !important;width: 80% !important;display: none;z-index: 100000000 !important;margin-left: 10% !important;" role="alert">' +
-                        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-                        '<strong  id="alertColor">' + alertColor + '!</strong><p id="message">' + message + '</p></div>');
-    }
-    $("#mainAlert").delay(7000).fadeOut(500);
+    //var ele = $("#mainAlert");
+    //if (ele.length > 0) {
+    //    ele.show().fadeIn(300);
+    //    $(ele).addClass(className);
+    //    $("#alertColor").empty().text(alertColor + '!');
+    //    $("#message").empty().text(message);
+    //    $("#alertmessage").empty().text(message);
+    //}
+    //else {
+    //    $("#mainalertContainer").empty().append('<div class="alert alert-' + alertType + ' text-center alert-dismissible" id="mainAlert" style="margin-top: 0px;position: fixed !important;width: 80% !important;display: none;z-index: 100000000 !important;margin-left: 10% !important;" role="alert">' +
+    //        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
+    //        '<strong  id="alertColor">' + alertColor + '!</strong><p id="message">' + message + '</p></div>');
+    //}
+    //$("#mainAlert").delay(7000).fadeOut(500);
+   
+    let $html = '<div class="shop_mainAlert">' +
+        '<div class="panel panel-' + alertType + '">' +
+        '<div class="panel-heading"><span>' + alertColor + '</span><img class="alertClose" src="../../Images/Icons/delete.png" style="" />' +
+        '</div>' +
+        '<div class="panel-body">' +
+        '<div class="row">' +
+        '<div class="col-lg-12">' +
+        '<span id="message">' + message + '</span>' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '<div class="panel-footer" style="height: 45px;padding: 5px 15px;">' +
+        '<div class="btn-group pull-right">' +
+        '<input type="button" id="btnAlertOk" value="OK" class="btn btn-primary" />' +
+        '<input type="button" id="btnAlertCancel" value="Cancel" class="btn btn-danger" />' +
+        '</div>' +
+        '</div>' +
+        '</div>' +
+        '</div>';
+
+    $('body').append($html);
 }
+
+$(document).on('click', '.alertClose,#btnAlertCancel,#btnAlertOk', function () {
+    $('.shop_mainAlert').remove();
+});
 
 //Error Handler Function
 utility.errorCall = function (e, x, settings, exception) {
@@ -149,8 +175,8 @@ utility.errorCall = function (e, x, settings, exception) {
 utility.popupClose = function (id) {
     if (!id) {
         $("img#popupclose").parent().parent().hide();
-    }else
-    $("#"+id).hide();
+    } else
+        $("#" + id).hide();
 };
 
 utility.popupTableData = function (methodType) {
@@ -161,8 +187,7 @@ utility.popupTableData = function (methodType) {
     if (shopDDl.length == 0 || (!isNaN(shopid) && shopid > 0)) {
 
         urls = app.urls[methodType]; //Fetching URLs
-        if (urls === undefined && methodType.split('.').length > 0)
-        {
+        if (urls === undefined && methodType.split('.').length > 0) {
             let urlParts = methodType.split('.');
             var tempUrl = app.urls;
             $(urlParts).each(function (ind, ele) {
@@ -175,7 +200,7 @@ utility.popupTableData = function (methodType) {
         utility.ajaxHelper(urls, { shopid: shopid }, function (data) {
             var list = data.objList !== undefined ? data.objList : data;
             var totalRecord = data.TotalRecord !== undefined ? data.TotalRecord : data.length;
-            utility.tableBinder(list,'popuptable',totalRecord);
+            utility.tableBinder(list, 'popuptable', totalRecord);
         }, utility.errorCall);
     }
     else {
@@ -201,9 +226,8 @@ utility.isNullOrUndefined = function (str) {
     return str == null || str === undefined ? true : false;
 }
 
-utility.tableBinder = function (data, tableid,totalRecord) {
-    if (typeof data === 'string' && !utility.isJson(data))
-    {
+utility.tableBinder = function (data, tableid, totalRecord) {
+    if (typeof data === 'string' && !utility.isJson(data)) {
         utility.SetAlert('There is some error');
     }
 
@@ -232,11 +256,10 @@ utility.tableBinder = function (data, tableid,totalRecord) {
                     else if (format === 'full')
                         tblHtml = tblHtml + '<td>' + date.toDateString() + ' ' + utility.getLeadingZero(date.getHours()) + ':' + utility.getLeadingZero(date.getMinutes()) + ':' + utility.getLeadingZero(date.getSeconds()) + '</td>';
                     else if (format === 'short')
-                        tblHtml = tblHtml + '<td>' + date.toDateString()+ '</td>';
+                        tblHtml = tblHtml + '<td>' + date.toDateString() + '</td>';
                 }
-                else if (eId.toLowerCase().indexOf('image') > -1 || eId.toLowerCase().indexOf('photo') > -1)
-                {
-                    let imagePath = ele[eId] == "" ? '/Images/Icons/FemaleUser.png' : 'data:image/png;base64,'+ele[eId];
+                else if (eId.toLowerCase().indexOf('image') > -1 || eId.toLowerCase().indexOf('photo') > -1) {
+                    let imagePath = ele[eId] == "" ? '/Images/Icons/FemaleUser.png' : 'data:image/png;base64,' + ele[eId];
                     tblHtml = tblHtml + '<td><img class="shop-thumbnail" style="border-radius: 30px;padding-bottom: 0px !Important;" src="' + imagePath + '" alt="Image" /></td>';
                 }
                 else {
@@ -253,7 +276,7 @@ utility.tableBinder = function (data, tableid,totalRecord) {
         $('.popup').show();
 
         //if ($('.popuptableWrapper').length == 0) {
-            //$('#popuptable').wrap('<div class="popuptableWrapper" style="max-height: 320px;overflow-y: scroll;" class="table">'); //table scrollable
+        //$('#popuptable').wrap('<div class="popuptableWrapper" style="max-height: 320px;overflow-y: scroll;" class="table">'); //table scrollable
         //}
 
     }
@@ -291,10 +314,9 @@ utility.bottonGroupManager = function (rowSelect, isCancel) {
     if (isCancel == true) {
         var ctrl = $(btnCancel).parent().parent().find('fieldset');
         $(ctrl).find('input').val('');
-        $(ctrl).find('img').attr('scr','/Images/Icons/FemaleUser.png');
+        $(ctrl).find('img').attr('scr', '/Images/Icons/FemaleUser.png');
         $(ctrl).find('select#ShopId').val('').change();
-        if(panelBody)
-        {
+        if (panelBody) {
             $(panelBody).find('input').val('');
             $(panelBody).find('select').val('')
         }
@@ -397,15 +419,15 @@ utility.bindDdlByAjax = function (methodUrl, ddlId, text, value, callback, Cleaa
         if (typeof data === 'object') {
             var ddl = $('#' + ddlId);
             utility.enableCtrl(ddl);
-            ddl.find(':gt('+CleaarOptionIndex+')').remove();
+            ddl.find(':gt(' + CleaarOptionIndex + ')').remove();
             $(data).each(function (ind, ele) {
-                var Value = utility.isNullOrUndefined(value)? ele["Value"] : ele[value];
+                var Value = utility.isNullOrUndefined(value) ? ele["Value"] : ele[value];
                 var Text = utility.isNullOrUndefined(text) ? ele["Text"] : ele[text];
                 ddl.append('<option value=' + Value + '>' + Text + '</option>');
             });
             if ($('#ddlProduct').length > 0) {
                 $('.ddlProduct').dropdown({
-                    limitCount:5
+                    limitCount: 5
                 });
             }
             if ($('#ddlCustType').length > 0) {
@@ -476,7 +498,7 @@ utility.validatePassword = function (str) {
     }
 }
 
-utility.popup = function (message,HeaderTitle) {
+utility.popup = function (message, HeaderTitle) {
     $('#Popup').find('.panel-body').text(message);
     $('#Popup').find('.panel-heading .row div:eq(0) ').text(HeaderTitle);
     $('#Popup').show();
@@ -506,17 +528,16 @@ utility.getJsDateTimeFromJson = function (jsonDate) {
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString('en-US', { hour12: false });
 }
 
-utility.getFormatedDate = function(jsonDate)
-{
+utility.getFormatedDate = function (jsonDate) {
     var date = utility.getJsDateTimeFromJson(jsonDate);
     date = date.split(' ')[0].split('/')
-    return date[2]+'-0'+date[0] + '-0' + date[1] ;
+    return date[2] + '-0' + date[0] + '-0' + date[1];
 }
 
 utility.setFraction = function (val) {
     if (val !== undefined) {
         val = val.toString();
-        if ((typeof val === 'string' || typeof val === 'number') && val.length > 0) {           
+        if ((typeof val === 'string' || typeof val === 'number') && val.length > 0) {
             return val = val.indexOf('.') > -1 ? (val.indexOf('.') == 0 ? '0' + val : val) : val + '.00';
         }
         else
@@ -591,9 +612,9 @@ utility.setClass = function (ctrlId, className, isAdd) {
 
 utility.createToast = function (message, color) {
     var toast = $('.toast')
-    
+
     toast.text(message);
-    var toastWidth =parseInt(toast.css('width'))/2;
+    var toastWidth = parseInt(toast.css('width')) / 2;
     var docWidth = $(window).width() / 2;
     toast.css('left', (docWidth - toastWidth) + 'px');
     toast.fadeIn('slow').delay(3000).fadeOut('slow');
@@ -632,31 +653,31 @@ $(document).ajaxComplete(function () {
 
 utility.isDataExist = function (validateDataOf, data, ctrl) {
     var msg = ctrl === undefined ? "Data is already exist" : $(ctrl).data('error-dataexist');
-    var param={};
+    var param = {};
     param.DataType = validateDataOf,
-    param.data=data;
+        param.data = data;
     utility.ajaxHelper(app.urls.isExist, param, function (response) {
         utility.SetAlert('')
     });
 }
 
 $(document).on('click', '.shop-thumbnail', function () {
-    if ($(this)[0].nodeName == 'IMG')
-    {
+    if ($(this)[0].nodeName == 'IMG') {
         $('.shop-thumbnail-img').attr('src', $(this).attr('src'));
         $('.shop-thumbnail-pre').show();
     }
 });
 
-utility.alertType=
-{
-    information: 'info',
-    error: 'danger',
-    warning: 'warning',
-    success: 'success'
-}
+utility.alertType =
+    {
+        information: 'info',
+        error: 'danger',
+        warning: 'warning',
+        success: 'success'
+    }
 
 utility.setAjaxAlert = function (response) {
+    response[0] = response.length > 1 ? response[1] : response[0];
     if (response[0].Key == 110)
         utility.SetAlert(response[0].Value, utility.alertType.error);
     if (response[0].Key == 101 || response[0].Key == 100)
