@@ -101,6 +101,11 @@
         <AssociationConnector Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode" />
         <AssociationConnector Association="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product" />
         <AssociationConnector Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" />
+        <AssociationConnector Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_City" />
+        <AssociationConnector Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_State" />
+        <AssociationConnector Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice1" />
+        <AssociationConnector Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

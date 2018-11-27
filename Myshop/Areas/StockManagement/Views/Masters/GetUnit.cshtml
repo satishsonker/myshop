@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "GetUnit";
-    Layout = "~/Areas/StockManagement/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
@@ -11,9 +11,9 @@
 @*@using (Html.BeginForm("SetUnit", "Masters", new { area = "StockManagement" }, FormMethod.Post, new { style = "margin-top:60px" }))
 {*@
 
-<form action="/" method="post" style="margin-top:60px" id="unitform">
+<form action="/" method="post" style="margin-top:20px" id="unitform">
     <div class="container">
-        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+        <div class="col-lg-8 col-lg-offset-2 col-md-8 col-md-offset-2 col-sm-12">
             <div class="panel panel-info">
                 <div class="panel-heading">Add Product Quantity Unit</div>
                 <div class="panel-body">

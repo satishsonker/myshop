@@ -1,0 +1,50 @@
+﻿<div class="form-group col-sm-7" style="margin-bottom:2px;">
+    <label style="margin-top:5px;">Search Invoice</label>
+    <input type="button" class="btn btn-success" id="_ptlSearchInvoicePrint" style="float:right;margin-right:10px;" value="Print" />
+    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchInvoiceGenerate" style="float:right;margin-right:10px;" value="Generate Invoice" />
+    <input style="max-width:280px;float:right;margin-right:10px;" id="_ptlSearchInvoice" placeholder="Search Invoice Number" type="text" class="form-control">
+
+    <ul class="shop_SearchControl" id="_ptlSearchInvoiceList"></ul>
+</div>
+
+<script>
+    $(document).on('keydown keyup', '#_ptlSearchInvoice', function () {
+        let $ul = $('#_ptlSearchInvoiceList');
+        if ($(this).val().length > 1) {
+            utility.ajaxHelper(app.urls.SaleArea.SalesController.SearchInvoice, { searchValue: $(this).val() }, function (data) {
+                let $html = '';
+                $(data).each(function (ind, ele) {
+                    $html += "<li data-data='" + JSON.stringify(ele) + "'><strong>" + ele.InvoiceId + '</strong> (' + utility.getJsDateTimeFromJson(ele.InvoiceDate) + ')</li>';
+                });
+                if ($html == '') {
+                    $html += "<li class='norecord'>No Record</li>";
+                }
+                $ul.empty().append($html);
+                let $txtbox = $('#_ptlSearchInvoice');
+                let $position = {};
+                $position.left = $($txtbox).position().left.toFixed(0);
+                $position.top = $($txtbox).position().top;
+                $position.width = $($txtbox).css('width');
+                $('#_ptlSearchInvoice').next('.shop_SearchControl').attr('style', 'left:'+$position.left + 'px !important;width:'+$position.width + ' !important;display:block');
+            });
+        }
+        else
+            $ul.empty().hide();
+    });
+    $(document).on('click', '#_ptlSearchInvoiceList li', function () {
+        $('#_ptlSearchInvoiceList').hide();
+        if (!$(this).hasClass('norecord')) {
+            $('#_ptlSearchInvoice').val($(this).text());
+            $('#_ptlSearchInvoiceGenerate').data('productinfo', $(this).data('data'));
+        }
+        else {
+            $('#_ptlSearchInvoice').val('');
+        }
+    });
+    $(document).on('click', '#_ptlSearchInvoicePrint', function () {
+        w = window.open();
+        w.document.write(document.getElementsByClassName('shop_invoiceLayout')[0].innerHTML);
+        w.print();
+        w.close();
+    });
+</script>

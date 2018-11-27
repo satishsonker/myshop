@@ -908,6 +908,68 @@ namespace Myshop.App_Start
             var _hasRecord = myshop.Gbl_Master_User.Where(x => x.UserId.Equals(WebSession.UserId) && !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && x.Password.Equals(_passwordHash)).Count();
             return _hasRecord > 0 ? true : false;
         }
+        public static List<SelectListModel> GetState(int CountryId=1)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                List<SelectListModel> list = new List<SelectListModel>();
+                var StateList = myshop.Gbl_Master_State.Where(state => !state.IsDeleted && state.CountryId.Equals(CountryId)).OrderBy(x => x.StateName).ToList();
+                if (StateList.Count > 0)
+                {
+                    foreach (Gbl_Master_State currentItem in StateList)
+                    {
+                        SelectListModel newItem = new SelectListModel();
+                        newItem.Text = currentItem.StateName;
+                        newItem.Value = currentItem.StateId;
+                        list.Add(newItem);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+
+        }
+        public static List<SelectListModel> GetCity(int StateId)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                List<SelectListModel> list = new List<SelectListModel>();
+                var cityList = myshop.Gbl_Master_City.Where(state => !state.IsDeleted && state.StateId.Equals(StateId)).OrderBy(x => x.CityName).ToList();
+                if (cityList.Count > 0)
+                {
+                    foreach (Gbl_Master_City currentItem in cityList)
+                    {
+                        SelectListModel newItem = new SelectListModel();
+                        newItem.Text = currentItem.CityName;
+                        newItem.Value = currentItem.CityId;
+                        list.Add(newItem);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+
+        }
     }
 
     public class SelectListModel

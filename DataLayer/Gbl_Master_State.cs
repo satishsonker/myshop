@@ -18,6 +18,7 @@ namespace DataLayer
         public Gbl_Master_State()
         {
             this.Gbl_Master_City = new HashSet<Gbl_Master_City>();
+            this.Gbl_Master_Customer = new HashSet<Gbl_Master_Customer>();
         }
     
         public int StateId { get; set; }
@@ -25,12 +26,14 @@ namespace DataLayer
         public int CountryId { get; set; }
         public int CreatedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public int ModifiedBy { get; set; }
-        public System.DateTime ModificationDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
         public bool IsSync { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_City> Gbl_Master_City { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Customer> Gbl_Master_Customer { get; set; }
     }
 }

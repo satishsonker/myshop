@@ -120,11 +120,17 @@ app.urls.GetTotalCustomerTypePieChartData = "/CustomersManagement/Customer/GetTo
 
 //Common Controller
 app.urls.CommonController.CheckPassword = '/Common/CheckPassword';
+app.urls.CommonController.GetCity = '/Common/GetCity';
+app.urls.CommonController.GetState = '/Common/GetState';
 
 //Sale Area
 app.urls.SaleArea.SalesController.SearchProduct = "/SalesManagement/Sale/SearchProduct";
+app.urls.SaleArea.SalesController.SearchInvoice = "/SalesManagement/Sale/SearchInvoice";
 app.urls.SaleArea.SalesController.SaveInvoice = "/SalesManagement/Sale/SaveInvoice";
 app.urls.SaleArea.SalesController.AddCustomer = "/SalesManagement/Sale/AddCustomer";
+app.urls.SaleArea.SalesController.GetDashboard = "/SalesManagement/Sale/GetDashboard";
+app.urls.SaleArea.SalesController.GetSalesChartData = "/SalesManagement/Sale/GetSalesChartData";
+app.urls.SaleArea.SalesController.GetSalesList = "/SalesManagement/Sale/GetSalesList";
 
 //Constant Declaration
 app.const.toastColor = {};
@@ -150,4 +156,7 @@ app.const.ajaxMethod.get = "GET";
 app.const.ajaxMethod.post = "POST";
 app.const.ajaxMethod.put = "PUT";
 app.const.ajaxMethod.delete = "DELETE";
+
+app.const.htmlCode = {};
+app.const.htmlCode.rupeesSymbol ="&#8377"
 

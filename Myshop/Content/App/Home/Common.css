@@ -8,7 +8,8 @@
     border-radius: 60px;
     border: 1px solid #2a7fb8;
     background: #2a7fb8;
-    cursor:pointer;
+    cursor: pointer;
+    z-index: 99999;
 }
 
 .shop_fgBlack{
@@ -85,4 +86,95 @@
 
 .shop_hasError {
     border-bottom: 2px solid red !important;
+}
+
+.shop_invoiceLayout {
+    width: 100%;
+    min-height: 800px;
+    border: 1px solid black;
+    border-radius: 4px;
+    background: white;
+}
+    .shop_invoiceLayout .shopname {
+        border: 1px solid #4545f1;
+        background: #7070ff;
+        margin: 10px;
+        padding: 7px;
+        color: white;
+        font-size: 22px;
+        font-weight: 500;
+        font-family: monospace;
+        text-align: left;
+    }
+
+.metric {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    padding: 20px;
+    margin-bottom: 30px;
+    border: 1px solid #DCE6EB;
+}
+
+    .metric .icon {
+        -webkit-border-radius: 50%;
+        -moz-border-radius: 50%;
+        border-radius: 50%;
+        float: left;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        background-color: #0081c2;
+        text-align: center;
+    }
+    .metric .number {
+        display: block;
+        font-size: 28px;
+        font-weight: 300;
+    }
+
+    .metric .title {
+        font-size: 16px;
+    }
+    .metric p {
+        margin-bottom: 0;
+        line-height: 1.2;
+        text-align: right;
+    }
+
+.fa {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.metric .icon i {
+    font-size: 18px;
+    color: #fff;
+}
+
+.weekly-summary {
+    margin-bottom: 30px;
+    font-weight: 300;
+}
+
+.text-right {
+    text-align: right;
+}
+
+.weekly-summary .number {
+    font-size: 36px;
+}
+
+.weekly-summary .percentage {
+    position: relative;
+    top: -7px;
+}
+
+.weekly-summary .info-label {
+    display: block;
+    margin-bottom: 10px;
+    font-weight: normal;
 }

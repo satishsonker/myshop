@@ -190,6 +190,8 @@
     <Compile Include="Areas\Global\Models\UserDetails.cs" />
     <Compile Include="Areas\Global\Models\UserModel.cs" />
     <Compile Include="Areas\SalesManagement\Controllers\SaleController.cs" />
+    <Compile Include="Areas\SalesManagement\Models\DashboardDetails.cs" />
+    <Compile Include="Areas\SalesManagement\Models\DashboardModel.cs" />
     <Compile Include="Areas\SalesManagement\Models\SalesDetails.cs" />
     <Compile Include="Areas\SalesManagement\Models\SalesModel.cs" />
     <Compile Include="Areas\SalesManagement\SalesManagementAreaRegistration.cs" />
@@ -291,6 +293,9 @@
     <Content Include="Areas\Global\Views\User\UserTaskList.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Sale\NewSales.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\Shared\_SearchCustomer.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\GetInvoice.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\SalesList.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\ReturnInvoice.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -410,8 +415,11 @@
     <Content Include="Scripts\App\Area\Global\User\CreateUser.js" />
     <Content Include="Scripts\App\Area\Global\User\MapShop.js" />
     <Content Include="Scripts\App\Area\Global\User\Permission.js" />
+    <Content Include="Scripts\App\Area\Sales\GetInvoice.js" />
     <Content Include="Scripts\App\Area\Sales\NewSales.js" />
+    <Content Include="Scripts\App\Area\Sales\ReturnInvoice.js" />
     <Content Include="Scripts\App\Area\Sales\SaleDashboard.js" />
+    <Content Include="Scripts\App\Area\Sales\SalesList.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Vendor.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Brands.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Cat.js" />
@@ -520,6 +528,8 @@
     <Content Include="Views\Shared\_UserList.cshtml" />
     <Content Include="Views\Error\SessionExpired.cshtml" />
     <Content Include="Views\Shared\_SearchProduct.cshtml" />
+    <Content Include="Views\Shared\_SearchInvoice.cshtml" />
+    <Content Include="Views\Shared\_StateCity.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

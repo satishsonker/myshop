@@ -360,5 +360,17 @@ namespace Myshop.Controllers
         {
             return Json(GlobalMethod.isExist(DataType, data), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult GetState(int CountryId=1)
+        {
+            return Json(GlobalMethod.GetState(CountryId), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetCity(int StateId)
+        {
+            return Json(GlobalMethod.GetCity(StateId), JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -7,3 +7,83 @@
 $(document).on('click', '.shop_addIcon', function () {
     window.location = "/SalesManagement/sale/NewSales";
 });
+
+
+$(document).on('change', '#ddlPeriod', function () {
+    utility.ajaxHelper(app.urls.SaleArea.SalesController.GetDashboard, { Days: $(this).val() }, function (response) {
+        $('.totalSales').text(response.TotalSales);
+        $('.totalProduct').text(response.TotalProduct);
+        $('.totalProductQty').text(response.TotalQty);
+        if (response.TotalIncome.toString().length > 8)
+            $('.totalIncome').attr('style', 'font-size:21px !important;');
+        else
+            $('.totalIncome').removeAttr('style');
+
+        $('.totalIncome').text("₹" + parseFloat(response.TotalIncome).toFixed(2).toString());
+
+        $('.monthlyIncome').text("₹" + parseFloat(response.MonthlyIncome).toFixed(2).toString());
+
+        $('.TotalIncomeTillNow').text("₹" + parseFloat(response.TotalIncomeTillNow).toFixed(2).toString());
+
+        let $html = '';
+        $(response.InvoiceMDetals).each(function (ind, ele) {
+            $html += '<tr>'+
+                '<td><a href="/salesmanagement/sale/GetInvoice?invoiceno=' + ele.InvoiceNo +'">' + ele.InvoiceNo+'</a></td>'+
+                '<td>' + ele.CustomerName +'</td> '+
+                '<td>' + ele.Amount + '</td> ' +
+                '<td>' + utility.getJsDateTimeFromJson(ele.InvoiceDate) + '</td> ' +
+                '<td><span class="label label-' + (ele.IsRefund ? 'warning' : 'success') +'">' +(ele.IsRefund?'Return':'Sale')+'</span></td> '+
+                '</tr > ';
+        });
+        $html = $html != '' ? $html: '<tr><td colspan="5">No Sale</td></tr>';
+        $('#tblInvoice').empty().append($html);
+
+        $html = '';
+        $(response.SallingProducts).each(function (ind, ele) {
+            $html += '<tr>' +
+                '<td>' + (ind + 1).toString() + '</td> ' +
+                '<td><a href="#">' + ele.ProductName + '</a></td>' +
+                '<td>' + ele.TotalQty + '</td> ' +
+               '</tr > ';
+        });
+        $html = $html != '' ? $html : '<tr><td colspan="5">No Products</td></tr>';
+        $('#tblsaling').empty().append($html);
+    });
+
+    lineProductChart($('#ddlPeriod').val());
+});
+
+$(document).ready(function () {
+    $('#ddlPeriod').change();
+    lineProductChart($('#ddlPeriod').val());
+});
+
+function lineProductChart(duration) {
+    utility.ajaxHelper(app.urls.SaleArea.SalesController.GetSalesChartData, {'Days': duration }, function (data) {
+        var jsonData = JSON.parse(data.Data.replace(/#/g, '"').replace('|', '').replace('|', ''));
+       var config = {
+            data: jsonData,
+            xkey: 'y',
+            ykeys: ['d'],
+            labels: data.Labels,
+            fillOpacity: 0.6,
+            hideHover: 'auto',
+            behaveLikeLine: true,
+            resize: true,
+            pointFillColors: ['#ffffff'],
+            pointStrokeColors: ['black'],
+            lineColors: ['green'],
+            parseTime: false,
+            gridIntegers: true
+        };
+        $('#line-chart').empty();
+        config.element = 'line-chart';
+        Morris.Line(config);
+
+        config.ykeys = ['e'];
+        config.lineColors= ['red'],
+        $('#line-chart-Sale').empty();
+        config.element = 'line-chart-Sale';
+        Morris.Line(config);
+    });
+}

@@ -3,8 +3,7 @@
 /// <reference path="../../../Common/Utility.js" />
 
 $(document).ready(function () {
-    utility.bindDdlByAjax('GetStockProductJosn', 'ddlProduct', 'ProductName', 'ProductId');
-    
+    utility.bindDdlByAjax('GetStockProductJosn', 'ddlProduct', 'ProductName', 'ProductId');    
 });
 
 $(document).on('click', '#btnGo', function () {

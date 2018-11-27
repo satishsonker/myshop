@@ -238,10 +238,10 @@
     z-index: 1000000000;
     position: fixed;
     top: 10%;
-    width: 84%;
+    width: 72%;
     display: none;
     box-shadow: 5px 5px 21px grey;
-    left:8%; 
+    left: 22%;
 }
 
     .popup img {

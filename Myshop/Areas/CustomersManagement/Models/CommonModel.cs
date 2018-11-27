@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Myshop.Areas.CustomersManagement.Models
 {
@@ -11,11 +7,12 @@ namespace Myshop.Areas.CustomersManagement.Models
         public int CustomerTypeId { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "CustomerType is Required")]
-        [StringLength(maximumLength:50,MinimumLength =5,ErrorMessage ="Min:5 chars & max 50 chars are required")]
+        [StringLength(maximumLength: 50, MinimumLength = 4, ErrorMessage = "Min:4 chars & max 50 chars are required")]
         public string CustomerType { get; set; }
 
         public string Description { get; set; }
-    } public class CustomerModel
+    }
+    public class CustomerModel
     {
         public int CutomerId { get; set; }
 
@@ -35,7 +32,7 @@ namespace Myshop.Areas.CustomersManagement.Models
 
         public string Email { get; set; }
         public string Address { get; set; }
-        public int District { get; set; }
+        public int City { get; set; }
         public int State { get; set; }
 
         [Required(AllowEmptyStrings = false, ErrorMessage = "PINCode is Required")]

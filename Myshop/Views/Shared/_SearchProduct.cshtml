@@ -21,6 +21,12 @@
                     $html += "<li class='norecord' >No Record</li>";
                 }
                 $ul.empty().append($html).show();
+                let $txtbox = $('#_ptlSearchProduct');
+                let $position = {};
+                $position.left = $($txtbox).position().left.toFixed(0);
+                $position.top = $($txtbox).position().top;
+                $position.width = $($txtbox).css('width');
+                $('#_ptlSearchProduct').next('.shop_SearchControl').attr('style', 'left:' + $position.left + 'px !important;width:' + $position.width + ' !important;display:block;');
             });
         }
         else

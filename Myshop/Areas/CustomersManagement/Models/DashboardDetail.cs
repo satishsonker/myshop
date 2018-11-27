@@ -134,6 +134,26 @@ namespace Myshop.Areas.CustomersManagement.Models
             var products = myshop.Stk_Dtl_Entry.Where(x => ProductId.Contains(x.ProductId) && x.IsDeleted == false).ToList();
             return data;
         }
+        /// <summary>  
+        /// Dispose DataAccessLayer instance and closes database connection  
+        /// </summary>  
+        public void Dispose()
+        {
+            Dispose(true);
+            GC.SuppressFinalize(this);
+        }
+
+        protected virtual void Dispose(bool disposing)
+        {
+            if (disposing)
+            {
+                if (myshop!= null)
+                {
+                    myshop=null;
+                    myshop.Dispose();
+                }
+            }
+        }
 
     }
 }

@@ -25,7 +25,7 @@ namespace DataLayer
         public System.DateTime InvoiceDate { get; set; }
         public int PayModeId { get; set; }
         public decimal SubTotalAmount { get; set; }
-        public Nullable<decimal> GstAmount { get; set; }
+        public decimal GstAmount { get; set; }
         public decimal PaidAmount { get; set; }
         public string PayModeRefNo { get; set; }
         public decimal GrandTotal { get; set; }
@@ -40,11 +40,13 @@ namespace DataLayer
         public string CancelRemark { get; set; }
         public Nullable<System.DateTime> CancelledDate { get; set; }
         public bool IsAmountRefunded { get; set; }
-        public Nullable<decimal> RefundAmount { get; set; }
+        public decimal RefundAmount { get; set; }
         public int ShopId { get; set; }
     
         public virtual Gbl_Master_PayMode Gbl_Master_PayMode { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale_Dtl_Invoice> Sale_Dtl_Invoice { get; set; }
+        public virtual Gbl_Master_Customer Gbl_Master_Customer { get; set; }
+        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
     }
 }

@@ -35,11 +35,11 @@
 
 </head>
 
-<body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout" theme-bg="bg1">
+<body>
     <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
         <header id="hoe-header" hoe-lpanel-effect="shrink" class="">
             <div class="hoe-left-header">
-                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Click here to go to dashboard", style = "font-size: 13px;" })</span></a>
+                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand  hidden-xs hidden-sm", title = "Click here to go to dashboard", style = "font-size: 13px;" })</span></a>
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
             </div>
 
@@ -352,14 +352,14 @@
         </div>
     </div>
     <!--Start Thumbnail Popup-->
-    <div class="shop-thumbnail-pre">
+    @*<div class="shop-thumbnail-pre">
         <div class="popup-header">
             <img src="~/Images/Icons/if_Close_Icon_1398919.png" id="popupclose" onclick="utility.popupClose()" title="Close" alt="close" style="float: right;padding-bottom: 5px;" />
         </div>
         <div class="shop-thumbnail-holder">
             <img src="~/Images/Icons/404.png" class="shop-thumbnail-img" />
         </div>
-    </div>
+    </div>*@
     <div id="mainalertContainer">
         @*Common Error Alert Code*@
         @{

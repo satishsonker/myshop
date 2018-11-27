@@ -16,8 +16,13 @@ $(document).on('click', '[id*="btnSelectRow_"]', function () {
     $('#mobile').val(data.Mobile);
     $('#email').val(data.Email);
     $('#address').val(data.Address);
-    $('#district').val(data.District);
-    $('#state').val(data.State);
+    $('#ptlDdlState').val(data.State);
+    $('#ptlDdlState').change();
+    var $selectCity = setInterval(function () {        
+        $('#ptlDdlCity').val(data.District);
+        if ($('#ptlDdlCity').val() == data.District)
+            clearInterval($selectCity);
+        },500);
     $('#pincode').val(data.PINCode);
     $('.popup').hide();
 });

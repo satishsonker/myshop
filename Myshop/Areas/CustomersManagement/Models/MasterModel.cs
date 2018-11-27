@@ -96,7 +96,7 @@ namespace Myshop.Areas.CustomersManagement.Models
                         oldCustomer.Email = model.Email;
                         oldCustomer.Address = model.Address;
                         oldCustomer.State = model.State;
-                        oldCustomer.District = model.District;
+                        oldCustomer.District = model.City;
                         oldCustomer.PINCode = model.PINCode;
                         oldCustomer.IsDeleted = false;
                         oldCustomer.IsSync = false;
@@ -106,19 +106,19 @@ namespace Myshop.Areas.CustomersManagement.Models
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
-                        //var stock = myshop.Gbl_Master_Customer.Where(x => x.IsDeleted == false && x.CustomerId.Equals(model.CustomerTypeId)).FirstOrDefault();
-                        //if (stock == null)
-                        //{
-                        oldCustomer.IsDeleted = true;
-                        oldCustomer.IsSync = false;
-                        oldCustomer.ModifiedBy = WebSession.UserId;
-                        oldCustomer.ModificationDate = DateTime.Now;
+                        var stock = myshop.Sale_Tr_Invoice.Where(x => x.IsDeleted == false && x.CustomerId.Equals(model.CustomerTypeId)).FirstOrDefault();
+                        if (stock == null)
+                        {
+                            oldCustomer.IsDeleted = true;
+                            oldCustomer.IsSync = false;
+                            oldCustomer.ModifiedBy = WebSession.UserId;
+                            oldCustomer.ModificationDate = DateTime.Now;
                             myshop.Entry(oldCustomer).State = EntityState.Modified;
-                        //}
-                        //else
-                        //{
-                        //    return Enums.CrudStatus.AlreadyInUse;
-                        //}
+                        }
+                        else
+                        {
+                            return Enums.CrudStatus.AlreadyInUse;
+                        }
                     }
                     else
                     {
@@ -136,7 +136,7 @@ namespace Myshop.Areas.CustomersManagement.Models
                     newCustomer.Email = model.Email;
                     newCustomer.Address = model.Address;
                     newCustomer.State = model.State;
-                    newCustomer.District = model.District;
+                    newCustomer.District = model.City;
                     newCustomer.PINCode = model.PINCode;
                     newCustomer.IsDeleted = false;
                     newCustomer.IsSync = false;

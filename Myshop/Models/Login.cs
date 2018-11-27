@@ -105,8 +105,14 @@ namespace Myshop.Models
                          where shopMap.IsDeleted == false && shop.IsDeleted == false && shopMap.UserId == isAuthenticated.UserId
                          select new
                          {
-                             ShopId = shop.ShopId,
-                             ShopName = shop.Name
+                             shop.ShopId,
+                             ShopName = shop.Name,
+                             shop.Mobile,
+                             shop.Address,
+                             shop.Email,
+                             shop.State,
+                             shop.Distict,
+                             shop.Owner
                          }).ToList();
 
                     List<ShopCollection> shopCol = new List<ShopCollection>();
@@ -119,6 +125,11 @@ namespace Myshop.Models
                             ShopCollection newShop = new ShopCollection();
                             newShop.ShopId = item.ShopId;
                             newShop.ShopName = item.ShopName;
+                            newShop.ShopCity = item.Distict;
+                            newShop.OwnerEmail = item.Email;
+                            newShop.OwnerMobile = item.Mobile;
+                            newShop.ShopAddress = item.Address;
+                            newShop.ShopState = item.State;
                             shopCol.Add(newShop);
                         }
                     }

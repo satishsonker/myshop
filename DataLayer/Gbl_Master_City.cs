@@ -14,16 +14,24 @@ namespace DataLayer
     
     public partial class Gbl_Master_City
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Gbl_Master_City()
+        {
+            this.Gbl_Master_Customer = new HashSet<Gbl_Master_Customer>();
+        }
+    
         public int CityId { get; set; }
         public int StateId { get; set; }
         public string CityName { get; set; }
-        public Nullable<int> CreatedBy { get; set; }
-        public Nullable<System.DateTime> CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModificationDate { get; set; }
-        public Nullable<bool> IsSync { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
+        public bool IsSync { get; set; }
+        public bool IsDeleted { get; set; }
     
         public virtual Gbl_Master_State Gbl_Master_State { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Customer> Gbl_Master_Customer { get; set; }
     }
 }

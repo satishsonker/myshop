@@ -345,6 +345,11 @@ namespace Myshop.App_Start
     {
         public  int ShopId { get; set; }
         public  string ShopName{ get; set; }
+        public string ShopAddress { get; set; }
+        public string OwnerMobile { get; set; }
+        public string OwnerEmail { get; set; }
+        public string ShopState { get; set; }
+        public string ShopCity { get; set; }
     }
 
     public class CustomPermission

@@ -13,7 +13,7 @@ namespace Myshop.Areas.StockManagement.Models
         public int ShopId { get; set; }
     }
 
-    public class VendorModel : ShopModel
+    public class VendorModel
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "VendorName is required")]
         [StringLength(maximumLength: 150, MinimumLength = 3, ErrorMessage = "Invalid VendorName (3 Min and 150 max chars)")]

@@ -17,15 +17,52 @@ namespace Myshop.Areas.SalesManagement.Controllers
             return View();
         }
 
+        public ActionResult SalesList()
+        {
+            return View();
+        }
+
         public ActionResult NewSales()
         {
             return View();
         }
 
+        public ActionResult GetInvoice()
+        {
+            return View();
+        }
+
+        public ActionResult ReturnInvoice()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult GetDashboard(int Days)
+        {
+            DashboardDetails _details = new DashboardDetails();
+            return Json(_details.GetDashboardData(Days), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetSalesChartData(int Days)
+        {
+            DashboardDetails _details = new DashboardDetails();
+            return Json(_details.GetSalesChartData(Days), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
         public JsonResult SearchProduct(string SearchValue)
         {
             SalesDetails _details = new SalesDetails();
           return Json(_details.SearchProduct(SearchValue),JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult SearchInvoice(string SearchValue)
+        {
+            SalesDetails _details = new SalesDetails();
+            return Json(_details.SearchInvoice(SearchValue), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
@@ -35,11 +72,19 @@ namespace Myshop.Areas.SalesManagement.Controllers
             Tuple<CrudStatus, int> _result = _details.SaveInvoice(invoiceDetails);
             return Json(ReturnAjaxAlertMessage(_result.Item1,_result.Item2).ToList(), JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
-        public JsonResult AddCustomer(string FirstName, string LastName, string CustMobile)
+        public JsonResult GetSalesList(int PageNo=1,int PageSize=10)
         {
             SalesDetails _details = new SalesDetails();
-            return Json(ReturnAjaxAlertMessage(_details.AddCustomer(FirstName,LastName,CustMobile)).ToList(), JsonRequestBehavior.AllowGet);
+            return Json(_details.GetSalesList(PageNo,PageSize), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult AddCustomer(string FirstName, string LastName, string CustMobile,int State,int City)
+        {
+            SalesDetails _details = new SalesDetails();
+            return Json(ReturnAjaxAlertMessage(_details.AddCustomer(FirstName,LastName,CustMobile,State,City)).ToList(), JsonRequestBehavior.AllowGet);
         }
     }
 }

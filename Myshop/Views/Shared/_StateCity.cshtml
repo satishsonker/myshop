@@ -1,0 +1,46 @@
+﻿<div class="form-group">
+    <label for="ptlDdlState">State</label>
+    <select class="form-control" id="ptlDdlState" required="required" name="state" >
+        <option value="">Select State</option>
+    </select>
+</div>
+<div class="form-group">
+    <label for="ptlDdlCity">State</label>
+    <select disabled class="form-control" id="ptlDdlCity" data-selectedcity="" required="required" name="city">
+        <option value="">Select City</option>
+    </select>
+</div>
+<script>
+    $(document).ready(function () {
+        utility.ajaxWithoutDataHelper(app.urls.CommonController.GetState, function (data) {
+            let $ddlState = $('#ptlDdlState');
+            $($ddlState).find('option:gt(0)').remove();
+            let $html = '';
+            $(data).each(function (ind, ele) {
+                $html += '<option value="' + ele.Value + '">' + ele.Text + '</option>';
+            });
+            $($ddlState).append($html);
+        });       
+    });
+
+    $(document).on('change', '#ptlDdlState', function () {
+        let $selectedState = $(this).find('option:selected').val();
+        let $selectedCityId = parseInt($(this).data('selectedcity'));
+        let $ddlCity = $('#ptlDdlCity');
+        if ($selectedState != '') {
+            utility.ajaxHelper(app.urls.CommonController.GetCity, { stateid: $selectedState }, function (data) {                
+                $($ddlCity).find('option:gt(0)').remove();
+                let $html = '';
+                $(data).each(function (ind, ele) {
+                    if (!isNaN($selectedCityId) && ele.Value == $selectedCityId)
+                        $html += '<option value="' + ele.Value + '" selected="selected">' + ele.Text + '</option>';
+                    else
+                    $html += '<option value="' + ele.Value + '">' + ele.Text + '</option>';
+                });
+                $($ddlCity).append($html);
+                $($ddlCity).removeAttr('disabled');
+            });  
+        }
+        $($ddlCity).attr('disabled');
+    });
+</script>

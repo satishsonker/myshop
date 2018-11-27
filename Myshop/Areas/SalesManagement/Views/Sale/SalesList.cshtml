@@ -1,0 +1,68 @@
+﻿
+@{
+    ViewBag.Title = "SalesList";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+
+
+<link href="~/Content/morris.css" rel="stylesheet" />
+<script src="~/Scripts/App/Area/Sales/SalesList.js"></script>
+<div style="margin-top:20px">
+    <input type="hidden" id="hdntotalRecord" value="0" />
+    <input type="hidden" id="hdncurrentpage" value="0" />
+    <div class="container">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                All Sales List
+                <span class="pull-right" style="margin-top: -7px;">
+                    <select class="form-control" id="ddlPageSize">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </span>
+                <span class="pull-right" style="margin-right:10px;">Page Size</span>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <table class="table table-responsive table-bordered table-striped table-hover" id="tblSaleList">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Invoice No.</th>
+                                <th>Customer Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="btn-group" id="tblPaging">
+                                        <a class="btn btn-default" href="#"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .pageActive {
+        background: #8a8aff;
+    }
+
+    body
+    {
+        height:auto !important;
+    }
+</style>
+

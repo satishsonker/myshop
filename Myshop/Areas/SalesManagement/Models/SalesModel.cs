@@ -19,6 +19,7 @@ namespace Myshop.Areas.SalesManagement.Models
     public class InvoiceProduct
     {
         public int ProductId { get; set; }
+        public string ProductName { get; set; }
         public int Qty { get; set; }
         public decimal SalePrice { get; set; }
         public int Discount { get; set; }
@@ -30,6 +31,8 @@ namespace Myshop.Areas.SalesManagement.Models
         public List<InvoiceProduct> Products { get; set; }
         public int InvoiceId { get; set; }
         public int CustomerId { get; set; }
+        public string CustomerName { get; set; }
+        public string CustomerAddress { get; set; }
         public DateTime InvoiceDate { get; set; }
         public int PayModeId { get; set; }
         public decimal SubTotalAmount { get; set; }
