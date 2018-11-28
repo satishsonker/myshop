@@ -29,11 +29,11 @@ namespace DataLayer
             this.Gbl_Master_Vendor = new HashSet<Gbl_Master_Vendor>();
             this.Gbl_Master_SubCategory = new HashSet<Gbl_Master_SubCategory>();
             this.MasterVendors = new HashSet<MasterVendor>();
+            this.Sale_Dtl_Invoice = new HashSet<Sale_Dtl_Invoice>();
+            this.Sale_Tr_Invoice = new HashSet<Sale_Tr_Invoice>();
             this.Stk_Tr_Entry = new HashSet<Stk_Tr_Entry>();
             this.Stk_Dtl_Entry = new HashSet<Stk_Dtl_Entry>();
             this.UserShopMappers = new HashSet<UserShopMapper>();
-            this.Sale_Dtl_Invoice = new HashSet<Sale_Dtl_Invoice>();
-            this.Sale_Tr_Invoice = new HashSet<Sale_Tr_Invoice>();
         }
     
         public int ShopId { get; set; }
@@ -75,6 +75,10 @@ namespace DataLayer
         public virtual ICollection<Gbl_Master_SubCategory> Gbl_Master_SubCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<MasterVendor> MasterVendors { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Dtl_Invoice> Sale_Dtl_Invoice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }
         public virtual Gbl_Master_User Gbl_Master_User1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Stk_Tr_Entry> Stk_Tr_Entry { get; set; }
@@ -82,9 +86,5 @@ namespace DataLayer
         public virtual ICollection<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserShopMapper> UserShopMappers { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale_Dtl_Invoice> Sale_Dtl_Invoice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }
     }
 }

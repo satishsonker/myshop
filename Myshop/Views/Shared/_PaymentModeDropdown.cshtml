@@ -1,0 +1,20 @@
+﻿<select class="form-control" id="_ptlPaymentMode" style="float:left;width:100%"  required>
+    <option value="">Select Payment Mode</option>
+</select>
+<input type="text" class="form-control" style="float:left;width:48%;margin-left:10px;display:none;" id="_ptlPayReNo" max="50" required placeholder="Payment referance number" />
+<script>
+    $(document).ready(function () {
+        utility.bindDdlByAjax(app.urls.GetPayModeJson, '_ptlPaymentMode',"PayMode","PayModeId");
+    });   
+
+    $(document).on('change', '#_ptlPaymentMode', function () {
+        if ($(this).find('option:selected').text().toLowerCase() !== 'cash') {
+            $('#_ptlPayReNo').show();
+            $(this).css('width', '48%');
+        }
+        else {
+            $('#_ptlPayReNo').hide();
+            $(this).css('width', '100%');
+        }
+    });
+</script>

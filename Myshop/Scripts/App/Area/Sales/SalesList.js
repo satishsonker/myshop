@@ -17,7 +17,7 @@ function bindTable(pageNo, pageSize, pageBtn) {
         $(response).each(function (ind, ele) {
             $html += '<tr>' +
                 '<th>' + (ind + 1) + '</th>' +
-                '<th>' + ele.InvoiceNo + '</th>' +
+                '<th><a href="/salesmanagement/sale/GetInvoice?invoiceno=' + ele.InvoiceNo + '">' + ele.InvoiceNo +'</a></th>' +
                 '<th>' + ele.CustomerName + '</th>' +
                 '<th>' + app.const.htmlCode.rupeesSymbol + ' ' + parseFloat(ele.Amount).toFixed(2) + '</th>' +
                 '<th>' + utility.getJsDateTimeFromJson(ele.InvoiceDate) + '</th>' +

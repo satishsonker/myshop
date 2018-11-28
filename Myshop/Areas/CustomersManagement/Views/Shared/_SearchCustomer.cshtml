@@ -7,7 +7,7 @@
 </div>
 
 <script>
-    $(document).on('keypress keydown keyup', '#_ptlSearchCustomer', function () {
+    $(document).on('keypress', '#_ptlSearchCustomer', function () {
         let $ul = $('#_ptlSearchCustomerList');
         if ($(this).val().length > 1) {
             utility.ajaxHelper(app.urls.GetCustmerJson, { mobile: $(this).val() }, function (data) {

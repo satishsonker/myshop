@@ -643,7 +643,7 @@
           <Property Name="GstAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="PaidAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="BalanceAmount" Type="decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PayModeRefNo" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="PayModeRefNo" Type="nvarchar" MaxLength="50" />
           <Property Name="GrandTotal" Type="decimal" Precision="18" Scale="2" Nullable="false" />
           <Property Name="IsCancelled" Type="bit" Nullable="false" />
           <Property Name="CancelRemark" Type="nvarchar" MaxLength="500" />
@@ -657,6 +657,7 @@
           <Property Name="CreatedBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
+          <Property Name="RefundPayModeId" Type="int" />
         </EntityType>
         <EntityType Name="Stk_Dtl_Entry">
           <Key>
@@ -1297,6 +1298,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode">
+          <End Role="Gbl_Master_PayMode" Type="Self.Gbl_Master_PayMode" Multiplicity="0..1" />
+          <End Role="Sale_Tr_Invoice" Type="Self.Sale_Tr_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_PayMode">
+              <PropertyRef Name="PayModeId" />
+            </Principal>
+            <Dependent Role="Sale_Tr_Invoice">
+              <PropertyRef Name="RefundPayModeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop">
           <End Role="Gbl_Master_Shop" Type="Self.Gbl_Master_Shop" Multiplicity="1" />
           <End Role="Sale_Tr_Invoice" Type="Self.Sale_Tr_Invoice" Multiplicity="*" />
@@ -1697,6 +1710,10 @@
             <End Role="Gbl_Master_PayMode" EntitySet="Gbl_Master_PayMode" />
             <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode" Association="Self.FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode">
+            <End Role="Gbl_Master_PayMode" EntitySet="Gbl_Master_PayMode" />
+            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop" Association="Self.FK_Sale_Tr_Invoice_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
@@ -1797,6 +1814,8 @@
           <EntitySet Name="Gbl_Master_Vendor" EntityType="MyshopModel.Gbl_Master_Vendor" />
           <EntitySet Name="Logins" EntityType="MyshopModel.Login" />
           <EntitySet Name="MasterVendors" EntityType="MyshopModel.MasterVendor" />
+          <EntitySet Name="Sale_Dtl_Invoice" EntityType="MyshopModel.Sale_Dtl_Invoice" />
+          <EntitySet Name="Sale_Tr_Invoice" EntityType="MyshopModel.Sale_Tr_Invoice" />
           <EntitySet Name="Stk_Dtl_Entry" EntityType="MyshopModel.Stk_Dtl_Entry" />
           <EntitySet Name="Stk_Tr_Entry" EntityType="MyshopModel.Stk_Tr_Entry" />
           <EntitySet Name="User_ShopMapper" EntityType="MyshopModel.User_ShopMapper" />
@@ -1878,9 +1897,21 @@
             <End Role="Gbl_Master_State" EntitySet="Gbl_Master_State" />
             <End Role="Gbl_Master_City" EntitySet="Gbl_Master_City" />
           </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_City" Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_City">
+            <End Role="Gbl_Master_City" EntitySet="Gbl_Master_City" />
+            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
+          </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_CustomerType" Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_CustomerType">
             <End Role="Gbl_Master_CustomerType" EntitySet="Gbl_Master_CustomerType" />
             <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_State" Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_State">
+            <End Role="Gbl_Master_State" EntitySet="Gbl_Master_State" />
+            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_Customer" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer">
+            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
+            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_DocProof_Gbl_Master_DocProofType" Association="MyshopModel.FK_Gbl_Master_DocProof_Gbl_Master_DocProofType">
             <End Role="Gbl_Master_DocProofType" EntitySet="Gbl_Master_DocProofType" />
@@ -1918,9 +1949,13 @@
             <End Role="Gbl_Master_Page" EntitySet="Gbl_Master_Page" />
             <End Role="Gbl_Master_User_Permission" EntitySet="Gbl_Master_User_Permission" />
           </AssociationSet>
-          <AssociationSet Name="FK_Stk_Tr_Entry_Gbl_Master_PayMode" Association="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_PayMode">
+          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_PayMode" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode">
             <End Role="Gbl_Master_PayMode" EntitySet="Gbl_Master_PayMode" />
-            <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
+            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode">
+            <End Role="Gbl_Master_PayMode" EntitySet="Gbl_Master_PayMode" />
+            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Product_Gbl_Master_Product" Association="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Product">
             <End Role="Gbl_Master_Unit" EntitySet="Gbl_Master_Unit" />
@@ -1933,6 +1968,10 @@
           <AssociationSet Name="FK_MasterProduct_Shop" Association="MyshopModel.FK_MasterProduct_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Dtl_Invoice_Gbl_Master_Product" Association="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product">
+            <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
+            <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
           </AssociationSet>
           <AssociationSet Name="FK_StockEntry_MasterProduct" Association="MyshopModel.FK_StockEntry_MasterProduct">
             <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
@@ -1958,6 +1997,14 @@
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="MasterVendor" EntitySet="MasterVendors" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
+          </AssociationSet>
           <AssociationSet Name="FK_Shop_User" Association="MyshopModel.FK_Shop_User">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
@@ -1975,6 +2022,10 @@
             <End Role="UserShopMapper" EntitySet="UserShopMappers" />
           </AssociationSet>
           <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User">
+            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
+            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User1" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
           </AssociationSet>
@@ -2002,47 +2053,13 @@
             <End Role="MasterVendor" EntitySet="MasterVendors" />
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale_Dtl_Invoice_Sale_Tr_Invoice" Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Tr_Invoice">
+            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
+            <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
+          </AssociationSet>
           <AssociationSet Name="FK_StockEntry_Stk_Tr_Entry" Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry">
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
             <End Role="Stk_Dtl_Entry" EntitySet="Stk_Dtl_Entry" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Task_Gbl_Master_User1" Association="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1">
-            <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
-            <End Role="Gbl_Master_Task" EntitySet="Gbl_Master_Task" />
-          </AssociationSet>
-          <EntitySet Name="Sale_Dtl_Invoice" EntityType="MyshopModel.Sale_Dtl_Invoice" />
-          <EntitySet Name="Sale_Tr_Invoice" EntityType="MyshopModel.Sale_Tr_Invoice" />
-          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_PayMode" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode">
-            <End Role="Gbl_Master_PayMode" EntitySet="Gbl_Master_PayMode" />
-            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_Dtl_Invoice_Gbl_Master_Product" Association="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product">
-            <End Role="Gbl_Master_Product" EntitySet="Gbl_Master_Product" />
-            <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice">
-            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
-            <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_Customer" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer">
-            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
-            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_City" Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_City">
-            <End Role="Gbl_Master_City" EntitySet="Gbl_Master_City" />
-            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gbl_Master_Customer_Gbl_Master_State" Association="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_State">
-            <End Role="Gbl_Master_State" EntitySet="Gbl_Master_State" />
-            <End Role="Gbl_Master_Customer" EntitySet="Gbl_Master_Customer" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice1" Association="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice1">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="ss_Result">
@@ -2304,7 +2321,7 @@
           <Property Name="StateId" Type="Int32" Nullable="false" />
           <Property Name="CityName" Type="String" Nullable="false" MaxLength="80" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModificationDate" Type="DateTime" Precision="3" />
           <Property Name="IsSync" Type="Boolean" Nullable="false" />
@@ -2334,10 +2351,10 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_CustomerType" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_CustomerType" FromRole="Gbl_Master_Customer" ToRole="Gbl_Master_CustomerType" />
-          <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer" FromRole="Gbl_Master_Customer" ToRole="Sale_Tr_Invoice" />
           <NavigationProperty Name="Gbl_Master_City" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_City" FromRole="Gbl_Master_Customer" ToRole="Gbl_Master_City" />
+          <NavigationProperty Name="Gbl_Master_CustomerType" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_CustomerType" FromRole="Gbl_Master_Customer" ToRole="Gbl_Master_CustomerType" />
           <NavigationProperty Name="Gbl_Master_State" Relationship="MyshopModel.FK_Gbl_Master_Customer_Gbl_Master_State" FromRole="Gbl_Master_Customer" ToRole="Gbl_Master_State" />
+          <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer" FromRole="Gbl_Master_Customer" ToRole="Sale_Tr_Invoice" />
         </EntityType>
         <EntityType Name="Gbl_Master_CustomerType">
           <Key>
@@ -2526,8 +2543,8 @@
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
           <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_PayMode" FromRole="Gbl_Master_PayMode" ToRole="Stk_Tr_Entry" />
           <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode" FromRole="Gbl_Master_PayMode" ToRole="Sale_Tr_Invoice" />
+          <NavigationProperty Name="Sale_Tr_Invoice1" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode" FromRole="Gbl_Master_PayMode" ToRole="Sale_Tr_Invoice" />
         </EntityType>
         <EntityType Name="Gbl_Master_Product">
           <Key>
@@ -2550,8 +2567,8 @@
           <NavigationProperty Name="Gbl_Master_Unit" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_Product" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_Unit" />
           <NavigationProperty Name="Gbl_Master_SubCategory" Relationship="MyshopModel.FK_Gbl_Master_Product_Gbl_Master_SubCategory" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_SubCategory" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_MasterProduct_Shop" FromRole="Gbl_Master_Product" ToRole="Gbl_Master_Shop" />
-          <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_MasterProduct" FromRole="Gbl_Master_Product" ToRole="Stk_Dtl_Entry" />
           <NavigationProperty Name="Sale_Dtl_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product" FromRole="Gbl_Master_Product" ToRole="Sale_Dtl_Invoice" />
+          <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_MasterProduct" FromRole="Gbl_Master_Product" ToRole="Stk_Dtl_Entry" />
         </EntityType>
         <EntityType Name="Gbl_Master_Shop">
           <Key>
@@ -2583,12 +2600,12 @@
           <NavigationProperty Name="Gbl_Master_Vendor" Relationship="MyshopModel.FK_Gbl_Master_Vendor_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_Vendor" />
           <NavigationProperty Name="Gbl_Master_SubCategory" Relationship="MyshopModel.FK_MasterSubCategory_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_SubCategory" />
           <NavigationProperty Name="MasterVendors" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="Gbl_Master_Shop" ToRole="MasterVendor" />
+          <NavigationProperty Name="Sale_Dtl_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" FromRole="Gbl_Master_Shop" ToRole="Sale_Dtl_Invoice" />
+          <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Sale_Tr_Invoice" />
           <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Shop_User" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_User" />
           <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Tr_Entry" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Dtl_Entry" />
           <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="Gbl_Master_Shop" ToRole="UserShopMapper" />
-          <NavigationProperty Name="Sale_Dtl_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice1" FromRole="Gbl_Master_Shop" ToRole="Sale_Dtl_Invoice" />
-          <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Sale_Tr_Invoice" />
         </EntityType>
         <EntityType Name="Gbl_Master_State">
           <Key>
@@ -2693,13 +2710,13 @@
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_Shop" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_Shop1" Relationship="MyshopModel.FK_Shop_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_Task" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
+          <NavigationProperty Name="Gbl_Master_Task1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
           <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User1" />
           <NavigationProperty Name="Gbl_Master_User2" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_User" FromRole="Gbl_Master_User1" ToRole="Gbl_Master_User" />
           <NavigationProperty Name="Gbl_Master_UserType" Relationship="MyshopModel.FK_Gbl_Master_User_Gbl_Master_UserType" FromRole="Gbl_Master_User" ToRole="Gbl_Master_UserType" />
           <NavigationProperty Name="Gbl_Master_User_Permission" Relationship="MyshopModel.FK_Gbl_Master_User_Permission_Gbl_Master_User" FromRole="Gbl_Master_User" ToRole="Gbl_Master_User_Permission" />
           <NavigationProperty Name="Logins" Relationship="MyshopModel.FK_Login_User" FromRole="Gbl_Master_User" ToRole="Login" />
           <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="Gbl_Master_User" ToRole="UserShopMapper" />
-          <NavigationProperty Name="Gbl_Master_Task1" Relationship="MyshopModel.FK_Gbl_Master_Task_Gbl_Master_User1" FromRole="Gbl_Master_User" ToRole="Gbl_Master_Task" />
         </EntityType>
         <EntityType Name="Gbl_Master_User_Permission">
           <Key>
@@ -2796,6 +2813,66 @@
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="MasterVendor" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" FromRole="MasterVendor" ToRole="Stk_Tr_Entry" />
         </EntityType>
+        <EntityType Name="Sale_Dtl_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceDetailId" />
+          </Key>
+          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
+          <Property Name="ProductId" Type="Int32" Nullable="false" />
+          <Property Name="Qty" Type="Int32" Nullable="false" />
+          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="IsReturn" Type="Boolean" />
+          <Property Name="ReturnQty" Type="Int32" />
+          <Property Name="ReturnAmount" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ReturnRemark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product" FromRole="Sale_Dtl_Invoice" ToRole="Gbl_Master_Product" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" FromRole="Sale_Dtl_Invoice" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Tr_Invoice" FromRole="Sale_Dtl_Invoice" ToRole="Sale_Tr_Invoice" />
+        </EntityType>
+        <EntityType Name="Sale_Tr_Invoice">
+          <Key>
+            <PropertyRef Name="InvoiceId" />
+          </Key>
+          <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CustomerId" Type="Int32" Nullable="false" />
+          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PayModeId" Type="Int32" Nullable="false" />
+          <Property Name="SubTotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="GstAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PaidAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="BalanceAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="PayModeRefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GrandTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="IsCancelled" Type="Boolean" Nullable="false" />
+          <Property Name="CancelRemark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="CancelledDate" Type="DateTime" Precision="3" />
+          <Property Name="IsAmountRefunded" Type="Boolean" Nullable="false" />
+          <Property Name="RefundAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="RefundPayModeId" Type="Int32" />
+          <NavigationProperty Name="Gbl_Master_Customer" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_Customer" />
+          <NavigationProperty Name="Gbl_Master_PayMode" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_PayMode" />
+          <NavigationProperty Name="Gbl_Master_PayMode1" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_PayMode" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_Shop" />
+          <NavigationProperty Name="Sale_Dtl_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Tr_Invoice" FromRole="Sale_Tr_Invoice" ToRole="Sale_Dtl_Invoice" />
+        </EntityType>
         <EntityType Name="Stk_Dtl_Entry">
           <Key>
             <PropertyRef Name="StockTrId" />
@@ -2846,7 +2923,6 @@
           <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
           <NavigationProperty Name="Gbl_Master_BankAccount" Relationship="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_BankAccount" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_BankAccount" />
           <NavigationProperty Name="Gbl_Master_BankChequeDetails" Relationship="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_BankChequeDetails" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_BankChequeDetails" />
-          <NavigationProperty Name="Gbl_Master_PayMode" Relationship="MyshopModel.FK_Stk_Tr_Entry_Gbl_Master_PayMode" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_PayMode" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Stk_Tr_Entry_Shop" FromRole="Stk_Tr_Entry" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="MasterVendor" Relationship="MyshopModel.FK_Stk_Tr_Entry_MasterVendor" FromRole="Stk_Tr_Entry" ToRole="MasterVendor" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_Stk_Tr_Entry" FromRole="Stk_Tr_Entry" ToRole="Stk_Dtl_Entry" />
@@ -3123,6 +3199,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Gbl_Master_Customer_Gbl_Master_City">
+          <End Type="MyshopModel.Gbl_Master_City" Role="Gbl_Master_City" Multiplicity="0..1" />
+          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_City">
+              <PropertyRef Name="CityId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Customer">
+              <PropertyRef Name="District" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Gbl_Master_Customer_Gbl_Master_CustomerType">
           <End Type="MyshopModel.Gbl_Master_CustomerType" Role="Gbl_Master_CustomerType" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="*" />
@@ -3132,6 +3220,30 @@
             </Principal>
             <Dependent Role="Gbl_Master_Customer">
               <PropertyRef Name="CustomerTypeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Customer_Gbl_Master_State">
+          <End Type="MyshopModel.Gbl_Master_State" Role="Gbl_Master_State" Multiplicity="0..1" />
+          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_State">
+              <PropertyRef Name="StateId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Customer">
+              <PropertyRef Name="State" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_Customer">
+          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="1" />
+          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Customer">
+              <PropertyRef Name="CustomerId" />
+            </Principal>
+            <Dependent Role="Sale_Tr_Invoice">
+              <PropertyRef Name="CustomerId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3243,15 +3355,27 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Stk_Tr_Entry_Gbl_Master_PayMode">
+        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_PayMode">
           <End Type="MyshopModel.Gbl_Master_PayMode" Role="Gbl_Master_PayMode" Multiplicity="1" />
-          <End Type="MyshopModel.Stk_Tr_Entry" Role="Stk_Tr_Entry" Multiplicity="*" />
+          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Gbl_Master_PayMode">
               <PropertyRef Name="PayModeId" />
             </Principal>
-            <Dependent Role="Stk_Tr_Entry">
+            <Dependent Role="Sale_Tr_Invoice">
               <PropertyRef Name="PayModeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode">
+          <End Type="MyshopModel.Gbl_Master_PayMode" Role="Gbl_Master_PayMode" Multiplicity="0..1" />
+          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_PayMode">
+              <PropertyRef Name="PayModeId" />
+            </Principal>
+            <Dependent Role="Sale_Tr_Invoice">
+              <PropertyRef Name="RefundPayModeId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3288,6 +3412,18 @@
             </Principal>
             <Dependent Role="Gbl_Master_Product">
               <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Dtl_Invoice_Gbl_Master_Product">
+          <End Type="MyshopModel.Gbl_Master_Product" Role="Gbl_Master_Product" Multiplicity="1" />
+          <End Type="MyshopModel.Sale_Dtl_Invoice" Role="Sale_Dtl_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Product">
+              <PropertyRef Name="ProductId" />
+            </Principal>
+            <Dependent Role="Sale_Dtl_Invoice">
+              <PropertyRef Name="ProductId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -3363,6 +3499,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice">
+          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
+          <End Type="MyshopModel.Sale_Dtl_Invoice" Role="Sale_Dtl_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Sale_Dtl_Invoice">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop">
+          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
+          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Sale_Tr_Invoice">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Shop_User">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="*" />
@@ -3412,6 +3572,18 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Gbl_Master_Task_Gbl_Master_User">
+          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
+          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_User">
+              <PropertyRef Name="UserId" />
+            </Principal>
+            <Dependent Role="Gbl_Master_Task">
+              <PropertyRef Name="CreatedBy" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User1">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
           <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3495,113 +3667,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StockEntry_Stk_Tr_Entry">
-          <End Type="MyshopModel.Stk_Tr_Entry" Role="Stk_Tr_Entry" Multiplicity="1" />
-          <End Type="MyshopModel.Stk_Dtl_Entry" Role="Stk_Dtl_Entry" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Stk_Tr_Entry">
-              <PropertyRef Name="Id" />
-            </Principal>
-            <Dependent Role="Stk_Dtl_Entry">
-              <PropertyRef Name="StockMstId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Task_Gbl_Master_User1">
-          <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
-          <End Type="MyshopModel.Gbl_Master_Task" Role="Gbl_Master_Task" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_User">
-              <PropertyRef Name="UserId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Task">
-              <PropertyRef Name="CreatedBy" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Sale_Dtl_Invoice">
-          <Key>
-            <PropertyRef Name="InvoiceDetailId" />
-          </Key>
-          <Property Name="InvoiceDetailId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" />
-          <Property Name="ProductId" Type="Int32" Nullable="false" />
-          <Property Name="Qty" Type="Int32" Nullable="false" />
-          <Property Name="Price" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="Discount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="Remark" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_Product" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Gbl_Master_Product" FromRole="Sale_Dtl_Invoice" ToRole="Gbl_Master_Product" />
-          <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" FromRole="Sale_Dtl_Invoice" ToRole="Sale_Tr_Invoice" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice1" FromRole="Sale_Dtl_Invoice" ToRole="Gbl_Master_Shop" />
-          <Property Name="IsReturn" Type="Boolean" />
-          <Property Name="ReturnQty" Type="Int32" />
-          <Property Name="ReturnAmount" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ReturnRemark" Type="String" MaxLength="250" FixedLength="false" Unicode="true" />
-          <Property Name="ReturnDate" Type="DateTime" Precision="3" />
-        </EntityType>
-        <EntityType Name="Sale_Tr_Invoice">
-          <Key>
-            <PropertyRef Name="InvoiceId" />
-          </Key>
-          <Property Name="InvoiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="CustomerId" Type="Int32" Nullable="false" />
-          <Property Name="InvoiceDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="PayModeId" Type="Int32" Nullable="false" />
-          <Property Name="SubTotalAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="GstAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="PaidAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="PayModeRefNo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
-          <Property Name="GrandTotal" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <NavigationProperty Name="Gbl_Master_PayMode" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_PayMode" />
-          <NavigationProperty Name="Sale_Dtl_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" FromRole="Sale_Tr_Invoice" ToRole="Sale_Dtl_Invoice" />
-          <Property Name="BalanceAmount" Type="Decimal" Nullable="false" Precision="18" Scale="2" />
-          <Property Name="IsCancelled" Type="Boolean" Nullable="false" />
-          <Property Name="CancelRemark" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="CancelledDate" Type="DateTime" Precision="3" />
-          <Property Name="IsAmountRefunded" Type="Boolean" Nullable="false" />
-          <Property Name="RefundAmount" Type="Decimal" Precision="18" Scale="2" Nullable="false" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_Customer" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_Customer" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_Shop" />
-        </EntityType>
-        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_PayMode">
-          <End Type="MyshopModel.Gbl_Master_PayMode" Role="Gbl_Master_PayMode" Multiplicity="1" />
-          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_PayMode">
-              <PropertyRef Name="PayModeId" />
-            </Principal>
-            <Dependent Role="Sale_Tr_Invoice">
-              <PropertyRef Name="PayModeId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_Dtl_Invoice_Gbl_Master_Product">
-          <End Type="MyshopModel.Gbl_Master_Product" Role="Gbl_Master_Product" Multiplicity="1" />
-          <End Type="MyshopModel.Sale_Dtl_Invoice" Role="Sale_Dtl_Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Product">
-              <PropertyRef Name="ProductId" />
-            </Principal>
-            <Dependent Role="Sale_Dtl_Invoice">
-              <PropertyRef Name="ProductId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice">
+        <Association Name="FK_Sale_Dtl_Invoice_Sale_Tr_Invoice">
           <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="1" />
           <End Type="MyshopModel.Sale_Dtl_Invoice" Role="Sale_Dtl_Invoice" Multiplicity="*" />
           <ReferentialConstraint>
@@ -3613,63 +3679,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_Customer">
-          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="1" />
-          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
+        <Association Name="FK_StockEntry_Stk_Tr_Entry">
+          <End Type="MyshopModel.Stk_Tr_Entry" Role="Stk_Tr_Entry" Multiplicity="1" />
+          <End Type="MyshopModel.Stk_Dtl_Entry" Role="Stk_Dtl_Entry" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Customer">
-              <PropertyRef Name="CustomerId" />
+            <Principal Role="Stk_Tr_Entry">
+              <PropertyRef Name="Id" />
             </Principal>
-            <Dependent Role="Sale_Tr_Invoice">
-              <PropertyRef Name="CustomerId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Customer_Gbl_Master_City">
-          <End Type="MyshopModel.Gbl_Master_City" Role="Gbl_Master_City" Multiplicity="0..1" />
-          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_City">
-              <PropertyRef Name="CityId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Customer">
-              <PropertyRef Name="District" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gbl_Master_Customer_Gbl_Master_State">
-          <End Type="MyshopModel.Gbl_Master_State" Role="Gbl_Master_State" Multiplicity="0..1" />
-          <End Type="MyshopModel.Gbl_Master_Customer" Role="Gbl_Master_Customer" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_State">
-              <PropertyRef Name="StateId" />
-            </Principal>
-            <Dependent Role="Gbl_Master_Customer">
-              <PropertyRef Name="State" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice1">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Sale_Dtl_Invoice" Role="Sale_Dtl_Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Sale_Dtl_Invoice">
-              <PropertyRef Name="ShopId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Sale_Tr_Invoice">
-              <PropertyRef Name="ShopId" />
+            <Dependent Role="Stk_Dtl_Entry">
+              <PropertyRef Name="StockMstId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4330,6 +4348,60 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Dtl_Invoice">
+            <EntityTypeMapping TypeName="MyshopModel.Sale_Dtl_Invoice">
+              <MappingFragment StoreEntitySet="Sale_Dtl_Invoice">
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
+                <ScalarProperty Name="ReturnRemark" ColumnName="ReturnRemark" />
+                <ScalarProperty Name="ReturnAmount" ColumnName="ReturnAmount" />
+                <ScalarProperty Name="ReturnQty" ColumnName="ReturnQty" />
+                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Discount" ColumnName="Discount" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Tr_Invoice">
+            <EntityTypeMapping TypeName="MyshopModel.Sale_Tr_Invoice">
+              <MappingFragment StoreEntitySet="Sale_Tr_Invoice">
+                <ScalarProperty Name="RefundPayModeId" ColumnName="RefundPayModeId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
+                <ScalarProperty Name="IsAmountRefunded" ColumnName="IsAmountRefunded" />
+                <ScalarProperty Name="CancelledDate" ColumnName="CancelledDate" />
+                <ScalarProperty Name="CancelRemark" ColumnName="CancelRemark" />
+                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
+                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
+                <ScalarProperty Name="PayModeRefNo" ColumnName="PayModeRefNo" />
+                <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
+                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
+                <ScalarProperty Name="GstAmount" ColumnName="GstAmount" />
+                <ScalarProperty Name="SubTotalAmount" ColumnName="SubTotalAmount" />
+                <ScalarProperty Name="PayModeId" ColumnName="PayModeId" />
+                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
+                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
+                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Stk_Dtl_Entry">
             <EntityTypeMapping TypeName="MyshopModel.Stk_Dtl_Entry">
               <MappingFragment StoreEntitySet="Stk_Dtl_Entry">
@@ -4419,59 +4491,6 @@
                 <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sale_Dtl_Invoice">
-            <EntityTypeMapping TypeName="MyshopModel.Sale_Dtl_Invoice">
-              <MappingFragment StoreEntitySet="Sale_Dtl_Invoice">
-                <ScalarProperty Name="ReturnDate" ColumnName="ReturnDate" />
-                <ScalarProperty Name="ReturnRemark" ColumnName="ReturnRemark" />
-                <ScalarProperty Name="ReturnAmount" ColumnName="ReturnAmount" />
-                <ScalarProperty Name="ReturnQty" ColumnName="ReturnQty" />
-                <ScalarProperty Name="IsReturn" ColumnName="IsReturn" />
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="Remark" ColumnName="Remark" />
-                <ScalarProperty Name="Discount" ColumnName="Discount" />
-                <ScalarProperty Name="Price" ColumnName="Price" />
-                <ScalarProperty Name="Qty" ColumnName="Qty" />
-                <ScalarProperty Name="ProductId" ColumnName="ProductId" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
-                <ScalarProperty Name="InvoiceDetailId" ColumnName="InvoiceDetailId" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sale_Tr_Invoice">
-            <EntityTypeMapping TypeName="MyshopModel.Sale_Tr_Invoice">
-              <MappingFragment StoreEntitySet="Sale_Tr_Invoice">
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="RefundAmount" ColumnName="RefundAmount" />
-                <ScalarProperty Name="IsAmountRefunded" ColumnName="IsAmountRefunded" />
-                <ScalarProperty Name="CancelledDate" ColumnName="CancelledDate" />
-                <ScalarProperty Name="CancelRemark" ColumnName="CancelRemark" />
-                <ScalarProperty Name="IsCancelled" ColumnName="IsCancelled" />
-                <ScalarProperty Name="BalanceAmount" ColumnName="BalanceAmount" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="GrandTotal" ColumnName="GrandTotal" />
-                <ScalarProperty Name="PayModeRefNo" ColumnName="PayModeRefNo" />
-                <ScalarProperty Name="PaidAmount" ColumnName="PaidAmount" />
-                <ScalarProperty Name="GstAmount" ColumnName="GstAmount" />
-                <ScalarProperty Name="SubTotalAmount" ColumnName="SubTotalAmount" />
-                <ScalarProperty Name="PayModeId" ColumnName="PayModeId" />
-                <ScalarProperty Name="InvoiceDate" ColumnName="InvoiceDate" />
-                <ScalarProperty Name="CustomerId" ColumnName="CustomerId" />
-                <ScalarProperty Name="InvoiceId" ColumnName="InvoiceId" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

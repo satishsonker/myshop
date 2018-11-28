@@ -28,7 +28,7 @@
                 <span class="shop_fgBlack">Invoice Details:</span>
                 <br /> <br />
                 <label class="shop_fgBlack" id="lblInvoiceNo">Invoice No. : $invoiceNo</label><br />
-                <label class="shop_fgBlack">Invoice Date : $invoiceDate</label>
+                <label class="shop_fgBlack" id="lblInvoiceDate">Invoice Date : $invoiceDate</label>
             </div>
         </div>
     </div>
@@ -70,18 +70,38 @@
                     <td colspan="1" id="lblSubTotal" class="shop_hRigth">0.00</td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr  class="tdgstTotal">
                     <td colspan="6" class="shop_hRigth">GST @@ 12%</td>
                     <td colspan="1" id="lblGst" class="shop_hRigth">0.00</td>
                     <td></td>
                 </tr>
-                <tr>
+                <tr class="tdgrandTotal">
                     <td class="shop_hRigth" colspan="6" id="lblGrandTotalWord">Zero Only</td>
                     <td class="shop_hRigth" id="lblGrandAmount">0.00</td>
                     <td></td>
                 </tr>
             </tbody>
         </table>
+    </div>
+    <div class="col-lg-12">
+        <div class="col-lg-4">
+            <div class="form-group">
+                <label style="float: left;width: 100%;">Payment Mode</label>
+                @Html.Partial("~/Views/shared/_PaymentModeDropdown.cshtml")
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label>Paid Amount</label>
+                <input type="number" value="0" class="form-control" min="0" id="txtAmountToBePaid" />
+            </div>
+        </div>
+        <div class="col-lg-2">
+            <div class="form-group">
+                <label>Balance Amount</label>
+                <input type="number" readonly value="0" class="form-control" min="0" id="txtBalanceAmount" />
+            </div>
+        </div>
     </div>
     <div id="popAddCustomer" style="position: fixed;z-index: 999999;top: 0;width: 100%;left: 0;background: #00000087;height: 100%;display:none;">
         <div class="panel panel-info" style="top: 23%;position: absolute;left: 31%;width: 40%;">

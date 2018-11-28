@@ -17,8 +17,8 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Gbl_Master_PayMode()
         {
-            this.Stk_Tr_Entry = new HashSet<Stk_Tr_Entry>();
             this.Sale_Tr_Invoice = new HashSet<Sale_Tr_Invoice>();
+            this.Sale_Tr_Invoice1 = new HashSet<Sale_Tr_Invoice>();
         }
     
         public int PayModeId { get; set; }
@@ -32,8 +32,8 @@ namespace DataLayer
         public System.DateTime ModificationDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Stk_Tr_Entry> Stk_Tr_Entry { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice1 { get; set; }
     }
 }

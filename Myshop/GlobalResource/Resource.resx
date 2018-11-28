@@ -390,4 +390,13 @@
   <data name="Invalid_Parameter" xml:space="preserve">
     <value>Supplied parameter is invalid</value>
   </data>
+  <data name="InvoiceAlreadyCancelled" xml:space="preserve">
+    <value>Invoice is already cancelled</value>
+  </data>
+  <data name="Partially_Updated" xml:space="preserve">
+    <value>Data is partially updated.</value>
+  </data>
+  <data name="AmountMismatched" xml:space="preserve">
+    <value>Amount is mismatch. Please verify the amount</value>
+  </data>
 </root>

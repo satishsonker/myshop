@@ -530,6 +530,7 @@
     <Content Include="Views\Shared\_SearchProduct.cshtml" />
     <Content Include="Views\Shared\_SearchInvoice.cshtml" />
     <Content Include="Views\Shared\_StateCity.cshtml" />
+    <Content Include="Views\Shared\_PaymentModeDropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

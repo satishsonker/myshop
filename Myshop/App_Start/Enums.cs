@@ -67,7 +67,10 @@ namespace Myshop.App_Start
             Exception,
             FileUploaded,
             FileNotUploaded,
-            InvalidParameter
+            InvalidParameter,
+            InvoiceAlreadyCancelled,
+            PartiallyUpdated,
+            AmountMismatched
         }
 
         public enum CrudType

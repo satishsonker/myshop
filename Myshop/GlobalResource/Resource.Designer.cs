@@ -19,7 +19,7 @@ namespace Myshop.GlobalResource {
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "15.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     public class Resource {
@@ -93,6 +93,15 @@ namespace Myshop.GlobalResource {
         public static string AlreadyInUse {
             get {
                 return ResourceManager.GetString("AlreadyInUse", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Amount is mismatch. Please verify the amount.
+        /// </summary>
+        public static string AmountMismatched {
+            get {
+                return ResourceManager.GetString("AmountMismatched", resourceCulture);
             }
         }
         
@@ -520,6 +529,15 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Invoice is already cancelled.
+        /// </summary>
+        public static string InvoiceAlreadyCancelled {
+            get {
+                return ResourceManager.GetString("InvoiceAlreadyCancelled", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Last Name.
         /// </summary>
         public static string LastName {
@@ -660,6 +678,15 @@ namespace Myshop.GlobalResource {
         public static string PanCard {
             get {
                 return ResourceManager.GetString("PanCard", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Data is partially updated..
+        /// </summary>
+        public static string Partially_Updated {
+            get {
+                return ResourceManager.GetString("Partially_Updated", resourceCulture);
             }
         }
         

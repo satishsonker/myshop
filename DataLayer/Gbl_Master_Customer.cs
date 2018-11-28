@@ -39,10 +39,10 @@ namespace DataLayer
         public System.DateTime CreatedDate { get; set; }
         public int ShopId { get; set; }
     
+        public virtual Gbl_Master_City Gbl_Master_City { get; set; }
         public virtual Gbl_Master_CustomerType Gbl_Master_CustomerType { get; set; }
+        public virtual Gbl_Master_State Gbl_Master_State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }
-        public virtual Gbl_Master_City Gbl_Master_City { get; set; }
-        public virtual Gbl_Master_State Gbl_Master_State { get; set; }
     }
 }

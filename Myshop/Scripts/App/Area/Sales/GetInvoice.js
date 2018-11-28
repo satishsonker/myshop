@@ -20,7 +20,7 @@ $(document).on('click', '#_ptlSearchInvoiceGenerate', function () {
             '<td class="shop_vMiddle shop_hRigth">' + ($ele.Qty * $ele.SalePrice).toFixed(2) + '</td>' +
             '</tr>';
     });
-
+    $('#tblInvoicedetails tbody tr:lt(' + ($('#tblInvoicedetails tbody tr').length - 3) + ')').remove();
     $('.defaultRow').remove();
     $('#invPre').text($('#invPre').text().replace('$invoiceNo', $data.InvoiceId));
     $('#invPre').text($('#invPre').text().replace('$invoiceDate', utility.getJsDateTimeFromJson($data.InvoiceDate)));

@@ -84,8 +84,9 @@ utility.ajaxWithoutDataHelper = function (url, success, error) {
 }
 
 //Set Alert messge on _layout View
-utility.SetAlert = function (message, alertType) {
+utility.SetAlert = function (message, alertType,cancelBotton) {
     alertType = alertType === undefined ? "info" : alertType;
+    cancelBotton = cancelBotton === undefined ? false : cancelBotton;
     var alertColor;
     let className = 'alert-' + alertType;
     switch (alertType) {
@@ -103,21 +104,7 @@ utility.SetAlert = function (message, alertType) {
             break;
 
     }
-    //var ele = $("#mainAlert");
-    //if (ele.length > 0) {
-    //    ele.show().fadeIn(300);
-    //    $(ele).addClass(className);
-    //    $("#alertColor").empty().text(alertColor + '!');
-    //    $("#message").empty().text(message);
-    //    $("#alertmessage").empty().text(message);
-    //}
-    //else {
-    //    $("#mainalertContainer").empty().append('<div class="alert alert-' + alertType + ' text-center alert-dismissible" id="mainAlert" style="margin-top: 0px;position: fixed !important;width: 80% !important;display: none;z-index: 100000000 !important;margin-left: 10% !important;" role="alert">' +
-    //        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>' +
-    //        '<strong  id="alertColor">' + alertColor + '!</strong><p id="message">' + message + '</p></div>');
-    //}
-    //$("#mainAlert").delay(7000).fadeOut(500);
-   
+
     let $html = '<div class="shop_mainAlert">' +
         '<div class="panel panel-' + alertType + '">' +
         '<div class="panel-heading"><span>' + alertColor + '</span><img class="alertClose" src="../../Images/Icons/delete.png" style="" />' +
@@ -132,7 +119,7 @@ utility.SetAlert = function (message, alertType) {
         '<div class="panel-footer" style="height: 45px;padding: 5px 15px;">' +
         '<div class="btn-group pull-right">' +
         '<input type="button" id="btnAlertOk" value="OK" class="btn btn-primary" />' +
-        '<input type="button" id="btnAlertCancel" value="Cancel" class="btn btn-danger" />' +
+        (cancelBotton?'<input type="button" id="btnAlertCancel" value="Cancel" class="btn btn-danger" />':'') +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -680,8 +667,10 @@ utility.setAjaxAlert = function (response) {
     response[0] = response.length > 1 ? response[1] : response[0];
     if (response[0].Key == 110)
         utility.SetAlert(response[0].Value, utility.alertType.error);
-    if (response[0].Key == 101 || response[0].Key == 100)
+    else if (response[0].Key == 101 || response[0].Key == 100)
         utility.SetAlert(response[0].Value, utility.alertType.success);
+    else
+        utility.SetAlert(response[0].Value, utility.alertType.warning);
 }
 
 utility.getQueryStringValue=function(key) {

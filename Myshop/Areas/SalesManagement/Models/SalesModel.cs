@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace Myshop.Areas.SalesManagement.Models
 {
@@ -26,20 +27,60 @@ namespace Myshop.Areas.SalesManagement.Models
         public string Remark { get; set; }
     }
 
+    public class InvoiceReturnProduct
+    {
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Product Id should be minimum 1")]
+        public int ProductId { get; set; }
+
+        [Range(minimum:1,maximum:int.MaxValue,ErrorMessage ="Return Qty should be minimum 1")]
+        public int ReturnQty { get; set; }
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Return Amount should be minimum 1")]
+        public decimal ReturnAmount { get; set; }
+
+        [Required(AllowEmptyStrings =false,ErrorMessage ="Return Remarks is required")]
+        [StringLength(maximumLength:250,MinimumLength =5,ErrorMessage = "Return Remarks should be min 5 & max 250 char")]
+        public string ReturnRemark { get; set; }
+    }
+
     public class InvoiceDetails
     {
         public List<InvoiceProduct> Products { get; set; }
+
         public int InvoiceId { get; set; }
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Customer Id should be minimum 1")]
         public int CustomerId { get; set; }
+
         public string CustomerName { get; set; }
         public string CustomerAddress { get; set; }
-        public DateTime InvoiceDate { get; set; }
+
+        public DateTime InvoiceDate { get; set; } = DateTime.Now;
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "PayMode Id should be minimum 1")]
         public int PayModeId { get; set; }
-        public decimal SubTotalAmount { get; set; }
-        public decimal GstAmount { get; set; }
-        public decimal PaidAmount { get; set; }
+        public decimal SubTotalAmount { get; set; }=0.00M;
+        public decimal GstAmount { get; set; } = 0.00M;
+        public decimal PaidAmount { get; set; } = 0.00M;
+        //[Required(AllowEmptyStrings =true,ErrorMessage ="Pay Mode Referance Number is Required")]
+        [StringLength(maximumLength:250,MinimumLength =0,ErrorMessage = "Pay Mode Referance Number Min 0 & max 250 char")]
         public string PayModeRefNo { get; set; }
-        public decimal GrandTotal { get; set; }
-        public decimal BalanceAmount { get; set; }
+        public decimal GrandTotal { get; set; } = 0.00M;
+        public decimal BalanceAmount { get; set; } = 0.00M;
+    }
+
+    public class InvoiceReturnDetails
+    {
+        public List<InvoiceReturnProduct> Products { get; set; }
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Invoice Id should be minimum 1")]
+        public int InvoiceId { get; set; }
+
+        public decimal RefundAmount { get; set; } = 0.00M;
+        public decimal BalanceAmount { get; set; } = 0.00M;
+        public bool IsAmountRefunded { get; set; } = true;
+
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Refund PayMode Id should be minimum 1")]
+        public int RefundPayModeId { get; set; }
     }
 }

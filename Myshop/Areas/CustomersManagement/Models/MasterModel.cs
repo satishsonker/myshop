@@ -194,7 +194,7 @@ namespace Myshop.Areas.CustomersManagement.Models
             try
             {
                 myshop = new MyshopDb();
-                var catList = (from cust in myshop.Gbl_Master_Customer
+                var custList = (from cust in myshop.Gbl_Master_Customer
                                .Where(  x => x.IsDeleted == false && 
                                         x.ShopId.Equals(WebSession.ShopId) && 
                                         (mobile==string.Empty || x.Mobile.IndexOf(mobile)>-1))
@@ -205,17 +205,17 @@ namespace Myshop.Areas.CustomersManagement.Models
                                    cust.CustomerId,
                                    cust.CreatedDate,
                                    cust.FirstName,
-                                   cust.MiddleName,
+                                   MiddleName= cust.MiddleName??string.Empty,
                                    cust.LastName,
                                    cust.Mobile,
-                                   cust.PINCode,
-                                   cust.Address,
-                                   cust.District,
-                                   cust.State,
-                                   cust.Email,
+                                   PINCode= cust.PINCode??string.Empty,
+                                   Address=cust.Address??string.Empty,
+                                   District=cust.Gbl_Master_City.CityName,
+                                   State=cust.Gbl_Master_State.StateName,
+                                   Email= cust.Email??string.Empty,
                                    cust.ShopId
                                }).ToList();
-                return catList;
+                return custList;
             }
             catch (Exception ex)
             {

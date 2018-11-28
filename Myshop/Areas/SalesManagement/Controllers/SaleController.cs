@@ -68,9 +68,30 @@ namespace Myshop.Areas.SalesManagement.Controllers
         [HttpPost]
         public JsonResult SaveInvoice(InvoiceDetails invoiceDetails)
         {
-            SalesDetails _details = new SalesDetails();
+            if (ModelState.IsValid)
+            {
+                SalesDetails _details = new SalesDetails();
             Tuple<CrudStatus, int> _result = _details.SaveInvoice(invoiceDetails);
             return Json(ReturnAjaxAlertMessage(_result.Item1,_result.Item2).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(GetErrorList(), JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveReturnInvoice(InvoiceReturnDetails invoiceReturnDetails)
+        {
+            if (ModelState.IsValid)
+            {
+                SalesDetails _details = new SalesDetails();
+                return Json(ReturnAjaxAlertMessage(_details.SaveReturnInvoice(invoiceReturnDetails)).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(GetErrorList(), JsonRequestBehavior.AllowGet);
+            }
         }
 
         [HttpPost]
@@ -83,8 +104,15 @@ namespace Myshop.Areas.SalesManagement.Controllers
         [HttpPost]
         public JsonResult AddCustomer(string FirstName, string LastName, string CustMobile,int State,int City)
         {
-            SalesDetails _details = new SalesDetails();
-            return Json(ReturnAjaxAlertMessage(_details.AddCustomer(FirstName,LastName,CustMobile,State,City)).ToList(), JsonRequestBehavior.AllowGet);
+            if (ModelState.IsValid)
+            {
+                SalesDetails _details = new SalesDetails();
+                return Json(ReturnAjaxAlertMessage(_details.AddCustomer(FirstName, LastName, CustMobile, State, City)).ToList(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(GetErrorList(), JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

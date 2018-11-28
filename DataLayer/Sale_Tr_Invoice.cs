@@ -27,26 +27,28 @@ namespace DataLayer
         public decimal SubTotalAmount { get; set; }
         public decimal GstAmount { get; set; }
         public decimal PaidAmount { get; set; }
+        public decimal BalanceAmount { get; set; }
         public string PayModeRefNo { get; set; }
         public decimal GrandTotal { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsSync { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public decimal BalanceAmount { get; set; }
         public bool IsCancelled { get; set; }
         public string CancelRemark { get; set; }
         public Nullable<System.DateTime> CancelledDate { get; set; }
         public bool IsAmountRefunded { get; set; }
         public decimal RefundAmount { get; set; }
         public int ShopId { get; set; }
+        public bool IsDeleted { get; set; }
+        public bool IsSync { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int CreatedBy { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
+        public Nullable<int> RefundPayModeId { get; set; }
     
+        public virtual Gbl_Master_Customer Gbl_Master_Customer { get; set; }
         public virtual Gbl_Master_PayMode Gbl_Master_PayMode { get; set; }
+        public virtual Gbl_Master_PayMode Gbl_Master_PayMode1 { get; set; }
+        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale_Dtl_Invoice> Sale_Dtl_Invoice { get; set; }
-        public virtual Gbl_Master_Customer Gbl_Master_Customer { get; set; }
-        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
     }
 }

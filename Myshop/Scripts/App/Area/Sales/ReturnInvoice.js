@@ -4,14 +4,14 @@
     let $html = '';
     $($data.Products).each(function ($ind, $ele) {
         $html += '<tr>' +
-            '<td class="shop_vMiddle"><input type="checkbox" class="form-inline" id="chkPro_' + $ind + '" /></td>' +
+            '<td class="shop_vMiddle"><input type="checkbox" class="form-inline form-control" id="chkPro_' + $ind + '" /></td>' +
             '<td class="shop_vMiddle">' + ($ind + 1) + '.</td >' +
             '<td class="shop_vMiddle">' + $ele.ProductName + '</td > ' +
-            '<td>' + parseFloat($ele.Discount).toFixed(2) + '</td> ' +
-            '<td>' + ($ele.Remark == null ? '' : $ele.Remark) + '</td>' +
+            '<td class="shop_vMiddle">' + parseFloat($ele.Discount).toFixed(2) + '</td> ' +
+            '<td class="shop_vMiddle">' + ($ele.Remark == null ? '' : $ele.Remark) + '</td>' +
             '<td class="shop_vMiddle shop_hCentre">' + parseFloat($ele.SalePrice).toFixed(2) + '</td>' +
             '<td class="shop_vMiddle shop_hCentre">' + $ele.Qty + '</td>' +
-            '<td class="shop_vMiddle shop_hRigth">' + ($ele.Qty * $ele.SalePrice).toFixed(2) + '</td>' +
+            '<td class="shop_vMiddle shop_hRigth">' + (($ele.Qty * $ele.SalePrice) - parseFloat($ele.Discount)).toFixed(2) + '</td>' +
             '<td class="shop_vMiddle shop_hRigth">0</td>' +
             '<td class="shop_vMiddle shop_hRigth"></td>' +
             '<td class="shop_vMiddle shop_hRigth lblReturnAmount">0.00</td>' +
@@ -32,7 +32,7 @@
 
 $(document).on('click', '#chkSelectAll', function () {
     //if ($(this).is(':checked')) {
-    $('input[id*="chkPro_"]').prop('checked', $(this).is(':checked'));
+    $('input[id*="chkPro_"]').prop('checked', !$(this).is(':checked')).click();
     //}
 });
 
@@ -47,6 +47,7 @@ $(document).on('click', 'input[id*="chkPro_"]', function () {
     }
     else {
         $($currentTr).find('td:eq(8)').empty().text('0');
+        $($currentTr).find('td:eq(9)').empty().text('');
     }
 });
 
@@ -54,7 +55,8 @@ $(document).on('change', 'input[id*="txtRtnQty_"]', function () {
     let $currentTr = $(this).parent().parent();
     let $salePrice = parseFloat($($currentTr).find('td:eq(5)').text().trim());
     let $saleQty = parseInt($(this).val());
-    let totalAmount = parseFloat($salePrice * $saleQty);
+    let $saleDiscount = parseInt($($currentTr).find('td:eq(3)').text().trim());
+    let totalAmount = parseFloat($salePrice * $saleQty) - $saleDiscount;
     let returnSubTotal = 0.00;
     $($currentTr).find('.lblReturnAmount').text(totalAmount.toFixed(2));
 
@@ -65,4 +67,36 @@ $(document).on('change', 'input[id*="txtRtnQty_"]', function () {
     $('#lblRtnSubTotal').text(returnSubTotal.toFixed(2));
     $('#lblRtnGst').text(parseFloat((returnSubTotal / 100) * 12).toFixed(2));
     $('#lblRtnGrandAmount').text(parseFloat(returnSubTotal + ((returnSubTotal / 100) * 12)).toFixed(2));
+});
+
+$(document).on('mouseover', 'input[id*="txtRtnRmk_"]', function () {
+    $(this).parent().attr('title', $(this).val());
+});
+
+$(document).on('click', '#chkDefaultRow', function () {
+    utility.SetAlert('Please search the invoice first', utility.alertType.warning);
+});
+
+$(document).on('click', '#btnSaveReturnInvoice', function () {
+    if (!$('[id*="chkPro_"]').is(":checked")) {
+        utility.SetAlert("Please select atleast one product to return..!", utility.alertType.warning);
+    }
+    else {
+        let $invoiceId = $('#hdnInvoiceId').val();
+        let $refundAmount = $('#lblRtnGrandAmount').text();
+        if ($invoiceId === "0") {
+            utility.SetAlert('Please search the invoice', utility.alertType.warning);
+            return false;
+        }
+        let $data = {};
+        $data.InvoiceId = $invoiceId;
+        $data.RefundAmount = $refundAmount;
+        $data.BalanceAmount = $invoiceId;
+        $data.IsAmountRefunded = $invoiceId;
+        $data.RefundPayModeId = $invoiceId;
+        $data.Products = $invoiceId;
+        utility.ajaxHelper(app.urls.SaleArea.SalesController.SaveReturnInvoice, $data, function (_responce) {
+            utility.setAjaxAlert(_responce);
+        });
+    }
 });

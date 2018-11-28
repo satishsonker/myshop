@@ -53,6 +53,18 @@ namespace Myshop.Controllers
             {
                 SetAlertMessage(Resource.AlreadyInUse, Enums.AlertType.warning);
             }
+            else if (status == Enums.CrudStatus.PartiallyUpdated)
+            {
+                SetAlertMessage(Resource.Partially_Updated, Enums.AlertType.warning);
+            }
+            else if (status == Enums.CrudStatus.InvoiceAlreadyCancelled)
+            {
+                SetAlertMessage(Resource.InvoiceAlreadyCancelled, Enums.AlertType.warning);
+            }
+            else if (status == Enums.CrudStatus.AmountMismatched)
+            {
+                SetAlertMessage(Resource.AmountMismatched, Enums.AlertType.danger);
+            }
         }
 
         internal Dictionary<int, string> ReturnAjaxAlertMessage(Enums.CrudStatus status,int returnId=0)
@@ -109,6 +121,18 @@ namespace Myshop.Controllers
             else if (status == Enums.CrudStatus.InvalidParameter)
             {
                 result.Add(111, Resource.Invalid_Parameter);
+            }
+            else if (status == Enums.CrudStatus.InvoiceAlreadyCancelled)
+            {
+                result.Add(112, Resource.InvoiceAlreadyCancelled);
+            }
+            else if (status == Enums.CrudStatus.AmountMismatched)
+            {
+                result.Add(113, Resource.AmountMismatched);
+            }
+            else if (status == Enums.CrudStatus.PartiallyUpdated)
+            {
+                result.Add(114, Resource.Partially_Updated);
             }
             else
             {

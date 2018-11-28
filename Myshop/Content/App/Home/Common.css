@@ -41,7 +41,7 @@
     max-height: 150px;
     border-radius: 0 0 5px 5px;
     padding-bottom: 0px;
-    overflow-y: scroll;
+    overflow-y: auto;
     z-index: 999999999;
 }
 

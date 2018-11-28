@@ -4,6 +4,7 @@
     using Myshop.App_Start;
     using System;
     using System.Collections.Generic;
+    using System.Data.Entity;
     using System.Linq;
     using static Myshop.App_Start.Enums;
 
@@ -14,7 +15,7 @@
         public List<SalesModel> SearchProduct(string searchValue)
         {
             _myshopDb = new MyshopDb();
-            var _proList = (from pro in _myshopDb.Stk_Dtl_Entry.Where(x => (searchValue.Equals(string.Empty) || x.Gbl_Master_Product.ProductCode.IndexOf(searchValue) > -1 || x.Gbl_Master_Product.ProductName.IndexOf(searchValue) > -1) && !x.IsDeleted && x.Qty > 0 &&  x.ShopId.Equals(WebSession.ShopId))
+            var _proList = (from pro in _myshopDb.Stk_Dtl_Entry.Where(x => (searchValue.Equals(string.Empty) || x.Gbl_Master_Product.ProductCode.IndexOf(searchValue) > -1 || x.Gbl_Master_Product.ProductName.IndexOf(searchValue) > -1) && !x.IsDeleted && x.Qty > 0 && x.ShopId.Equals(WebSession.ShopId))
                             select new SalesModel
                             {
                                 BrandName = pro.Gbl_Master_Brand.BrandName,
@@ -42,7 +43,7 @@
                 _newInvoice.BalanceAmount = _currentInvoice.BalanceAmount;
                 _newInvoice.CustomerId = _currentInvoice.CustomerId;
                 _newInvoice.CustomerName = string.Format("{0} {1} {2}", _currentInvoice.Gbl_Master_Customer.FirstName ?? string.Empty, _currentInvoice.Gbl_Master_Customer.MiddleName ?? string.Empty, _currentInvoice.Gbl_Master_Customer.LastName ?? string.Empty);
-                _newInvoice.CustomerAddress= string.Format("{0}\n{1}, {2}", _currentInvoice.Gbl_Master_Customer.Address ?? string.Empty, _currentInvoice.Gbl_Master_Customer.Gbl_Master_City.CityName ?? string.Empty, _currentInvoice.Gbl_Master_Customer.Gbl_Master_State.StateName.ToString() ?? string.Empty);
+                _newInvoice.CustomerAddress = string.Format("{0}\n{1}, {2}", _currentInvoice.Gbl_Master_Customer.Address ?? string.Empty, _currentInvoice.Gbl_Master_Customer.Gbl_Master_City.CityName ?? string.Empty, _currentInvoice.Gbl_Master_Customer.Gbl_Master_State.StateName.ToString() ?? string.Empty);
                 _newInvoice.GrandTotal = _currentInvoice.GrandTotal;
                 _newInvoice.GstAmount = Convert.ToDecimal(_currentInvoice.GstAmount);
                 _newInvoice.InvoiceDate = _currentInvoice.InvoiceDate;
@@ -52,7 +53,7 @@
                 _newInvoice.SubTotalAmount = _currentInvoice.SubTotalAmount;
                 _newInvoice.InvoiceId = _currentInvoice.InvoiceId;
                 List<InvoiceProduct> _lstProducts = new List<InvoiceProduct>();
-                foreach (Sale_Dtl_Invoice _currentDetails in _myshopDb.Sale_Dtl_Invoice.Where(x=>x.InvoiceId.Equals(_newInvoice.InvoiceId) && x.IsDeleted==false))
+                foreach (Sale_Dtl_Invoice _currentDetails in _myshopDb.Sale_Dtl_Invoice.Where(x => x.InvoiceId.Equals(_newInvoice.InvoiceId) && x.IsDeleted == false))
                 {
                     InvoiceProduct _newProduct = new InvoiceProduct();
                     _newProduct.Discount = Convert.ToInt32(_currentDetails.Discount);
@@ -125,7 +126,61 @@
             }
         }
 
-        public CrudStatus AddCustomer(string firstName, string lastName, string custMobile,int State,int City)
+        public CrudStatus SaveReturnInvoice(InvoiceReturnDetails invoiceDetails)
+        {
+            if (invoiceDetails != null && invoiceDetails.Products != null)
+            {
+                _myshopDb = new MyshopDb();
+                var _oldInvoice = _myshopDb.Sale_Tr_Invoice.Where(x => x.InvoiceId.Equals(invoiceDetails.InvoiceId) && !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+                if (_oldInvoice == null)
+                {
+                    return CrudStatus.NotExist;
+                }
+                else if (_oldInvoice.IsCancelled)
+                {
+                    return CrudStatus.InvoiceAlreadyCancelled;
+                }
+                else
+                {
+                    _oldInvoice.IsAmountRefunded = invoiceDetails.RefundAmount > 0 ? true : false;
+                    _oldInvoice.RefundPayModeId = invoiceDetails.RefundPayModeId;
+                    _oldInvoice.RefundAmount = invoiceDetails.RefundAmount;
+                    _oldInvoice.BalanceAmount = invoiceDetails.BalanceAmount;
+                    _oldInvoice.IsSync = false;
+                    _oldInvoice.ModifiedBy = WebSession.UserId;
+                    _oldInvoice.ModifiedDate = DateTime.Now;
+                    _myshopDb.Entry(_oldInvoice).State = EntityState.Modified;
+                    int _retult = _myshopDb.SaveChanges();
+                    if (_retult > 0)
+                    {
+                        var _oldInvoiceDetails = _myshopDb.Sale_Dtl_Invoice.Where(x => x.InvoiceId.Equals(_oldInvoice.InvoiceId) && !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).ToList();
+                        foreach (var _currentProduct in invoiceDetails.Products)
+                        {
+                            var _returnProduct = _oldInvoiceDetails.Where(x => x.ProductId.Equals(_currentProduct.ProductId)).FirstOrDefault();
+                            _returnProduct.IsReturn = true;
+                            _returnProduct.IsSync = false;
+                            _returnProduct.ModifiedBy = WebSession.UserId;
+                            _returnProduct.ModifiedDate = DateTime.Now;
+                            _returnProduct.ReturnAmount = _currentProduct.ReturnAmount;
+                            _returnProduct.ReturnDate = DateTime.Now;
+                            _returnProduct.ReturnQty = _currentProduct.ReturnQty;
+                            _returnProduct.ReturnRemark = _currentProduct.ReturnRemark;
+                            _myshopDb.Entry(_returnProduct).State = EntityState.Modified;
+                        }
+
+                        return _myshopDb.SaveChanges() > 0 ? CrudStatus.Updated : CrudStatus.PartiallyUpdated;
+                    }
+                    else
+                        return CrudStatus.NoEffect;
+                }
+            }
+            else
+            {
+                return CrudStatus.InvalidParameter;
+            }
+        }
+
+        public CrudStatus AddCustomer(string firstName, string lastName, string custMobile, int State, int City)
         {
             _myshopDb = new MyshopDb();
             Gbl_Master_Customer _newCustomer = new Gbl_Master_Customer();
@@ -144,7 +199,7 @@
             return _myshopDb.SaveChanges() > 0 ? CrudStatus.Inserted : CrudStatus.NoEffect;
         }
 
-        public List<DashboardInvoiceModel> GetSalesList(int PageNo=1,int PageSize=10)
+        public List<DashboardInvoiceModel> GetSalesList(int PageNo = 1, int PageSize = 10)
         {
             _myshopDb = new MyshopDb();
             var _list = _myshopDb.Sale_Tr_Invoice.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).ToList().OrderByDescending(x => x.InvoiceDate);

@@ -21,21 +21,21 @@ namespace DataLayer
         public decimal Price { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public string Remark { get; set; }
-        public bool IsDeleted { get; set; }
-        public bool IsSync { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public Nullable<int> ModifiedBy { get; set; }
-        public Nullable<System.DateTime> ModifiedDate { get; set; }
-        public int ShopId { get; set; }
         public Nullable<bool> IsReturn { get; set; }
         public Nullable<int> ReturnQty { get; set; }
         public Nullable<decimal> ReturnAmount { get; set; }
         public string ReturnRemark { get; set; }
         public Nullable<System.DateTime> ReturnDate { get; set; }
+        public bool IsDeleted { get; set; }
+        public int ShopId { get; set; }
+        public bool IsSync { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
+        public Nullable<System.DateTime> ModifiedDate { get; set; }
     
         public virtual Gbl_Master_Product Gbl_Master_Product { get; set; }
-        public virtual Sale_Tr_Invoice Sale_Tr_Invoice { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
+        public virtual Sale_Tr_Invoice Sale_Tr_Invoice { get; set; }
     }
 }
