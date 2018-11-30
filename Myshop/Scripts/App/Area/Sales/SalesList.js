@@ -17,11 +17,11 @@ function bindTable(pageNo, pageSize, pageBtn) {
         $(response).each(function (ind, ele) {
             $html += '<tr>' +
                 '<th>' + (ind + 1) + '</th>' +
-                '<th><a href="/salesmanagement/sale/GetInvoice?invoiceno=' + ele.InvoiceNo + '">' + ele.InvoiceNo +'</a></th>' +
-                '<th>' + ele.CustomerName + '</th>' +
-                '<th>' + app.const.htmlCode.rupeesSymbol + ' ' + parseFloat(ele.Amount).toFixed(2) + '</th>' +
-                '<th>' + utility.getJsDateTimeFromJson(ele.InvoiceDate) + '</th>' +
-                '<th><span class="label label-' + (ele.IsRefund ? 'warning' : 'success') + '">' + (ele.IsRefund ? 'Return' : 'Sale') + '</th>' +
+                '<th class="shop_hCentre"><a href="/salesmanagement/sale/GetInvoice?invoiceno=' + ele.InvoiceNo + '">' + ele.InvoiceNo +'</a></th>' +
+                '<th class="shop_hCentre">' + ele.CustomerName + '</th>' +
+                '<th class="shop_hRigth">' + app.const.htmlCode.rupeesSymbol + ' ' + parseFloat(ele.Amount).toFixed(2) + '</th>' +
+                '<th class="shop_hCentre">' + utility.getJsDateTimeFromJson(ele.InvoiceDate) + '</th>' +
+                '<th class="shop_hCentre"><span class="label label-' + (ele.IsCancelled ? 'danger' : (ele.IsRefund ? 'warning' : 'success')) + '">' + (ele.IsCancelled ? 'Cancelled' : (ele.IsRefund ? 'Returned' : 'Billed')) + '</th>' +
                 '</tr>';
         });
         $($tbody).append($html);

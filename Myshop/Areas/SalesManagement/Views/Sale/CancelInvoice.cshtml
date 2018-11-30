@@ -1,12 +1,12 @@
 ﻿
 @{
-    ViewBag.Title = "Sales List";
+    ViewBag.Title = "Cancel Invoice";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 
 <link href="~/Content/morris.css" rel="stylesheet" />
-<script src="~/Scripts/App/Area/Sales/SalesList.js"></script>
+<script src="~/Scripts/App/Area/Sales/CancelInvoice.js"></script>
 <div style="margin-top:20px">
     <input type="hidden" id="hdntotalRecord" value="0" />
     <input type="hidden" id="hdncurrentpage" value="0" />
@@ -36,13 +36,17 @@
                                 <th>Customer Name</th>
                                 <th>Amount</th>
                                 <th>Date</th>
+                                <th>Balance Amount</th>
+                                <th>Refund Amount</th>
+                                <th>Payment Mode</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody></tbody>
                         <tfoot>
                             <tr>
-                                <td colspan="6">
+                                <td colspan="10">
                                     <div class="btn-group" id="tblPaging">
                                         <a class="btn btn-default" href="#"></a>
                                     </div>
@@ -55,14 +59,37 @@
         </div>
     </div>
 </div>
+<div class="popupAlert" style="position: fixed;z-index: 999999;top: 0;width: 100%;left: 0;background: #00000087;height: 100%;display:none;">
+    <div class="panel panel-info" style="top: 23%;position: absolute;left: 31%;width: 40%;">
+        <div class="panel-heading">Cancel Remark
+        <img src="../../Images/Icons/delete.png" class="closePopup" />
+        </div>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="form-group">
+                        <label>Cancellation remark</label>
+                        <input type="text" maxlength="500" placeholder="Cancellation remark" class="form-control" id="txtCancelRemark" />
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="panel-footer" style="height:53px;">
+                <input type="button" id="btnCancelInvoice" data-invoiceid="0" value="Cancel Invoice" class="btn btn-danger pull-right" />
+        </div>
+    </div>
+</div>
 <style>
     .pageActive {
         background: #8a8aff;
     }
 
-    body
-    {
-        height:auto !important;
+    body {
+        height: auto !important;
+    }
+    td, th {
+        width: 1px;
+        white-space: nowrap;
     }
 </style>
 

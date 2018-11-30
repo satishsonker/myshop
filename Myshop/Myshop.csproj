@@ -296,6 +296,7 @@
     <Content Include="Areas\SalesManagement\Views\Sale\GetInvoice.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Sale\SalesList.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Sale\ReturnInvoice.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Sale\CancelInvoice.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -419,6 +420,7 @@
     <Content Include="Scripts\App\Area\Sales\NewSales.js" />
     <Content Include="Scripts\App\Area\Sales\ReturnInvoice.js" />
     <Content Include="Scripts\App\Area\Sales\SaleDashboard.js" />
+    <Content Include="Scripts\App\Area\Sales\CancelInvoice.js" />
     <Content Include="Scripts\App\Area\Sales\SalesList.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Vendor.js" />
     <Content Include="Scripts\App\Area\Stock\Masters\Brands.js" />

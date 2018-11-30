@@ -127,10 +127,12 @@ app.urls.CommonController.GetState = '/Common/GetState';
 app.urls.SaleArea.SalesController.SearchProduct = "/SalesManagement/Sale/SearchProduct";
 app.urls.SaleArea.SalesController.SearchInvoice = "/SalesManagement/Sale/SearchInvoice";
 app.urls.SaleArea.SalesController.SaveInvoice = "/SalesManagement/Sale/SaveInvoice";
+app.urls.SaleArea.SalesController.CancelInvoice = "/SalesManagement/Sale/CancelInvoice";
 app.urls.SaleArea.SalesController.SaveReturnInvoice = "/SalesManagement/Sale/SaveReturnInvoice";
 app.urls.SaleArea.SalesController.AddCustomer = "/SalesManagement/Sale/AddCustomer";
 app.urls.SaleArea.SalesController.GetDashboard = "/SalesManagement/Sale/GetDashboard";
 app.urls.SaleArea.SalesController.GetSalesChartData = "/SalesManagement/Sale/GetSalesChartData";
+app.urls.SaleArea.SalesController.GetSalesStatusChartData = "/SalesManagement/Sale/GetSalesStatusChartData";
 app.urls.SaleArea.SalesController.GetSalesList = "/SalesManagement/Sale/GetSalesList";
 
 //Constant Declaration

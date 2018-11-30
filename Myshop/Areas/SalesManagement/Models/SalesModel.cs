@@ -22,9 +22,14 @@ namespace Myshop.Areas.SalesManagement.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int Qty { get; set; }
+        public int ReturnQty { get; set; }
         public decimal SalePrice { get; set; }
         public int Discount { get; set; }
         public string Remark { get; set; }
+        public bool IsReturn { get; set; }
+        public decimal ReturnAmount { get; set; }
+        public string ReturnRemark { get; set; }
+        public DateTime ReturnDate { get; set; }
     }
 
     public class InvoiceReturnProduct
@@ -67,6 +72,10 @@ namespace Myshop.Areas.SalesManagement.Models
         public string PayModeRefNo { get; set; }
         public decimal GrandTotal { get; set; } = 0.00M;
         public decimal BalanceAmount { get; set; } = 0.00M;
+        public bool IsRefund { get; set; } = false;
+        public bool IsCancelled { get; set; } = false;
+        public string CancelRemark { get; set; }
+        public DateTime CancelDate { get; set; }
     }
 
     public class InvoiceReturnDetails

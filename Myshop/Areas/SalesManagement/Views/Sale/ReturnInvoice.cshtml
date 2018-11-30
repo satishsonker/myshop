@@ -9,11 +9,15 @@
     @Html.Partial("~/Views/shared/_SearchInvoice.cshtml")
 </div>
 <input type="hidden" id="hdnInvoiceId" value="0" />
-<div class="panel panel-info">
-    <div class="panel-heading">Search Invoice</div>
+<div class="panel panel-info" style="margin-top:20px;">
+    <div class="panel-heading">Search Invoice
+        <div class="pull-right invoicestatus">
+
+        </div>
+    </div>
     <div class="panel-body">
         <div class="col-md-12">
-            <table class="table table-bordered table-responsive table-striped" id="tblInvoicedetails">
+            <table class="table table-bordered table-responsive table-striped" id="tblInvoicedetails" style="color:black;">
                 <thead style="text-align:center">
                     <tr>
                         <th style="width:4%;"><input type="checkbox" class="form-inline form-control" id="chkSelectAll" />All</th>
@@ -46,20 +50,20 @@
                     <tr class="tdSubTotal">
                         <td colspan="6" class="shop_hRigth">Purchase Sub Total</td>
                         <td colspan="2" id="lblSubTotal" class="shop_hRigth">0.00</td>
-                        <td colspan="2"  class="shop_hRigth">Return Sub Total</td>
-                        <td colspan="1" id="lblRtnSubTotal" class="shop_hRigth">0.00</td>
+                        <td colspan="2" title="Already return product amount is not included" class="shop_hRigth">Return Sub Total</td>
+                        <td colspan="1" title="Already return product amount is not included" id="lblRtnSubTotal" class="shop_hRigth">0.00</td>
                     </tr>
                     <tr>
                         <td colspan="6" class="shop_hRigth">GST @@ 12%</td>
                         <td colspan="2" id="lblGst" class="shop_hRigth">0.00</td>
                         <td colspan="2" class="shop_hRigth"></td>
-                        <td colspan="1" id="lblRtnGst" class="shop_hRigth">0.00</td>
+                        <td colspan="1"  title="Already return product amount is not included" id="lblRtnGst" class="shop_hRigth">0.00</td>
                     </tr>
                     <tr>
                         <td class="shop_hRigth" colspan="6" id="lblGrandTotalWord">Zero Only</td>
                         <td colspan="2" class="shop_hRigth" id="lblGrandAmount">0.00</td>
-                        <td colspan="2" class="shop_hRigth" >Return Amount</td>
-                        <td class="shop_hRigth" id="lblRtnGrandAmount">0.00</td>
+                        <td colspan="2" title="Already return product amount is not included" class="shop_hRigth">Return Amount</td>
+                        <td class="shop_hRigth" title="Already return product amount is not included" id="lblRtnGrandAmount">0.00</td>
                     </tr>
                 </tbody>
             </table>
@@ -71,4 +75,29 @@
         </div>
     </div>
 </div>
-
+<div class="col-lg-12">
+    <div class="col-lg-4">
+        <div class="form-group">
+            <label style="float: left;width: 100%;">Payment Mode</label>
+            @Html.Partial("~/Views/shared/_PaymentModeDropdown.cshtml")
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="form-group">
+            <label>Refund Amount</label>
+            <input type="number" value="0" class="form-control" min="0" id="txtAmountToBePaid" />
+        </div>
+    </div>
+    <div class="col-lg-2">
+        <div class="form-group">
+            <label>Balance Amount</label>
+            <input type="number" readonly value="0" class="form-control" min="0" id="txtBalanceAmount" />
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        height: auto !important;
+        background: #eef1f6 !important;
+    }
+</style>

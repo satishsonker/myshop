@@ -16,6 +16,7 @@ namespace Myshop.Models
         public class DonutChart
         {
             public string label { get; set; }
+            public string labelColor { get; set; }
             public decimal value { get; set; }
         }
     }

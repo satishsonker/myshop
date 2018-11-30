@@ -21,10 +21,11 @@ namespace Myshop.Areas.SalesManagement.Models
             List<DashboardInvoiceModel> _newInvoiceModel = new List<DashboardInvoiceModel>();
 
             List<MostSallingProduct> mostSallingProduct = new List<MostSallingProduct>();
+            List<TopCustomersData> topCustomersData = new List<TopCustomersData>();
             DateTime salesDate = DateTime.Now.AddDays(-Day);
             DateTime now = DateTime.Now;
             var firstDateOfCurrentMonth = new DateTime(now.Year, now.Month, 1);
-            var sales = myshop.Sale_Tr_Invoice.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).ToList();
+            var sales = myshop.Sale_Tr_Invoice.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && !x.IsCancelled).ToList();
             var salesDetails= myshop.Sale_Dtl_Invoice.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).ToList();
             var monthlyData = sales.Where(x=>x.CreatedDate >= firstDateOfCurrentMonth).ToList();
             var products = myshop.Gbl_Master_Product.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).ToList();
@@ -48,6 +49,19 @@ namespace Myshop.Areas.SalesManagement.Models
                 _InvoiceModel.InvoiceNo = item.InvoiceId;
                 _InvoiceModel.IsRefund = item.IsAmountRefunded;
                 _newInvoiceModel.Add(_InvoiceModel);
+
+                //Top Customers Data
+                if (topCustomersData.Where(x => x.CustomerId.Equals(item.CustomerId)).Count() == 0)
+                {
+                    TopCustomersData _newCustData = new TopCustomersData();
+                    _newCustData.CustomerId = item.CustomerId;
+                    _newCustData.TotalPurchase = sales.Where(x => x.CustomerId.Equals(item.CustomerId)).Count();
+                    _newCustData.TotalPurchaseAmount = sales.Where(x => x.CustomerId.Equals(item.CustomerId)).Sum(x => x.GrandTotal - x.RefundAmount); ;
+                    _newCustData.TotalPurchaseProduct = item.CustomerId;
+                    _newCustData.CustomerId = item.CustomerId;
+                    _newCustData.CustomerName = string.Format("{0} {1} {2}", item.Gbl_Master_Customer.FirstName, item.Gbl_Master_Customer.FirstName ?? string.Empty, item.Gbl_Master_Customer.LastName);
+                    topCustomersData.Add(_newCustData);
+                }
             }
             _newModel.InvoiceMDetals=_newInvoiceModel;
 
@@ -61,6 +75,7 @@ namespace Myshop.Areas.SalesManagement.Models
 
             }
             _newModel.SallingProducts = mostSallingProduct.OrderByDescending(x=>x.TotalQty).Take(10).ToList();
+            _newModel.TopCustomersData = topCustomersData.OrderByDescending(x => x.TotalPurchaseAmount).Take(10).ToList();
             return _newModel;
         }
         public MorrisChartModel.LineChart GetSalesChartData(int Duration = 30)
@@ -126,6 +141,33 @@ namespace Myshop.Areas.SalesManagement.Models
                 chart.Data = sb.ToString().Remove(sb.ToString().LastIndexOf(','), 1);
             }
             return chart;
+        }
+
+        public List<MorrisChartModel.DonutChart> GetSalesStatusData(int Duration=30)
+        {
+            List<MorrisChartModel.DonutChart> donutCharts = new List<MorrisChartModel.DonutChart>();
+            myshop = new MyshopDb();
+            var sales = myshop.Sale_Tr_Invoice.Where(x => x.ShopId.Equals(WebSession.ShopId) && !x.IsDeleted).ToList();
+            MorrisChartModel.DonutChart cancelled = new MorrisChartModel.DonutChart();
+            cancelled.label = "Cancelled";
+            cancelled.labelColor = "red";
+            cancelled.value = sales.Where(x => x.IsCancelled).Count();
+
+            MorrisChartModel.DonutChart billed = new MorrisChartModel.DonutChart();
+            billed.label = "Billed";
+            billed.labelColor = "green";
+            billed.value = sales.Where(x => !x.IsCancelled && !x.IsAmountRefunded).Count();
+
+            MorrisChartModel.DonutChart returned = new MorrisChartModel.DonutChart();
+            returned.label = "Returned";
+            returned.labelColor = "orange";
+            returned.value = sales.Where(x => !x.IsCancelled).Count();
+
+            donutCharts.Add(billed);
+            donutCharts.Add(cancelled);
+            donutCharts.Add(returned);
+
+            return donutCharts;
         }
     }
 }

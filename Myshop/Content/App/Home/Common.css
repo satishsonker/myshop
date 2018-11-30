@@ -74,15 +74,26 @@
         width: 40%;
     }
 
-    .shop_mainAlert .panel-heading img {
-        float: right;
-        width: 20px;
-        cursor: pointer;
+.shop_mainAlert .panel-heading img {
+    float: right;
+    width: 20px;
+    cursor: pointer;
+}
+    .shop_mainAlert .panel-heading img:hover {
+        background: #00000029;
+        border-radius: 4px;
     }
-        .shop_mainAlert .panel-heading img:hover {
-            background: #00000029;
-            border-radius: 4px;
-        }
+
+.popupAlert .panel-heading img {
+    float: right;
+    width: 20px;
+    cursor: pointer;
+}
+
+    .popupAlert .panel-heading img:hover {
+        background: #00000029;
+        border-radius: 4px;
+    }
 
 .shop_hasError {
     border-bottom: 2px solid red !important;

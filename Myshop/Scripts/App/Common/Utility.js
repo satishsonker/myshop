@@ -665,12 +665,21 @@ utility.alertType =
 
 utility.setAjaxAlert = function (response) {
     response[0] = response.length > 1 ? response[1] : response[0];
-    if (response[0].Key == 110)
-        utility.SetAlert(response[0].Value, utility.alertType.error);
-    else if (response[0].Key == 101 || response[0].Key == 100)
-        utility.SetAlert(response[0].Value, utility.alertType.success);
-    else
-        utility.SetAlert(response[0].Value, utility.alertType.warning);
+    if (response[0].hasOwnProperty('Key')) {
+        if (response[0].Key == 110)
+            utility.SetAlert(response[0].Value, utility.alertType.error);
+        else if (response[0].Key == 101 || response[0].Key == 100)
+            utility.SetAlert(response[0].Value, utility.alertType.success);
+        else
+            utility.SetAlert(response[0].Value, utility.alertType.warning);
+    }
+    else {
+        var $msg = '';
+        $(response).each(function (ind, ele) {
+            $msg += (ind+1)+'. '+ele + '\n<br/>';
+        })
+        utility.SetAlert($msg, utility.alertType.error);
+    }
 }
 
 utility.getQueryStringValue=function(key) {

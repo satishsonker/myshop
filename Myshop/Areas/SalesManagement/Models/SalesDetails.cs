@@ -52,6 +52,10 @@
                 _newInvoice.PayModeRefNo = _currentInvoice.PayModeRefNo;
                 _newInvoice.SubTotalAmount = _currentInvoice.SubTotalAmount;
                 _newInvoice.InvoiceId = _currentInvoice.InvoiceId;
+                _newInvoice.IsRefund = _currentInvoice.IsAmountRefunded;
+                _newInvoice.IsCancelled = _currentInvoice.IsCancelled;
+                _newInvoice.CancelDate = _currentInvoice.CancelledDate??default(DateTime);
+                _newInvoice.CancelRemark = _currentInvoice.CancelRemark;
                 List<InvoiceProduct> _lstProducts = new List<InvoiceProduct>();
                 foreach (Sale_Dtl_Invoice _currentDetails in _myshopDb.Sale_Dtl_Invoice.Where(x => x.InvoiceId.Equals(_newInvoice.InvoiceId) && x.IsDeleted == false))
                 {
@@ -62,6 +66,11 @@
                     _newProduct.Qty = _currentDetails.Qty;
                     _newProduct.Remark = _currentDetails.Remark;
                     _newProduct.SalePrice = _currentDetails.Price;
+                    _newProduct.ReturnAmount = _currentDetails.ReturnAmount??0.00M;
+                    _newProduct.ReturnDate = _currentDetails.ReturnDate??default(DateTime);
+                    _newProduct.ReturnRemark = _currentDetails.ReturnRemark??string.Empty;
+                    _newProduct.ReturnQty = _currentDetails.ReturnQty??0;
+                    _newProduct.IsReturn = _currentDetails.IsReturn??false;
                     _lstProducts.Add(_newProduct);
                 }
                 _newInvoice.Products = _lstProducts;
@@ -212,11 +221,41 @@
                 //;
                 _newItem.InvoiceDate = item.InvoiceDate;
                 _newItem.InvoiceNo = item.InvoiceId;
+                _newItem.IsCancelled = item.IsCancelled;
+                _newItem.BalanceAmount = item.BalanceAmount;
+                _newItem.RefundAmount = item.RefundAmount;
                 _newItem.IsRefund = item.IsAmountRefunded;
+                _newItem.PaymentMode = item.Gbl_Master_PayMode.PayMode;
                 _newItem.TotalInvoice = _list.Count();
                 salesList.Add(_newItem);
             }
             return salesList;
+        }
+
+        public CrudStatus CancelInvoice(int InvoiceId,string InvoiceRemark)
+        {
+            if(InvoiceId<1)
+            {
+                return CrudStatus.InvalidParameter;
+            }
+            else
+            {
+                _myshopDb = new MyshopDb();
+                var _oldInvoice = _myshopDb.Sale_Tr_Invoice.Where(x => !x.IsDeleted && x.InvoiceId.Equals(InvoiceId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+                if(_oldInvoice.IsCancelled)
+                    return CrudStatus.InvoiceAlreadyCancelled;
+                else
+                {
+                    _oldInvoice.IsCancelled = true;
+                    _oldInvoice.CancelledDate = DateTime.Now;
+                    _oldInvoice.CancelRemark = InvoiceRemark;
+                    _oldInvoice.IsSync = false;
+                    _oldInvoice.ModifiedBy = WebSession.UserId;
+                    _oldInvoice.ModifiedDate = DateTime.Now;
+                    _myshopDb.Entry(_oldInvoice).State = EntityState.Modified;
+                    return _myshopDb.SaveChanges() > 0 ? CrudStatus.Updated : CrudStatus.NoEffect;
+                }
+            }
         }
     }
 }

@@ -22,6 +22,19 @@ namespace Myshop.Areas.SalesManagement.Controllers
             return View();
         }
 
+        [HttpGet]
+        public ActionResult CancelInvoice()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public JsonResult CancelInvoice(int invoiceId,string invoiceRemark)
+        {
+            SalesDetails _details = new SalesDetails();
+            return Json(ReturnAjaxAlertMessage(_details.CancelInvoice(invoiceId, invoiceRemark)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult NewSales()
         {
             return View();
@@ -49,6 +62,13 @@ namespace Myshop.Areas.SalesManagement.Controllers
         {
             DashboardDetails _details = new DashboardDetails();
             return Json(_details.GetSalesChartData(Days), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult GetSalesStatusChartData(int Days)
+        {
+            DashboardDetails _details = new DashboardDetails();
+            return Json(_details.GetSalesStatusData(Days), JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]

@@ -39,23 +39,38 @@ $(document).on('change', '#ddlPeriod', function () {
         $('#tblInvoice').empty().append($html);
 
         $html = '';
+        $(response.TopCustomersData).each(function (ind, ele) {
+            $html += '<tr>' +
+                '<td>' + (ind + 1).toString() + '</td> ' +
+                '<td class="shop_hCentre"><a href="#">' + ele.CustomerName + '</a></td>' +
+                '<td class="shop_hCentre">' + ele.TotalPurchase + '</td> ' +
+                '<td class="shop_hCentre">' + app.const.htmlCode.rupeesSymbol+' '+ ele.TotalPurchaseAmount + '</td> ' +
+                '<td class="shop_hCentre">' + ele.TotalPurchaseProduct + '</td> ' +
+               '</tr > ';
+        });
+        $html = $html != '' ? $html : '<tr><td colspan="5">No Products</td></tr>';
+        $('#tblTopCustomer').empty().append($html);
+
+        $html = '';
         $(response.SallingProducts).each(function (ind, ele) {
             $html += '<tr>' +
                 '<td>' + (ind + 1).toString() + '</td> ' +
                 '<td><a href="#">' + ele.ProductName + '</a></td>' +
                 '<td>' + ele.TotalQty + '</td> ' +
-               '</tr > ';
+                '</tr > ';
         });
         $html = $html != '' ? $html : '<tr><td colspan="5">No Products</td></tr>';
         $('#tblsaling').empty().append($html);
     });
 
     lineProductChart($('#ddlPeriod').val());
+    SaleStatusProductChart($('#ddlPeriod').val());
 });
 
 $(document).ready(function () {
     $('#ddlPeriod').change();
     lineProductChart($('#ddlPeriod').val());
+    SaleStatusProductChart($('#ddlPeriod').val());
 });
 
 function lineProductChart(duration) {
@@ -85,5 +100,31 @@ function lineProductChart(duration) {
         $('#line-chart-Sale').empty();
         config.element = 'line-chart-Sale';
         Morris.Line(config);
+    });
+}
+
+function SaleStatusProductChart(duration) {
+    utility.ajaxHelper(app.urls.SaleArea.SalesController.GetSalesStatusChartData, { 'Days': duration }, function (data) {
+        //var jsonData = JSON.parse(data.Data.replace(/#/g, '"').replace('|', '').replace('|', ''));
+        var config = {
+            data: data,
+            //xkey: 'y',
+            //ykeys: ['d'],
+            //labels: data.Labels,
+            //fillOpacity: 0.6,
+            //hideHover: 'auto',
+            //behaveLikeLine: true,
+            //resize: true,
+            //pointFillColors: ['#ffffff'],
+            //pointStrokeColors: ['black'],
+            //lineColors: ['green'],
+            //parseTime: false,
+            //gridIntegers: true
+            labelColor: "#9CC4E4",
+            colors: ['#E53935', 'rgb(0, 188, 212)', 'rgb(255, 152, 0)', 'rgb(0, 150, 136)']
+        };
+        $('#pie-chart-Sale').empty();
+        config.element = 'pie-chart-Sale';
+        Morris.Donut(config);
     });
 }
