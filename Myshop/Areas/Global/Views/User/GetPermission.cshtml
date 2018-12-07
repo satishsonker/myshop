@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "GetPermission";
+    ViewBag.Title = "Set Permission";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -11,11 +11,11 @@
 @*@using (Html.BeginForm("SetUnit", "Masters", new { area = "StockManagement" }, FormMethod.Post, new { style = "margin-top:60px" }))
     {*@
 
-<form action="/" method="post" style="margin-top:60px" id="permissionform">
+<form action="/" method="post" style="margin-top:0px" id="permissionform">
     <div id="" data-request-url="@Url.Action("GetAppModules", "Menu",new {area="Global" })"></div>
     <div id="" data-request-url="@Url.Action("", "User",new {area="Global" })"></div>
     <div id="GetPageUrl" data-request-url="@Url.Action("GetAppPages", "Menu",new {area="Global" })"></div>
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-sm-12">
         <div class="panel panel-info">
             <div class="panel-heading">User Acess</div>
             <div class="panel-body">

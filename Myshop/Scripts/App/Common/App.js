@@ -135,6 +135,9 @@ app.urls.SaleArea.SalesController.GetSalesChartData = "/SalesManagement/Sale/Get
 app.urls.SaleArea.SalesController.GetSalesStatusChartData = "/SalesManagement/Sale/GetSalesStatusChartData";
 app.urls.SaleArea.SalesController.GetSalesList = "/SalesManagement/Sale/GetSalesList";
 
+app.urls.SaleArea.reportsController = {};
+app.urls.SaleArea.reportsController.GetSalesStatement = "/SalesManagement/reports/GetSalesStatement";
+
 //Constant Declaration
 app.const.toastColor = {};
 app.const.toastColor.red = '#ff00006e';

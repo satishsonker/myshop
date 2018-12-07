@@ -110,8 +110,8 @@ namespace Myshop.Models
                              shop.Mobile,
                              shop.Address,
                              shop.Email,
-                             shop.State,
-                             shop.Distict,
+                             State=shop.Gbl_Master_State.StateName,
+                             Distict = shop.Gbl_Master_City.CityName,
                              shop.Owner
                          }).ToList();
 

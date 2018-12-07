@@ -63,7 +63,7 @@ namespace Myshop.Areas.SalesManagement.Models
                     topCustomersData.Add(_newCustData);
                 }
             }
-            _newModel.InvoiceMDetals=_newInvoiceModel;
+            _newModel.InvoiceMDetals=_newInvoiceModel.OrderByDescending(x=>x.InvoiceNo).Take(10).ToList();
 
             foreach (var item in salesDetails.GroupBy(x=>x.ProductId))
             {

@@ -15,6 +15,7 @@ namespace Myshop.Areas.SalesManagement.Models
         public string Category { get; set; }
         public string SubCategory { get; set; }
         public string Unit { get; set; }
+        public decimal AvailableQty { get; set; }
     }
 
     public class InvoiceProduct

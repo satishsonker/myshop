@@ -34,14 +34,17 @@ $(document).on('click', '#_ptlSearchInvoiceGenerate', function () {
 });
 
 $(document).ready(function () {
-    $('#_ptlSearchInvoice').val(utility.getQueryStringValue('invoiceno')).keypress().keydown();
-   var interval= setInterval(function () {
-        $('#_ptlSearchInvoiceList li').each(function (ind, ele) {
-            if ($(ele).text().indexOf(utility.getQueryStringValue('invoiceno')) > -1) {
-                $(ele).click();
-                $('#_ptlSearchInvoiceGenerate').click();
-                clearInterval(interval);
-            }
-        });
-    },100)
+    let $invoiceNo = utility.getQueryStringValue('invoiceno');
+    if ($invoiceNo !== "") {
+        $('#_ptlSearchInvoice').val(utility.getQueryStringValue('invoiceno')).keypress().keydown();
+        var interval = setInterval(function () {
+            $('#_ptlSearchInvoiceList li').each(function (ind, ele) {
+                if ($(ele).text().indexOf(utility.getQueryStringValue('invoiceno')) > -1) {
+                    $(ele).click();
+                    $('#_ptlSearchInvoiceGenerate').click();
+                    clearInterval(interval);
+                }
+            });
+        }, 100);
+    }
 });

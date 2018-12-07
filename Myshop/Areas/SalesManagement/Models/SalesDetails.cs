@@ -15,6 +15,8 @@
         public List<SalesModel> SearchProduct(string searchValue)
         {
             _myshopDb = new MyshopDb();
+            var sale = _myshopDb.Sale_Dtl_Invoice.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && !x.Sale_Tr_Invoice.IsCancelled).ToList();
+            var stk = _myshopDb.Stk_Dtl_Entry.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).ToList();
             var _proList = (from pro in _myshopDb.Stk_Dtl_Entry.Where(x => (searchValue.Equals(string.Empty) || x.Gbl_Master_Product.ProductCode.IndexOf(searchValue) > -1 || x.Gbl_Master_Product.ProductName.IndexOf(searchValue) > -1) && !x.IsDeleted && x.Qty > 0 && x.ShopId.Equals(WebSession.ShopId))
                             select new SalesModel
                             {
@@ -26,8 +28,17 @@
                                 PurchasePrice = pro.PurchasePrice,
                                 SalePrice = pro.SellPrice,
                                 SubCategory = pro.Gbl_Master_Product.Gbl_Master_SubCategory.SubCatName,
-                                Unit = pro.Gbl_Master_Product.Gbl_Master_Unit.UnitName
-                            }).ToList();
+                                Unit = pro.Gbl_Master_Product.Gbl_Master_Unit.UnitName,
+                                //AvailableQty = 
+                            }).Distinct().ToList();
+            //return _proList;
+            foreach (var item in _proList)
+            {
+                decimal StockQty = stk.Where(x => x.ProductId.Equals(item.ProductId)).Sum(q => q.Qty);
+                decimal SaleQty = sale.Where(x => x.ProductId.Equals(item.ProductId)).Sum(q => q.Qty - q.ReturnQty ?? 0);
+                _proList.Where(x => x.ProductId.Equals(item.ProductId)).FirstOrDefault().AvailableQty = (StockQty - SaleQty);
+            }
+
             return _proList;
         }
 
@@ -118,6 +129,7 @@
                         _newDetails.Qty = item.Qty;
                         _newDetails.ShopId = WebSession.ShopId;
                         _newDetails.Remark = item.Remark;
+                        _newDetails.ReturnQty = 0;
                         _myshopDb.Sale_Dtl_Invoice.Add(_newDetails);
                     }
 

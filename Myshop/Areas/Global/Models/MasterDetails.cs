@@ -207,12 +207,12 @@ namespace Myshop.Areas.Global.Models
                                     shop.ShopId,
                                     shop.Name,
                                     OwnerId = shop.Owner,
-                                    OwnerName = string.Format("{0} {1}", user.Firstname, user.Lastname),
+                                    OwnerName = user.Firstname+" "+user.Lastname,
                                     shop.Mobile,
                                     shop.Email,
                                     shop.Address,
-                                    District = shop.Distict,
-                                    shop.State
+                                    District = shop.Gbl_Master_City.CityName,
+                                   State=shop.Gbl_Master_State.StateName
                                 }).ToList();
                 return shopList;
             }

@@ -1,5 +1,6 @@
 ﻿using Myshop.Areas.SalesManagement.Models;
 using Myshop.Controllers;
+using Myshop.Filters;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,8 @@ using static Myshop.App_Start.Enums;
 
 namespace Myshop.Areas.SalesManagement.Controllers
 {
+    [MyshopAuthorize]
+    [MyShopPermission]
     public class SaleController : CommonController
     {
         // GET: SalesManagement/Sale

@@ -1,16 +1,16 @@
 ﻿
 @{
-    ViewBag.Title = "GetCheque";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewBag.Title = "Add Cheque";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="~/Scripts/App/Area/Global/Master/Cheque.js"></script>
-<form action="/" method="post" style="margin-top:60px" id="chequeform">
+<form action="/" method="post" style="margin-top:0px" id="chequeform">
     <div id="GetBankAccUrl" data-request-url="@Url.Action("GetBankAccounts", "Masters",new {area="Global" })"></div>
-    <div class="col-sm-6 col-sm-offset-3">
+    <div class="col-sm-10 col-sm-offset-1">
         <div class="panel panel-info">
             <div class="panel-heading">Cheque Book Details</div>
             <div class="panel-body">

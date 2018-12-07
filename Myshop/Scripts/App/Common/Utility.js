@@ -521,6 +521,12 @@ utility.getFormatedDate = function (jsonDate) {
     return date[2] + '-0' + date[0] + '-0' + date[1];
 }
 
+utility.getInrCurrency = function (amount) {
+    var convertedAmount = parseFloat(amount);
+    convertedAmount = isNaN(convertedAmount) ? 0.00 : convertedAmount;
+    return app.const.htmlCode.rupeesSymbol + ' ' + convertedAmount.toFixed(2);
+}
+
 utility.setFraction = function (val) {
     if (val !== undefined) {
         val = val.toString();

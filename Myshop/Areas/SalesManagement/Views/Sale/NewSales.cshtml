@@ -6,7 +6,7 @@
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<script src="~/Scripts/App/Area/Sales/NewSales.js"></script>
+<script src="~/Scripts/App/Area/Sales/Sale/NewSales.js"></script>
 <form action="/" method="post" style="margin-top:10px" id="createtaskform">
     <div class="row">
         <div class="col-lg-12" style="height: 44px;background: #b0d0ff;padding: 5px;border-radius: 4px;">
@@ -60,8 +60,8 @@
                     <td class="shop_vMiddle shop_hRigth">0.00</td>
                     <td class="shop_vMiddle shop_hCentre">
                         <div class="btn-group-sm">
-                            <img style="width:25px;cursor:pointer;" title="Delete this row" src="~/Images/Icons/delete.png" />
-                            <img style="width:25px;cursor:pointer;" title="Reset this row" src="~/Images/Icons/refresh.png" />
+                            <img style="width:25px;cursor:pointer;" id="btnDelete_" title="Delete this row" src="~/Images/Icons/delete.png" />
+                            <img style="width:25px;cursor:pointer;" id="btnReset_" title="Reset this row" src="~/Images/Icons/refresh.png" />
                         </div>
                     </td>
                 </tr>

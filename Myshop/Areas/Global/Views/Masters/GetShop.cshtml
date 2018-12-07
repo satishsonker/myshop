@@ -1,7 +1,7 @@
 ﻿
 @{
     ViewBag.Title = "GetShop";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 
@@ -9,9 +9,9 @@
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="~/Scripts/App/Area/Global/Master/Shops.js"></script>
-<form action="/" method="post" style="margin-top:60px" id="shopform">
+<form action="/" method="post" style="margin-top:0px" id="shopform">
     <div class="container">
-        <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
+        <div class="col-lg-10 col-lg-offset-1 col-md-10 col-md-offset-1 col-sm-12">
             <div class="panel panel-info">
                 <div class="panel-heading">Shop Details</div>
                 <div class="panel-body">
@@ -35,18 +35,18 @@
                             <label>Email</label>
                             <input type="text" required="required" maxlength="50" placeholder="Enter Owner Email" class="form-control" id="email" name="email" />
                         </div>
+
+                        <div class="col-sm-12">
+                            <label>GSTIN</label>
+                            <input title="Goods & Services Taxpayer Identification Number (GSTIN)" type="text" required="required" placeholder="Enter Shop GSTIN" class="form-control" id="gstin" name="gstin" />
+                        </div>
                         <div class="col-sm-12">
                             <label>Address</label>
                             <input type="text" required="required" placeholder="Enter Shop Address" class="form-control" id="address" name="address" />
-                        </div>  
+                        </div>
                         <div class="col-sm-12">
-                            <label>District</label>
-                            <input type="text" required="required" placeholder="Enter Shop District" class="form-control" id="district" name="district" />
-                        </div> 
-                        <div class="col-sm-12">
-                            <label>State</label>
-                            <input type="text" required="required" placeholder="Enter Shop State" class="form-control" id="state" name="state" />
-                        </div> 
+                            @Html.Partial("~/Views/Shared/_StateCity.cshtml")
+                        </div>
                         @{
                             string ViewDataName = "GetShopJsonUrl";
                         }

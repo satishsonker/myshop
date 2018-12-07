@@ -32,13 +32,13 @@ namespace Myshop.Areas.Global.Models
         [StringLength(maximumLength: 50, MinimumLength = 10, ErrorMessage = "Invalid Email (10 Min and 50 max chars)")]
         public string Email { get; set; }
 
-        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid District (3 Min and 50 max chars)")]
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "District State (1 Min digit)")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "District is required")]
-        public string District { get; set; }
+        public int District { get; set; }
 
-        [StringLength(maximumLength: 50, MinimumLength = 2, ErrorMessage = "Invalid State (2 Min and 50 max chars)")]
+        [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Invalid State (1 Min digit)")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "State is required")]
-        public string State { get; set; }
+        public int State { get; set; }
     }
 
     public class AttachmentModel

@@ -17,6 +17,10 @@ $newSales.setCustomerRecord = function (data) {
     $('#hdnCustomerId').val(data.CustomerId);
 }
 $(document).on('click', '[id*="btnDelete_"]', function () {
+    if ($('.defaultRow').length > 0) {
+        utility.SetAlert('You can\'t delete this row', utility.alertType.warning);
+        return false;
+    }
     $(this).parent().parent().parent().remove();
     let $tbody = $('#tblInvoicedetails tbody');
     let $totalRows = $($tbody).find('tr:lt(' + ($($tbody).find('tr').length - 3) + ')');
@@ -60,7 +64,11 @@ $(document).on('click', '#_ptlSearchProductSave', function () {
     $('#tblInvoicedetails tbody tr').each(function (ind, ele) {
         if ($(ele).find('td').length == 8) {
             var $discount = parseFloat($(ele).find('td:eq(2) #txtDiscount_' + ind).val());
+            var $qtyInput = parseFloat($(ele).find('td:eq(5) #txtQty_' + ind).val());
+            var $qtyMax = parseFloat($(ele).find('td:eq(5) #txtQty_' + ind).attr('max')); // Avaialbe in stock
             var $remark = $(ele).find('td:eq(3) #txtRemark_' + ind).val();
+            var $productName = $(ele).find('td:eq(1)').text().trim();
+
             if ($discount > 0 && $remark === '') {
                 utility.SetAlert('Please put the remarks because you are giving the discount', utility.alertType.warning);
                 $(ele).find('td:eq(3) #txtRemark_' + ind).addClass('shop_hasError').focus();
@@ -70,9 +78,25 @@ $(document).on('click', '#_ptlSearchProductSave', function () {
             else {
                 $(ele).find('td:eq(3) #txtRemark_' + ind).removeClass('shop_hasError');
             }
+
+            if ($qtyMax > 0 && $qtyInput < 1) {
+                utility.SetAlert('Please enter the quantity of the product "' + $productName + '"', utility.alertType.warning);
+                $(ele).find('td:eq(5) #txtQty_' + ind).addClass('shop_hasError').focus();
+                $flag = true;
+                return false;
+            }
+            else if ($qtyInput > $qtyMax) {
+                utility.SetAlert('Only ' + $qtyMax + ' quantity of the product "' + $productName + '" is availabe in the stock', utility.alertType.warning);
+                $(ele).find('td:eq(5) #txtQty_' + ind).addClass('shop_hasError').focus();
+                $flag = true;
+                return false;
+            }
+            else {
+                $(ele).find('td:eq(5) #txtQty_' + ind).removeClass('shop_hasError');
+            }
             var _newProduct = {};
             _newProduct.ProductId = $(ele).find('td:eq(1)').data('proid');
-            _newProduct.Qty = $(ele).find('td:eq(5) #txtQty_' + ind).val();
+            _newProduct.Qty = $qtyInput;
             _newProduct.SalePrice = $(ele).find('td#lblPrice_' + ind).text();
             _newProduct.Discount = $(ele).find('td:eq(2) #txtDiscount_' + ind).val();
             _newProduct.Remark = $(ele).find('td:eq(3) #txtRemark_' + ind).val();
@@ -121,6 +145,7 @@ $(document).on('click', '#_ptlSearchProductSave', function () {
         utility.ajaxHelper(app.urls.SaleArea.SalesController.SaveInvoice, { invoiceDetails: $invoiceDetail }, function (data) {
 
             $('#lblInvoiceNo').text($('#lblInvoiceNo').text().replace('$invoiceNo', data[0].Key));
+            $('#lblInvoiceNo').text($('#lblInvoiceDate').text().replace('$invoiceDate', new Date().toDateString()));
             $('#_ptlSearchProductSave').data('invoiceno', data[0].Key);
             utility.setAjaxAlert(data);
         });
@@ -174,6 +199,8 @@ $(document).on('click change', '[id*="txtQty_"],[id*="txtDiscount_"]', function 
     let $rowId = $(this).attr('id').split('_')[1];
     let $price = parseFloat($('#lblPrice_' + $rowId).text()).toFixed(2);
     let $qty = parseFloat($('[id="txtQty_' + $rowId + '"]').val());
+    let $qtyMax = parseFloat($('[id="txtQty_' + $rowId + '"]').attr('max'));
+    let $proName = $(this).parent().parent().find('td:eq(2)').text().trim();
     let $amount = $('#lblAmount_' + $rowId);
     let $discount = parseFloat($('#txtDiscount_' + $rowId).val());
     let $totalAmount = (($price * $qty) - $discount);
@@ -182,6 +209,14 @@ $(document).on('click change', '[id*="txtQty_"],[id*="txtDiscount_"]', function 
     let $gstAmount = 0.00;
     let $grandAmount = 0.00;
     let $grandAmountInText = '';
+    if ($qty > $qtyMax) {
+        utility.SetAlert('Only ' + $qtyMax + ' quantity of the product "' + $proName + '" is availabe in the stock', utility.alertType.warning);
+        $('[id="txtQty_' + $rowId + '"]').addClass('shop_hasError');
+        return false;
+    }
+    else {
+        $('[id="txtQty_' + $rowId + '"]').removeClass('shop_hasError');
+    }
     $amount.text($totalAmount.toFixed(2));
     $('[id*="lblAmount_"]').each(function (ind, ele) {
         $subTotal += parseFloat($(ele).text());
@@ -206,7 +241,10 @@ $(document).on('click', '#_ptlSearchProductAdd', function () {
     let $tbody = $('#tblInvoicedetails tbody');
     let $totalRows = 0;
     if (!$.isEmptyObject($data)) {
-
+        if ($data.AvailableQty < 1) {
+            utility.SetAlert('This product is not avaible in the stock', utility.alertType.warning);
+            return false;
+        }
         $('.defaultRow').remove();
         $totalRows = $($tbody).find('tr').length;
         let $hasProduct = false;
@@ -227,7 +265,7 @@ $(document).on('click', '#_ptlSearchProductAdd', function () {
             '<td> <input type="number" min="0" value="0" id="txtDiscount_' + ($totalRows - 3) + '" class="form-control" /></td > ' +
             '<td> <input type="text" title="Put remark if discount is applicable" id="txtRemark_' + ($totalRows - 3) + '" class="form-control" /></td> ' +
             '<td class="shop_vMiddle shop_hCentre" id="lblPrice_' + ($totalRows - 3) + '">' + $data.SalePrice.toFixed(2) + '</td> ' +
-            '<td class="shop_vMiddle shop_hCentre"><input min="0" value="1"  type="number" id="txtQty_' + ($totalRows - 3) + '" class="form-control" /></td> ' +
+            '<td class="shop_vMiddle shop_hCentre"><input min="0" max="' + $data.AvailableQty + '" value="' + ($data.AvailableQty>0?"1":"0")+'"  type="number" id="txtQty_' + ($totalRows - 3) + '" class="form-control" /></td> ' +
             '<td class="shop_vMiddle shop_hRigth" id="lblAmount_' + ($totalRows - 3) + '"> 0.00</td> ' +
             '<td class="shop_vMiddle shop_hCentre">' +
             '<div class="btn-group">' +
@@ -291,7 +329,11 @@ function resetInvoice() {
 }
 
 function validateInvoice(obj) {
-    if (obj.CustomerId === "0") {
+    if (obj.Products.length == 0) {
+        utility.SetAlert("Please add atleast one product");
+        return false;
+    }
+    else if (obj.CustomerId === "0") {
         utility.SetAlert("Please select/search the customer");
         return false;
     } else if (obj.Products == undefined || obj.Products[0].ProductId === undefined) {

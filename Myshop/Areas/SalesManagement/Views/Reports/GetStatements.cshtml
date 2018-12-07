@@ -1,0 +1,37 @@
+﻿
+@{
+    ViewBag.Title = "Sales Statements";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script src="~/Scripts/App/Area/Sales/Reports/SalesStatement.js"></script>
+<div class="panel panel-info">
+    <div class="panel-heading"></div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-lg-3">
+                <label>Statement Period</label>
+            </div>
+            <div class="col-lg-3">
+                <input type="date" class="form-control" id="txtFromDate" />
+            </div>
+            <div class="col-lg-3">
+                <input type="date" class="form-control" id="txtToDate" />
+            </div>
+            <div class="col-lg-3">
+                <input type="button" class="btn btn-primary" value="Go" id="btnGetStatement" />
+            </div>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <table class="table table-bordered table-responsive table-striped" id="tblStatement">
+            <thead></thead>
+            <tbody></tbody>
+        </table>
+    </div>
+</div>
+<style>
+    body {
+        height: auto !important;
+        background: #eef1f6 !important;
+    }
+</style>
