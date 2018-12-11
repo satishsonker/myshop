@@ -198,6 +198,8 @@
     <Compile Include="Areas\SalesManagement\Models\ReportsModel.cs" />
     <Compile Include="Areas\SalesManagement\Models\SalesDetails.cs" />
     <Compile Include="Areas\SalesManagement\Models\SalesModel.cs" />
+    <Compile Include="Areas\SalesManagement\Models\SalesSettingDetails.cs" />
+    <Compile Include="Areas\SalesManagement\Models\SalesSettingModel.cs" />
     <Compile Include="Areas\SalesManagement\SalesManagementAreaRegistration.cs" />
     <Compile Include="Areas\StockManagement\Controllers\MastersController.cs" />
     <Compile Include="Areas\StockManagement\Controllers\StockController.cs" />
@@ -303,6 +305,7 @@
     <Content Include="Areas\SalesManagement\Views\Sale\CancelInvoice.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Reports\GetStatements.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Settings\GetSetting.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Shared\_ButtonGroup.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -545,7 +548,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\EmployeesManagement\Views\Reports\" />
-    <Folder Include="Areas\SalesManagement\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

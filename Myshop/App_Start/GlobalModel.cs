@@ -982,6 +982,7 @@ namespace Myshop.App_Start
     {
         public int ShopId { get; set; }
         public string ShopName { get; set; }
+        public string GSTIN { get; set; }
     }
 
     public class PagingModel

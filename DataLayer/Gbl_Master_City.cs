@@ -18,6 +18,7 @@ namespace DataLayer
         public Gbl_Master_City()
         {
             this.Gbl_Master_Customer = new HashSet<Gbl_Master_Customer>();
+            this.Gbl_Master_Shop = new HashSet<Gbl_Master_Shop>();
         }
     
         public int CityId { get; set; }
@@ -33,5 +34,7 @@ namespace DataLayer
         public virtual Gbl_Master_State Gbl_Master_State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Customer> Gbl_Master_Customer { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Shop> Gbl_Master_Shop { get; set; }
     }
 }

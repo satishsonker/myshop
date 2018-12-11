@@ -138,6 +138,23 @@ namespace Myshop.App_Start
             set { HttpContext.Current.Session["Lastname"] = value; }
         }
 
+        public static string GSTIN
+        {
+
+            get
+            {
+                if (HttpContext.Current.Session["GSTIN"] == null)
+                {
+                    return string.Empty;
+                }
+                else
+                {
+                    return HttpContext.Current.Session["GSTIN"].ToString();
+                }
+            }
+            set { HttpContext.Current.Session["GSTIN"] = value; }
+        }
+
         public static string UserGender
         {
             get

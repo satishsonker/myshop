@@ -34,6 +34,7 @@ namespace DataLayer
             this.Stk_Tr_Entry = new HashSet<Stk_Tr_Entry>();
             this.Stk_Dtl_Entry = new HashSet<Stk_Dtl_Entry>();
             this.UserShopMappers = new HashSet<UserShopMapper>();
+            this.Sale_Setting = new HashSet<Sale_Setting>();
         }
     
         public int ShopId { get; set; }
@@ -41,9 +42,10 @@ namespace DataLayer
         public string Address { get; set; }
         public string Mobile { get; set; }
         public string Email { get; set; }
-        public string Distict { get; set; }
-        public string State { get; set; }
+        public int Distict { get; set; }
+        public int State { get; set; }
         public int Owner { get; set; }
+        public string GSTIN { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSync { get; set; }
         public int CreatedBy { get; set; }
@@ -59,12 +61,14 @@ namespace DataLayer
         public virtual ICollection<Gbl_Master_Brand> Gbl_Master_Brand { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Category> Gbl_Master_Category { get; set; }
+        public virtual Gbl_Master_City Gbl_Master_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_NotificationType> Gbl_Master_NotificationType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Product> Gbl_Master_Product { get; set; }
+        public virtual Gbl_Master_State Gbl_Master_State { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Task> Gbl_Master_Task { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -86,5 +90,7 @@ namespace DataLayer
         public virtual ICollection<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<UserShopMapper> UserShopMappers { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Sale_Setting> Sale_Setting { get; set; }
     }
 }

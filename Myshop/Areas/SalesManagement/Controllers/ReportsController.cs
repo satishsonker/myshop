@@ -1,4 +1,5 @@
 ﻿using Myshop.Areas.SalesManagement.Models;
+using Myshop.Controllers;
 using Myshop.Filters;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,7 @@ namespace Myshop.Areas.SalesManagement.Controllers
 {
     [MyshopAuthorize]
     [MyShopPermission]
-    public class ReportsController : Controller
+    public class ReportsController : CommonController
     {
         // GET: SalesManagement/Reports
         [HttpGet]

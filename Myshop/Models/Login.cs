@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using DataLayer;
+﻿using DataLayer;
 using Myshop.App_Start;
-using System.Data.Entity;
 using Myshop.Areas.Global.Models;
+using System;
+using System.Collections.Generic;
+using System.Data.Entity;
+using System.Linq;
 
 namespace Myshop.Models
 {
@@ -110,7 +110,7 @@ namespace Myshop.Models
                              shop.Mobile,
                              shop.Address,
                              shop.Email,
-                             State=shop.Gbl_Master_State.StateName,
+                             State = shop.Gbl_Master_State.StateName,
                              Distict = shop.Gbl_Master_City.CityName,
                              shop.Owner
                          }).ToList();
@@ -198,13 +198,21 @@ namespace Myshop.Models
                         _newItem.ReceiveDate = Convert.ToDateTime(item.PushedDate);
                         TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.PushedDate));
                         if (span.Days == 1)
+                        {
                             _newItem.ReceiveTime = string.Format("{0} day ago", span.Days.ToString());
+                        }
                         else if (span.Days > 1)
+                        {
                             _newItem.ReceiveTime = string.Format("{0} days ago", span.Days.ToString());
+                        }
                         else if (span.Hours >= 1 && span.Hours <= 23)
+                        {
                             _newItem.ReceiveTime = string.Format("{0} hour ago", span.Hours.ToString());
+                        }
                         else //if (span.Minutes < 60)
+                        {
                             _newItem.ReceiveTime = string.Format("{0} min ago", span.Minutes.ToString());
+                        }
 
                         _notificationList.Add(_newItem);
                     }
@@ -224,9 +232,9 @@ namespace Myshop.Models
                     {
                         TaskUserModel _newItem = new TaskUserModel();
                         _newItem.CreatedDate = item.CreatedDate;
-                        _newItem.TaskCreatedByName = item.Gbl_Master_User.Firstname+" "+item.Gbl_Master_User.Lastname;
+                        _newItem.TaskCreatedByName = item.Gbl_Master_User.Firstname + " " + item.Gbl_Master_User.Lastname;
                         _newItem.TaskCreatedById = item.Gbl_Master_User.UserId;
-                        _newItem.TaskCreatedByPhoto = Convert.ToBase64String(Utility.GetImageThumbnails(item.Gbl_Master_User.Photo,30));
+                        _newItem.TaskCreatedByPhoto = Convert.ToBase64String(Utility.GetImageThumbnails(item.Gbl_Master_User.Photo, 30));
                         _newItem.IsImporatant = item.IsImportant;
                         _newItem.TaskAssignedUserId = item.AssignedUserId;
                         _newItem.TaskAssignedUserName = item.Gbl_Master_User1.Firstname + " " + item.Gbl_Master_User1.Lastname; ;
@@ -234,13 +242,21 @@ namespace Myshop.Models
                         _newItem.TaskDetails = item.TaskDetails;
                         TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.CreatedDate));
                         if (span.Days == 1)
+                        {
                             _newItem.TaskAssignedTime = string.Format("{0} day ago", span.Days.ToString());
+                        }
                         else if (span.Days > 1)
+                        {
                             _newItem.TaskAssignedTime = string.Format("{0} days ago", span.Days.ToString());
+                        }
                         else if (span.Hours >= 1 && span.Hours <= 23)
+                        {
                             _newItem.TaskAssignedTime = string.Format("{0} hour ago", span.Hours.ToString());
+                        }
                         else //if (span.Minutes < 60)
+                        {
                             _newItem.TaskAssignedTime = string.Format("{0} min ago", span.Minutes.ToString());
+                        }
 
                         _taskList.Add(_newItem);
                     }
@@ -253,7 +269,9 @@ namespace Myshop.Models
                         return Enums.LoginStatus.HasDefaultPassword;
                     }
                     else
+                    {
                         return shopname.Count > 0 ? Enums.LoginStatus.Authenticate : Enums.LoginStatus.NoShopMapped;
+                    }
                 }
             }
             catch (Exception)
@@ -263,7 +281,9 @@ namespace Myshop.Models
             finally
             {
                 if (myShop != null)
+                {
                     myShop = null;
+                }
             }
         }
 
@@ -281,13 +301,21 @@ namespace Myshop.Models
                     WebSession.Username = isExist.Username;
 
                     if (isExist.IsDeleted == true)
+                    {
                         return Enums.ResetLinkStatus.UserDeleted;
+                    }
                     else if (isExist.IsActive == false)
+                    {
                         return Enums.ResetLinkStatus.InactiveUser;
+                    }
                     else if (isExist.IsBlocked == true)
+                    {
                         return Enums.ResetLinkStatus.BlockedUser;
+                    }
                     else if (string.IsNullOrEmpty(isExist.Mobile))
+                    {
                         return Enums.ResetLinkStatus.invalidMobile;
+                    }
                     else
                     {
                         string otp = string.Empty;
@@ -345,7 +373,9 @@ namespace Myshop.Models
             finally
             {
                 if (myShop != null)
+                {
                     myShop = null;
+                }
             }
         }
 
@@ -390,7 +420,9 @@ namespace Myshop.Models
             finally
             {
                 if (myShop != null)
+                {
                     myShop = null;
+                }
             }
         }
 
@@ -412,7 +444,9 @@ namespace Myshop.Models
                     return Enums.LoginStatus.Authenticate;
                 }
                 else
+                {
                     return Enums.LoginStatus.InvalidUser;
+                }
             }
             catch (Exception)
             {
@@ -444,10 +478,14 @@ namespace Myshop.Models
                         return Enums.LoginStatus.Authenticate;
                     }
                     else
+                    {
                         return Enums.LoginStatus.Failed;
+                    }
                 }
                 else
+                {
                     return Enums.LoginStatus.InvalidUser;
+                }
             }
             catch (Exception ex)
             {
@@ -468,17 +506,24 @@ namespace Myshop.Models
                     if (user != null)
                     {
                         if (isValid.ReserExpireTime.Value < DateTime.Now)
+                        {
                             return Enums.ResetLinkStatus.LinkExpire;
+                        }
                         else
                         {
                             WebSession.Username = user.Username;
                             return Enums.ResetLinkStatus.send;
                         }
                     }
-                    else return Enums.ResetLinkStatus.InactiveUser;
+                    else
+                    {
+                        return Enums.ResetLinkStatus.InactiveUser;
+                    }
                 }
                 else
+                {
                     return Enums.ResetLinkStatus.InvalidLink;
+                }
             }
             catch (Exception ex)
             {
@@ -495,7 +540,8 @@ namespace Myshop.Models
                             select new ShopListModel
                             {
                                 ShopId = shop.ShopId,
-                                ShopName = shop.Name
+                                ShopName = shop.Name,
+                                //GSTIN=shop.GSTIN
                             }).ToList();
             return shopList;
         }
@@ -509,9 +555,15 @@ namespace Myshop.Models
                             select new ShopListModel
                             {
                                 ShopId = shop.ShopId,
-                                ShopName = shop.Name
-                            }).Count();
-            return shopList > 0 ? true : false;
+                                ShopName = shop.Name,
+                                GSTIN = shop.GSTIN
+                            }).FirstOrDefault();
+            if (shopList != null)
+            {
+                //WebSession.GSTIN = shopList.GSTIN;
+                return true;
+            }
+            return false;
         }
 
         public Enums.LoginStatus GetUsername(string _mobile)
@@ -528,7 +580,9 @@ namespace Myshop.Models
                     return Enums.LoginStatus.SmsSend;
                 }
                 else
+                {
                     return Enums.LoginStatus.MobileNoExist;
+                }
             }
             catch (Exception ex)
             {
