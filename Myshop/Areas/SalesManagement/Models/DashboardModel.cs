@@ -45,5 +45,6 @@ namespace Myshop.Areas.SalesManagement.Models
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public int TotalQty { get; set; }
+        public int TotalRecord { get; set; }
     }
 }

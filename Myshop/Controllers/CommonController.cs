@@ -9,6 +9,7 @@ using System.Web;
 using System.Web.Mvc;
 using Myshop.GlobalResource;
 using Myshop.Filters;
+using Myshop.Models;
 
 namespace Myshop.Controllers
 {
@@ -395,6 +396,13 @@ namespace Myshop.Controllers
         public JsonResult GetCity(int StateId)
         {
             return Json(GlobalMethod.GetCity(StateId), JsonRequestBehavior.AllowGet);
+        }
+
+        
+        public JsonResult GetPushNotification()
+        {
+            LayoutDetails layoutDetails = new LayoutDetails();
+            return Json(layoutDetails.GetPushNotification(), JsonRequestBehavior.AllowGet);
         }
     }
 }

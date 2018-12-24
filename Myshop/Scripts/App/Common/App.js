@@ -122,6 +122,7 @@ app.urls.GetTotalCustomerTypePieChartData = "/CustomersManagement/Customer/GetTo
 app.urls.CommonController.CheckPassword = '/Common/CheckPassword';
 app.urls.CommonController.GetCity = '/Common/GetCity';
 app.urls.CommonController.GetState = '/Common/GetState';
+app.urls.CommonController.GetPushNotification = '/Common/GetPushNotification';
 
 //Sale Area
 app.urls.SaleArea.SalesController.SearchProduct = "/SalesManagement/Sale/SearchProduct";
@@ -137,7 +138,11 @@ app.urls.SaleArea.SalesController.GetSalesList = "/SalesManagement/Sale/GetSales
 
 app.urls.SaleArea.reportsController = {};
 app.urls.SaleArea.reportsController.GetSalesStatement = "/SalesManagement/reports/GetSalesStatement";
+app.urls.SaleArea.reportsController.GetGstStatement = "/SalesManagement/reports/GetGstStatement";
+app.urls.SaleArea.reportsController.GetMostSaleProduct = "/SalesManagement/reports/GetMostSaleProduct";
 
+app.urls.SaleArea.settingsController = {};
+app.urls.SaleArea.settingsController.getSaleSettingJson = "/SalesManagement/Settings/GetSaleSettingJson";
 //Constant Declaration
 app.const.toastColor = {};
 app.const.toastColor.red = '#ff00006e';
@@ -164,5 +169,16 @@ app.const.ajaxMethod.put = "PUT";
 app.const.ajaxMethod.delete = "DELETE";
 
 app.const.htmlCode = {};
-app.const.htmlCode.rupeesSymbol ="&#8377"
+app.const.htmlCode.rupeesSymbol = "&#8377";
+
+app.const.hourArray = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
+app.const.weekDayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+app.const.digitInWord = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
+app.const.digitx10InWord = ['', '', 'Twenty', 'Thirty', 'Torty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+// Css Class
+app.cssClass = {};
+
+app.cssClass.hRigth = "shop_hRigth";
+app.cssClass.hCentre = "shop_hCentre";
 

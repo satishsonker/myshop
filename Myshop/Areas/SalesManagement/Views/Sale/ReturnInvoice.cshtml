@@ -1,4 +1,4 @@
-﻿
+﻿@using Myshop.App_Start
 @{
     ViewBag.Title = "ReturnInvoice";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
@@ -54,7 +54,7 @@
                         <td colspan="1" title="Already return product amount is not included" id="lblRtnSubTotal" class="shop_hRigth">0.00</td>
                     </tr>
                     <tr>
-                        <td colspan="6" class="shop_hRigth">GST @@ 12%</td>
+                        <td colspan="6" class="shop_hRigth" id="lblGstRate">GST @@ 12%<i class="fas fa-info-circle"></i></td>
                         <td colspan="2" id="lblGst" class="shop_hRigth">0.00</td>
                         <td colspan="2" class="shop_hRigth"></td>
                         <td colspan="1"  title="Already return product amount is not included" id="lblRtnGst" class="shop_hRigth">0.00</td>

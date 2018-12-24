@@ -6,6 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@ViewBag.title - @WebSession.ShopName</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" integrity="sha384-gfdkjb5BdAXd+lj+gudLWI+BXq4IuLW5IT+brZEZsLFm++aCMlF1V92rMkPaX4PP" crossorigin="anonymous">
     <link href="~/Content/App/Home/Common.css" rel="stylesheet" />
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Layout/extra.css" rel="stylesheet" />
@@ -40,7 +41,7 @@
     <script src="~/Scripts/App/Common/Validate.js"></script>
     <link href="~/Content/jquery.dropdown.min.css" rel="stylesheet" />
     <script src="~/Scripts/jquery.dropdown.min.js"></script>
-
+    <script src="~/Scripts/App/Common/layout.js"></script>
 </head>
 @{ string AreaName = string.Empty;
     if (ViewContext.RouteData.DataTokens["area"] != null)
@@ -51,7 +52,7 @@
     <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
         <header id="hoe-header" hoe-lpanel-effect="shrink" class="">
             <div class="hoe-left-header">
-                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Click here to go to dashboard",style= "font-size: 13px;" })</span></a>
+                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Click here to go to dashboard", style = "font-size: 13px;" })</span></a>
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
             </div>
 
@@ -86,21 +87,13 @@
                         <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
                             <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
                                 <i class="fa fa-bell-o"></i>
-                                <span class="badge badge-success">6</span>
+                                <span class="badge badge-success" id="lblNotiCount">0</span>
                             </a>
-                            <ul class="dropdown-menu ">
+                            <ul class="dropdown-menu notiList" >
                                 <li class="hoe-submenu-label">
-                                    <h3><span class="bold">6 pending</span> Notification <a href="#">view all</a></h3>
+                                    <h3><span class="bold lblNotiCount">0 pending</span> Notification <a href="#">view all</a></h3>
                                 </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <i class="fa fa-database red-text"></i>
-                                        <span class="notification-title">Database overload- Sav3090</span>
-                                        <span class="notification-ago  ">3 min ago</span>
-                                        <p class="notification-message">Database overload due to incorrect queries</p>
-                                    </a>
-                                </li>
-                                <li>
+                                @*<li>
                                     <a href="#" class="clearfix">
                                         <i class="fa fa-exchange green-text"></i>
                                         <span class="notification-title">Installing App v1.2.1</span>
@@ -163,7 +156,7 @@
                                         </div>
                                         <p></p>
                                     </a>
-                                </li>
+                                </li>*@
 
                             </ul>
                         </li>
@@ -198,7 +191,7 @@
                             </form>
                         </li>
                     </ul>
-                }
+                                    }
                 <ul class="right-navbar">
                     <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -268,9 +261,12 @@
                             }
                         </a>
                         <div class="media-body">
-                            <h5 class="media-heading">Welcome <span>@WebSession.Firstname</span></h5>
-                            <small>@WebSession.UserType.ToUpper()</small>
-                        </div>
+                            @{
+                                string name = WebSession.Firstname == "" ? "Guest" : @WebSession.Firstname;
+                                <h5 class="media-heading">Welcome @name<span></span></h5>
+                                <small>@WebSession.UserType.ToUpper()</small>
+                            }
+                            </div>
                     </div>
                 </div>
                 <ul class="nav panel-list">
@@ -723,41 +719,6 @@
                                             <span class="selected"></span>
                                         </a>
                                     </li>
-                                    <li class="hoe-has-menu">
-                                        @*Sale Report Start*@
-                                        <a href="javascript:void(0)">
-                                            <i class="fa fa-files-o"></i>
-                                            <span class="menu-text">Reports</span>
-                                            <span class="selected"></span>
-                                        </a>
-                                        <ul class="hoe-sub-menu">
-
-                                            <li>
-                                                <a href="/@AreaName/Masters/GetAccountType">
-                                                    <span class="menu-text">Add Bank Account Type</span>
-                                                    <span class="selected"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/@AreaName/Masters/GetPayMode">
-                                                    <span class="menu-text">Add Payment Mode</span>
-                                                    <span class="selected"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/@AreaName/Masters/GetBankAccount">
-                                                    <span class="menu-text">Add Bank Account</span>
-                                                    <span class="selected"></span>
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="/@AreaName/Masters/GetCheque">
-                                                    <span class="menu-text">Add Cheque</span>
-                                                    <span class="selected"></span>
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </li>@*Global Master Bank Menu End*@
                                 </ul>
                             </li> @*Global Master Menu End*@
 
@@ -775,11 +736,23 @@
                                             <span class="selected"></span>
                                         </a>
                                     </li>
+                                    <li>
+                                        <a href="/@AreaName/Reports/GetGstStatements">
+                                            <span class="menu-text">GST Statement</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/@AreaName/Reports/MostSellingProduct">
+                                            <span class="menu-text">Most Selling Product</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
                                 </ul>
                             </li> @*Sales Reports Menu End*@
 
                             <li>
-                                <a href="\@AreaName\settings\GetSetting">
+                                <a href="/@AreaName/settings/GetSetting">
                                     <i class="fa fa-tachometer"></i>
                                     <span class="menu-text">Sales Setting</span>
                                     <span class="selected"></span>
@@ -1014,8 +987,14 @@
     </div>
     <div class="lock">
         <div class="row">
-            <div class="col-lg-6" style="margin-left: 25%;margin-top: 15%;">
-                <div style="text-align:center;color:white;"><h2 id="_layoutScreenLockMsg">Your Screen is locked</h2></div>
+            <div class="col-lg-6" style="margin-left: 25%;margin-top: 10%;">
+                <div style="text-align:center;color:white;">
+                    <h2>
+                        <img class="img-circle" style="width:100px;height:100px;" src="data:image/jpg;base64,@WebSession.UserPhoto">
+                    </h2>
+                </div>
+                <div style="text-align:center;color:white;"><h2>@WebSession.Firstname @WebSession.Lastname</h2></div>
+                <div style="text-align:center;color:white;"><h6 id="_layoutScreenLockMsg">Your Screen is locked</h6></div>
                 <hr />
                 <div class="input-group">
                     <input type="password" class="form-control" autocomplete="off" id="_layoutUnlockPassword" placeholder="Enter your account password..">
@@ -1026,71 +1005,43 @@
             </div><!-- /.col-lg-6 -->
         </div><!-- /.row -->
     </div>
+    <div class="notistack">
+    </div>
     @*<script src="~/Scripts/jquery-1.10.2.min.js"></script>*@
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="~/Scripts/hoe.js"></script>
 </body>
 </html>
-
-<script>
-    $(document).ready(function () {
-        $('#myModal').modal();
-        let interval = setInterval(function () {
-            let height = $('body').css('height');
-            if (height == 'auto !important') {
-                clearInterval(interval);
-            }
-            else {
-                //$('body').css({ 'height': '1000px !important' });
-            }
-        }, 100)
-
-        //Assign active arrow to the current menu
-        $('aside li').removeClass('active');
-        $('aside a').each(function (ind, ele) {
-            if ($(ele).attr('href').toLowerCase() == location.pathname.toLowerCase()) {
-
-                if ($(ele).parent().parent().hasClass('hoe-sub-menu')) {
-                    $(ele).parent().parent().parent().find('a:first-child').click();
-                }
-                $('aside li').removeClass('active');
-                $(ele).parent().addClass('active');
-            }
-        });
-
-        $(document).on('click', '#_layoutUnlockScreen', function () {
-            let $password = $('#_layoutUnlockPassword');
-            utility.ajaxHelper(app.urls.CommonController.CheckPassword, { password: $password.val() }, function (data) {
-                if (data) {
-                    $('.lock').hide(500);
-                    $password.val('');
-                }
-                else {
-                    $('#_layoutScreenLockMsg').text('Password is invalid');
-                    setTimeout(function () {
-                        $('#_layoutScreenLockMsg').text('Your Screen is locked');
-                    }, 2000);
-                }
-            });
-        });
-
-        $(document).on('click', '#_layoutLockScreen', function () {
-            $('.lock').show(500);
-            return false;
-        });
-    });
-</script>
 <style>
-     .lock {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: #000000a3;
-            z-index: 99999999999;
-            display: none;
-        }
+    #content {
+        overflow:hidden;
+        word-wrap:hyphenate;
+        width: 300px;
+        max-height:100px;
+        height:100px;
+        margin-bottom:10px;
+    }
+    #left {
+        float: left;
+        width:12%;
+    }
+
+    #right {
+        word-break:break-all;
+        float: right;
+        width: 80%;
+    } 
+    .lock {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: #000000a3;
+        z-index: 99999999999;
+        display: none;
+    }
+
     .danger {
         background-color: #ff00007d;
     }
@@ -1106,7 +1057,12 @@
     .success {
         background-color: rgba(0, 128, 0, 0.50);
     }
+
     .modal-open {
         margin-right: 0px !important;
+    }
+
+    #hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel .panel-list li.active > a .selected {
+        border-right: 13px solid #ffec51;
     }
 </style>

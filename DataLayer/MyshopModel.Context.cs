@@ -62,13 +62,12 @@ namespace DataLayer
         public virtual DbSet<Login> Logins { get; set; }
         public virtual DbSet<MasterVendor> MasterVendors { get; set; }
         public virtual DbSet<Sale_Dtl_Invoice> Sale_Dtl_Invoice { get; set; }
+        public virtual DbSet<Sale_Setting> Sale_Setting { get; set; }
         public virtual DbSet<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }
         public virtual DbSet<Stk_Dtl_Entry> Stk_Dtl_Entry { get; set; }
         public virtual DbSet<Stk_Tr_Entry> Stk_Tr_Entry { get; set; }
         public virtual DbSet<User_ShopMapper> User_ShopMapper { get; set; }
         public virtual DbSet<UserShopMapper> UserShopMappers { get; set; }
-        public virtual DbSet<UserType> UserTypes { get; set; }
-        public virtual DbSet<Sale_Setting> Sale_Setting { get; set; }
     
         [DbFunction("MyshopDb", "ss")]
         public virtual IQueryable<ss_Result> ss(Nullable<int> id)

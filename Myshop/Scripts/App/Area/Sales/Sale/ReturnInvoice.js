@@ -1,12 +1,13 @@
 ﻿var $returnInvoice = {}
-
+let $gstRate = 12.00;
 $(document).ready(function () {
 });
 
 $(document).on('click', '#_ptlSearchInvoiceGenerate', function () {
     let $data = $('#_ptlSearchInvoiceGenerate').data('productinfo');
     let $html = '';
-
+    $gstRate = $data.GstRate;
+    $('#lblGstRate').text('GST @ ' + $gstRate + '%');
     $returnInvoice.resetInvoice(); //Set default table
    
     $('#hdnInvoiceId').val($data.InvoiceId);
@@ -33,8 +34,8 @@ $(document).on('click', '#_ptlSearchInvoiceGenerate', function () {
     $('#custPre').text($('#custPre').text().replace('$address', $data.CustomerAddress));
     $('.tdSubTotal').before($html);
     $('#lblSubTotal').text(parseFloat($data.SubTotalAmount).toFixed(2));
-    $('#lblGst').text($data.GstAmount);
-    $('#lblGrandAmount').text($data.GrandTotal);
+    $('#lblGst').text(parseFloat($data.GstAmount).toFixed(2));
+    $('#lblGrandAmount').text(parseFloat($data.GrandTotal).toFixed(2));
     $('#lblGrandTotalWord').text(utility.currentyInWords($data.GrandTotal.toFixed(0)));
 
     $returnInvoice.markReturnRow();
@@ -78,10 +79,11 @@ $(document).on('change', 'input[id*="txtRtnQty_"]', function () {
             returnSubTotal += isNaN($currentRowAmount) ? 0.00 : $currentRowAmount;
         }
     });
-   
+
     $('#lblRtnSubTotal').text(returnSubTotal.toFixed(2));
-    $('#lblRtnGst').text(parseFloat((returnSubTotal / 100) * 12).toFixed(2));
-    $('#lblRtnGrandAmount').text(parseFloat(returnSubTotal + ((returnSubTotal / 100) * 12)).toFixed(2));
+    let $gstAmount = ((returnSubTotal / 100) * $gstRate);
+$('#lblRtnGst').text(parseFloat($gstAmount).toFixed(2));
+    $('#lblRtnGrandAmount').text(parseFloat(returnSubTotal + $gstAmount).toFixed(2));
     $('#txtAmountToBePaid').val($('#lblRtnGrandAmount').text());
 });
 
@@ -118,8 +120,9 @@ $(document).on('click', '#btnSaveReturnInvoice', function () {
         $('[id*="chkPro_"]:checked').each(function(ind,ele) {
             var $newReturn = {};
             var $txtRtnRemarks = $(ele).parent().parent().find('input[id*="txtRtnRmk_"]');
+            var $txtRtnQty = $(ele).parent().parent().find('input[id*="txtRtnQty_"]');
             $newReturn.ProductId = $(ele).parent().parent().data('proid');
-            $newReturn.ReturnQty = parseInt($(ele).parent().parent().find('input[id *= "txtRtnQty_"]').val());
+            $newReturn.ReturnQty = parseInt($($txtRtnQty).val());
             $newReturn.ReturnAmount = $(ele).parent().parent().find('.lblReturnAmount').text();
             $newReturn.ReturnRemark = $($txtRtnRemarks).val();
             if ($newReturn.ReturnQty > 0 && $newReturn.ReturnRemark === '') {
@@ -130,6 +133,15 @@ $(document).on('click', '#btnSaveReturnInvoice', function () {
             }
             else {
                 $($txtRtnRemarks).removeClass('shop_hasError');
+            }
+            if ($newReturn.ReturnQty <1) {
+                utility.SetAlert('Please enter the return quantity', utility.alertType.warning);
+                $($txtRtnQty).addClass('shop_hasError').focus();
+                $flag = true;
+                return false;
+            }
+            else {
+                $($txtRtnQty).removeClass('shop_hasError');
             }
 
             $products.push($newReturn);

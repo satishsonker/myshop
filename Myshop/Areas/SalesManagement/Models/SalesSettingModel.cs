@@ -19,5 +19,13 @@ namespace Myshop.Areas.SalesManagement.Models
         [StringLength(500, MinimumLength = 0, ErrorMessage = "ReturnPolicy should be max 500 chars")]
         public string ReturnPolicy { get; set; }
 
+        [StringLength(10, MinimumLength = 0, ErrorMessage = "Weekly Closing Day should be max 10 chars")]
+        public string WeeklyClosingDay { get; set; }
+
+        [StringLength(50, MinimumLength = 0, ErrorMessage = "Exchange Day & Time should be max 50 chars")]
+        public string ExchangeDayTime { get; set; }
+
+        public decimal GstRate { get; set; } = 12.00M;
+
     }
 }

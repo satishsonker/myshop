@@ -9,6 +9,7 @@ $(document).on('click', '#_ptlSearchInvoiceGenerate', function () {
     let $data = $('#_ptlSearchInvoiceGenerate').data('productinfo');
     let $tbody = $('#tblInvoice');
     let $html = '';
+    $('#lblGstRate').text(parseFloat($data.GstRate).toFixed(2));
     $($data.Products).each(function ($ind, $ele) {
         $html += '<tr>' +
             '<td class="shop_vMiddle">' + ($ind+1) + '.</td >' +

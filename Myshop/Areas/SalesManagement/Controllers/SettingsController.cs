@@ -25,8 +25,11 @@ namespace Myshop.Areas.SalesManagement.Controllers
         [HttpPost]
         public ActionResult SaveSetting(SalesSettingModel model)
         {
-            SalesSettingDetails salesSettingDetails = new SalesSettingDetails();
-            ReturnAlertMessagToView(salesSettingDetails.SaveSetting(model, CrudType.Insert));
+            if (ModelState.IsValid)
+            {
+                SalesSettingDetails salesSettingDetails = new SalesSettingDetails();
+                ReturnAlertMessagToView(salesSettingDetails.SaveSetting(model, CrudType.Insert));
+            }
            return View("GetSetting");
         }
 
@@ -44,6 +47,13 @@ namespace Myshop.Areas.SalesManagement.Controllers
             SalesSettingDetails salesSettingDetails = new SalesSettingDetails();
             ReturnAlertMessagToView(salesSettingDetails.SaveSetting(model, CrudType.Delete));
             return View("GetSetting");
+        }
+
+        [HttpPost]
+        public JsonResult GetSaleSettingJson()
+        {
+            SalesSettingDetails salesSettingDetails = new SalesSettingDetails();
+            return Json(salesSettingDetails.GetSalesSetting(), JsonRequestBehavior.AllowGet);
         }
     }
 }

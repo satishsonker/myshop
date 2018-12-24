@@ -1,27 +1,31 @@
 ﻿@using Myshop.App_Start
 @{
     ViewBag.Title = "Session Expired";
-    Layout = "~/Views/Shared/_MainLayoutWithoutLeftMenu.cshtml";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
 <div class="panel panel-danger">
-    <div class="panel-heading">@Model.Title</div>
+    @{
+        <div class="panel-heading">@TempData["title"].ToString()</div>
+    }
     <div class="panel-body">
-        <div class="row">
+        <div class="row" style="text-align:center">
             <div class="col-lg-12">
-              
-                        <img src="~/Images/Icons/icons8-expired-50.png" alt="Session Expired" />
+
+                <img src="~/Images/Icons/icons8-expired-50.png" style="width:100px;" alt="Session Expired" />
             </div>
             <div class="col-lg-12">
                 <h3>Your current Session has Expired</h3>
-                <h6>Please log into @WebSession.ShopName account</h6>
+                @{
+                    string shopname = WebSession.ShopName == "No Shop" ? "Your" : WebSession.ShopName;
+                    <h6>Please login into @shopname account</h6>
+                }
             </div>
             <div class="col-lg-12" style="text-align:center">
-                <a class="btnShop" href="/login/login">Login</a>
+                <a class="btn btn-info" href="/login/login">Login</a>
             </div>
         </div>
     </div>
-    <div class="panel-footer"></div>
 </div>
 
 

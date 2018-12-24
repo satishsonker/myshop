@@ -228,6 +228,7 @@
       <AutoGen>True</AutoGen>
     </Compile>
     <Compile Include="Models\ErrorModel.cs" />
+    <Compile Include="Models\LayoutDetails.cs" />
     <Compile Include="Models\Login.cs" />
     <Compile Include="Models\MorrisChartModel.cs" />
     <Compile Include="Models\UsersDetails.cs" />
@@ -244,6 +245,7 @@
     <Content Include="Content\dataTables.bootstrap.min.css" />
     <Content Include="Content\dataTables.jqueryui.min.css" />
     <Content Include="Content\Datetimepicker.css" />
+    <Content Include="Content\fontAwesome_v5.6.1.css" />
     <Content Include="Content\Layout\font-awesome.min.css" />
     <Content Include="Content\fSelect.css" />
     <Content Include="Content\Layout\extra.css" />
@@ -306,6 +308,8 @@
     <Content Include="Areas\SalesManagement\Views\Reports\GetStatements.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Settings\GetSetting.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Shared\_ButtonGroup.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Reports\GetGstStatements.cshtml" />
+    <Content Include="Areas\SalesManagement\Views\Reports\MostSellingProduct.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -425,6 +429,8 @@
     <Content Include="Scripts\App\Area\Global\User\CreateUser.js" />
     <Content Include="Scripts\App\Area\Global\User\MapShop.js" />
     <Content Include="Scripts\App\Area\Global\User\Permission.js" />
+    <Content Include="Scripts\App\Area\Sales\Reports\GstStatement.js" />
+    <Content Include="Scripts\App\Area\Sales\Reports\MostSalePro.js" />
     <Content Include="Scripts\App\Area\Sales\Sale\GetInvoice.js" />
     <Content Include="Scripts\App\Area\Sales\Sale\NewSales.js" />
     <Content Include="Scripts\App\Area\Sales\Reports\SalesStatement.js" />
@@ -443,6 +449,7 @@
     <Content Include="Scripts\App\Area\Stock\Stock\Entry.js" />
     <Content Include="Scripts\App\Common\App.js" />
     <Content Include="Scripts\App\Common\DatetimePicker.js" />
+    <Content Include="Scripts\App\Common\layout.js" />
     <Content Include="Scripts\App\Common\Utility.js" />
     <Content Include="Scripts\App\Common\Validate.js" />
     <Content Include="Scripts\App\Home\Dashboard.js" />

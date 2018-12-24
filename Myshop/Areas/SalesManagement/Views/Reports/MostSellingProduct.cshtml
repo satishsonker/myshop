@@ -1,0 +1,83 @@
+﻿
+@{
+    ViewBag.Title = "Most Selling Product Report";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script src="~/Scripts/App/Area/Sales/Reports/MostSalePro.js"></script>
+<div style="margin-top:20px">
+    <input type="hidden" id="hdntotalRecord" value="0" />
+    <input type="hidden" id="hdncurrentpage" value="0" />
+    <div class="container">
+
+        <div class="form-inline top-panel" style="margin-top: -7px;"><span class="form-control-inline">Report Period</span>
+            <input type="date" id="txtFromDate" class="form-control form-control-inline" />
+            <input type="date" id="txtToDate" class="form-control form-control-inline" />
+            <button class="btn btn-info" id="btnGo">Go</button>
+        </div>
+        <div class="panel panel-info">
+            <div class="panel-heading">Most Selling Products
+                <span class="pull-right" style="margin-top: -7px;">
+                    <select class="form-control" id="ddlPageSize">
+                        <option value="10">10</option>
+                        <option value="20">20</option>
+                        <option value="30">30</option>
+                        <option value="40">40</option>
+                        <option value="50">50</option>
+                        <option value="100">100</option>
+                    </select>
+                </span>
+                <span class="pull-right" style="margin-right:10px;">Page Size</span>
+            </div>
+            <div class="panel-body">
+                <div class="col-lg-12">
+                    <table class="table table-responsive table-bordered table-striped table-hover" id="tblSaleList">
+                        <thead>
+                            <tr>
+                                <th>Sr. No</th>
+                                <th>Invoice No.</th>
+                                <th>Customer Name</th>
+                                <th>Amount</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                        <tfoot>
+                            <tr>
+                                <td colspan="6">
+                                    <div class="btn-group" id="tblPaging">
+                                        <a class="btn btn-default" href="#"></a>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<style>
+    .pageActive {
+        background: #8a8aff;
+    }
+
+    body {
+        height: auto !important;
+    }
+
+    .form-control-inline {
+        width: auto;
+        float: left;
+        margin-right: 5px;
+    }
+
+    .top-panel {
+        padding: 5px;
+        border: 1px solid #b8e3f9;
+        background: #d9edf7;
+        margin-bottom: 10px;
+        border-radius: 5px;
+    }
+</style>
+

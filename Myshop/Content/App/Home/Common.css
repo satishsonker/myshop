@@ -28,6 +28,37 @@
     text-align: right;
 }
 
+.shop_noPadLeft{
+    padding-left:0px !important;
+}
+
+.shop_noPadRight {
+    padding-right: 0px !important;
+}
+
+.shop_floatLeft{
+    float:left;
+}
+
+.fontIcon {
+    margin: 5px;
+    font-size: 23px;
+    cursor:pointer;
+}
+
+.colorGreen{
+    color:forestgreen;
+}
+
+.colorblue {
+    color: blue;
+}
+
+.colorPink{
+    color:pink;
+}
+
+
 .shop_SearchControl {
     display: none;
     list-style: none;
@@ -35,7 +66,7 @@
     position: absolute;
     left: 144px;
     top: 35px;
-    max-width: 300px;
+   
     width: 298px;
     padding: 0;
     max-height: 150px;
@@ -189,3 +220,35 @@
     margin-bottom: 10px;
     font-weight: normal;
 }
+
+.shop_info {
+    margin-right: 5px;
+    position: inherit;
+    margin-bottom: 2px;
+    cursor: help;
+}
+
+.notistack {
+    border: 0px solid black;
+    position: fixed;
+    right: 10px;
+    top: 95px;
+    width: 300px;
+    height: 100px;
+    z-index: 9999999999;
+    display:none;
+}
+
+    .notistack .notiItem {
+        border: 1px solid #4dddff5c;
+        padding: 12px;
+        background: #4dddff5c;
+    }
+
+    .notistack .notiItem i{
+        font-size:30px;
+    }
+
+        .notistack .notiItem hr {
+            margin:2px 0;
+        }

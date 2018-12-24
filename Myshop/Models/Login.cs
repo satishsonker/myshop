@@ -541,7 +541,7 @@ namespace Myshop.Models
                             {
                                 ShopId = shop.ShopId,
                                 ShopName = shop.Name,
-                                //GSTIN=shop.GSTIN
+                                GSTIN=shop.GSTIN
                             }).ToList();
             return shopList;
         }
@@ -560,7 +560,7 @@ namespace Myshop.Models
                             }).FirstOrDefault();
             if (shopList != null)
             {
-                //WebSession.GSTIN = shopList.GSTIN;
+                WebSession.GSTIN = shopList.GSTIN;
                 return true;
             }
             return false;

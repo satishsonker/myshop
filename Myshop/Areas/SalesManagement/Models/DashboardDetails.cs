@@ -169,5 +169,15 @@ namespace Myshop.Areas.SalesManagement.Models
 
             return donutCharts;
         }
+
+        public void InitializeSalesSetting()
+        {
+            myshop = new MyshopDb();
+            var sale_Setting = myshop.Sale_Setting.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+            WebSession.GstRate = sale_Setting.GstRate ?? 12.00M;
+            WebSession.ShopClosingTime = Convert.ToInt32(sale_Setting.SalesClosingTime);
+            WebSession.ShopOpeningTime = Convert.ToInt32(sale_Setting.SalesOpeningTime);
+            WebSession.ShopReturnPolicy = sale_Setting.ReturnPolicy;
+        }
     }
 }

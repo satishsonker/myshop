@@ -67,6 +67,7 @@
                 _newInvoice.IsCancelled = _currentInvoice.IsCancelled;
                 _newInvoice.CancelDate = _currentInvoice.CancelledDate??default(DateTime);
                 _newInvoice.CancelRemark = _currentInvoice.CancelRemark;
+                _newInvoice.GstRate =Convert.ToDecimal(_currentInvoice.GstRate);
                 List<InvoiceProduct> _lstProducts = new List<InvoiceProduct>();
                 foreach (Sale_Dtl_Invoice _currentDetails in _myshopDb.Sale_Dtl_Invoice.Where(x => x.InvoiceId.Equals(_newInvoice.InvoiceId) && x.IsDeleted == false))
                 {
@@ -100,6 +101,7 @@
                 _SaleTrans.CustomerId = invoiceDetails.CustomerId;
                 _SaleTrans.GrandTotal = invoiceDetails.GrandTotal;
                 _SaleTrans.GstAmount = invoiceDetails.GstAmount;
+                _SaleTrans.GstRate = WebSession.GstRate;
                 _SaleTrans.InvoiceDate = DateTime.Now;
                 _SaleTrans.PaidAmount = invoiceDetails.PaidAmount;
                 _SaleTrans.PayModeId = invoiceDetails.PayModeId;

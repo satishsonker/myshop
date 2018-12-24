@@ -77,6 +77,7 @@ namespace Myshop.Areas.SalesManagement.Models
         public bool IsCancelled { get; set; } = false;
         public string CancelRemark { get; set; }
         public DateTime CancelDate { get; set; }
+        public decimal GstRate { get; set; } = 12.0M;
     }
 
     public class InvoiceReturnDetails

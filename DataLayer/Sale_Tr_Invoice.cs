@@ -43,6 +43,7 @@ namespace DataLayer
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> RefundPayModeId { get; set; }
+        public Nullable<decimal> GstRate { get; set; }
     
         public virtual Gbl_Master_Customer Gbl_Master_Customer { get; set; }
         public virtual Gbl_Master_PayMode Gbl_Master_PayMode { get; set; }

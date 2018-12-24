@@ -1,17 +1,17 @@
 ﻿<div class="form-group col-sm-10 col-sm-offset-2" style="margin-bottom:2px;">
-    <label style="margin-top:7px;">Product</label>
-    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductNewInvoice" style="float:right;margin-right:10px;" value="New Invoice" />
-    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductPrint" style="float:right;margin-right:10px;" value="Print Invoice" />
-    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductSave" data-invoiceno="0" style="float:right;margin-right:10px;" value="Save Invoice" />
-    <input type="button" data-productinfo="" class="btn btn-success" id="_ptlSearchProductAdd" style="float:right;margin-right:10px;" value="Add Product" />
-    <input style="max-width:350px;float:right;margin-right:10px;" id="_ptlSearchProduct" placeholder="Search Product Name, Code" type="text" class="form-control">
+    <i class="fas fa-file-invoice fontIcon colorPink" style="float:right;margin-right:10px;" id="_ptlSearchProductNewInvoice" data-invoiceno="0" title="New Invoice"></i>
+    <i class="fas fa-print fontIcon" style="float:right;margin-right:10px;" id="_ptlSearchProductPrint" data-invoiceno="0" title="Print Invoice"></i>
+    <i class="fas fa-save fontIcon colorblue" style="float:right;margin-right:10px;" id="_ptlSearchProductSave" data-invoiceno="0" title="Save Invoice"></i>
+    @*<input type="button" data-productinfo="" class="btn btn-success"  style="float:right;margin-right:10px;" value="Add Product" />*@
+    @*<input style="max-width:350px;float:right;margin-right:10px;" id="_ptlSearchProduct" placeholder="Search Product Name, Code" type="text" class="form-control">
 
-    <ul class="shop_SearchControl" style="left:167px;width:251px;" id="_ptlSearchProductList"></ul>
+    <ul class="shop_SearchControl" style="left:167px;width:251px;" id="_ptlSearchProductList"></ul>*@
 </div>
 
 <script>
     $(document).on('keypress keydown keyup', '#_ptlSearchProduct', function () {
         let $ul = $('#_ptlSearchProductList');
+        let $txtbox = $('#_ptlSearchProduct');
         if ($(this).val().length > 1) {
             utility.ajaxHelper(app.urls.SaleArea.SalesController.SearchProduct, { searchValue: $(this).val() }, function (data) {
                 let $html = '';
@@ -22,12 +22,12 @@
                     $html += "<li class='norecord' >No Record</li>";
                 }
                 $ul.empty().append($html).show();
-                let $txtbox = $('#_ptlSearchProduct');
+                
                 let $position = {};
                 $position.left = $($txtbox).position().left.toFixed(0);
                 $position.top = $($txtbox).position().top;
                 $position.width = $($txtbox).css('width');
-                $('#_ptlSearchProduct').next('.shop_SearchControl').attr('style', 'left:' + $position.left + 'px !important;width:' + $position.width + ' !important;display:block;');
+                $('#_ptlSearchProduct').next('.shop_SearchControl').attr('style', 'left:' + $position.left + 'px !important;width:' + $position.width + ' !important;display:block;top:' + ($position.top+32)+'px;');
             });
         }
         else

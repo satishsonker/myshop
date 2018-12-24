@@ -338,7 +338,7 @@
           <Property Name="UserId" Type="int" Nullable="false" />
           <Property Name="IsForAll" Type="bit" Nullable="false" />
           <Property Name="IsRead" Type="bit" Nullable="false" />
-          <Property Name="PushedDate" Type="datetime" Nullable="false" />
+          <Property Name="PushedDate" Type="datetime" />
           <Property Name="NotificationTypeId" Type="int" Nullable="false" />
           <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -641,6 +641,9 @@
           <Property Name="SalesOpeningTime" Type="decimal" Precision="18" Scale="2" />
           <Property Name="SalesClosingTime" Type="decimal" Precision="18" Scale="2" />
           <Property Name="ReturnPolicy" Type="nvarchar" MaxLength="500" />
+          <Property Name="WeeklyClosingDay" Type="nvarchar" MaxLength="10" />
+          <Property Name="ExchangeDayTime" Type="nvarchar" MaxLength="50" />
+          <Property Name="GstRate" Type="decimal" Precision="18" Scale="12" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
           <Property Name="CreatedBy" Type="int" Nullable="false" />
@@ -676,6 +679,7 @@
           <Property Name="ModifiedBy" Type="int" />
           <Property Name="ModifiedDate" Type="datetime" />
           <Property Name="RefundPayModeId" Type="int" />
+          <Property Name="GstRate" Type="decimal" Precision="18" Scale="2" />
         </EntityType>
         <EntityType Name="Stk_Dtl_Entry">
           <Key>
@@ -747,20 +751,6 @@
           <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="CreationBy" Type="int" Nullable="false" />
           <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="IsSync" Type="bit" Nullable="false" />
-          <Property Name="IsDeleted" Type="bit" Nullable="false" />
-        </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Type" Type="varchar" MaxLength="50" Nullable="false" />
-          <Property Name="Description" Type="varchar" MaxLength="50" />
-          <Property Name="CreatedBy" Type="int" Nullable="false" />
-          <Property Name="ModifiedBy" Type="int" Nullable="false" />
-          <Property Name="CreationDate" Type="datetime" Nullable="false" />
-          <Property Name="ModificationDate" Type="datetime" Nullable="false" />
           <Property Name="IsSync" Type="bit" Nullable="false" />
           <Property Name="IsDeleted" Type="bit" Nullable="false" />
         </EntityType>
@@ -1580,7 +1570,6 @@
           <EntitySet Name="Stk_Tr_Entry" EntityType="Self.Stk_Tr_Entry" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="User_ShopMapper" EntityType="Self.User_ShopMapper" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="UserShopMapper" EntityType="Self.UserShopMapper" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="UserType" EntityType="Self.UserType" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Gbl_AppDowntime_User_CreatedBy" Association="Self.FK_Gbl_AppDowntime_User_CreatedBy">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_AppDowntime" EntitySet="Gbl_AppDowntime" />
@@ -1882,12 +1871,12 @@
           <EntitySet Name="Logins" EntityType="MyshopModel.Login" />
           <EntitySet Name="MasterVendors" EntityType="MyshopModel.MasterVendor" />
           <EntitySet Name="Sale_Dtl_Invoice" EntityType="MyshopModel.Sale_Dtl_Invoice" />
+          <EntitySet Name="Sale_Setting" EntityType="MyshopModel.Sale_Setting" />
           <EntitySet Name="Sale_Tr_Invoice" EntityType="MyshopModel.Sale_Tr_Invoice" />
           <EntitySet Name="Stk_Dtl_Entry" EntityType="MyshopModel.Stk_Dtl_Entry" />
           <EntitySet Name="Stk_Tr_Entry" EntityType="MyshopModel.Stk_Tr_Entry" />
           <EntitySet Name="User_ShopMapper" EntityType="MyshopModel.User_ShopMapper" />
           <EntitySet Name="UserShopMappers" EntityType="MyshopModel.UserShopMapper" />
-          <EntitySet Name="UserTypes" EntityType="MyshopModel.UserType" />
           <AssociationSet Name="FK_Gbl_AppDowntime_User_CreatedBy" Association="MyshopModel.FK_Gbl_AppDowntime_User_CreatedBy">
             <End Role="Gbl_Master_User" EntitySet="Gbl_Master_User" />
             <End Role="Gbl_AppDowntime" EntitySet="Gbl_AppDowntime" />
@@ -2076,6 +2065,10 @@
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Sale_Dtl_Invoice" EntitySet="Sale_Dtl_Invoice" />
           </AssociationSet>
+          <AssociationSet Name="FK_Sale_Setting_Gbl_Master_Shop" Association="MyshopModel.FK_Sale_Setting_Gbl_Master_Shop">
+            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
+            <End Role="Sale_Setting" EntitySet="Sale_Setting" />
+          </AssociationSet>
           <AssociationSet Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop" Association="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop">
             <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
             <End Role="Sale_Tr_Invoice" EntitySet="Sale_Tr_Invoice" />
@@ -2135,11 +2128,6 @@
           <AssociationSet Name="FK_StockEntry_Stk_Tr_Entry" Association="MyshopModel.FK_StockEntry_Stk_Tr_Entry">
             <End Role="Stk_Tr_Entry" EntitySet="Stk_Tr_Entry" />
             <End Role="Stk_Dtl_Entry" EntitySet="Stk_Dtl_Entry" />
-          </AssociationSet>
-          <EntitySet Name="Sale_Setting" EntityType="MyshopModel.Sale_Setting" />
-          <AssociationSet Name="FK_Sale_Setting_Gbl_Master_Shop" Association="MyshopModel.FK_Sale_Setting_Gbl_Master_Shop">
-            <End Role="Gbl_Master_Shop" EntitySet="Gbl_Master_Shop" />
-            <End Role="Sale_Setting" EntitySet="Sale_Setting" />
           </AssociationSet>
           </EntityContainer>
         <ComplexType Name="ss_Result">
@@ -2564,7 +2552,7 @@
           <Property Name="UserId" Type="Int32" Nullable="false" />
           <Property Name="IsForAll" Type="Boolean" Nullable="false" />
           <Property Name="IsRead" Type="Boolean" Nullable="false" />
-          <Property Name="PushedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="PushedDate" Type="DateTime" Precision="3" />
           <Property Name="NotificationTypeId" Type="Int32" Nullable="false" />
           <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
           <Property Name="CreatedBy" Type="Int32" Nullable="false" />
@@ -2685,12 +2673,12 @@
           <NavigationProperty Name="Gbl_Master_SubCategory" Relationship="MyshopModel.FK_MasterSubCategory_Shop" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_SubCategory" />
           <NavigationProperty Name="MasterVendors" Relationship="MyshopModel.FK_MasterVendor_Shop" FromRole="Gbl_Master_Shop" ToRole="MasterVendor" />
           <NavigationProperty Name="Sale_Dtl_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" FromRole="Gbl_Master_Shop" ToRole="Sale_Dtl_Invoice" />
+          <NavigationProperty Name="Sale_Setting" Relationship="MyshopModel.FK_Sale_Setting_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Sale_Setting" />
           <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Sale_Tr_Invoice" />
           <NavigationProperty Name="Gbl_Master_User1" Relationship="MyshopModel.FK_Shop_User" FromRole="Gbl_Master_Shop" ToRole="Gbl_Master_User" />
           <NavigationProperty Name="Stk_Tr_Entry" Relationship="MyshopModel.FK_Stk_Tr_Entry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Tr_Entry" />
           <NavigationProperty Name="Stk_Dtl_Entry" Relationship="MyshopModel.FK_StockEntry_Shop" FromRole="Gbl_Master_Shop" ToRole="Stk_Dtl_Entry" />
           <NavigationProperty Name="UserShopMappers" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="Gbl_Master_Shop" ToRole="UserShopMapper" />
-          <NavigationProperty Name="Sale_Setting" Relationship="MyshopModel.FK_Sale_Setting_Gbl_Master_Shop" FromRole="Gbl_Master_Shop" ToRole="Sale_Setting" />
         </EntityType>
         <EntityType Name="Gbl_Master_State">
           <Key>
@@ -2926,6 +2914,27 @@
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Dtl_Invoice" FromRole="Sale_Dtl_Invoice" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Sale_Tr_Invoice" Relationship="MyshopModel.FK_Sale_Dtl_Invoice_Sale_Tr_Invoice" FromRole="Sale_Dtl_Invoice" ToRole="Sale_Tr_Invoice" />
         </EntityType>
+        <EntityType Name="Sale_Setting">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GSTIN" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+          <Property Name="SalesOpeningTime" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="SalesClosingTime" Type="Decimal" Precision="18" Scale="2" />
+          <Property Name="ReturnPolicy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="WeeklyClosingDay" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="ExchangeDayTime" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="GstRate" Type="Decimal" Precision="18" Scale="12" />
+          <Property Name="IsSync" Type="Boolean" Nullable="false" />
+          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
+          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="ModifiedBy" Type="Int32" />
+          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
+          <Property Name="ShopId" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Setting_Gbl_Master_Shop" FromRole="Sale_Setting" ToRole="Gbl_Master_Shop" />
+        </EntityType>
         <EntityType Name="Sale_Tr_Invoice">
           <Key>
             <PropertyRef Name="InvoiceId" />
@@ -2953,6 +2962,7 @@
           <Property Name="ModifiedBy" Type="Int32" />
           <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
           <Property Name="RefundPayModeId" Type="Int32" />
+          <Property Name="GstRate" Type="Decimal" Precision="18" Scale="2" />
           <NavigationProperty Name="Gbl_Master_Customer" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_Customer" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_Customer" />
           <NavigationProperty Name="Gbl_Master_PayMode" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_PayMode" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_PayMode" />
           <NavigationProperty Name="Gbl_Master_PayMode1" Relationship="MyshopModel.FK_Sale_Tr_Invoice_Gbl_Master_ReturnPayMode" FromRole="Sale_Tr_Invoice" ToRole="Gbl_Master_PayMode" />
@@ -3042,20 +3052,6 @@
           <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_UserShopMapper_Shop" FromRole="UserShopMapper" ToRole="Gbl_Master_Shop" />
           <NavigationProperty Name="Gbl_Master_User" Relationship="MyshopModel.FK_UserShopMapper_User" FromRole="UserShopMapper" ToRole="Gbl_Master_User" />
-        </EntityType>
-        <EntityType Name="UserType">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Type" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Description" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="ModifiedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModificationDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
         </EntityType>
         <Association Name="FK_Gbl_AppDowntime_User_CreatedBy">
           <End Type="MyshopModel.Gbl_Master_User" Role="Gbl_Master_User" Multiplicity="1" />
@@ -3621,6 +3617,18 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Sale_Setting_Gbl_Master_Shop">
+          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
+          <End Type="MyshopModel.Sale_Setting" Role="Sale_Setting" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Gbl_Master_Shop">
+              <PropertyRef Name="ShopId" />
+            </Principal>
+            <Dependent Role="Sale_Setting">
+              <PropertyRef Name="ShopId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Sale_Tr_Invoice_Gbl_Master_Shop">
           <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
           <End Type="MyshopModel.Sale_Tr_Invoice" Role="Sale_Tr_Invoice" Multiplicity="*" />
@@ -3798,36 +3806,6 @@
             </Principal>
             <Dependent Role="Stk_Dtl_Entry">
               <PropertyRef Name="StockMstId" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <EntityType Name="Sale_Setting">
-          <Key>
-            <PropertyRef Name="Id" />
-          </Key>
-          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GSTIN" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
-          <Property Name="SalesOpeningTime" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="SalesClosingTime" Type="Decimal" Precision="18" Scale="2" />
-          <Property Name="ReturnPolicy" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
-          <Property Name="IsSync" Type="Boolean" Nullable="false" />
-          <Property Name="IsDeleted" Type="Boolean" Nullable="false" />
-          <Property Name="CreatedBy" Type="Int32" Nullable="false" />
-          <Property Name="CreatedDate" Type="DateTime" Nullable="false" Precision="3" />
-          <Property Name="ModifiedBy" Type="Int32" />
-          <Property Name="ModifiedDate" Type="DateTime" Precision="3" />
-          <Property Name="ShopId" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="Gbl_Master_Shop" Relationship="MyshopModel.FK_Sale_Setting_Gbl_Master_Shop" FromRole="Sale_Setting" ToRole="Gbl_Master_Shop" />
-        </EntityType>
-        <Association Name="FK_Sale_Setting_Gbl_Master_Shop">
-          <End Type="MyshopModel.Gbl_Master_Shop" Role="Gbl_Master_Shop" Multiplicity="1" />
-          <End Type="MyshopModel.Sale_Setting" Role="Sale_Setting" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Gbl_Master_Shop">
-              <PropertyRef Name="ShopId" />
-            </Principal>
-            <Dependent Role="Sale_Setting">
-              <PropertyRef Name="ShopId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -4514,9 +4492,31 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Sale_Setting">
+            <EntityTypeMapping TypeName="MyshopModel.Sale_Setting">
+              <MappingFragment StoreEntitySet="Sale_Setting">
+                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
+                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
+                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
+                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
+                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
+                <ScalarProperty Name="GstRate" ColumnName="GstRate" />
+                <ScalarProperty Name="ExchangeDayTime" ColumnName="ExchangeDayTime" />
+                <ScalarProperty Name="WeeklyClosingDay" ColumnName="WeeklyClosingDay" />
+                <ScalarProperty Name="ReturnPolicy" ColumnName="ReturnPolicy" />
+                <ScalarProperty Name="SalesClosingTime" ColumnName="SalesClosingTime" />
+                <ScalarProperty Name="SalesOpeningTime" ColumnName="SalesOpeningTime" />
+                <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="Sale_Tr_Invoice">
             <EntityTypeMapping TypeName="MyshopModel.Sale_Tr_Invoice">
               <MappingFragment StoreEntitySet="Sale_Tr_Invoice">
+                <ScalarProperty Name="GstRate" ColumnName="GstRate" />
                 <ScalarProperty Name="RefundPayModeId" ColumnName="RefundPayModeId" />
                 <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
                 <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
@@ -4616,39 +4616,6 @@
                 <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
                 <ScalarProperty Name="ShopId" ColumnName="ShopId" />
                 <ScalarProperty Name="UserId" ColumnName="UserId" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="UserTypes">
-            <EntityTypeMapping TypeName="MyshopModel.UserType">
-              <MappingFragment StoreEntitySet="UserType">
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="ModificationDate" ColumnName="ModificationDate" />
-                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="Description" ColumnName="Description" />
-                <ScalarProperty Name="Type" ColumnName="Type" />
-                <ScalarProperty Name="Id" ColumnName="Id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Sale_Setting">
-            <EntityTypeMapping TypeName="MyshopModel.Sale_Setting">
-              <MappingFragment StoreEntitySet="Sale_Setting">
-                <ScalarProperty Name="ShopId" ColumnName="ShopId" />
-                <ScalarProperty Name="ModifiedDate" ColumnName="ModifiedDate" />
-                <ScalarProperty Name="ModifiedBy" ColumnName="ModifiedBy" />
-                <ScalarProperty Name="CreatedDate" ColumnName="CreatedDate" />
-                <ScalarProperty Name="CreatedBy" ColumnName="CreatedBy" />
-                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
-                <ScalarProperty Name="IsSync" ColumnName="IsSync" />
-                <ScalarProperty Name="ReturnPolicy" ColumnName="ReturnPolicy" />
-                <ScalarProperty Name="SalesClosingTime" ColumnName="SalesClosingTime" />
-                <ScalarProperty Name="SalesOpeningTime" ColumnName="SalesOpeningTime" />
-                <ScalarProperty Name="GSTIN" ColumnName="GSTIN" />
                 <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>

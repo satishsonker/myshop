@@ -692,8 +692,8 @@ utility.getQueryStringValue=function(key) {
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
 }  
 
-var a = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Tourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
-var b = ['', '', 'Twenty', 'Thirty', 'Torty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+var a = app.const.digitInWord;
+var b = app.const.digitx10InWord;
 
 utility.currentyInWords=function(num) {
     if ((num = num.toString()).length > 9) return 'Invalid or access amount';
@@ -705,4 +705,113 @@ utility.currentyInWords=function(num) {
     str += (n[4] != 0) ? (a[Number(n[4])] || b[n[4][0]] + ' ' + a[n[4][1]]) + 'Hundred ' : '';
     str += (n[5] != 0) ? ((str != '') ? 'and ' : '') + (a[Number(n[5])] || b[n[5][0]] + ' ' + a[n[5][1]]) + 'only ' : '';
     return str;
+}
+
+utility.getIndexOfSubStrInArray = function (array,string) {
+    var result = -1;
+    for (index = 0; index < array.length; ++index) {
+        value = array[index];
+        if (value.toLowerCase().indexOf(string.toLowerCase()) > -1) {
+            result = value;
+            break;
+        }
+    }
+    return array.indexOf(result);
+}
+
+/**
+ * Convert html table to array of object that quivalant to Datatable 
+ * @param {string} $gridId
+ * @param {number} $colStartIndex
+ * @returns {Array}
+ */
+utility.gridToDatatable = ($gridId, $colStartIndex) => {
+    $colStartIndex = utility.parseInt($colStartIndex, 0);
+
+    let $table = $('#' + $gridId);
+    let $tHead = $($table).find('thead tr:eq(0) th:gt(' + ($colStartIndex - 1) + ')');
+    let $tbody = $($table).find('tbody tr');
+    let $colNameArray = [];
+    let $dataTable = [];
+
+    $($tHead).each(function ($ind, $ele) {
+        $colNameArray.push($($ele).text().trim());
+    });
+
+    $($tbody).each(function ($indRow, $eleRow) {
+        var $dtRow = {};
+        $($colNameArray).each(function ($indColName, $eleColName) {
+            $dtRow[$eleColName] = $($($eleRow).find('td:gt(' + ($colStartIndex - 1) + ')')[$indColName]).text();
+        });
+        $dataTable.push($dtRow);
+    });
+    return $dataTable;
+}
+
+/**
+ * Convert html table to array of object that quivalant to Datatable Json
+ * @param {string} $gridId
+ * @param {number} $colStartIndex
+ * @returns {string}
+ */
+utility.gridToDatatableJson = ($gridId, $colStartIndex) => {
+    return JSON.stringify(utility.gridToDatatable($gridId, $colStartIndex));
+};
+
+/**
+ * Convter any value to the int otherwise replace by default value
+ * @param {any} $value
+ * @param {number} $defaultValue
+ * @returns {number}
+ */
+utility.parseInt = ($value, $defaultValue) => {
+    return $value === undefined ? $defaultValue : (typeof $value === 'number' ? $value : (typeof $value === 'string' ? (isNaN(parseInt($value)) ? $defaultValue : parseInt($value)) : $defaultValue));
+};
+
+/**
+ * get current date and difference date 
+ * @param {number} monthDifference
+ * @returns {object}
+ */
+utility.getFromToDate = (monthDifference) => {
+    monthDifference = utility.parseInt(monthDifference, 1);
+    let $date = {};
+    let now = new Date();
+
+    $date.currentDay = parseInt(("0" + now.getDate()).slice(-2));
+    $date.currentMonth = parseInt(("0" + (now.getMonth() + 1)).slice(-2));
+    $date.currentYear = now.getFullYear();
+    $date.currentDate = now.getFullYear() + "-" + ($date.currentMonth) + "-" + ($date.currentDay);
+
+    let monthbefore = new Date();
+    monthbefore.setMonth(monthbefore.getMonth() - monthDifference);
+
+    $date.beforeDay = parseInt(("0" + monthbefore.getDate()).slice(-2));
+    $date.beforeMonth = parseInt(("0" + (monthbefore.getMonth() + 1)).slice(-2));
+    $date.beforeYear = monthbefore.getFullYear();
+    $date.beforeDate = monthbefore.getFullYear() + "-" + ($date.beforeMonth) + "-" + ($date.beforeDay);
+    return $date;
+}
+
+/**
+ * Convter string into floating-point number upto 2 precision
+ * @param {any} inputString
+ * @returns {number}
+ */
+utility.toDecimal = (inputString) => {
+    let $convertedValue = parseFloat(inputString);
+    return isNaN($convertedValue) ? 0.00 : $convertedValue.toFixed(2);
+};
+
+/**
+ * get Unique GUID
+ * @returns {string}
+ */
+utility.getGUID = function guid() {
+    function s4() {
+        return Math.floor((1 + Math.random()) * 0x10000)
+            .toString(16)
+            .substring(1);
+    }
+    return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
 }

@@ -19,6 +19,9 @@ namespace DataLayer
         public Nullable<decimal> SalesOpeningTime { get; set; }
         public Nullable<decimal> SalesClosingTime { get; set; }
         public string ReturnPolicy { get; set; }
+        public string WeeklyClosingDay { get; set; }
+        public string ExchangeDayTime { get; set; }
+        public Nullable<decimal> GstRate { get; set; }
         public bool IsSync { get; set; }
         public bool IsDeleted { get; set; }
         public int CreatedBy { get; set; }

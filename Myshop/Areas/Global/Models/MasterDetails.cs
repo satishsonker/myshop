@@ -1078,8 +1078,6 @@ namespace Myshop.Areas.Global.Models
                     newNotification.IsRead = false;
                     newNotification.CreatedBy = WebSession.UserId;
                     newNotification.CreatedDate = DateTime.Now;
-                    newNotification.ModifiedBy = WebSession.UserId;
-                    newNotification.ModificationDate = DateTime.Now;
                     newNotification.ShopId = WebSession.ShopId;
                     myshop.Entry(newNotification).State = EntityState.Added;
                 }
@@ -1185,7 +1183,7 @@ namespace Myshop.Areas.Global.Models
                                         noti.NotificationId,
                                         noti.Gbl_Master_NotificationType.NotificationType,
                                         noti.UserId,
-                                        UserName = string.Format("{0} {1}", noti.Gbl_Master_User.Firstname, noti.Gbl_Master_User.Lastname),
+                                        UserName = noti.Gbl_Master_User.Firstname+" "+noti.Gbl_Master_User.Lastname,
                                         noti.CreatedDate,
                                         noti.IsForAll
                                     }).ToList();

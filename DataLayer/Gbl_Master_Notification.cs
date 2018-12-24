@@ -23,7 +23,7 @@ namespace DataLayer
         public int UserId { get; set; }
         public bool IsForAll { get; set; }
         public bool IsRead { get; set; }
-        public System.DateTime PushedDate { get; set; }
+        public Nullable<System.DateTime> PushedDate { get; set; }
         public int NotificationTypeId { get; set; }
         public string Message { get; set; }
         public int CreatedBy { get; set; }

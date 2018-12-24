@@ -140,7 +140,6 @@ namespace Myshop.App_Start
 
         public static string GSTIN
         {
-
             get
             {
                 if (HttpContext.Current.Session["GSTIN"] == null)
@@ -153,6 +152,70 @@ namespace Myshop.App_Start
                 }
             }
             set { HttpContext.Current.Session["GSTIN"] = value; }
+        }
+
+        public static decimal GstRate
+        {
+            get
+            {
+                if (HttpContext.Current.Session["GstRate"] == null)
+                {
+                    return default(decimal);
+                }
+                else
+                {
+                    return Convert.ToDecimal(HttpContext.Current.Session["GstRate"].ToString());
+                }
+            }
+            set { HttpContext.Current.Session["GstRate"] = value; }
+        }
+
+        public static int ShopOpeningTime
+        {
+            get
+            {
+                if (HttpContext.Current.Session["ShopOpeningTime"] == null)
+                {
+                    return 8;
+                }
+                else
+                {
+                    return Convert.ToInt32(HttpContext.Current.Session["ShopOpeningTime"].ToString());
+                }
+            }
+            set { HttpContext.Current.Session["ShopOpeningTime"] = value; }
+        }
+
+        public static int ShopClosingTime
+        {
+            get
+            {
+                if (HttpContext.Current.Session["ShopClosingTime"] == null)
+                {
+                    return 20;
+                }
+                else
+                {
+                    return Convert.ToInt32(HttpContext.Current.Session["ShopClosingTime"].ToString());
+                }
+            }
+            set { HttpContext.Current.Session["ShopClosingTime"] = value; }
+        }
+
+        public static string ShopReturnPolicy
+        {
+            get
+            {
+                if (HttpContext.Current.Session["ShopReturnPolicy"] == null)
+                {
+                    return default(string);
+                }
+                else
+                {
+                    return HttpContext.Current.Session["ShopReturnPolicy"].ToString();
+                }
+            }
+            set { HttpContext.Current.Session["ShopReturnPolicy"] = value; }
         }
 
         public static string UserGender

@@ -4,24 +4,19 @@
 /// <reference path="../../common/utility.js" />
 
 var $newSales = {};
+let $gstRate = 12.00;
 
-$newSales.setCustomerRecord = function (data) {
-    let $address = data.FirstName + " " + data.LastName;
-    $address += ", \n" + data.Mobile +"\n";
-    $address += (data.Email == "" ? "" : data.Email + "\n");
-    $address += (data.Address == "" ? "" : data.Address + "\n");
-    $address += data.District + "," + data.State; 
-    $address += data.PINCode === "" ? "" : "-" + data.PINCode;
-    $('.customerAddress').text($address);
-    $('#divInvoiceDetails').show();
-    $('#hdnCustomerId').val(data.CustomerId);
-}
+$(document).ready(function () {
+    $gstRate = parseFloat($('#hdnGstRate').val());
+});
+
 $(document).on('click', '[id*="btnDelete_"]', function () {
-    if ($('.defaultRow').length > 0) {
+    let $parentRow = $(this).parent().parent().parent();
+    if ($($parentRow).hasClass('defaultRow')) {
         utility.SetAlert('You can\'t delete this row', utility.alertType.warning);
         return false;
     }
-    $(this).parent().parent().parent().remove();
+    $($parentRow).remove();
     let $tbody = $('#tblInvoicedetails tbody');
     let $totalRows = $($tbody).find('tr:lt(' + ($($tbody).find('tr').length - 3) + ')');
     $($totalRows).each(function (ind, ele) {
@@ -41,27 +36,27 @@ $(document).on('click', '#_ptlSearchProductSave', function () {
         utility.SetAlert('This invoice is already saved', utility.alertType.information);
         return false;
     }
-    else if ($('.defaultRow').length > 0) {
+    else if ($('.productAdded').length == 0) {
         utility.SetAlert('Please add atleast one product', utility.alertType.warning);
         return false;
     }
     let $flag = false;
     let $invoiceDetail = {};
     let $subTotal = parseFloat($('#lblSubTotal').text());
-    let $gstAmount = (($subTotal / 100) * 12);
-    let $grandAmount = $subTotal + $gstAmount;
+    let $gstAmount = (($subTotal / 100) * $gstRate);
+    let $grandAmount = parseFloat($subTotal + $gstAmount).toFixed(2);
     let $paidAmount = 0.00;
     $invoiceDetail.CustomerId = $('#hdnCustomerId').val();
     $invoiceDetail.SubTotalAmount = $subTotal;
     $invoiceDetail.GstAmount = $gstAmount;
     $invoiceDetail.PaidAmount = parseFloat($($amountToBePaid).val());
     $invoiceDetail.PayModeRefNo = '';
-    $invoiceDetail.GrandTotal = $grandAmount;    
+    $invoiceDetail.GrandTotal = $grandAmount;
     $invoiceDetail.BalanceAmount = $grandAmount - $invoiceDetail.PaidAmount;
 
     $invoiceDetail.PayModeId = $($payModeDdl).find('option:selected').val();
     $invoiceDetail.Products = [];
-    $('#tblInvoicedetails tbody tr').each(function (ind, ele) {
+    $('#tblInvoicedetails tbody tr:not(.productRow)').each(function (ind, ele) {
         if ($(ele).find('td').length == 8) {
             var $discount = parseFloat($(ele).find('td:eq(2) #txtDiscount_' + ind).val());
             var $qtyInput = parseFloat($(ele).find('td:eq(5) #txtQty_' + ind).val());
@@ -132,7 +127,7 @@ $(document).on('click', '#_ptlSearchProductSave', function () {
         $($payModeRefNo).removeClass('shop_hasError');
         $invoiceDetail.PayModeRefNo = $($payModeRefNo).val();
     }
-    if (parseFloat($('#txtBalanceAmount').val())<0) {
+    if (parseFloat($('#txtBalanceAmount').val()) < 0) {
         utility.SetAlert('Please enter payment reference number', utility.alertType.warning);
         $('#txtBalanceAmount').addClass('shop_hasError').focus();
         return false;
@@ -141,7 +136,7 @@ $(document).on('click', '#_ptlSearchProductSave', function () {
         $('#txtBalanceAmount').removeClass('shop_hasError');
     }
 
-    if (validateInvoice($invoiceDetail)) {
+    if ($newSales.validateInvoice($invoiceDetail)) {
         utility.ajaxHelper(app.urls.SaleArea.SalesController.SaveInvoice, { invoiceDetails: $invoiceDetail }, function (data) {
 
             $('#lblInvoiceNo').text($('#lblInvoiceNo').text().replace('$invoiceNo', data[0].Key));
@@ -222,7 +217,7 @@ $(document).on('click change', '[id*="txtQty_"],[id*="txtDiscount_"]', function 
         $subTotal += parseFloat($(ele).text());
     });
 
-    $gstAmount = ($subTotal / 100) * 12;
+    $gstAmount = ($subTotal / 100) * $gstRate;
     $grandAmount = $subTotal + $gstAmount;
 
 
@@ -232,7 +227,7 @@ $(document).on('click change', '[id*="txtQty_"],[id*="txtDiscount_"]', function 
     $('#lblGrandTotalWord').text($grandAmountInText);
     $('#lblGrandAmount').text(($subTotal + $gstAmount).toFixed(2));
     $('#txtAmountToBePaid').val(($subTotal + $gstAmount).toFixed(2));
-    $('#txtAmountToBePaid').attr('max',($subTotal + $gstAmount).toFixed(2));
+    $('#txtAmountToBePaid').attr('max', ($subTotal + $gstAmount).toFixed(2));
     $lblSubTotal.text($subTotal.toFixed(2));
 });
 
@@ -251,7 +246,7 @@ $(document).on('click', '#_ptlSearchProductAdd', function () {
         $($tbody).find('tr td').each(function (ind, ele) {
             if ($(ele).data('proid') == $data.ProductId) {
                 utility.SetAlert('This product is already added in list', utility.alertType.warning);
-                $(ele).css('background', '#acfde7c4');s
+                $(ele).css('background', '#acfde7c4'); s
                 $hasProduct = true
             }
         });
@@ -259,13 +254,13 @@ $(document).on('click', '#_ptlSearchProductAdd', function () {
         if ($hasProduct)
             return false;
 
-        let $html = '<tr>' +
+        let $html = '<tr class="productAdded">' +
             '<td class="shop_vMiddle">' + ($totalRows - 2) + '.</td >' +
             '<td class="shop_vMiddle" data-proid="' + $data.ProductId + '">' + $data.ProductName + '</td>' +
             '<td> <input type="number" min="0" value="0" id="txtDiscount_' + ($totalRows - 3) + '" class="form-control" /></td > ' +
             '<td> <input type="text" title="Put remark if discount is applicable" id="txtRemark_' + ($totalRows - 3) + '" class="form-control" /></td> ' +
             '<td class="shop_vMiddle shop_hCentre" id="lblPrice_' + ($totalRows - 3) + '">' + $data.SalePrice.toFixed(2) + '</td> ' +
-            '<td class="shop_vMiddle shop_hCentre"><input min="0" max="' + $data.AvailableQty + '" value="' + ($data.AvailableQty>0?"1":"0")+'"  type="number" id="txtQty_' + ($totalRows - 3) + '" class="form-control" /></td> ' +
+            '<td class="shop_vMiddle shop_hCentre"><input min="0" max="' + $data.AvailableQty + '" value="' + ($data.AvailableQty > 0 ? "1" : "0") + '"  type="number" id="txtQty_' + ($totalRows - 3) + '" class="form-control" /></td> ' +
             '<td class="shop_vMiddle shop_hRigth" id="lblAmount_' + ($totalRows - 3) + '"> 0.00</td> ' +
             '<td class="shop_vMiddle shop_hCentre">' +
             '<div class="btn-group">' +
@@ -273,6 +268,25 @@ $(document).on('click', '#_ptlSearchProductAdd', function () {
             '<img style="width:25px;cursor:pointer;" title="Reset this row" id="btnReset_' + ($totalRows - 3) + '" src="../../Images/Icons/refresh.png" />' +
             '</div > ' +
             '</td> ' +
+            '</tr>';
+        $html += '<tr class="defaultRow productRow">' +
+            '<td class="shop_vMiddle">' + ($totalRows - 1) + '.</td>' +
+            '<td class="shop_vMiddle">' +
+            '<input style="width:92%" id="_ptlSearchProduct" placeholder="Search Product Name, Code" type="text" class="form-control shop_floatLeft">' +
+            '<ul class="shop_SearchControl" style="left:167px;width:251px;" id="_ptlSearchProductList"></ul>' +
+            '<i class="fas fa-plus shop_floatLeft fontIcon colorGreen" title="Add Product" id="_ptlSearchProductAdd"></i>' +
+            '</td>' +
+            '<td><input type="number" id="txtDiscount_0" class="form-control" /></td> ' +
+            '<td><input type="text" title="Put remark if discount is applicable" id="txtRemark_0" class="form-control" /></td>' +
+            '<td class="shop_vMiddle shop_hCentre">0.00</td> ' +
+            '<td class="shop_vMiddle shop_hCentre"><input type="number" id="txtQty_0" class="form-control" /></td>' +
+            '<td class="shop_vMiddle shop_hRigth">0.00</td>' +
+            '<td class="shop_vMiddle shop_hCentre">' +
+            '<div class="btn-group-sm"> ' +
+            '<img style="width:25px;cursor:pointer;" id = "btnDelete_" title = "Delete this row" src="../../Images/Icons/delete.png" /> ' +
+            '<img style="width:25px;cursor:pointer;" id = "btnReset_" title = "Reset this row" src="../../Images/Icons/refresh.png" /> ' +
+            '</div>' +
+            '</td>' +
             '</tr>';
         $('.tdSubTotal').before($html);
         $('[id*="txtQty_"],[id*="txtDiscount_"]').change();
@@ -292,17 +306,28 @@ $(document).on('change', '#txtAmountToBePaid', function () {
 
 $(document).on('click', '#_ptlSearchProductNewInvoice', function () {
     $('#_ptlSearchProductSave').data('invoiceno', 0);
-    resetInvoice();
+    $newSales.resetInvoice();
 });
 
-function resetInvoice() {
+$newSales.setCustomerRecord = function (data) {
+    let $address = data.FirstName + " " + data.LastName;
+    $address += ", \n" + data.Mobile + "\n";
+    $address += (data.Email == "" ? "" : data.Email + "\n");
+    $address += (data.Address == "" ? "" : data.Address + "\n");
+    $address += data.District + "," + data.State;
+    $address += data.PINCode === "" ? "" : "-" + data.PINCode;
+    $('.customerAddress').text($address);
+    $('#divInvoiceDetails').show();
+    $('#hdnCustomerId').val(data.CustomerId);
+}
+$newSales.resetInvoice = function () {
     $('.customerAddress').text('');
     $('#txtAmountToBePaid').val('0');
     $('#txtBalanceAmount').val('0');
     $('#_ptlPaymentMode').val('');
     $('#lblInvoiceNo').text('Invoice No. : $invoiceNo');
     $('#lblInvoiceDate').text('Invoice Date : $invoiceDate');
-    $('#tblInvoicedetails tbody tr:lt(' + ($('#tblInvoicedetails tbody tr').length-3) + ')').remove();
+    $('#tblInvoicedetails tbody tr:lt(' + ($('#tblInvoicedetails tbody tr').length - 3) + ')').remove();
     $('.tdSubTotal').before('<tr class="defaultRow">' +
         '<td class= "shop_vMiddle">1.</td>' +
         '<td class="shop_vMiddle">No Product were selected yet</td>' +
@@ -328,7 +353,7 @@ function resetInvoice() {
     $('#_ptlPayReNo').val('').hide();
 }
 
-function validateInvoice(obj) {
+$newSales.validateInvoice = function (obj) {
     if (obj.Products.length == 0) {
         utility.SetAlert("Please add atleast one product");
         return false;

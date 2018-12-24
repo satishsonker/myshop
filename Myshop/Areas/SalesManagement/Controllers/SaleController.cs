@@ -17,6 +17,8 @@ namespace Myshop.Areas.SalesManagement.Controllers
         // GET: SalesManagement/Sale
         public ActionResult Dashboard()
         {
+            DashboardDetails _details = new DashboardDetails();
+            _details.InitializeSalesSetting();
             return View();
         }
 
