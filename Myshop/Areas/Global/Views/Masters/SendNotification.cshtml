@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="~/Scripts/App/Area/Global/Master/SendNotification.js"></script>
 <form action="/" method="post" style="margin-top:0px" id="notifyform">
-    <div class="col-sm-10 col-sm-offset-1">
+    <div class="col-sm-12">
         <div class="panel panel-info">
             <div class="panel-heading">Notification List</div>
             <div class="panel-body">
@@ -27,14 +27,12 @@
                             <th class="text-center">Action</th>
                         </tr>
                     </thead>
-                    <tbody style="font-size:12px;"></tbody>
+                    <tbody style="font-size:12px;">
+                        <tr>
+                            <td style="text-align:center;" colspan="8">No Pending Notications</td>
+                        </tr>
+                    </tbody>
                 </table>
-            </div>
-            <div class="panel-footer">
-                @*@{
-                        string ViewDataName = "GetNotificationJson";
-                    }
-                    @Html.Partial("_ButtonGroup", ViewDataName)*@
             </div>
         </div>
     </div>
@@ -64,6 +62,7 @@
             <tbody></tbody>
         </table>
     </div>
+    <img class="shop_addIcon" title="Click here for Add new Notification" src="/Images/Icons/PlusIcon.png" href="/global/Masters/GetNotification">
 </form>
 
 

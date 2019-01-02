@@ -3,10 +3,6 @@
     ViewBag.Title = "Shop Selection";
     Layout = "~/Views/Shared/_MainLayoutWithoutLeftMenu.cshtml";
 }
-
-<link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
-<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <script src="~/Scripts/App/Area/Global/Master/Shops.js"></script>
 <form action="/" method="post" style="margin-top:60px" id="shopform">
     <div class="container">
@@ -16,12 +12,37 @@
                 <div class="panel-body">
                     <div class="row">
                         @{
-                                TempData.Keep("shopList");
-                                foreach (Myshop.App_Start.ShopListModel item in TempData["shopList"] as List<Myshop.App_Start.ShopListModel>)
-                                {
+                            TempData.Keep("shopList");
+                            foreach (Myshop.App_Start.ShopListModel item in TempData["shopList"] as List<Myshop.App_Start.ShopListModel>)
+                            {
 
                                 <div class="col-lg-12 col-md-12 col-sm-12">
-                                    <a href="/login/setshopselection?shopid=@item.ShopId&shopname=@item.ShopName"class="btn btn-primary" style="width:100%;margin-bottom:30px">@item.ShopName</a>
+                                    <a href="/login/setshopselection?shopid=@item.ShopId&shopname=@item.ShopName" class="btn btn-info btn-lg shop-select">
+                                        <span class="shop-name">
+                                            <i class="fas fa-building green-text"></i> @item.ShopName.Trim()
+                                        </span>
+                                        <span class="shop-gstin">
+                                            @if (item.GSTIN != string.Empty && item.GSTIN != null)
+                                            {<text><i class="fas fa-rupee-sign"></i> GSTIN - </text> @item.GSTIN.Trim()}
+                                        else
+                                        {
+                                            <text><i class="fas fa-rupee-sign"></i> No GSTIN Found</text>
+                                        }
+                                        </span>
+                                        <span class="shop-address">
+                                            <i class="fas fa-home red-text"></i> @item.Address
+                                        </span>
+                                        <span class="shop-email">
+                                            <i class="fas fa-envelope yellow-text"></i> @item.Email
+                                        </span>
+                                        <span class="shop-mobile">
+                                            <i class="fas fa-mobile"></i> @item.Mobile
+                                        </span>
+                                        @if (item.IsPrimary)
+                                        {
+                                        <span class="label label-warning shop-primary">Primary Shop</span>
+                                        }
+                                    </a>
                                 </div>
                             }
                         }

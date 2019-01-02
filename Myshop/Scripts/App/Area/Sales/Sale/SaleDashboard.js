@@ -3,12 +3,6 @@
 /// <reference path="../../common/validate.js" />
 /// <reference path="../../common/utility.js" />
 
-
-$(document).on('click', '.shop_addIcon', function () {
-    window.location = "/SalesManagement/sale/NewSales";
-});
-
-
 $(document).on('change', '#ddlPeriod', function () {
     utility.ajaxHelper(app.urls.SaleArea.SalesController.GetDashboard, { Days: $(this).val() }, function (response) {
         $('.totalSales').text(response.TotalSales);

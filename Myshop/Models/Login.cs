@@ -196,6 +196,7 @@ namespace Myshop.Models
                         _newItem.Sender = string.Format("{0} {1}", item.Gbl_Master_User.Firstname, item.Gbl_Master_User.Lastname);
                         _newItem.Photo = Convert.ToBase64String(item.Gbl_Master_User.Photo);
                         _newItem.ReceiveDate = Convert.ToDateTime(item.PushedDate);
+                        _newItem.NotificationId = item.NotificationId;
                         TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.PushedDate));
                         if (span.Days == 1)
                         {
@@ -217,7 +218,7 @@ namespace Myshop.Models
                         _notificationList.Add(_newItem);
                     }
                     WebSession.NotificationList = _notificationList;
-                    WebSession.NotificationCount = notification.Count();
+                    WebSession.NotificationCount = _notificationList.Count();
 
 
 
@@ -231,6 +232,7 @@ namespace Myshop.Models
                     foreach (Gbl_Master_Task item in taskUser)
                     {
                         TaskUserModel _newItem = new TaskUserModel();
+                        _newItem.TaskId = item.TaskId;
                         _newItem.CreatedDate = item.CreatedDate;
                         _newItem.TaskCreatedByName = item.Gbl_Master_User.Firstname + " " + item.Gbl_Master_User.Lastname;
                         _newItem.TaskCreatedById = item.Gbl_Master_User.UserId;
@@ -536,12 +538,18 @@ namespace Myshop.Models
             myShop = new MyshopDb();
             var shopList = (from shopMap in myShop.User_ShopMapper.Where(x => x.UserId.Equals(WebSession.UserId) && x.IsDeleted == false)
                             from shop in myShop.Gbl_Master_Shop.Where(x => x.ShopId.Equals(shopMap.ShopId) && x.IsDeleted == false)
+                            from city in myShop.Gbl_Master_City.Where(x => x.CityId.Equals(shop.Distict) && x.IsDeleted == false)
+                            from state in myShop.Gbl_Master_State.Where(x => x.StateId.Equals(shop.State) && x.IsDeleted == false)
                             orderby shop.Name
                             select new ShopListModel
                             {
                                 ShopId = shop.ShopId,
                                 ShopName = shop.Name,
-                                GSTIN=shop.GSTIN
+                                GSTIN = shop.GSTIN,
+                                Address = shop.Address+", "+city.CityName+", "+state.StateName,
+                                Email = shop.Email??"No Email Address",
+                                Mobile = shop.Mobile,
+                                IsPrimary=shop.IsPrimary
                             }).ToList();
             return shopList;
         }

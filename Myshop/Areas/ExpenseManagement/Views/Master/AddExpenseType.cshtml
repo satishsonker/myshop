@@ -1,10 +1,10 @@
 ﻿
 @{
-    ViewBag.Title = "Account Type";
+    ViewBag.Title = "AddExpenseType";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
+<script src="~/Scripts/App/Area/Expense/Master/ExpenseType.js"></script>
 
-<script src="~/Scripts/App/Area/Global/Master/AccType.js"></script>
 <form action="/" method="post" style="margin-top:0px" id="acctypeform">
     <div class="col-sm-10 col-sm-offset-1">
         <div class="panel panel-info">
@@ -20,7 +20,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <label>Description</label>
-                        <input type="text"  class="form-control" placeholder="Enter Account Type Description" id="accounttypedesc" name="accounttypedesc" />
+                        <input type="text" class="form-control" placeholder="Enter Account Type Description" id="accounttypedesc" name="accounttypedesc" />
                     </div>
                 </div>
             </div>
@@ -55,3 +55,4 @@
         </table>
     </div>
 </form>
+

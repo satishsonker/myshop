@@ -7,22 +7,30 @@
 <link href="~/Content/App/Area/StockManagement/Main.css" rel="stylesheet" />
 <link href="~/Content/App/Home/Login.css" rel="stylesheet" />
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-<script src="~/Scripts/App/Area/Global/User/MapShop.js"></script>
-<form action="/" method="post" style="margin-top:60px" id="permissionform">
-    <div class="col-sm-10 col-sm-offset-1">
+<script src="~/Scripts/App/Area/Global/User/taskList.js"></script>
+<form action="/" method="post" style="margin-top:0px" id="permissionform">
+    <div class="col-sm-12">
         <div class="panel panel-info">
             <div class="panel-heading"> @WebSession.Firstname Task List</div>
-            <ul id="_taskList" class="">
-                @foreach (var item in WebSession.TaskList)
-                {
-                    <li>
-                        <img alt="Avatar" class="img-circle notification-avatar" src="data:image/jpg;base64,@item.TaskCreatedByPhoto">
-                        <span class="notification-title"> @item.TaskCreatedByName Assigned new task @item.TaskAssignedTime</span>
-                        <p class="notification-message">@item.TaskDetails</p>
-                    </li>
-                }
-            </ul>
+         
             <div class="panel-body">
+                <ul id="_taskList" class="">
+                    @if (WebSession.TaskList.Count == 0)
+                    {
+                    <li style="text-align:center">
+                        <i class="far fa-smile-wink green-text" style="font-size: 52px;">No Task</i>
+                    </li>
+                    }
+                    @foreach (var item in WebSession.TaskList)
+                    {
+                        <li>
+                            <img alt="Avatar" class="img-circle notification-avatar" src="data:image/jpg;base64,@item.TaskCreatedByPhoto">
+                            <span class="notification-title"> @item.TaskCreatedByName Assigned new task @item.TaskAssignedTime</span>
+                            <p class="notification-message">@item.TaskDetails</p>
+                            <i class="fas fa-clipboard-check fontButton green-text" id="btnTaskComplete_@item.TaskId" data-id="@item.TaskId" title="Click here to mark Task Completed"></i>
+                        </li>
+                    }
+                </ul>
             </div>
         </div>
     </div>
@@ -37,29 +45,30 @@
     }
 
     #_taskList li span {
-           position: absolute;
-    border: 1px solid green;
-    border-radius: 4px;
-    padding: 0px 4px;
-    background: #008000b0;
-    color: white;
-    font-size: 11px;
-    float: right;
-    position: inherit;
+        position: absolute;
+        border: 1px solid green;
+        border-radius: 4px;
+        padding: 0px 4px;
+        background: #008000b0;
+        color: white;
+        font-size: 11px;
+        float: right;
+        position: inherit;
     }
 
-    #_taskList li p{
+    #_taskList li p {
         position: inherit;
-    margin: -36px 0 0 67px;
+        margin: -36px 0 0 67px;
     }
 
     #_taskList li {
-        border: 1px solid;
+        border: 1px solid #e8e8e8;
         padding: 4px;
-        border-radius: 10px;
-        margin: 5px;
+        border-radius: 4px;
+        margin: 10px 5px;
         list-style: none;
         min-height: 62px;
+        box-shadow: 2px 3px 4px;
     }
 
     #_taskList {
@@ -70,4 +79,12 @@
             width: 80%;
             margin: -24px 0 0 64px;
         }
+
+    .fa-clipboard-check {
+        float: right;
+        position: absolute;
+        right: 39px;
+        margin-top: -7px;
+        font-size: 24px;
+    }
 </style>

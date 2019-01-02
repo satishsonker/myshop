@@ -3,11 +3,13 @@
 /// <reference path="../../../Common/Utility.js" />
 
 $(document).ready(function () {
-    utility.bindDdlByAjax(app.urls.GetCustomerTypeSelectListJson, 'ddlCustType');    
+    //utility.ajaxHelperGet(app.urls.GetCustomerTypeSelectListJson,)
+    //utility.bindDdlByAjax(app.urls.GetCustomerTypeSelectListJson, 'ddlCustType');    
+    $('#multiselect').multiselect({ data:app.urls.GetCustomerTypeSelectListJson});
 });
 
 $(document).on('click', '#btnGo', function () {
-    var custTypeId = $('#ddlCustType').val(),
+    var custTypeId = $('#multiselect').multiselectValue(),
         duration = $('#ddlDuration').val();
 
     if (custTypeId !== null && custTypeId.length > 0) {
@@ -17,7 +19,7 @@ $(document).on('click', '#btnGo', function () {
             $('#totalQty-pie').empty();
             lineProductChart(custTypeId, duration);
             pieTotalAmountChart(custTypeId, duration);
-            pieTotalQtyChart(custTypeId, duration);
+           // pieTotalQtyChart(custTypeId, duration);
         }
         else {
             utility.SetAlert("Please select duration",app.const.alertType.warning);

@@ -135,6 +135,10 @@ namespace Myshop.Controllers
             {
                 result.Add(114, Resource.Partially_Updated);
             }
+            else if(status==Enums.CrudStatus.NotExist)
+            {
+                result.Add(115, Resource.RecordNotExist);
+            }
             else
             {
                 result.Add(1100, Resource.Status_Not_Defined);

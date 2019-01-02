@@ -173,6 +173,8 @@
     <Compile Include="Areas\EmployeesManagement\Models\EmpModel.cs" />
     <Compile Include="Areas\EmployeesManagement\Models\EmpRoleModel.cs" />
     <Compile Include="Areas\EmployeesManagement\Models\MastersDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Controllers\MasterController.cs" />
+    <Compile Include="Areas\ExpenseManagement\ExpenseManagementAreaRegistration.cs" />
     <Compile Include="Areas\Global\Controllers\AdminController.cs" />
     <Compile Include="Areas\Global\Controllers\MainController.cs" />
     <Compile Include="Areas\Global\Controllers\MastersController.cs" />
@@ -279,13 +281,11 @@
     <Content Include="Areas\CustomersManagement\Views\web.config" />
     <Content Include="Areas\EmployeesManagement\Views\Master\AddEmployee.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\Master\AddEmployeeRole.cshtml" />
-    <Content Include="Areas\EmployeesManagement\Views\Shared\_ButtonGroup.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetDocProofType.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetDocProof.cshtml" />
     <Content Include="Areas\EmployeesManagement\Views\Shared\_AddEmp.cshtml" />
     <Content Include="Areas\StockManagement\Views\Masters\_StockEntryView.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\Master\AddCustmerType.cshtml" />
-    <Content Include="Areas\CustomersManagement\Views\Shared\_ButtonGroup.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\Master\AddCustmer.cshtml" />
     <Content Include="Areas\CustomersManagement\Views\Customer\Dashboard.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Sale\Dashboard.cshtml" />
@@ -307,9 +307,10 @@
     <Content Include="Areas\SalesManagement\Views\Sale\CancelInvoice.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Reports\GetStatements.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Settings\GetSetting.cshtml" />
-    <Content Include="Areas\SalesManagement\Views\Shared\_ButtonGroup.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Reports\GetGstStatements.cshtml" />
     <Content Include="Areas\SalesManagement\Views\Reports\MostSellingProduct.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\web.config" />
+    <Content Include="Areas\ExpenseManagement\Views\Master\AddExpenseType.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -407,6 +408,7 @@
     <Content Include="Scripts\App\Area\Customer\Master\CustomerType.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
+    <Content Include="Scripts\App\Area\Expense\Master\ExpenseType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\CreateTask.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ResetUserPassword.js" />
@@ -429,6 +431,7 @@
     <Content Include="Scripts\App\Area\Global\User\CreateUser.js" />
     <Content Include="Scripts\App\Area\Global\User\MapShop.js" />
     <Content Include="Scripts\App\Area\Global\User\Permission.js" />
+    <Content Include="Scripts\App\Area\Global\User\taskList.js" />
     <Content Include="Scripts\App\Area\Sales\Reports\GstStatement.js" />
     <Content Include="Scripts\App\Area\Sales\Reports\MostSalePro.js" />
     <Content Include="Scripts\App\Area\Sales\Sale\GetInvoice.js" />
@@ -450,6 +453,7 @@
     <Content Include="Scripts\App\Common\App.js" />
     <Content Include="Scripts\App\Common\DatetimePicker.js" />
     <Content Include="Scripts\App\Common\layout.js" />
+    <Content Include="Scripts\App\Common\multiselect.js" />
     <Content Include="Scripts\App\Common\Utility.js" />
     <Content Include="Scripts\App\Common\Validate.js" />
     <Content Include="Scripts\App\Home\Dashboard.js" />
@@ -465,11 +469,9 @@
     <Content Include="Areas\StockManagement\Views\Masters\GetProduct.cshtml" />
     <Content Include="Areas\StockManagement\Views\Shared\Ack.cshtml" />
     <Content Include="Areas\StockManagement\Views\Stock\StockEntry.cshtml" />
-    <Content Include="Areas\StockManagement\Views\Shared\_ButtonGroup.cshtml" />
     <Content Include="Areas\StockManagement\Views\Stock\Main.cshtml" />
     <Content Include="Areas\StockManagement\Views\Masters\GetVendor.cshtml" />
     <Content Include="Areas\Global\Views\web.config" />
-    <Content Include="Areas\Global\Views\Shared\_ButtonGroup.cshtml" />
     <Content Include="Areas\Global\Views\Main\Home.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetBank.cshtml" />
     <Content Include="Areas\Global\Views\Masters\GetBankAccount.cshtml" />
@@ -551,10 +553,17 @@
     <Content Include="Views\Shared\_SearchInvoice.cshtml" />
     <Content Include="Views\Shared\_StateCity.cshtml" />
     <Content Include="Views\Shared\_PaymentModeDropdown.cshtml" />
+    <Content Include="Views\Shared\_BlankLayout.cshtml" />
+    <Content Include="Views\Shared\_ButtonGroup.cshtml" />
+    <Content Include="Views\Shared\_Multiselect.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\EmployeesManagement\Views\Reports\" />
+    <Folder Include="Areas\ExpenseManagement\Models\" />
+    <Folder Include="Areas\ExpenseManagement\Views\Shared\" />
+    <Folder Include="Areas\Global\Views\Shared\" />
+    <Folder Include="Areas\SalesManagement\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

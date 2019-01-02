@@ -1,4 +1,5 @@
 ﻿@using Myshop.App_Start;
+@using Newtonsoft.Json;
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -49,10 +50,11 @@
         AreaName = ViewContext.RouteData.DataTokens["area"].ToString().ToLower();
     } }
 <body hoe-navigation-type="vertical" hoe-nav-placement="left" theme-layout="wide-layout" theme-bg="bg1" style="min-height:714px !important;height:auto !important">
+    <input type="hidden" id="hdnsessionjson" value="@Utility.Base64Encode(JsonConvert.SerializeObject(new {UserId=WebSession.UserId}))" />
     <div id="hoeapp-wrapper" class="hoe-hide-lpanel" hoe-device-type="desktop">
         <header id="hoe-header" hoe-lpanel-effect="shrink" class="">
             <div class="hoe-left-header">
-                <a href="#"><i class="fa fa-graduation-cap"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand", title = "Click here to go to dashboard", style = "font-size: 13px;" })</span></a>
+                <a href="@Url.Action("Index", "Home",new { area = "" })"><i class="fas fa-building" title="@WebSession.ShopName"></i> <span>@Html.ActionLink(WebSession.ShopName, "Index", "Home", new { area = "" }, new { @class = "navbar-brand hidden-sm hidden-xs hidden-md", title = "Click here to go to dashboard", style = "font-size: 13px;" })</span></a>
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
             </div>
 
@@ -60,138 +62,61 @@
                 <span class="hoe-sidebar-toggle"><a href="#"></a></span>
                 @if (!string.IsNullOrEmpty(WebSession.Username))
                 {
-                    <ul class="left-navbar">
-                        <li class="dropdown hoe-rheader-submenu message-notification">
-                            <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="badge badge-danger">@WebSession.NotificationCount</span>
-                            </a>
-                            <ul class="dropdown-menu ">
-                                <li class="hoe-submenu-label">
-                                    <h3>You have <span class="bold">@WebSession.NotificationCount</span> New Messages <a href="#">view all</a></h3>
+                <ul class="left-navbar">
+                    <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
+                        <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
+                            <i class="fa fa-bell-o"></i>
+                            <span class="badge badge-success" id="lblNotiCount">@WebSession.NotificationCount</span>
+                        </a>
+                        <ul class="dropdown-menu notiList">
+                            <li class="hoe-submenu-label">
+                                <h3><span class="bold lblNotiCount">@WebSession.NotificationCount </span> Notification <a href="#">view all</a></h3>
+                            </li>
+                            @foreach (WebSessionNotificationList item in WebSession.NotificationList)
+                            {
+                                <li data-notifyid="@item.NotificationId">
+                                    <a href="#" class="clearfix">
+                                        <img src="data:image/jpg;base64,@item.Photo" class="img-circle notification-avatar" alt="Avatar">
+                                        <p class="notification-title">Notification-@item.Sender</p>
+                                        <span class="notification-ago">@item.ReceiveTime</span>
+                                        <p class="notification-message">@item.Message</p>
+                                    </a>
                                 </li>
-
-                                @foreach (WebSessionNotificationList item in WebSession.NotificationList)
+                            }
+                        </ul>
+                    </li>
+                    <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
+                        <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
+                            <i class="fas fa-tasks"></i>
+                            <span class="badge badge-danger">@WebSession.TaskCount</span>
+                        </a>
+                        <ul class="dropdown-menu ">
+                            <li class="hoe-submenu-label">
+                                <h3> You have <span class="bold">@WebSession.TaskCount </span>pending Task <a href="~/Global/User/UserTaskList">view all</a></h3>
+                            </li>
+                            @{
+                                foreach (var item in WebSession.TaskList)
                                 {
                                     <li>
                                         <a href="#" class="clearfix">
-                                            <img src="data:image/jpg;base64,@item.Photo" class="img-circle notification-avatar" alt="Avatar">
-                                            <span class="notification-title">@item.Sender</span>
-                                            <span class="notification-ago  ">@item.ReceiveTime</span>
-                                            <p class="notification-message">@item.Message</p>
+                                            <img alt="Avatar" class="img-circle notification-avatar" src="data:image/jpg;base64,@item.TaskCreatedByPhoto">
+                                            <span class="task-title"> @item.TaskCreatedByName Assigned new task </span>
+                                            <span class="notification-ago-1 ">@item.TaskAssignedTime</span>
+                                            <p class="notification-message" style="padding: 4px 0px;">@item.TaskDetails</p>
                                         </a>
                                     </li>
                                 }
-                            </ul>
-                        </li>
-                        <li class="dropdown hoe-rheader-submenu message-notification left-min-30">
-                            <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
-                                <i class="fa fa-bell-o"></i>
-                                <span class="badge badge-success" id="lblNotiCount">0</span>
-                            </a>
-                            <ul class="dropdown-menu notiList" >
-                                <li class="hoe-submenu-label">
-                                    <h3><span class="bold lblNotiCount">0 pending</span> Notification <a href="#">view all</a></h3>
-                                </li>
-                                @*<li>
-                                    <a href="#" class="clearfix">
-                                        <i class="fa fa-exchange green-text"></i>
-                                        <span class="notification-title">Installing App v1.2.1</span>
-                                        <span class="notification-ago  ">60 % Done</span>
-                                        <p class="notification-message">
-                                        </p><div class="progress">
-                                            <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width:60%">
-                                                60%
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <i class="fa fa-exclamation-triangle red-text"></i>
-                                        <span class="notification-title">Application Error - Sav3085</span>
-                                        <span class="notification-ago  ">10 min ago</span>
-                                        <p class="notification-message">failed to initialize the application due to error weblogic.application.moduleexception</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <i class="fa fa-server yellow-text"></i>
-                                        <span class="notification-title">Server Status - Sav3080</span>
-                                        <span class="notification-ago  ">30GB Free Space</span>
-                                        <p class="notification-message">
-                                        </p><div class="progress">
-                                            <div class="progress-bar progress-bar-success" role="progressbar" style="width:40%">
-
-                                            </div>
-                                            <div class="progress-bar progress-bar-warning" role="progressbar" style="width:10%">
-
-                                            </div>
-                                            <div class="progress-bar progress-bar-danger" role="progressbar" style="width:20%">
-
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <i class="fa fa-cogs green-text"></i>
-                                        <span class="notification-title">Application Configured</span>
-                                        <span class="notification-ago  ">30 min ago</span>
-                                        <p class="notification-message">Your setting is updated on server Sav3060</p>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="#" class="clearfix">
-                                        <i class="fa fa-server blue-text"></i>
-                                        <span class="notification-title">Server Status</span>
-                                        <span class="notification-ago  ">300GB Free Space</span>
-                                        <p class="notification-message">
-                                        </p><div class="progress">
-                                            <div class="progress-bar progress-bar-info" role="progressbar" style="width:80%">
-                                                Free Space
-                                            </div>
-                                        </div>
-                                        <p></p>
-                                    </a>
-                                </li>*@
-
-                            </ul>
-                        </li>
-                        <li class="dropdown hoe-rheader-submenu message-notification left-min-65">
-                            <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown">
-                                <i class="fa fa-tasks"></i>
-                                <span class="badge badge-danger">@WebSession.TaskCount</span>
-                            </a>
-                            <ul class="dropdown-menu ">
-                                <li class="hoe-submenu-label">
-                                    <h3> You have <span class="bold">@WebSession.TaskCount </span>pending Task <a href="~/Global/User/UserTaskList">view all</a></h3>
-                                </li>
-                                @{
-                                    foreach (var item in WebSession.TaskList)
-                                    {
-                                        <li>
-                                            <a href="#" class="clearfix">
-                                                <img alt="Avatar" class="img-circle notification-avatar" src="data:image/jpg;base64,@item.TaskCreatedByPhoto">
-                                                <span class="notification-title"> @item.TaskCreatedByName Assigned new task </span>
-                                                <span class="notification-ago-1 ">@item.TaskAssignedTime</span>
-                                                <p class="notification-message">@item.TaskDetails</p>
-                                            </a>
-                                        </li>
-                                    }
-                                }
-                            </ul>
-                        </li>
-                        <li>
-                            <form method="post" class="hoe-searchbar">
-                                <input type="text" placeholder="Search..." name="keyword" class="form-control">
-                                <span class="search-icon"><i class="fa fa-search"></i></span>
-                            </form>
-                        </li>
-                    </ul>
-                                    }
+                            }
+                        </ul>
+                    </li>
+                    <li>
+                        <form method="post" class="hoe-searchbar">
+                            <input type="text" placeholder="Search..." name="keyword" class="form-control">
+                            <span class="search-icon"><i class="fa fa-search"></i></span>
+                        </form>
+                    </li>
+                </ul>
+                }
                 <ul class="right-navbar">
                     <li class="dropdown hoe-rheader-submenu hoe-header-profile">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -216,29 +141,27 @@
                                 <li><a href="#"><i class="fa fa-calendar"></i>My Calendar</a></li>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-envelope"></i>My Inbox  <span class="badge badge-danger">
+                                        <i class="fas fa-bell yellow-text"></i>My Inbox  <span class="badge badge-success">
                                             @WebSession.NotificationCount
                                         </span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="#">
-                                        <i class="fa fa-rocket"></i>My Tasks <span class="badge badge-success">
-                                            7
+                                        <i class="fa fa-tasks"></i>My Tasks <span class="badge badge-danger">
+                                            @WebSession.TaskCount
                                         </span>
                                     </a>
                                 </li>
-                                <li id="_layoutLockScreen"><a href="#"><i class="fa fa-lock"></i>Lock Screen</a></li>
-                                <li><a href="\login\logout"><i class="fa fa-power-off"></i>Logout</a></li>
+                                <li><a href="/Global/Setting/GetShop"><i class="fa fa-building green-text"></i>Change Shop</a></li>
+                                <li id="_layoutLockScreen"><a href="#"><i class="fa fa-lock blue-text"></i>Lock Screen</a></li>
+                                <li><a href="\login\logout"><i class="fa fa-power-off red-text"></i>Logout</a></li>
                             }
                             else
                             {
-                                <li><a href="\login\login"><i class="fa fa-power-off"></i>Login</a></li>
+                                <li><a href="\login\login"><i class="fa fa-power-off green-text"></i>Login</a></li>
                             }
                         </ul>
-                    </li>
-                    <li class="dropdown hoe-rheader-submenu hidden-xs">
-                        <a href="#" class="dropdown-toggle icon-circle" data-toggle="dropdown"><i class="fa fa-ellipsis-h"></i></a>
                     </li>
                 </ul>
 
@@ -266,7 +189,7 @@
                                 <h5 class="media-heading">Welcome @name<span></span></h5>
                                 <small>@WebSession.UserType.ToUpper()</small>
                             }
-                            </div>
+                        </div>
                     </div>
                 </div>
                 <ul class="nav panel-list">
@@ -275,7 +198,7 @@
                     {
                         <li class="">
                             <a href="\Home\Dashboard">
-                                <i class="fa fa-home"></i>
+                                <i class="fa fa-home black-text"></i>
                                 <span class="menu-text">App Home</span>
                                 <span class="selected"></span>
                             </a>
@@ -284,21 +207,25 @@
                         {
                             <li class="active">
                                 <a href="\@AreaName\stock\main">
-                                    <i class="fa fa-tachometer"></i>
+                                    <i class="fa fa-tachometer black-text"></i>
                                     <span class="menu-text">Dashboard</span>
                                     <span class="selected"></span>
                                 </a>
                             </li>
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-box-open black-text"></i>
                                     <span class="menu-text">Stock Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/stock/StockEntry">
-                                            <span class="menu-text">Stock Entry</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-arrow-down fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-box-open black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Stock Entry</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -307,44 +234,68 @@
                             @*Stock Master Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-brain black-text"></i>
                                     <span class="menu-text">Master Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Masters/GetBrand">
-                                            <span class="menu-text">Add Brand</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-code-branch black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Brand</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Masters/GetCategory">
-                                            <span class="menu-text">Add Category</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-bezier-curve black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Category</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Masters/GetSubCategory">
-                                            <span class="menu-text">Add Sub Category</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-sitemap black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Sub Category</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Masters/GetUnit">
-                                            <span class="menu-text">Add Unit</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-flask black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Unit</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Masters/GetVendor">
-                                            <span class="menu-text">Add Vendor</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-user-friends black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Vendor</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Masters/GetProduct">
-                                            <span class="menu-text">Add Product</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-cookie-bite black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Product</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -353,14 +304,18 @@
 
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fa fa-files-o black-text"></i>
                                     <span class="menu-text">Reports</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Reports/MinStock">
-                                            <span class="menu-text">Min Stock</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fab fa-creative-commons-zero fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-box-open black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Min Stock</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -371,7 +326,7 @@
                         {
                             <li class="active">
                                 <a href="\@AreaName\stock\main">
-                                    <i class="fa fa-tachometer"></i>
+                                    <i class="fa fa-tachometer black-text"></i>
                                     <span class="menu-text">Dashboard</span>
                                     <span class="selected"></span>
                                 </a>
@@ -379,14 +334,20 @@
                             @*Global Master Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-brain black-text"></i>
                                     <span class="menu-text">Master Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
-                                        <a href="/@AreaName/Masters/GetLogo">
-                                            <span class="menu-text">Add Logo</span>
+                                        <a href="/@AreaName/Master/AddEmployeeRole">
+                                            <span class="menu-text noarrow">Add Employee Role</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/@AreaName/Master/AddEmployee">
+                                            <span class="menu-text noarrow">Add Employee</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -398,7 +359,7 @@
                         {
                             <li class="active">
                                 <a href="\@AreaName\customer\dashboard">
-                                    <i class="fa fa-tachometer"></i>
+                                    <i class="fa fa-tachometer black-text"></i>
                                     <span class="menu-text">Dashboard</span>
                                     <span class="selected"></span>
                                 </a>
@@ -406,20 +367,28 @@
                             @*Global Master Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-brain black-text"></i>
                                     <span class="menu-text">Master Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Master/AddCustmerType">
-                                            <span class="menu-text">Add Customer Type</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-question fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-user-cog black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Customer Type</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Master/AddCustmer">
-                                            <span class="menu-text">Add Customer</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-user-cog black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Customer</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -430,7 +399,7 @@
                         {
                             <li class="active">
                                 <a href="\@AreaName\stock\main">
-                                    <i class="fa fa-tachometer"></i>
+                                    <i class="fa fa-tachometer black-text"></i>
                                     <span class="menu-text">Dashboard</span>
                                     <span class="selected"></span>
                                 </a>
@@ -438,58 +407,86 @@
                             @*Global Master Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-brain black-text black-text"></i>
                                     <span class="menu-text">Master Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Masters/GetLogo">
-                                            <span class="menu-text">Add Logo</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-radiation black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Logo</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Masters/Getshop">
-                                            <span class="menu-text">Add Shop</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-building black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Add Shop</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li class="hoe-has-menu">
                                         @*Global Master Bank Menu Start*@
                                         <a href="javascript:void(0)">
-                                            <i class="fa fa-files-o"></i>
-                                            <span class="menu-text">Bank Menu</span>
+                                            <i class="fas fa-landmark black-text"></i>
+                                            <span class="menu-text noarrow">Bank Menu</span>
                                             <span class="selected"></span>
                                         </a>
                                         <ul class="hoe-sub-menu">
                                             <li>
                                                 <a href="/@AreaName/Masters/GetBank">
-                                                    <span class="menu-text">Add Bank</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-landmark black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add Bank</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/GetAccountType">
-                                                    <span class="menu-text">Add Bank Account Type</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-question fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-landmark black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add Bank Account Type</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/GetPayMode">
-                                                    <span class="menu-text">Add Payment Mode</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fab fa-amazon-pay black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add Payment Mode</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/GetBankAccount">
-                                                    <span class="menu-text">Add Bank Account</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-user-circle fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-landmark black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add Bank Account</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/GetCheque">
-                                                    <span class="menu-text">Add Cheque</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-money-bill fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-landmark black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add Cheque</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
@@ -499,20 +496,28 @@
                                     @*Global Master Application Menu Start*@
                                     <li class="hoe-has-menu">
                                         <a href="javascript:void(0)">
-                                            <i class="fa fa-files-o"></i>
-                                            <span class="menu-text">Application Menu</span>
+                                            <i class="fab fa-app-store black-text"></i>
+                                            <span class="menu-text noarrow">Application Menu</span>
                                             <span class="selected"></span>
                                         </a>
                                         <ul class="hoe-sub-menu">
                                             <li>
-                                                <a href="/@AreaName/Masters/AddAppModule">
-                                                    <span class="menu-text">Add App Module</span>
+                                                <a href="/@AreaName/Menu/AddAppModule">
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fab fa-app-store black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add App Module</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
-                                                <a href="/@AreaName/Masters/AddAppPage">
-                                                    <span class="menu-text">Add App Page</span>
+                                                <a href="/@AreaName/Menu/AddAppPage">
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-file black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add App Page</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
@@ -522,26 +527,38 @@
                                     @*Global Master Notification Menu Start*@
                                     <li class="hoe-has-menu">
                                         <a href="javascript:void(0)">
-                                            <i class="fa fa-files-o"></i>
-                                            <span class="menu-text">Notification Menu</span>
+                                            <i class="fas fa-bell black-text"></i>
+                                            <span class="menu-text noarrow">Notification Menu</span>
                                             <span class="selected"></span>
                                         </a>
                                         <ul class="hoe-sub-menu">
                                             <li>
                                                 <a href="/@AreaName/Masters/GetNotificationType">
-                                                    <span class="menu-text">Notification Type</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-question fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-bell black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Notification Type</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/GetNotification">
-                                                    <span class="menu-text">Add Notification</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-bell black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Add Notification</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/SendNotification">
-                                                    <span class="menu-text">Send Notification</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-paper-plane fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-bell black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Send Notification</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
@@ -551,20 +568,28 @@
                                     @*Global Master Document Menu Start*@
                                     <li class="hoe-has-menu">
                                         <a href="javascript:void(0)">
-                                            <i class="fa fa-files-o"></i>
-                                            <span class="menu-text">Document Menu</span>
+                                            <i class="fa fa-files-o black-text"></i>
+                                            <span class="menu-text noarrow">Document Menu</span>
                                             <span class="selected"></span>
                                         </a>
                                         <ul class="hoe-sub-menu">
                                             <li>
                                                 <a href="/@AreaName/Masters/GetDocProofType">
-                                                    <span class="menu-text">Doc Proof Type</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-question fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-files-o black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Doc Proof Type</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
                                             <li>
                                                 <a href="/@AreaName/Masters/GetDocProof">
-                                                    <span class="menu-text">Document Proof</span>
+                                                    <span class="fa-stack fa-sm">
+                                                        <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                        <i class="fas fa-files-o black-text"></i>
+                                                    </span>
+                                                    <span class="menu-text noarrow">Document Proof</span>
                                                     <span class="selected"></span>
                                                 </a>
                                             </li>
@@ -576,22 +601,22 @@
                             @*Global Setting Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-tools black-text"></i>
                                     <span class="menu-text">Setting Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Setting/GetShop">
-                                            <span class="menu-text">Change Shop</span>
-                                            <span class="selected"></span>
+                                            <i class="fas fa-sync-alt black-text"></i>
+                                            <span class="menu-text noarrow">Change Shop</span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Setting/GetDowntime">
-                                            <span class="menu-text">Set App Downtime</span>
+                                            <i class="fas fa-level-down-alt black-text"></i>
+                                            <span class="menu-text noarrow">Set App Downtime</span>
                                             <span class="label sul">Updated</span>
-                                            <span class="selected"></span>
                                         </a>
                                     </li>
                                 </ul>
@@ -600,7 +625,7 @@
                             @*Global Menu Start*@
                             <li>
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fab fa-app-store black-text"></i>
                                     <span class="menu-text">App Menu</span>
                                     <span class="label sul">Coming Soon</span>
                                     @*<span class="selected"></span>*@
@@ -610,32 +635,48 @@
                             @*Global User Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fa fa-user black-text"></i>
                                     <span class="menu-text">Users Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/User/GetUser">
-                                            <span class="menu-text">Create User</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fa fa-user black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Create User</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/User/GetAccess">
-                                            <span class="menu-text">Create Access</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-check fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fa fa-user black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Create Access</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/User/GetPermission">
-                                            <span class="menu-text">Create Permission</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-user-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fa fa-user black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Create Permission</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/User/MapShop">
-                                            <span class="menu-text">User Shop Map</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-landmark fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fa fa-user black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">User Shop Map</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -645,26 +686,38 @@
                             @*Global Admin Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fa fa-user-secret red-text"></i>
                                     <span class="menu-text">Admin Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Admin/CreateUserTask">
-                                            <span class="menu-text">Create User Task</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-tasks fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fa fa-user-secret red-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Create User Task</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Admin/ResetUserPassword">
-                                            <span class="menu-text">Reset User Password</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-sync-alt fa-stack-1x stack-aside greenlight-text fa-spin"></i>
+                                                <i class="fa fa-key red-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Reset User Password</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Admin/GetErrorLog">
-                                            <span class="menu-text">Error Log</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-file-import red-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Error Log</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -676,7 +729,7 @@
                         {
                             <li class="active">
                                 <a href="\@AreaName\sale\dashboard">
-                                    <i class="fa fa-tachometer"></i>
+                                    <i class="fa fa-tachometer black-text"></i>
                                     <span class="menu-text">Dashboard</span>
                                     <span class="selected"></span>
                                 </a>
@@ -684,38 +737,58 @@
                             @*Global Master Menu Start*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fas fa-balance-scale black-text"></i>
                                     <span class="menu-text">Sales Menu</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/sale/NewSales">
-                                            <span class="menu-text">New Sale</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-balance-scale black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">New Sale</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/sale/ReturnInvoice">
-                                            <span class="menu-text">Return</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-redo-alt fa-stack-1x stack-aside red-text fa-spin"></i>
+                                                <i class="fas fa-balance-scale black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Return</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/sale/cancelInvoice">
-                                            <span class="menu-text">Cancel Invoice</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-times fa-stack-1x stack-aside red-text"></i>
+                                                <i class="fas fa-balance-scale black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Cancel Invoice</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/sale/saleslist">
-                                            <span class="menu-text">View Sales</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-eye fa-stack-1x stack-aside yellow-text"></i>
+                                                <i class="fas fa-balance-scale black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">View Sales</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/sale/GetInvoice">
-                                            <span class="menu-text">Duplicate Invoice</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="far fa-copy fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-balance-scale black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Duplicate Invoice</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -725,26 +798,38 @@
                             @*Sales Reports Menu End*@
                             <li class="hoe-has-menu">
                                 <a href="javascript:void(0)">
-                                    <i class="fa fa-files-o"></i>
+                                    <i class="fa fa-files-o black-text"></i>
                                     <span class="menu-text">Reports</span>
                                     <span class="selected"></span>
                                 </a>
                                 <ul class="hoe-sub-menu">
                                     <li>
                                         <a href="/@AreaName/Reports/GetStatements">
-                                            <span class="menu-text">Sales Statement</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-list-ol fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-balance-scale black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Sales Statement</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Reports/GetGstStatements">
-                                            <span class="menu-text">GST Statement</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-list-ol fa-stack-1x stack-aside yellow-text"></i>
+                                                <i class="fas fa-rupee-sign black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">GST Statement</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
                                     <li>
                                         <a href="/@AreaName/Reports/MostSellingProduct">
-                                            <span class="menu-text">Most Selling Product</span>
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-list-ol fa-stack-1x stack-aside red-text"></i>
+                                                <i class="fas fa-network-wired black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Most Selling Product</span>
                                             <span class="selected"></span>
                                         </a>
                                     </li>
@@ -753,8 +838,8 @@
 
                             <li>
                                 <a href="/@AreaName/settings/GetSetting">
-                                    <i class="fa fa-tachometer"></i>
-                                    <span class="menu-text">Sales Setting</span>
+                                    <i class="fas fa-tools black-text"></i>
+                                    <span class="menu-text noarrow">Sales Setting</span>
                                     <span class="selected"></span>
                                 </a>
                             </li>
@@ -762,38 +847,43 @@
                         }
                         <li class="hoe-has-menu">
                             <a href="javascript:void(0)">
-                                <i class="fa fa-envelope-o"></i>
-                                <span class="menu-text">Tools</span>
+                                <i class="fas fa-cog black-text fa-spin"></i>
+                                <span class="menu-text noarrow">Tools</span>
                                 <span class="selected"></span>
                             </a>
                             <ul class="hoe-sub-menu">
                                 <li>
                                     <a href="/Global/main/home">
-                                        <span class="menu-text">Global Setting </span>
+                                        <i class="fas fa-globe black-text fa-spin"></i>
+                                        <span class="menu-text noarrow">Global Setting </span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/StockManagement/Stock/Main">
-                                        <span class="menu-text">Stock Management</span>
+                                        <i class="fas fa-box-open black-text"></i>
+                                        <span class="menu-text noarrow">Stock Management</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/EmployeesManagement/Employee/home">
-                                        <span class="menu-text">Employee Management</span>
+                                        <i class="fas fa-users-cog black-text"></i>
+                                        <span class="menu-text noarrow">Employee Management</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/CustomersManagement/Customer/dashboard">
-                                        <span class="menu-text">Customer Management</span>
+                                        <i class="fas fa-user-cog black-text"></i>
+                                        <span class="menu-text noarrow">Customer Management</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
                                 <li>
                                     <a href="/SalesManagement/sale/dashboard">
-                                        <span class="menu-text">Sales Management</span>
+                                        <i class="fas fa-balance-scale black-text"></i>
+                                        <span class="menu-text noarrow">Sales Management</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>
@@ -819,24 +909,24 @@
                                 <div class="modal-dialog" style="position: absolute;left: 31%;top: 22%;">
                                     <!-- Modal content-->
                                     <div class="modal-content">
-                                        <div class="modal-header @alert">
-                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
-                                            <h4 class="modal-title">
+                                        <div class="modal-header @alert" style="padding: 7px 15px;">
+                                            <i class="fas fa-times close" style="margin-top: 4px;" data-dismiss="modal"></i>
+                                            <h4 class="modal-title black-text">
                                                 @if (@alert == "success")
                                                 {
-                                                    <text>Success</text>
+                                                    <text><i class="fas fa-check"></i> Success</text>
                                                 }
                                                 else if (@alert == "info")
                                                 {
-                                                    <text>Information</text>
+                                                    <text><i class="fas fa-exclamation-circle"></i> Information</text>
                                                 }
                                                 else if (@alert == "danger")
                                                 {
-                                                    <text>Error</text>
+                                                    <text><i class="fas fa-times-circle"></i> Error</text>
                                                 }
                                                 else
                                                 {
-                                                    <text>Warning</text>
+                                                    <text><i class="fas fa-exclamation-triangle"></i> Warning</text>
                                                 }
                                                 !
                                             </h4>
@@ -844,8 +934,8 @@
                                         <div class="modal-body">
                                             <p>@message</p>
                                         </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <div class="modal-footer" style="padding: 9px 11px 9px;">
+                                            <button type="button" class="btn btn-default btn-sm" data-dismiss="modal"><i class="fas fa-times"></i> Close</button>
                                         </div>
                                     </div>
                                 </div>
@@ -1013,56 +1103,4 @@
 </body>
 </html>
 <style>
-    #content {
-        overflow:hidden;
-        word-wrap:hyphenate;
-        width: 300px;
-        max-height:100px;
-        height:100px;
-        margin-bottom:10px;
-    }
-    #left {
-        float: left;
-        width:12%;
-    }
-
-    #right {
-        word-break:break-all;
-        float: right;
-        width: 80%;
-    } 
-    .lock {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: #000000a3;
-        z-index: 99999999999;
-        display: none;
-    }
-
-    .danger {
-        background-color: #ff00007d;
-    }
-
-    .info {
-        background-color: rgba(0, 188, 212, 0.5);
-    }
-
-    .warning {
-        background-color: rgba(212, 147, 0, 0.5);
-    }
-
-    .success {
-        background-color: rgba(0, 128, 0, 0.50);
-    }
-
-    .modal-open {
-        margin-right: 0px !important;
-    }
-
-    #hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel .panel-list li.active > a .selected {
-        border-right: 13px solid #ffec51;
-    }
 </style>

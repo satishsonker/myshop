@@ -1,0 +1,26 @@
+﻿@using Myshop.App_Start;
+<div class="bottonGroup">
+    @if (WebSession.UserCanRead == true)
+    {
+        <button type="button" value="View" class="btn btn-default" onclick="utility.popupTableData('@Model')"><i class="fas fa-eye"></i> View</button>
+    }
+    @if (WebSession.UserCanDelete == true)
+    {
+        <button type="submit" id="btnDelete" value="Delete" class="btn btn-default hideCtrl"><i class="fas fa-trash"></i> Delete</button>
+    } @if (WebSession.UserCanUpdate == true)
+    {
+        <button type="submit" id="btnUpdate" value="Update" class="btn btn-default hideCtrl"><i class="fas fa-pen-fancy"></i> Update</button>
+    } @if (WebSession.UserCanWrite == true)
+    {
+        <button type="submit" id="btnSave" value="Save" class="btn btn-default"><i class="fas fa-save"></i> Save</button>
+    }
+    <button type="button" value="Cancel" onclick="utility.bottonGroupManager(false,true)" class="btn btn-default hideCtrl"><i class="fas fa-times"></i> Cancel</button>
+
+</div>
+
+<style>
+    .bottonGroup button {
+        float: right;
+        margin-left: 4px;
+    }
+</style>

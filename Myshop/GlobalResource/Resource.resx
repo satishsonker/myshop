@@ -399,4 +399,7 @@
   <data name="AmountMismatched" xml:space="preserve">
     <value>Amount is mismatch. Please verify the amount</value>
   </data>
+  <data name="RecordNotExist" xml:space="preserve">
+    <value>Record is not exist for selected Id</value>
+  </data>
 </root>

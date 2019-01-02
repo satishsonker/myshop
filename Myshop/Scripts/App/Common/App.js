@@ -105,6 +105,8 @@ app.urls.UsersController.DeleteUserNotificationList = '/Users/DeleteUserNotifica
 //Global Area
 app.urls.GlobalArea.MasterController.GetNotificationJson = '/Global/Masters/GetNotificationJson';
 app.urls.GlobalArea.MasterController.SendNotification = '/Global/Masters/PushNotification';
+app.urls.GlobalArea.MasterController.DeleteNotification = '/Global/Masters/DeleteNotificationByAjax';
+app.urls.GlobalArea.MasterController.ReadNotification = '/Global/Masters/ReadNotification';
 app.urls.GlobalArea.AdminController.SaveUserTask = '/Global/Admin/SaveUserTask';
 app.urls.GlobalArea.AdminController.UpdateUserTask = '/Global/Admin/UpdateUserTask';
 app.urls.GlobalArea.AdminController.DeleteUserTask = '/Global/Admin/DeleteUserTask';

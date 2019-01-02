@@ -17,6 +17,7 @@ namespace Myshop.Areas.Global.Controllers
     public class MastersController : CommonController
     {
         // GET: Global/Masters
+        MasterDetails _details = null;
 
         public ActionResult GetLogo()
         {
@@ -603,15 +604,27 @@ namespace Myshop.Areas.Global.Controllers
         }
         public ActionResult DeleteNotification(NotificationDbModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
-                MasterDetails _details = new MasterDetails();
+                _details = new MasterDetails();
                 Enums.CrudStatus status = _details.SetNotification(model, Enums.CrudType.Delete);
                 ReturnAlertMessage(status);
             }
             return RedirectToAction("GetNotification");
         }
+
+        public JsonResult DeleteNotificationByAjax(int NotificationId)
+        {
+            _details = new MasterDetails();
+            return Json(ReturnAjaxAlertMessage(_details.DeleteNotification(NotificationId)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult ReadNotification(int NotificationId)
+        {
+            _details = new MasterDetails();
+            return Json(ReturnAjaxAlertMessage(_details.ReadNotification(NotificationId)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+
         [HttpPost]
         public JsonResult GetNotificationJson(bool fetchAll=true)
         {

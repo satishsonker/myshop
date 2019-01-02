@@ -25,7 +25,7 @@ namespace Myshop.Controllers
 
         public ActionResult SessionExpired(string message)
         {
-            TempData["title"]=message==null?"Session Expire":message;
+            TempData["title"]= message ?? "Session Expire";
             return View("SessionExpired");
         }
 

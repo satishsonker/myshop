@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using Myshop.App_Start;
 using Myshop.GlobalResource;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -992,6 +993,42 @@ namespace Myshop.Areas.Global.Models
             {
 
             }
+        }
+        public Enums.CrudStatus DeleteNotification(int NotificationId)
+        {
+            myshop = new MyshopDb();
+
+            var _oldNoti = myshop.Gbl_Master_Notification.Where(noti => noti.ShopId.Equals(WebSession.ShopId) && noti.IsDeleted == false && noti.NotificationId.Equals(NotificationId)).FirstOrDefault();
+            if (_oldNoti != null)
+            {
+                _oldNoti.ModifiedBy = WebSession.UserId;
+                _oldNoti.ModificationDate = DateTime.Now;
+                _oldNoti.IsSync = false;
+                _oldNoti.IsDeleted = true;
+                myshop.Entry(_oldNoti).State = EntityState.Modified;
+                int _result = myshop.SaveChanges();
+                return Utility.CrudStatus(_result, Enums.CrudType.Delete);
+            }
+            else
+                return Enums.CrudStatus.NotExist;
+        }
+        public Enums.CrudStatus ReadNotification(int NotificationId)
+        {
+            myshop = new MyshopDb();
+
+            var _oldNoti = myshop.Gbl_Master_Notification.Where(noti => noti.ShopId.Equals(WebSession.ShopId) && !noti.IsDeleted && noti.NotificationId.Equals(NotificationId) && noti.PushedDate<=DateTime.Now && noti.IsPushed && noti.UserId.Equals(WebSession.UserId)).FirstOrDefault();
+            if (_oldNoti != null)
+            {
+                _oldNoti.ModifiedBy = WebSession.UserId;
+                _oldNoti.ModificationDate = DateTime.Now;
+                _oldNoti.IsSync = false;
+                _oldNoti.IsRead = true;
+                myshop.Entry(_oldNoti).State = EntityState.Modified;
+                int _result = myshop.SaveChanges();
+                return Utility.CrudStatus(_result, Enums.CrudType.Update);
+            }
+            else
+                return Enums.CrudStatus.NotExist;
         }
         public IEnumerable<object> GetNotificationTypeJson()
         {

@@ -983,6 +983,10 @@ namespace Myshop.App_Start
         public int ShopId { get; set; }
         public string ShopName { get; set; }
         public string GSTIN { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string Mobile { get; set; }
+        public bool IsPrimary { get; set; }
     }
 
     public class PagingModel

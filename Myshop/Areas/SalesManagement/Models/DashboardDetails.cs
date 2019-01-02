@@ -174,10 +174,13 @@ namespace Myshop.Areas.SalesManagement.Models
         {
             myshop = new MyshopDb();
             var sale_Setting = myshop.Sale_Setting.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
-            WebSession.GstRate = sale_Setting.GstRate ?? 12.00M;
-            WebSession.ShopClosingTime = Convert.ToInt32(sale_Setting.SalesClosingTime);
-            WebSession.ShopOpeningTime = Convert.ToInt32(sale_Setting.SalesOpeningTime);
-            WebSession.ShopReturnPolicy = sale_Setting.ReturnPolicy;
+            if (sale_Setting != null)
+            {
+                WebSession.GstRate = sale_Setting.GstRate ?? 12.00M;
+                WebSession.ShopClosingTime = Convert.ToInt32(sale_Setting.SalesClosingTime);
+                WebSession.ShopOpeningTime = Convert.ToInt32(sale_Setting.SalesOpeningTime);
+                WebSession.ShopReturnPolicy = sale_Setting.ReturnPolicy;
+            }
         }
     }
 }

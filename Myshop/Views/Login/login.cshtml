@@ -1,10 +1,8 @@
 ﻿
 @{
     ViewBag.Title = "login";
-    Layout = "~/Views/Shared/_MainLayoutWithoutLeftMenu.cshtml";
+    Layout = "~/Views/Shared/_blankLayout.cshtml";
 }
-<link href="~/Content/App/Home/Login.css" rel="stylesheet" />
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 <form action='@Url.Action("getLogin", "login")' method="post" style="margin-top:60px">
     <div class="container">
         @{
@@ -15,35 +13,36 @@
         </div>}
 
         }
-        <div style="margin:0 0;">
             <div class="col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 col-sm-12">
                 <div class="panel panel-info">
                     <div class="panel-heading">Login</div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-sm-12">
-                                <label>Email</label>
-                                <input type="email" required="required" class="form-control" placeholder="Email" name="username" />
+                                <div class="input-group margin-bottom-sm">
+                                    <span class="input-group-addon"><i class="fas fa-envelope fa-fw"></i></span>
+                                    <input class="form-control" type="email" required="required" placeholder="Email address" name="username">
+                                </div>
                             </div>
-                            <div class="col-sm-12">
-                                <label>Password</label>
-                                <input type="password" required="required" class="form-control" placeholder="Password" name="password" />
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-key fa-fw"></i></span>
+                                    <input class="form-control" type="password" required="required" placeholder="Password" name="password">
+                                </div>
                             </div>
-                            <div class="col-sm-3 col-sm-offset-9" style="margin-top:10px;">
-                                <input type="submit" class="btn-shop" value="Log In" />
+                            <div class="col-sm-12" style="margin-top:10px;">
+                                <button type="submit" class="btn btn-success pull-right btn-sm">
+                                    <i class="fas fa-sign-in-alt black-text"></i> Log In
+                                </button>
                             </div>
                         </div>
                     </div>
                     <div class="panel-footer">
-                        <div class="utilities">
-                            @Html.ActionLink("Forget Password?", "ForgetPassword")
-                            <div class="pull-right"><a href="#">Sign Up &rarr;</a></div>
-                        </div>
+                            <a class="btn btn-default btn-sm" href="@Url.Action("ForgetPassword","login")"><i class="fas fa-unlock-alt"></i> Forget Password?</a>
+                            <div class="pull-right"><a class="btn btn-default btn-sm" href="#"><i class="fas fa-user-plus"></i> Sign Up</a></div>
+                       
                     </div>
                 </div>
             </div>
-        </div>
-
     </div>
-
 </form>

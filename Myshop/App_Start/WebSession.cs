@@ -392,16 +392,16 @@ namespace Myshop.App_Start
         {
             get
             {
-                if (HttpContext.Current.Session["NotificationCount"] != null)
+                if (HttpContext.Current.Session["TaskCount"] != null)
                 {
-                    return Convert.ToInt32(HttpContext.Current.Session["NotificationCount"]);
+                    return Convert.ToInt32(HttpContext.Current.Session["TaskCount"]);
                 }
                 else
                 {
                     return 0;
                 }
             }
-            set { HttpContext.Current.Session["NotificationCount"] = value; }
+            set { HttpContext.Current.Session["TaskCount"] = value; }
         }
 
         public static List<TaskUserModel> TaskList
@@ -451,6 +451,7 @@ namespace Myshop.App_Start
     public class WebSessionNotificationList
     {
         public string Message { get; set; }
+        public int NotificationId { get; set; }
         public string Photo { get; set; }
         public string Sender { get; set; }
         public string ReceiveTime { get; set; }

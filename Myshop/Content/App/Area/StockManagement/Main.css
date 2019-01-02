@@ -237,11 +237,11 @@
     border-radius: 5px;
     z-index: 1000000000;
     position: fixed;
-    top: 10%;
-    width: 72%;
+    top: 5%;
+    width: 80%;
     display: none;
     box-shadow: 5px 5px 21px grey;
-    left: 22%;
+    left: 10%;
 }
 
     .popup img {
@@ -252,23 +252,23 @@
 
 .bottonGroup {
     height: 48px;
-    padding: 8px 8px;
+    padding: 8px 0px;
 }
 
     .bottonGroup input {
         margin-left: 20px !important;
         margin: 0;
-  padding: 8px 0;
-  float:right;
-  width: 15%;
-  font-size: 13px;
-  font-weight: bold;
-  border: 0;
-  text-shadow: 0px 1px 0px rbga(255, 255, 255, 1);
-  background-color: #f6ba35;
-  background-image: -webkit-linear-gradient(90deg, #eca418, #ffcd4e);
-  border-radius: 5px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+        padding: 8px 0;
+        float: right;
+        width: 15%;
+        font-size: 13px;
+        font-weight: bold;
+        border: 0;
+        text-shadow: 0px 1px 0px rbga(255, 255, 255, 1);
+        background-color: #f6ba35;
+        background-image: -webkit-linear-gradient(90deg, #eca418, #ffcd4e);
+        border-radius: 5px;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     }
 
 .hideCtrl {
@@ -614,7 +614,7 @@
     }
 
 .producttable-container {
-       padding: 0;
+    padding: 0;
     overflow-x: scroll;
     font-size: 12px;
     margin-left: 0px;
@@ -633,12 +633,11 @@
     padding: 0 0 0 3px !important;
 }
 
-.dropdown-menu-text:hover
-{
-    width:77% !important;
-}
+    .dropdown-menu-text:hover {
+        width: 77% !important;
+    }
 
-.Index-box{
+.Index-box {
     border: 1px solid #fff;
     padding: 13px;
     width: 91%;
@@ -651,18 +650,19 @@
     display: block;
 }
 
-.shopInvalid{
-    border:1px solid red !important;
+.shopInvalid {
+    border: 1px solid red !important;
 }
 
-.shop-thumbnail{
+.shop-thumbnail {
     width: 50px;
     height: 50px;
     border: 1px solid;
     border-radius: 7px;
 }
-.shop-thumbnail-pre{
-    display:none;
+
+.shop-thumbnail-pre {
+    display: none;
     position: fixed;
     z-index: 9999999999999999;
     left: 10%;
@@ -676,7 +676,7 @@
     height: 80%;
 }
 
-.popup-header{
+.popup-header {
     border: 1px solid #0404da;
     height: 36px;
     padding: 5px;
@@ -684,26 +684,24 @@
     background-color: #0404da;
 }
 
-.shop-thumbnail-img
-{
-        width: 100%;
+.shop-thumbnail-img {
+    width: 100%;
     height: 87%;
     position: absolute;
 }
 
-.graph-Header{
+.graph-Header {
     padding: 5px;
     border-bottom: 1px solid #cac6c6;
     font-weight: 700;
     font-size: 14px;
 }
 
-.graph-Container
-{
-   border: 1px solid #cac6c6;
+.graph-Container {
+    border: 1px solid #cac6c6;
 }
 
-.graph-Main{
-    min-height:300px;
-    padding:5px;
+.graph-Main {
+    min-height: 300px;
+    padding: 5px;
 }

@@ -745,6 +745,15 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Record is not exist for selected Id.
+        /// </summary>
+        public static string RecordNotExist {
+            get {
+                return ResourceManager.GetString("RecordNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to OTP has been send on your register mobile no..
         /// </summary>
         public static string SentOTP {

@@ -101,7 +101,7 @@ namespace Myshop.Areas.CustomersManagement.Controllers
         {
             try
             {
-                return Json(GlobalMethod.GetCustomerType());
+                return Json(GlobalMethod.GetCustomerType(),JsonRequestBehavior.AllowGet);
             }
             catch (Exception ex)
             {

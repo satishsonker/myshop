@@ -12,50 +12,51 @@
     z-index: 99999;
 }
 
-.shop_fgBlack{
-    color:black;
+.shop_fgBlack {
+    color: black;
 }
 
 
 .shop_vMiddle {
     vertical-align: middle !important;
 }
-.shop_hCentre
-{
-    text-align:center;
+
+.shop_hCentre {
+    text-align: center;
 }
+
 .shop_hRigth {
     text-align: right;
 }
 
-.shop_noPadLeft{
-    padding-left:0px !important;
+.shop_noPadLeft {
+    padding-left: 0px !important;
 }
 
 .shop_noPadRight {
     padding-right: 0px !important;
 }
 
-.shop_floatLeft{
-    float:left;
+.shop_floatLeft {
+    float: left;
 }
 
 .fontIcon {
     margin: 5px;
     font-size: 23px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
-.colorGreen{
-    color:forestgreen;
+.colorGreen {
+    color: forestgreen;
 }
 
 .colorblue {
     color: blue;
 }
 
-.colorPink{
-    color:pink;
+.colorPink {
+    color: pink;
 }
 
 
@@ -66,7 +67,6 @@
     position: absolute;
     left: 144px;
     top: 35px;
-   
     width: 298px;
     padding: 0;
     max-height: 150px;
@@ -88,6 +88,7 @@
             background: #d8d8d8;
             color: black;
         }
+
 .shop_mainAlert {
     position: fixed;
     background: #0000008a;
@@ -105,15 +106,16 @@
         width: 40%;
     }
 
-.shop_mainAlert .panel-heading img {
-    float: right;
-    width: 20px;
-    cursor: pointer;
-}
-    .shop_mainAlert .panel-heading img:hover {
-        background: #00000029;
-        border-radius: 4px;
+    .shop_mainAlert .panel-heading img {
+        float: right;
+        width: 20px;
+        cursor: pointer;
     }
+
+        .shop_mainAlert .panel-heading img:hover {
+            background: #00000029;
+            border-radius: 4px;
+        }
 
 .popupAlert .panel-heading img {
     float: right;
@@ -137,6 +139,7 @@
     border-radius: 4px;
     background: white;
 }
+
     .shop_invoiceLayout .shopname {
         border: 1px solid #4545f1;
         background: #7070ff;
@@ -169,6 +172,7 @@
         background-color: #0081c2;
         text-align: center;
     }
+
     .metric .number {
         display: block;
         font-size: 28px;
@@ -178,6 +182,7 @@
     .metric .title {
         font-size: 16px;
     }
+
     .metric p {
         margin-bottom: 0;
         line-height: 1.2;
@@ -236,19 +241,292 @@
     width: 300px;
     height: 100px;
     z-index: 9999999999;
-    display:none;
+    display: none;
 }
 
-    .notistack .notiItem {
-        border: 1px solid #4dddff5c;
-        padding: 12px;
-        background: #4dddff5c;
+.fontButton {
+    font-size: 20px;
+    margin: 3px;
+    cursor: pointer;
+}
+
+.skyBlue-Text {
+    color: #50e8e8;
+}
+
+.notistack .notiItem {
+    border: 1px solid #4dddff5c;
+    padding: 12px;
+    background: #4dddff5c;
+}
+
+    .notistack .notiItem i {
+        font-size: 30px;
     }
 
-    .notistack .notiItem i{
-        font-size:30px;
+    .notistack .notiItem hr {
+        margin: 2px 0;
     }
 
-        .notistack .notiItem hr {
-            margin:2px 0;
+.lock {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000000a3;
+    z-index: 99999999999;
+    display: none;
+}
+
+
+.danger {
+    background-color: #ff00007d;
+}
+
+.info {
+    background-color: rgba(0, 188, 212, 0.5);
+}
+
+.warning {
+    background-color: rgba(212, 147, 0, 0.5);
+}
+
+.success {
+    background-color: rgba(0, 128, 0, 0.50);
+}
+
+.modal-open {
+    margin-right: 0px !important;
+}
+
+#hoeapp-container[hoe-color-type="lpanel-bg2"] #hoe-left-panel .panel-list li.active > a .selected {
+    border-right: 13px solid #ffec51;
+}
+
+.notification-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 160px;
+    white-space: nowrap;
+    position: absolute;
+    margin: -38px 0px 0px 42px;
+}
+
+.notification-message {
+    font-size: 13px;
+    margin: -21px 39px -1px !important;
+    width: 229px !important;
+    position: absolute !important;
+    /* height: 38px; */
+}
+
+.task-title {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    width: 160px;
+    white-space: nowrap;
+    position: absolute;
+    margin: -3px 0px 0px -4px;
+    font-weight: 600;
+    font-size: 13px;
+    color: #62878f;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    border: 1px solid black;
+    background: black;
+    color: wheat;
+    text-align: center;
+    width: 100%;
+    left: 0;
+    padding: 0px;
+}
+
+.shop-select {
+    margin-bottom: 10px !important;
+    width: 100%;
+    text-align: left !important;
+}
+
+    .shop-select span {
+        padding: 0 20px;
+        color: dimgray;
+        display: block;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        width: 90%;
+        font-size: 11px;
+    }
+
+    .shop-select .shop-name {
+        font-size: 19px;
+        padding-left: 2px;
+    }
+
+    .shop-select .shop-gstin {
+    }
+
+    .shop-select .shop-address {
+        font-size: 11px;
+    }
+
+    .shop-select .shop-email {
+        font-size: 11px;
+    }
+
+    .shop-select .shop-mobile {
+        font-size: 11px;
+    }
+
+    .shop-select .shop-primary {
+        width: 16%;
+        top: 8px;
+        position: absolute;
+        right: 19px;
+        color: white;
+        padding: 4px;
+    }
+
+/*Remove arrow from left side menu*/
+.noarrow:before {
+    content: "" !important;
+}
+
+.stack-aside {
+    margin: 7px 0 0 7px;
+}
+
+.black-text {
+    color: black;
+}
+
+.greenlight-text {
+    color: #72f730 !important;
+}
+
+/*Popup Table CSS*/
+.paginate_button {
+    padding: 4px 13px !important;
+    margin-left: 4px !important;
+    border-radius: 4px !important;
+    background: #00d0ff !important;
+    border-color: #00abd2 !important;
+}
+
+[name="popuptable_length"] {
+    padding: 1px;
+    border-radius: 4px;
+}
+
+.dataTables_filter [type="search"] {
+    padding: 2px;
+    border-radius: 5px;
+    border: 1px groove #0000004f;
+}
+
+.dataTable thead tr th {
+    background: darkseagreen;
+    color: black;
+}
+
+#btnSelect {
+    width: 43px !important;
+}
+
+.popupmodel {
+    border: 1px solid;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 999999999999;
+    height: 100%;
+    background: #00000075;
+    display: none;
+}
+
+table.dataTable tbody th, table.dataTable tbody td {
+    padding: 4px 10px !important;
+}
+
+.shop-multiselect {
+    min-width: 145px !important;
+    padding: 0 !important;
+    border: 1px solid #cccccc !important;
+    max-height: 34px;
+    height: 34px !important;
+    border-radius: 4px;
+    background-color:white;
+}
+
+    .shop-multiselect .defaultText {
+        position: absolute;
+        left: 10px;
+        top: 9px;
+    }
+
+    .shop-multiselect .input-group-addon {
+        border-width: 1px 0 1px 1px;
+        border-color: #cccccc;
+        background-color: #fff;
+        padding: 0;
+    }
+
+    .shop-multiselect #_mSearch {
+        border-width: 1px 1px 1px 0px;
+        border-color: #cccccc;
+        outline: hidden;
+        width: inherit;
+        max-width: 120px !important;
+    }
+
+    .shop-multiselect ul {
+        box-shadow: 4px 4px 15px 0px #8080806b;
+        padding: 1px;
+        position: absolute;
+        top: 34px;
+        max-width: 145px !important;
+        z-index: 99999;
+        border: 1px solid;
+        border-radius: 4px;
+        display:none;
+    }
+
+        .shop-multiselect ul li {
+            list-style: none;
+            width: inherit;
+            max-width: 145px !important;
+            border: 1px solid #77eee3d4;
+            border-width: 0 1px 1px 1px;
+            background-color: #fbfbfb;
+            color: black;
         }
+            .shop-multiselect ul li:first-child {
+                height:50px;
+            }
+
+            .shop-multiselect ul li:first-child i {
+                cursor:pointer;
+            }
+
+            .shop-multiselect ul li:not(:first-child) {
+                padding: 4px;
+                cursor: pointer;
+            }
+            .shop-multiselect ul li:not(:first-child):hover {
+                background-color: aquamarine;
+            }
+
+    .shop-multiselect .selected {
+        background: #6d6dff;
+    }
+
+    .shop-multiselect .header {
+        width: 100%;
+        padding: 7px;
+        height: 38px;
+        position: absolute;
+    }

@@ -136,54 +136,47 @@ namespace Myshop.Areas.EmployeesManagement.Models
             {
                 myshop = new MyshopDb();
 
-                var oldEmpRole = myshop.Gbl_Master_Employee_Role.Where(emp => emp.RoleId.Equals(model.RoleId) && emp.IsDeleted == false).FirstOrDefault();
-                if (oldEmpRole != null)
+                var oldEmpRole = myshop.Gbl_Master_Employee_Role.Where(emp => (emp.RoleId.Equals(model.RoleId) ||  emp.RoleType.Equals(model.RoleType)) && emp.IsDeleted == false && emp.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
+               
+                    if (oldEmpRole !=null && oldEmpRole.RoleType.Equals(model.RoleType) && oldEmpRole.RoleId==0)
+                    {
+                        return Enums.CrudStatus.AlreadyExistForSameShop;
+                    }
+                    else if (crudType==Enums.CrudType.Insert)
+                    {
+                       
+                        Gbl_Master_Employee_Role newEmpRole = new Gbl_Master_Employee_Role();
+                        newEmpRole.RoleType = model.RoleType;
+                        newEmpRole.Description = model.Description;
+                        newEmpRole.CreatedDate = DateTime.Now;
+                        newEmpRole.CreatedBy = WebSession.UserId;
+                        newEmpRole.IsDeleted = false;
+                        newEmpRole.IsSync = false;
+                        newEmpRole.ModifiedBy = WebSession.UserId;
+                        newEmpRole.ModificationDate = DateTime.Now;
+                        newEmpRole.ShopId = WebSession.ShopId;
+                        myshop.Entry(newEmpRole).State = EntityState.Added;
+                    }
+                else if (oldEmpRole != null)
                 {
                     if (crudType == Enums.CrudType.Update)
                     {
                         oldEmpRole.RoleType = model.RoleType;
                         oldEmpRole.Description = model.Description;
-                        oldEmpRole.IsDeleted = false;
-                        oldEmpRole.IsSync = false;
-                        oldEmpRole.ModifiedBy = WebSession.UserId;
-                        oldEmpRole.ModificationDate = DateTime.Now;
-                        oldEmpRole.ShopId = WebSession.ShopId;
-                        myshop.Entry(oldEmpRole).State = EntityState.Modified;
                     }
                     else if (crudType == Enums.CrudType.Delete)
                     {
                         var emp = myshop.Gbl_Master_Employee.Where(x => x.IsDeleted == false && x.RoleId.Equals(model.RoleId)).FirstOrDefault();
-                        if (emp == null)
-                        {
-                            oldEmpRole.IsDeleted = true;
-                            oldEmpRole.IsSync = false;
-                            oldEmpRole.ModifiedBy = WebSession.UserId;
-                            oldEmpRole.ModificationDate = DateTime.Now;
-                            myshop.Entry(oldEmpRole).State = EntityState.Modified;
-                        }
-                        else
+                        if (emp != null)
                         {
                             return Enums.CrudStatus.AlreadyInUse;
                         }
+                        oldEmpRole.IsDeleted = true;
                     }
-                    else
-                    {
-                        return Enums.CrudStatus.AlreadyExistForSameShop;
-                    }
-                }
-                else if (crudType == Enums.CrudType.Insert)
-                {
-                    Gbl_Master_Employee_Role newEmpRole = new Gbl_Master_Employee_Role();
-                    newEmpRole.RoleType = model.RoleType;
-                    newEmpRole.Description = model.Description;
-                    newEmpRole.CreatedDate = DateTime.Now;
-                    newEmpRole.CreatedBy = WebSession.UserId;
-                    newEmpRole.IsDeleted = false;
-                    newEmpRole.IsSync = false;
-                    newEmpRole.ModifiedBy = WebSession.UserId;
-                    newEmpRole.ModificationDate = DateTime.Now;
-                    newEmpRole.ShopId = WebSession.ShopId;
-                    myshop.Entry(newEmpRole).State = EntityState.Added;
+                    oldEmpRole.IsSync = false;
+                    oldEmpRole.ModifiedBy = WebSession.UserId;
+                    oldEmpRole.ModificationDate = DateTime.Now;
+                    myshop.Entry(oldEmpRole).State = EntityState.Modified;
                 }
 
                 int result = myshop.SaveChanges();
@@ -201,8 +194,6 @@ namespace Myshop.Areas.EmployeesManagement.Models
         }
         public List<EmpRoleModel> GetRoleTypeJson()
         {
-            try
-            {
                 myshop = new MyshopDb();
                 var roleType = (from role in myshop.Gbl_Master_Employee_Role.Where(role => role.IsDeleted == false)
                                 select new EmpRoleModel {RoleType=role.RoleType,
@@ -212,12 +203,6 @@ namespace Myshop.Areas.EmployeesManagement.Models
                                     RoleId=role.RoleId                                    
                                 }).ToList();
                 return roleType;
-            }
-            catch (Exception ex)
-            {
-                GlobalMethod.LogError("Masters", "GetRoleTypeJson", "Employee Management", ex.Message, ex);
-                throw;
-            }
         }
 
         public JsonResponseModelForPaging<EmpModel> GetEmpJson(int PageNo,int PageSize)

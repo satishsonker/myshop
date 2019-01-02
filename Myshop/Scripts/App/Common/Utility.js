@@ -45,6 +45,7 @@ $(document).ready(function () {
     //Set Footer
     $(document).scroll(utility.setFooter());
     $(window).resize(utility.setFooter());
+    $(document).find('input[type="text"]:eq(1)').focus();
 });
 
 utility.ajaxHelper = function (url, data, success, error, method) {
@@ -84,7 +85,7 @@ utility.ajaxWithoutDataHelper = function (url, success, error) {
 }
 
 //Set Alert messge on _layout View
-utility.SetAlert = function (message, alertType,cancelBotton) {
+utility.SetAlert = function (message, alertType, cancelBotton) {
     alertType = alertType === undefined ? "info" : alertType;
     cancelBotton = cancelBotton === undefined ? false : cancelBotton;
     var alertColor;
@@ -119,7 +120,7 @@ utility.SetAlert = function (message, alertType,cancelBotton) {
         '<div class="panel-footer" style="height: 45px;padding: 5px 15px;">' +
         '<div class="btn-group pull-right">' +
         '<input type="button" id="btnAlertOk" value="OK" class="btn btn-primary" />' +
-        (cancelBotton?'<input type="button" id="btnAlertCancel" value="Cancel" class="btn btn-danger" />':'') +
+        (cancelBotton ? '<input type="button" id="btnAlertCancel" value="Cancel" class="btn btn-danger" />' : '') +
         '</div>' +
         '</div>' +
         '</div>' +
@@ -161,7 +162,8 @@ utility.errorCall = function (e, x, settings, exception) {
 
 utility.popupClose = function (id) {
     if (!id) {
-        $("img#popupclose").parent().parent().hide();
+        //$("img#popupclose").parent().parent().hide();
+        $("div.popupmodel").hide();
     } else
         $("#" + id).hide();
 };
@@ -233,7 +235,7 @@ utility.tableBinder = function (data, tableid, totalRecord) {
             $(thead).each(function (indH, eleH) {
                 var eId = $(eleH).attr('id');
                 if (eId === 'btnSelect') {
-                    tblHtml = tblHtml + '<td><input type="button" id="btnSelectRow_' + ind + '" value="Select" data-data="" /></td>';
+                    tblHtml = tblHtml + '<td><button type="button" class="btn btn-warning btn-sm" id="btnSelectRow_' + ind + '" value="Select" data-data=""><i class="fas fa-check black-text"></i> Select</button></td>';
                 }
                 else if (eId.toLowerCase().indexOf('date') > -1 || eId.toLowerCase().indexOf('dob') > -1) {
                     var format = $('#' + eId).data('dateformat');
@@ -260,7 +262,9 @@ utility.tableBinder = function (data, tableid, totalRecord) {
         });
 
         $('#' + tableid).DataTable();
+        $('.popupmodel').show();
         $('.popup').show();
+
 
         //if ($('.popuptableWrapper').length == 0) {
         //$('#popuptable').wrap('<div class="popuptableWrapper" style="max-height: 320px;overflow-y: scroll;" class="table">'); //table scrollable
@@ -276,11 +280,11 @@ utility.tableBinder = function (data, tableid, totalRecord) {
 }
 
 utility.bottonGroupManager = function (rowSelect, isCancel) {
-    var btnCancel = $('.bottonGroup input[value="Cancel"]');
-    var btnDelete = $('.bottonGroup input[value="Delete"]');
-    var btnSave = $('.bottonGroup input[value="Save"]');
-    var btnUpdate = $('.bottonGroup input[value="Update"]');
-    var btnView = $('.bottonGroup input[value="View"]');
+    var btnCancel = $('.bottonGroup [value="Cancel"]');
+    var btnDelete = $('.bottonGroup [value="Delete"]');
+    var btnSave = $('.bottonGroup [value="Save"]');
+    var btnUpdate = $('.bottonGroup [value="Update"]');
+    var btnView = $('.bottonGroup [value="View"]');
     var panelBody = $(btnCancel).parent().parent().parent().find('.panel-body');
     if (rowSelect == true) {
         btnCancel.removeClass('hideCtrl');
@@ -510,15 +514,31 @@ utility.getLeadingZero = function (int) {
         return '00';
 }
 
+/**
+ * Get Date and time (DD/MM/YYYY hh:mm:ss) string from JSON date object
+ * @param {JSON} jsonDate
+ */
 utility.getJsDateTimeFromJson = function (jsonDate) {
     var date = new Date(parseInt(jsonDate.substr(6)));
     return date.toLocaleDateString() + ' ' + date.toLocaleTimeString('en-US', { hour12: false });
 }
 
+/**
+ * Get Date string in DD-MM-YYYY format from JSON Date object
+ * @param {JSON} jsonDate
+ */
 utility.getFormatedDate = function (jsonDate) {
     var date = utility.getJsDateTimeFromJson(jsonDate);
-    date = date.split(' ')[0].split('/')
+    date = date.split(' ')[0].split('/');
     return date[2] + '-0' + date[0] + '-0' + date[1];
+}
+
+/**
+ * Get JS Date object from JSON
+ * @param {any} jsonDate
+ */
+utility.getDateObject = function (jsonDate) {
+    return new Date(parseInt(jsonDate.substr(6)));
 }
 
 utility.getInrCurrency = function (amount) {
@@ -669,33 +689,46 @@ utility.alertType =
         success: 'success'
     }
 
-utility.setAjaxAlert = function (response) {
-    response[0] = response.length > 1 ? response[1] : response[0];
-    if (response[0].hasOwnProperty('Key')) {
-        if (response[0].Key == 110)
-            utility.SetAlert(response[0].Value, utility.alertType.error);
-        else if (response[0].Key == 101 || response[0].Key == 100)
-            utility.SetAlert(response[0].Value, utility.alertType.success);
+utility.setAjaxAlert = function (response, $successCall) {
+    var $key = response[0].Key;
+    var resp = response.length > 1 ? response[1] : response[0];
+    var $val = resp.Value;
+
+    if (resp.hasOwnProperty('Key')) {
+        if ($key == 110 || $key == 115)
+            utility.SetAlert($val, utility.alertType.error);
+        else if ($key == 101 || $key == 100 || $key == 102) {
+            utility.SetAlert($val, utility.alertType.success);
+            $successCall();
+        }
         else
-            utility.SetAlert(response[0].Value, utility.alertType.warning);
+            utility.SetAlert($val, utility.alertType.warning);
+
     }
     else {
         var $msg = '';
         $(response).each(function (ind, ele) {
-            $msg += (ind+1)+'. '+ele + '\n<br/>';
+            $msg += (ind + 1) + '. ' + ele + '\n<br/>';
         })
         utility.SetAlert($msg, utility.alertType.error);
     }
 }
 
-utility.getQueryStringValue=function(key) {
+/**
+ * Get Value from current page URI Query string
+ * @param {string} key
+ */
+utility.getQueryStringValue = function (key) {
     return decodeURIComponent(window.location.search.replace(new RegExp("^(?:.*[&\\?]" + encodeURIComponent(key).replace(/[\.\+\*]/g, "\\$&") + "(?:\\=([^&]*))?)?.*$", "i"), "$1"));
-}  
+}
 
-var a = app.const.digitInWord;
-var b = app.const.digitx10InWord;
-
-utility.currentyInWords=function(num) {
+/**
+ * Get digit in equivalent words
+ * @param {number} num
+ */
+utility.currentyInWords = function (num) {
+    var a = app.const.digitInWord;
+    var b = app.const.digitx10InWord;
     if ((num = num.toString()).length > 9) return 'Invalid or access amount';
     n = ('000000000' + num).substr(-9).match(/^(\d{2})(\d{2})(\d{2})(\d{1})(\d{2})$/);
     if (!n) return; var str = '';
@@ -707,11 +740,16 @@ utility.currentyInWords=function(num) {
     return str;
 }
 
-utility.getIndexOfSubStrInArray = function (array,string) {
+/**
+ * Get the first index of array item that matches the input substring
+ * @param {Array} array
+ * @param {string} substring
+ */
+utility.getIndexOfSubStrInArray = function (array, substring) {
     var result = -1;
     for (index = 0; index < array.length; ++index) {
         value = array[index];
-        if (value.toLowerCase().indexOf(string.toLowerCase()) > -1) {
+        if (value.toLowerCase().indexOf(substring.toLowerCase()) > -1) {
             result = value;
             break;
         }
@@ -794,6 +832,60 @@ utility.getFromToDate = (monthDifference) => {
 }
 
 /**
+ * Get Date and time differance between two dates
+ * @param {Date} date1
+ * @param {Date} date2
+ */
+utility.getDateDifference = function (date1, date2) {
+    var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    var diffDays = Math.floor(timeDiff / (1000 * 3600 * 24));
+    return {
+        timeDiff: utility.milisecondToTime(timeDiff),
+        diffDays: diffDays
+    }
+}
+
+/**
+ * Convert milisecond to time
+ * @param {number} milisecond
+ */
+utility.milisecondToTime = function (milisecond) {
+    var milliseconds = parseInt((milisecond % 1000) / 100),
+        seconds = parseInt((milisecond / 1000) % 60),
+        minutes = parseInt((milisecond / (1000 * 60)) % 60),
+        hours = parseInt((milisecond / (1000 * 60 * 60)) % 24);
+
+    return {
+        time: hours + ":" + minutes + ":" + seconds + "." + milliseconds,
+        hours: hours,
+        minutes: minutes,
+        seconds: seconds,
+        milliseconds: milliseconds
+    };
+}
+
+/**
+ * Get total elaps time in string like : 2 days ago or 5 mins ago
+ * @param {Date} date1
+ * @param {Date} date2
+ */
+utility.getElapsTime = function (date1, date2) {
+    let $diff = utility.getDateDifference(date1, date2);
+    let $result = '';
+    if ($diff.diffDays > 0)
+        $result = $diff.diffDays + " Days ago";
+    else if ($diff.timeDiff.hours > 0)
+        $result = $diff.timeDiff.hours + " Hours ago";
+    else if ($diff.timeDiff.minutes > 0)
+        $result = $diff.timeDiff.minutes + " Minutes ago";
+    else if ($diff.timeDiff.seconds > 0)
+        $result = $diff.timeDiff.seconds + " Seconds ago";
+    else
+        $result = "Just Now";
+    return $result;
+}
+
+/**
  * Convter string into floating-point number upto 2 precision
  * @param {any} inputString
  * @returns {number}
@@ -814,4 +906,57 @@ utility.getGUID = function guid() {
             .substring(1);
     }
     return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+}
+
+utility.local = {};
+utility.local.set = function ($key, $value) {
+    var $$val = '';
+    if (typeof $value === 'object')
+        $$val = JSON.stringify($value);
+    if (typeof $value === 'string')
+        $$val = $value;
+    localStorage.setItem($key, $$val);
+}
+
+utility.local.get = function ($key, $isObject) {
+    var $data = localStorage.getItem($key);
+    return $isObject !== undefined && $isObject !== null && $isObject ? JSON.parse($data) : $data;
+}
+
+utility.local.removeItem = function ($key) {
+    localStorage.removeItem($key);
+}
+
+/**
+ * Convert Base64 string into plain string
+ * @param {string} encodedString
+ */
+utility.decodeBase64 = function (encodedString) {
+    return atob(encodedString);
+}
+
+utility.webSession = function () {
+    return JSON.parse(utility.decodeBase64($('#hdnsessionjson').val()));
+}
+
+utility.localData = {};
+utility.localData.isScreenLocked = false;
+
+utility.getTextArray = function (objCollection) {
+    let $arr = [];
+    if (objCollection != undefined && typeof objCollection === 'object') {
+        $(objCollection).text(function (ind, ele) {
+            $arr.push(ele);
+        });
+    }
+    return $arr;
+}
+
+/**
+ * Check whether URL is valid of not
+ * @param {any} url
+ * @returns {boolean}
+ */
+utility.isUrlValid = function(url) {
+    return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
 }

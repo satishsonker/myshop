@@ -154,12 +154,65 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 var _oldTask = myshop.Gbl_Master_Task.Where(x => x.TaskId.Equals(_taskId) && x.AssignedUserId.Equals(WebSession.UserId) &&!x.IsDeleted && !x.IsCompleted && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
-                _oldTask.IsSync = false;
-                _oldTask.IsCompleted = true;
-                _oldTask.ModifiedBy = WebSession.UserId;
-                _oldTask.ModifiedDate = DateTime.Now;
-                myshop.Entry(_oldTask).State = EntityState.Modified;
-                return Utility.CrudStatus(myshop.SaveChanges(), Enums.CrudType.Update);
+                if (_oldTask != null)
+                {
+                    _oldTask.IsSync = false;
+                    _oldTask.IsCompleted = true;
+                    _oldTask.ModifiedBy = WebSession.UserId;
+                    _oldTask.ModifiedDate = DateTime.Now;
+                    myshop.Entry(_oldTask).State = EntityState.Modified;
+                    int _result = myshop.SaveChanges();
+                    if(_result>0)
+                    {
+                        var taskUser = myshop.Gbl_Master_Task.Where(x =>
+                                                                                      x.IsDeleted == false &&
+                                                                                      !x.IsCompleted &&
+                                                                                      x.ShopId.Equals(WebSession.ShopId) &&
+                                                                                      x.AssignedUserId.Equals(WebSession.UserId)).ToList();
+
+                        List<TaskUserModel> _taskList = new List<TaskUserModel>();
+                        foreach (Gbl_Master_Task item in taskUser)
+                        {
+                            TaskUserModel _newItem = new TaskUserModel();
+                            _newItem.TaskId = item.TaskId;
+                            _newItem.CreatedDate = item.CreatedDate;
+                            _newItem.TaskCreatedByName = item.Gbl_Master_User.Firstname + " " + item.Gbl_Master_User.Lastname;
+                            _newItem.TaskCreatedById = item.Gbl_Master_User.UserId;
+                            _newItem.TaskCreatedByPhoto = Convert.ToBase64String(Utility.GetImageThumbnails(item.Gbl_Master_User.Photo, 30));
+                            _newItem.IsImporatant = item.IsImportant;
+                            _newItem.TaskAssignedUserId = item.AssignedUserId;
+                            _newItem.TaskAssignedUserName = item.Gbl_Master_User1.Firstname + " " + item.Gbl_Master_User1.Lastname; ;
+                            _newItem.Priority = item.Priority;
+                            _newItem.TaskDetails = item.TaskDetails;
+                            TimeSpan span = DateTime.Now.Subtract(Convert.ToDateTime(item.CreatedDate));
+                            if (span.Days == 1)
+                            {
+                                _newItem.TaskAssignedTime = string.Format("{0} day ago", span.Days.ToString());
+                            }
+                            else if (span.Days > 1)
+                            {
+                                _newItem.TaskAssignedTime = string.Format("{0} days ago", span.Days.ToString());
+                            }
+                            else if (span.Hours >= 1 && span.Hours <= 23)
+                            {
+                                _newItem.TaskAssignedTime = string.Format("{0} hour ago", span.Hours.ToString());
+                            }
+                            else //if (span.Minutes < 60)
+                            {
+                                _newItem.TaskAssignedTime = string.Format("{0} min ago", span.Minutes.ToString());
+                            }
+
+                            _taskList.Add(_newItem);
+                        }
+                        WebSession.TaskCount = taskUser.Count();
+                        WebSession.TaskList = _taskList;
+                    }
+                    return Utility.CrudStatus(_result, Enums.CrudType.Update);
+                }
+                else
+                {
+                    return Enums.CrudStatus.NotExist;
+                }
             }
             catch (Exception ex)
             {

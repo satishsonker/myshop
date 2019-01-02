@@ -8,8 +8,17 @@
             utility.ajaxHelper(app.urls.GetUserSelectListWithPhoto, { 'searchValue': '' }, function (data) {
                 var list = "";
                 $(data).each(function (ind, ele) {
-                    list += '<li data-id="' + ele.UserId + '"><img src="data:image/png;base64,' + ele.Photo + '" style="border-radius: 60px;width: 32px;height: 32px;padding: 0px;margin: 5px;"/>' +
-                    '<span>' + ele.Name + ' (' + ele.Username + ')</span></li>';
+                    list += '<li data-id="' + ele.UserId + '">';
+                        if (ele.Photo != '') {
+                            list += '<img src="data:image/png;base64,' + ele.Photo + '" style="border-radius: 60px;width: 32px;height: 32px;padding: 0px;margin: 5px;"/>';
+                    }
+                        else {
+                            list += '<span class="fa-stack fa-lg">' +
+                                '<i class="fa fa-circle fa-stack-2x"></i>' +
+                                '<i class="fa fa-user fa-stack-1x fa-inverse"></i>' +
+                                '</span>';
+                    }
+                        list += '<span> ' + ele.Name + ' (' + ele.Username + ')</span></li>';
                 });
                 list = list == "" ? '<li style="padding: 10px;text-align: center;"><span>No Record Found</span></li>' : list;
                 $(userList).empty().append(list);
