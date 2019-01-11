@@ -19,6 +19,7 @@ namespace DataLayer
         {
             this.Gbl_AppDowntime = new HashSet<Gbl_AppDowntime>();
             this.Gbl_AppDowntime1 = new HashSet<Gbl_AppDowntime>();
+            this.Gbl_Master_ExpenseType = new HashSet<Gbl_Master_ExpenseType>();
             this.Gbl_Master_Notification = new HashSet<Gbl_Master_Notification>();
             this.Gbl_Master_Shop1 = new HashSet<Gbl_Master_Shop>();
             this.Gbl_Master_Task = new HashSet<Gbl_Master_Task>();
@@ -52,6 +53,8 @@ namespace DataLayer
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_ExpenseType> Gbl_Master_ExpenseType { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }

@@ -29,7 +29,9 @@ namespace DataLayer
         public int ModifiedBy { get; set; }
         public System.DateTime ModificationDate { get; set; }
         public string Description { get; set; }
+        public Nullable<int> ShopId { get; set; }
     
+        public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_BankAccount> Gbl_Master_BankAccount { get; set; }
     }

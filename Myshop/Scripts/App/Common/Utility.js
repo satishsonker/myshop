@@ -46,6 +46,8 @@ $(document).ready(function () {
     $(document).scroll(utility.setFooter());
     $(window).resize(utility.setFooter());
     $(document).find('input[type="text"]:eq(1)').focus();
+
+    $('[data-toggle="tooltip"]').tooltip();
 });
 
 utility.ajaxHelper = function (url, data, success, error, method) {
@@ -959,4 +961,85 @@ utility.getTextArray = function (objCollection) {
  */
 utility.isUrlValid = function(url) {
     return /^(https?|s?ftp):\/\/(((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:)*@)?(((\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5])\.(\d|[1-9]\d|1\d\d|2[0-4]\d|25[0-5]))|((([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|\d|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.)+(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])*([a-z]|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])))\.?)(:\d*)?)(\/((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)+(\/(([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)*)*)?)?(\?((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|[\uE000-\uF8FF]|\/|\?)*)?(#((([a-z]|\d|-|\.|_|~|[\u00A0-\uD7FF\uF900-\uFDCF\uFDF0-\uFFEF])|(%[\da-f]{2})|[!\$&'\(\)\*\+,;=]|:|@)|\/|\?)*)?$/i.test(url);
+}
+
+$(document).on('click', '[id*="btnSelectRow_"]', function () {
+    $('.popupmodel').hide();
+});
+/**
+ * Set Date to input date control
+ * @param {string} ctrlId
+ * @param {Date} dateObj
+ */
+utility.setDateToDateControl = function (ctrlId,dateObj) {
+    var now = dateObj;
+
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+    $('#'+ctrlId).val(today);
+}
+
+/**
+ * 
+ * @param {any} ctrlId
+ */
+utility.getDateControlFormatDate = function (ctrlId) {
+    var now = '';
+    if (typeof ctrlId === 'string') {
+        now = new Date($('#' + ctrlId).val());
+    }
+    if (typeof ctrlId === 'object') {
+        now = ctrlId;
+    }
+
+    var day = ("0" + now.getDate()).slice(-2);
+    var month = ("0" + (now.getMonth() + 1)).slice(-2);
+
+    return now.getFullYear() + "-" + (month) + "-" + (day);
+}
+/**
+ * 
+ * @param {string} fromDateId
+ * @param {string} toDateId
+ */
+utility.setDateRange = function (fromDateId, toDateId) {
+    $('#' + toDateId).attr('max', utility.getDateControlFormatDate(new Date()));
+    $('#' + fromDateId).attr('max', utility.getDateControlFormatDate(new Date()));
+    $(document).on('change', '#' + fromDateId, function () {
+        let $toDate = new Date($('#' + toDateId).val());
+        let $fromDate = new Date($(this).val());
+        if ($fromDate > $toDate) {
+            $(this).val(utility.getDateControlFormatDate(toDateId));
+        }
+        $(this).attr('max', utility.getDateControlFormatDate(toDateId));
+        $($('#' + toDateId)).attr('min', utility.getDateControlFormatDate(fromDateId));
+    });
+
+    $(document).on('change', '#' + toDateId, function () {
+        let $toDate = new Date($(this).val());
+        let $fromDate = new Date($('#' + fromDateId).val());
+        if ($toDate < $fromDate) {
+            $('#' + fromDateId).val(utility.getDateControlFormatDate(toDateId));
+        }
+        $(this).attr('max', utility.getDateControlFormatDate(new Date()));
+        $($('#' + fromDateId)).attr('max', utility.getDateControlFormatDate(toDateId));
+    });
+}
+
+utility.getProgressbarColor = function (value) {
+    if (value < 33) {
+        return '#70ca63'
+    }
+    else if (value > 33 && value < 56) {
+        return '#f7e621'
+    }
+    else if (value > 56 && value < 75) {
+        return '#f78e21'
+    }
+    else {
+        return '#f70303'
+    }
 }

@@ -39,6 +39,8 @@ namespace Myshop.Areas.Global.Models
         [Range(minimum: 1, maximum: int.MaxValue, ErrorMessage = "Invalid State (1 Min digit)")]
         [Required(AllowEmptyStrings = false, ErrorMessage = "State is required")]
         public int State { get; set; }
+
+        public bool IsPrimary { get; set; } = false;
     }
 
     public class AttachmentModel
@@ -174,6 +176,14 @@ namespace Myshop.Areas.Global.Models
 
         [StringLength(maximumLength: 100, MinimumLength = 3, ErrorMessage = "Invalid PayModeDesc (3 Min and 100 max chars)")]
         public String PayModeDesc { get; set; } = "";
+    }
+
+    public class PayModeJsonModel
+    {
+        public string PayMode { get; set; }
+        public int PayModeId { get; set; }
+        public DateTime CreatedDate { get; set; }
+        public string Description { get; set; }
     }
     public class BankAccModel
     {

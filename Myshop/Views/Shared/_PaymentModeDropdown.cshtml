@@ -10,11 +10,13 @@
     $(document).on('change', '#_ptlPaymentMode', function () {
         if ($(this).find('option:selected').text().toLowerCase() !== 'cash') {
             $('#_ptlPayReNo').show();
+           
             $(this).css('width', '48%');
         }
         else {
             $('#_ptlPayReNo').hide();
             $(this).css('width', '100%');
         }
+        $('#_ptlPayReNo').val('');
     });
 </script>

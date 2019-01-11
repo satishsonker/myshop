@@ -17,12 +17,19 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Gbl_Master_Shop()
         {
+            this.Exp_Dtl_New = new HashSet<Exp_Dtl_New>();
+            this.Exp_Tr_New = new HashSet<Exp_Tr_New>();
+            this.Gbl_Master_Bank = new HashSet<Gbl_Master_Bank>();
             this.Gbl_Master_BankAccount = new HashSet<Gbl_Master_BankAccount>();
+            this.Gbl_Master_BankAccount1 = new HashSet<Gbl_Master_BankAccount>();
             this.Gbl_Master_BankChequeDetails = new HashSet<Gbl_Master_BankChequeDetails>();
             this.Gbl_Master_Brand = new HashSet<Gbl_Master_Brand>();
             this.Gbl_Master_Category = new HashSet<Gbl_Master_Category>();
+            this.Gbl_Master_ExpenseItem = new HashSet<Gbl_Master_ExpenseItem>();
+            this.Gbl_Master_ExpenseType = new HashSet<Gbl_Master_ExpenseType>();
             this.Gbl_Master_Notification = new HashSet<Gbl_Master_Notification>();
             this.Gbl_Master_NotificationType = new HashSet<Gbl_Master_NotificationType>();
+            this.Gbl_Master_PayMode = new HashSet<Gbl_Master_PayMode>();
             this.Gbl_Master_Product = new HashSet<Gbl_Master_Product>();
             this.Gbl_Master_Task = new HashSet<Gbl_Master_Task>();
             this.Gbl_Master_User = new HashSet<Gbl_Master_User>();
@@ -52,9 +59,18 @@ namespace DataLayer
         public System.DateTime CreatedDate { get; set; }
         public int ModifiedBy { get; set; }
         public System.DateTime ModificationDate { get; set; }
+        public bool IsPrimary { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exp_Dtl_New> Exp_Dtl_New { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exp_Tr_New> Exp_Tr_New { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_Bank> Gbl_Master_Bank { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_BankAccount> Gbl_Master_BankAccount { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_BankAccount> Gbl_Master_BankAccount1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_BankChequeDetails> Gbl_Master_BankChequeDetails { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -63,9 +79,15 @@ namespace DataLayer
         public virtual ICollection<Gbl_Master_Category> Gbl_Master_Category { get; set; }
         public virtual Gbl_Master_City Gbl_Master_City { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_ExpenseItem> Gbl_Master_ExpenseItem { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_ExpenseType> Gbl_Master_ExpenseType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_NotificationType> Gbl_Master_NotificationType { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Gbl_Master_PayMode> Gbl_Master_PayMode { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Product> Gbl_Master_Product { get; set; }
         public virtual Gbl_Master_State Gbl_Master_State { get; set; }

@@ -39,8 +39,8 @@ namespace DataLayer
         public string AccHolderName { get; set; }
     
         public virtual Gbl_Master_Bank Gbl_Master_Bank { get; set; }
-        public virtual Gbl_Master_BankAccountType Gbl_Master_BankAccountType { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
+        public virtual Gbl_Master_Shop Gbl_Master_Shop1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_BankCheque> Gbl_Master_BankCheque { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

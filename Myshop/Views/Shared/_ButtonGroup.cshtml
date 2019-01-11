@@ -1,5 +1,6 @@
 ﻿@using Myshop.App_Start;
 <div class="bottonGroup">
+    <button type="button" id="btnbgreset" value="Reset" class="btn btn-default"><i class="fas fa-sync-alt"></i> Reset</button>
     @if (WebSession.UserCanRead == true)
     {
         <button type="button" value="View" class="btn btn-default" onclick="utility.popupTableData('@Model')"><i class="fas fa-eye"></i> View</button>
@@ -17,7 +18,14 @@
     <button type="button" value="Cancel" onclick="utility.bottonGroupManager(false,true)" class="btn btn-default hideCtrl"><i class="fas fa-times"></i> Cancel</button>
 
 </div>
-
+<script>
+    $(document).on('click', '#btnbgreset', function () {
+        let $form = $(this).parent().parent().parent();
+        $($form).find('input').val('');
+        $($form).find('select').val('');
+        $($form).find('input[type="checkbox"]').prop('checked', false);
+    });
+</script>
 <style>
     .bottonGroup button {
         float: right;

@@ -23,19 +23,18 @@ namespace DataLayer
         }
     
         public int AttachmentId { get; set; }
-        public string FleName { get; set; }
+        public string FileName { get; set; }
         public string OriginalFileName { get; set; }
         public string FileExtension { get; set; }
         public string ModuleName { get; set; }
         public byte[] Attachment { get; set; }
-        public System.DateTime CreatedDate { get; set; }
-        public int CreatedBy { get; set; }
-        public System.DateTime ModificationDate { get; set; }
-        public int ModifiedBy { get; set; }
         public int ShopId { get; set; }
-        public Nullable<bool> IsDeleted { get; set; }
         public Nullable<bool> IsSync { get; set; }
-        public string FileName { get; set; }
+        public Nullable<bool> IsDeleted { get; set; }
+        public int CreatedBy { get; set; }
+        public System.DateTime CreatedDate { get; set; }
+        public int ModifiedBy { get; set; }
+        public System.DateTime ModificationDate { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_Master_Employee> Gbl_Master_Employee { get; set; }

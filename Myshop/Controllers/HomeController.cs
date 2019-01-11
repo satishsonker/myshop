@@ -8,6 +8,7 @@ using Myshop.Filters;
 
 namespace Myshop.Controllers
 {
+    //[RouteArea("", AreaPrefix = "")]
     public class HomeController : CommonController
     {       
         [MyshopAuthorize]

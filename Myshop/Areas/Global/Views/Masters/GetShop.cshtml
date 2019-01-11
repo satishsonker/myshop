@@ -28,6 +28,13 @@
                             </select>
                         </div>
                         <div class="col-sm-12">
+                            <label style="margin:27px 27px 0 0">Is Primary Shop</label>
+                            <label class="switch">
+                                <input type="checkbox" name="isprimary" id="isprimary" value="true">
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="col-sm-12">
                             <label>Mobile</label>
                             <input type="text" required="required" maxlength="13" placeholder="Enter Owner Mobile" class="form-control" id="mobile" name="mobile" />
                         </div>
@@ -62,6 +69,7 @@
         <table id="popuptable" class="table table-striped table-bordered" cellspacing="0" width="100%">
             <thead>
                 <tr>
+                    <th id="IsPrimary">Primary Shop</th>
                     <th id="Name">Shop Name</th>
                     <th id="Mobile">Mobile</th>
                     <th id="Email">Email</th>

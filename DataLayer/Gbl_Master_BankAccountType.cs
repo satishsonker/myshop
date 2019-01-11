@@ -14,12 +14,6 @@ namespace DataLayer
     
     public partial class Gbl_Master_BankAccountType
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Gbl_Master_BankAccountType()
-        {
-            this.Gbl_Master_BankAccount = new HashSet<Gbl_Master_BankAccount>();
-        }
-    
         public int AccountTypeId { get; set; }
         public string AccountType { get; set; }
         public string Description { get; set; }
@@ -29,8 +23,6 @@ namespace DataLayer
         public int CreatedBy { get; set; }
         public int ModifiedBy { get; set; }
         public System.DateTime ModificationDate { get; set; }
-    
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Gbl_Master_BankAccount> Gbl_Master_BankAccount { get; set; }
+        public Nullable<int> ShopId { get; set; }
     }
 }

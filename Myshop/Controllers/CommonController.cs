@@ -274,6 +274,11 @@ namespace Myshop.Controllers
             return Json(GlobalMethod.GetUserList(), JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult GetExpenseTypeSelectList()
+        {
+            return Json(GlobalMethod.GetExpenseTypeList(), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetUserSelectListWithPhoto(string searchValue="")
         {
             return Json(GlobalMethod.GetUserJsonWithPhoto(false, searchValue), JsonRequestBehavior.AllowGet);

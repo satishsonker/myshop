@@ -64,18 +64,17 @@ namespace Myshop.Areas.Global.Controllers
                 Enums.CrudStatus status = _details.SetShop(model, Enums.CrudType.Insert);
                 ReturnAlertMessage(status);
             }
-            return RedirectToAction("GetShop");
+            return View("GetShop");
         }
         public ActionResult UpdateShop(ShopModel model)
         {
-            ViewBag.ShopList = WebSession.ShopList;
             if (ModelState.IsValid)
             {
                 MasterDetails _details = new MasterDetails();
                 Enums.CrudStatus status = _details.SetShop(model, Enums.CrudType.Update);
                 ReturnAlertMessage(status);
             }
-            return RedirectToAction("GetShop");
+            return View("GetShop");
         }
         public ActionResult DeleteShop(ShopModel model)
         {

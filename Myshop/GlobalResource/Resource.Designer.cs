@@ -628,7 +628,7 @@ namespace Myshop.GlobalResource {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Requested Page in not available.
+        ///   Looks up a localized string similar to Requested Page is not available.
         /// </summary>
         public static string NotFound_404 {
             get {

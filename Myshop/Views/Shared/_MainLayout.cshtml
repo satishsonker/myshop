@@ -845,6 +845,86 @@
                             </li>
 
                         }
+                        else if (AreaName == "expensemanagement")
+                        {
+                            <li class="active">
+                                <a href="\@AreaName\Exphome\dashboard">
+                                    <i class="fa fa-tachometer black-text"></i>
+                                    <span class="menu-text">Dashboard</span>
+                                    <span class="selected"></span>
+                                </a>
+                            </li>
+                            @* Master Menu Start*@
+                            <li class="hoe-has-menu">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-brain black-text"></i>
+                                    <span class="menu-text">Master Menu</span>
+                                    <span class="selected"></span>
+                                </a>
+                                <ul class="hoe-sub-menu">
+                                    <li>
+                                        <a href="/@AreaName/master/AddExpenseType">
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-rupee-sign black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Expense Type</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/@AreaName/master/AddExpenseItem">
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-ruble-sign black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Expense Item</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li> @*Master Menu End*@
+
+                            <li class="hoe-has-menu">
+                                <a href="javascript:void(0)">
+                                    <i class="fas fa-rupee-sign black-text"></i>
+                                    <span class="menu-text">Expense Menu</span>
+                                    <span class="selected"></span>
+                                </a>
+                                <ul class="hoe-sub-menu">
+                                    <li>
+                                        <a href="/@AreaName/Expense/AddExpenses">
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-rupee-sign black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">New Expense</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/@AreaName/Expense/ExpenseList">
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-list-ol fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-rupee-sign black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Expense List</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/@AreaName/Expense/ExpenseDetails">
+                                            <span class="fa-stack fa-sm">
+                                                <i class="fas fa-plus fa-stack-1x stack-aside greenlight-text"></i>
+                                                <i class="fas fa-rupee-sign black-text"></i>
+                                            </span>
+                                            <span class="menu-text noarrow">Expense Details</span>
+                                            <span class="selected"></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                         <li class="hoe-has-menu">
                             <a href="javascript:void(0)">
                                 <i class="fas fa-cog black-text fa-spin"></i>
@@ -884,6 +964,13 @@
                                     <a href="/SalesManagement/sale/dashboard">
                                         <i class="fas fa-balance-scale black-text"></i>
                                         <span class="menu-text noarrow">Sales Management</span>
+                                        <span class="selected"></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/ExpenseManagement/ExpHome/dashboard">
+                                        <i class="fas fa-rupee-sign black-text"></i>
+                                        <span class="menu-text noarrow">Expense Management</span>
                                         <span class="selected"></span>
                                     </a>
                                 </li>

@@ -14,6 +14,12 @@ namespace DataLayer
     
     public partial class Gbl_Master_Vendor
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Gbl_Master_Vendor()
+        {
+            this.Exp_Tr_New = new HashSet<Exp_Tr_New>();
+        }
+    
         public int VendorId { get; set; }
         public string VendorName { get; set; }
         public string VendorAddress { get; set; }
@@ -27,6 +33,8 @@ namespace DataLayer
         public System.DateTime CreatedDate { get; set; }
         public int ShopId { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exp_Tr_New> Exp_Tr_New { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
     }
 }

@@ -1,0 +1,101 @@
+﻿
+@{
+    ViewBag.Title = "ExpenseList";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script src="~/Scripts/App/Area/Expense/Expense/ExpenseList.js"></script>
+<img class="shop_addIcon" title="Click here to add new expense" src="/Images/Icons/expense.png" href="/ExpenseManagement/expense/AddExpenses">
+<input type="hidden" id="hdntotalRecord" value="0" />
+<input type="hidden" id="hdncurrentpage" value="0" />
+
+<div style="padding: 0 15px;margin-bottom: 3px;">
+    <ul class="filterTab">
+        <li><i class="fas fa-sort-up fa-1x"></i> Filters</li>
+    </ul>
+    <div class="col-lg-12 filterTabCon" style="color:black;">
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-3 shop_noPadding">
+                From
+            </div>
+            <div class="col-lg-9 shop_noPadding">
+                <input type="date" id="txtFromDate" class="form-control form-control-sm" />
+            </div>
+        </div>
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-2 shop_noPadding">
+                To
+            </div>
+            <div class="col-lg-10 shop_noPadding">
+                <input type="date" id="txtToDate" class="form-control form-control-sm" />
+            </div>
+        </div>
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-4 shop_noPadding">
+                Pay Mode
+            </div>
+            <div class="col-lg-8 shop_noPadding">
+                <select class="form-control form-control-sm" id="ddlPayMode">
+                    <option value="">Select Pay Mode</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-4 shop_noPadding">
+                Page Size
+            </div>
+            <div class="col-lg-8 shop_noPadding">
+                <select class="form-control form-control-sm" id="ddlPageSize">
+                    <option value="10">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="40">40</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-12">
+    <div class="panel panel-info">
+        <div class="panel-heading">Expense List</div>
+        <div class="panel-body">
+            <table class="table table-bordered table-responsive table-hover table-striped" id="tblExpList">
+                <thead>
+                    <tr>
+                        <th>Sr. No</th>
+                        <th>Expense No</th>
+                        <th>Date</th>
+                        <th>Total Amount</th>
+                        <th>Paid Amount</th>
+                        <th>Balance Amount</th>
+                        <th>Paid By</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+                <tfoot>
+                    <tr>
+                        <td colspan="7">
+                            <div class="btn-group" id="tblPaging">
+                                <a class="btn btn-default" href="#"></a>
+                            </div>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+    .expNo {
+        border: 1px solid #ec9900 !important;
+        padding: 2px 22px !important;
+        border-radius: 4px !important;
+        background: #fbc86a !important;
+    }
+
+        .expNo:hover, .expNo:focus {
+            text-decoration: none !important;
+            color: black !important;
+        }
+</style>

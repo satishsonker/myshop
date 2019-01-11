@@ -14,10 +14,14 @@ $(document).on('click', '[id*="btnSelectRow_"]', function () {
     $('#email').val(data.Email);
     $('#owner').val(data.OwnerId);
     $('#mobile').val(data.Mobile);
+    $('#isprimary').prop('checked',data.IsPrimary);
     $('#address').val(data.Address);
+    $('#gstin').val(data.GSTIN);
     $('#name').val(data.Name);
-    $('#district').val(data.District);
-    $('#state').val(data.State);
+    $('#ptlDdlState').val(data.StateId);
+    $('#ptlDdlState').data('selectedcity',data.DistrictId);
+    $('#ptlDdlState').change();
+    
     $('.popup').hide();
 });
 

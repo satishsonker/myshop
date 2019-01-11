@@ -28,6 +28,8 @@ namespace DataLayer
         }
     
         public virtual DbSet<ErrorLog> ErrorLogs { get; set; }
+        public virtual DbSet<Exp_Dtl_New> Exp_Dtl_New { get; set; }
+        public virtual DbSet<Exp_Tr_New> Exp_Tr_New { get; set; }
         public virtual DbSet<Gbl_AppDowntime> Gbl_AppDowntime { get; set; }
         public virtual DbSet<Gbl_Attachment> Gbl_Attachment { get; set; }
         public virtual DbSet<Gbl_Master_AppModule> Gbl_Master_AppModule { get; set; }
@@ -45,6 +47,8 @@ namespace DataLayer
         public virtual DbSet<Gbl_Master_DocProofType> Gbl_Master_DocProofType { get; set; }
         public virtual DbSet<Gbl_Master_Employee> Gbl_Master_Employee { get; set; }
         public virtual DbSet<Gbl_Master_Employee_Role> Gbl_Master_Employee_Role { get; set; }
+        public virtual DbSet<Gbl_Master_ExpenseItem> Gbl_Master_ExpenseItem { get; set; }
+        public virtual DbSet<Gbl_Master_ExpenseType> Gbl_Master_ExpenseType { get; set; }
         public virtual DbSet<Gbl_Master_Notification> Gbl_Master_Notification { get; set; }
         public virtual DbSet<Gbl_Master_NotificationType> Gbl_Master_NotificationType { get; set; }
         public virtual DbSet<Gbl_Master_Page> Gbl_Master_Page { get; set; }
@@ -94,6 +98,23 @@ namespace DataLayer
                 new ObjectParameter("ShopId", typeof(int));
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SpGetEmpList_Result>("SpGetEmpList", pageNoParameter, pageSizeParameter, shopIdParameter);
+        }
+    
+        public virtual ObjectResult<SpGetEmpList1_Result> SpGetEmpList1(Nullable<int> pageNo, Nullable<int> pageSize, Nullable<int> shopId)
+        {
+            var pageNoParameter = pageNo.HasValue ?
+                new ObjectParameter("PageNo", pageNo) :
+                new ObjectParameter("PageNo", typeof(int));
+    
+            var pageSizeParameter = pageSize.HasValue ?
+                new ObjectParameter("PageSize", pageSize) :
+                new ObjectParameter("PageSize", typeof(int));
+    
+            var shopIdParameter = shopId.HasValue ?
+                new ObjectParameter("ShopId", shopId) :
+                new ObjectParameter("ShopId", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<SpGetEmpList1_Result>("SpGetEmpList1", pageNoParameter, pageSizeParameter, shopIdParameter);
         }
     }
 }

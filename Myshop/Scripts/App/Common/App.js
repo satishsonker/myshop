@@ -122,6 +122,7 @@ app.urls.GetTotalCustomerTypePieChartData = "/CustomersManagement/Customer/GetTo
 
 //Common Controller
 app.urls.CommonController.CheckPassword = '/Common/CheckPassword';
+app.urls.CommonController.GetExpenseTypeSelectList = '/Common/GetExpenseTypeSelectList';
 app.urls.CommonController.GetCity = '/Common/GetCity';
 app.urls.CommonController.GetState = '/Common/GetState';
 app.urls.CommonController.GetPushNotification = '/Common/GetPushNotification';
@@ -145,6 +146,27 @@ app.urls.SaleArea.reportsController.GetMostSaleProduct = "/SalesManagement/repor
 
 app.urls.SaleArea.settingsController = {};
 app.urls.SaleArea.settingsController.getSaleSettingJson = "/SalesManagement/Settings/GetSaleSettingJson";
+
+//Expense Area
+app.urls.ExpenseArea = {};
+
+//Expense Master Controller
+app.urls.ExpenseArea.MasterController = {};
+app.urls.ExpenseArea.MasterController.GetExpTypeJson = "/ExpenseManagement/Master/GetExpTypeJson";
+app.urls.ExpenseArea.MasterController.GetExpItemJson = "/ExpenseManagement/Master/GetExpItemJson";
+
+app.urls.ExpenseArea.ExpenseController = {};
+app.urls.ExpenseArea.ExpenseController.SearchExpItem = "/ExpenseManagement/Expense/SearchExpenseItem";
+app.urls.ExpenseArea.ExpenseController.SearchExpenseNo = "/ExpenseManagement/Expense/SearchExpenseNo";
+app.urls.ExpenseArea.ExpenseController.SaveExpense = "/ExpenseManagement/Expense/SaveExpense";
+app.urls.ExpenseArea.ExpenseController.ExpenseList = "/ExpenseManagement/Expense/ExpenseList";
+app.urls.ExpenseArea.ExpenseController.ExpenseDetails = "/ExpenseManagement/Expense/ExpenseDetails";
+
+app.urls.ExpenseArea.ExpenseHomeController = {};
+
+app.urls.ExpenseArea.ExpenseHomeController.GetMonthlyExpenseChart = "/ExpenseManagement/ExpHome/GetMonthlyExpenseChart";
+app.urls.ExpenseArea.ExpenseHomeController.TopExpenses = "/ExpenseManagement/ExpHome/TopExpenses";
+
 //Constant Declaration
 app.const.toastColor = {};
 app.const.toastColor.red = '#ff00006e';

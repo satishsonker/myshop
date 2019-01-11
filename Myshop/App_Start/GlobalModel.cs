@@ -631,6 +631,36 @@ namespace Myshop.App_Start
                     myshop = null;
             }
         }
+        public static List<SelectListModel> GetExpenseTypeList()
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                List<SelectListModel> list = new List<SelectListModel>();
+                var userList = myshop.Gbl_Master_ExpenseType.Where(user => user.IsDeleted == false && user.ShopId == WebSession.ShopId).OrderBy(x => x.ExpenseType).ToList();
+                if (userList.Count > 0)
+                {
+                    foreach (Gbl_Master_ExpenseType currentItem in userList)
+                    {
+                        SelectListModel newItem = new SelectListModel();
+                        newItem.Text = currentItem.ExpenseType;
+                        newItem.Value = currentItem.Id;
+                        list.Add(newItem);
+                    }
+                }
+
+                return list;
+            }
+            catch (Exception ex)
+            {
+                return new List<SelectListModel>();
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
         public static IEnumerable<object> GetUserJsonWithPhoto(bool allList = false, string searchValue = "")
         {
             try

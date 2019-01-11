@@ -173,8 +173,15 @@
     <Compile Include="Areas\EmployeesManagement\Models\EmpModel.cs" />
     <Compile Include="Areas\EmployeesManagement\Models\EmpRoleModel.cs" />
     <Compile Include="Areas\EmployeesManagement\Models\MastersDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Controllers\ExpenseController.cs" />
+    <Compile Include="Areas\ExpenseManagement\Controllers\ExpHomeController.cs" />
     <Compile Include="Areas\ExpenseManagement\Controllers\MasterController.cs" />
     <Compile Include="Areas\ExpenseManagement\ExpenseManagementAreaRegistration.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\ExpenseDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\ExpenseModel.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\ExpHomeDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\MasterDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\MaterModel.cs" />
     <Compile Include="Areas\Global\Controllers\AdminController.cs" />
     <Compile Include="Areas\Global\Controllers\MainController.cs" />
     <Compile Include="Areas\Global\Controllers\MastersController.cs" />
@@ -311,6 +318,11 @@
     <Content Include="Areas\SalesManagement\Views\Reports\MostSellingProduct.cshtml" />
     <Content Include="Areas\ExpenseManagement\Views\web.config" />
     <Content Include="Areas\ExpenseManagement\Views\Master\AddExpenseType.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\ExpHome\Dashboard.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\Expense\AddExpenses.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\Master\AddExpenseItem.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\Expense\ExpenseList.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\Expense\ExpenseDetails.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -408,6 +420,11 @@
     <Content Include="Scripts\App\Area\Customer\Master\CustomerType.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\AddEmployee.js" />
     <Content Include="Scripts\App\Area\Employee\Masters\RoleType.js" />
+    <Content Include="Scripts\App\Area\Expense\Expense\AddExpense.js" />
+    <Content Include="Scripts\App\Area\Expense\Expense\ExpenseDetails.js" />
+    <Content Include="Scripts\App\Area\Expense\Expense\ExpenseList.js" />
+    <Content Include="Scripts\App\Area\Expense\ExpHome\Dashboard.js" />
+    <Content Include="Scripts\App\Area\Expense\Master\ExpenseItem.js" />
     <Content Include="Scripts\App\Area\Expense\Master\ExpenseType.js" />
     <Content Include="Scripts\App\Area\Global\Admin\CreateTask.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
@@ -560,7 +577,6 @@
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Areas\EmployeesManagement\Views\Reports\" />
-    <Folder Include="Areas\ExpenseManagement\Models\" />
     <Folder Include="Areas\ExpenseManagement\Views\Shared\" />
     <Folder Include="Areas\Global\Views\Shared\" />
     <Folder Include="Areas\SalesManagement\Views\Shared\" />
@@ -583,6 +599,7 @@
     <EmbeddedResource Include="GlobalResource\Resource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

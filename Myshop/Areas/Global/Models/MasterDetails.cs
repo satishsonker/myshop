@@ -1,12 +1,10 @@
 ﻿using DataLayer;
 using Myshop.App_Start;
 using Myshop.GlobalResource;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
 
 namespace Myshop.Areas.Global.Models
 {
@@ -20,7 +18,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
 
-                var oldAttachment = myshop.Gbl_Attachment.Where(atta => atta.ShopId.Equals(model.ShopId) && atta.IsDeleted == false && atta.AttachmentId.Equals(model.AttachmentId)).FirstOrDefault();
+                var oldAttachment = myshop.Gbl_Attachment.Where(atta => atta.ShopId.Equals(model.ShopId) && atta.IsDeleted == false && atta.AttachmentId.Equals(model.AttachmentId) && atta.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldAttachment != null)
                 {
                     if (crudType == Enums.CrudType.Update)
@@ -91,8 +89,8 @@ namespace Myshop.Areas.Global.Models
             try
             {
                 myshop = new MyshopDb();
-                var shopList = (from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false)
-                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(shop.Owner))
+                var shopList = (from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
+                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(shop.Owner) && x.ShopId.Equals(WebSession.ShopId))
                                 orderby shop.Name
                                 select new
                                 {
@@ -115,117 +113,105 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
 
         public Enums.CrudStatus SetShop(ShopModel model, Enums.CrudType crudType)
         {
-            try
-            {
-                myshop = new MyshopDb();
+            myshop = new MyshopDb();
 
-                var oldShop = myshop.Gbl_Master_Shop.Where(shop => (shop.ShopId.Equals(model.ShopId) || (shop.Name.ToLower().Equals(model.Name.Trim()) || shop.Name.ToLower().Contains(model.Name.Trim()))) && shop.IsDeleted == false).FirstOrDefault();
-                if (oldShop != null)
+            var oldShop = myshop.Gbl_Master_Shop.Where(shop => (shop.ShopId.Equals(model.ShopId) || (shop.Name.ToLower().Equals(model.Name.Trim()) || shop.Name.ToLower().Contains(model.Name.Trim()))) && shop.IsDeleted == false).FirstOrDefault();
+            if (oldShop != null)
+            {
+                oldShop.IsSync = false;
+                oldShop.ModifiedBy = WebSession.UserId;
+                oldShop.ModificationDate = DateTime.Now;
+
+                if (crudType == Enums.CrudType.Update)
                 {
-                    if (crudType == Enums.CrudType.Update)
+                    if(model.IsPrimary) // Update bulk Record
                     {
-                        oldShop.Name = model.Name;
-                        oldShop.Mobile = model.Mobile;
-                        oldShop.Address = model.Address;
-                        oldShop.Distict = model.District;
-                        oldShop.Email = model.Email;
-                        oldShop.State = model.State;
-                        oldShop.Owner = model.OwnerId;
-                        oldShop.IsDeleted = false;
-                        oldShop.IsSync = false;
-                        oldShop.ModifiedBy = WebSession.UserId;
-                        oldShop.ModificationDate = DateTime.Now;
-                        myshop.Entry(oldShop).State = EntityState.Modified;
+                        myshop.Database.ExecuteSqlCommand("update Gbl_Master_Shop set isprimary={0},ModifiedBy={1},ModificationDate={2} where isDeleted=0", false,WebSession.UserId,DateTime.Now);
                     }
-                    else if (crudType == Enums.CrudType.Delete)
+                    oldShop.Name = model.Name;
+                    oldShop.Mobile = model.Mobile;
+                    oldShop.Address = model.Address;
+                    oldShop.Distict = model.District;
+                    oldShop.Email = model.Email;
+                    oldShop.State = model.State;
+                    oldShop.Owner = model.OwnerId;
+                    oldShop.IsPrimary = model.IsPrimary;
+                }
+                else if (crudType == Enums.CrudType.Delete)
+                {
+                    var stock = myshop.User_ShopMapper.Where(x => x.IsDeleted == false && x.ShopId.Equals(model.ShopId)).FirstOrDefault();
+                    if (stock == null)
                     {
-                        var stock = myshop.User_ShopMapper.Where(x => x.IsDeleted == false && x.ShopId.Equals(model.ShopId)).FirstOrDefault();
-                        if (stock == null)
-                        {
-                            oldShop.IsDeleted = true;
-                            oldShop.IsSync = false;
-                            oldShop.ModifiedBy = WebSession.UserId;
-                            oldShop.ModificationDate = DateTime.Now;
-                            myshop.Entry(oldShop).State = EntityState.Modified;
-                        }
-                        else
-                        {
-                            return Enums.CrudStatus.AlreadyInUse;
-                        }
+                        oldShop.IsDeleted = true;
                     }
                     else
                     {
-                        return Enums.CrudStatus.AlreadyExistForSameShop;
+                        return Enums.CrudStatus.AlreadyInUse;
                     }
                 }
-                else if (crudType == Enums.CrudType.Insert)
+                else
                 {
-                    Gbl_Master_Shop newShop = new Gbl_Master_Shop();
-                    newShop.Name = model.Name;
-                    newShop.Mobile = model.Mobile;
-                    newShop.Address = model.Address;
-                    newShop.Distict = model.District;
-                    newShop.Email = model.Email;
-                    newShop.State = model.State;
-                    newShop.Owner = model.OwnerId;
-                    newShop.IsDeleted = false;
-                    newShop.IsSync = false;
-                    newShop.CreatedBy = WebSession.UserId;
-                    newShop.CreatedDate = DateTime.Now;
-                    newShop.ModifiedBy = WebSession.UserId;
-                    newShop.ModificationDate = DateTime.Now;
-                    myshop.Entry(newShop).State = EntityState.Added;
+                    return Enums.CrudStatus.AlreadyExistForSameShop;
                 }
 
-                int result = myshop.SaveChanges();
-                return Utility.CrudStatus(result, crudType);
+                myshop.Entry(oldShop).State = EntityState.Modified;
             }
-            catch (Exception ex)
+            else if (crudType == Enums.CrudType.Insert)
             {
-                return Enums.CrudStatus.Exception;
+                Gbl_Master_Shop newShop = new Gbl_Master_Shop
+                {
+                    Name = model.Name,
+                    Mobile = model.Mobile,
+                    Address = model.Address,
+                    Distict = model.District,
+                    Email = model.Email,
+                    State = model.State,
+                    Owner = model.OwnerId,
+                    IsDeleted = false,
+                    IsSync = false,
+                    IsPrimary = model.IsPrimary,
+                    CreatedBy = WebSession.UserId,
+                    CreatedDate = DateTime.Now,
+                    ModifiedBy = WebSession.UserId,
+                    ModificationDate = DateTime.Now
+                };
+                myshop.Entry(newShop).State = EntityState.Added;
             }
-            finally
-            {
 
-            }
+            int result = myshop.SaveChanges();
+            return Utility.CrudStatus(result, crudType);
         }
         public IEnumerable<object> GetShopJson()
         {
-            try
-            {
-                myshop = new MyshopDb();
-                var shopList = (from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false)
-                                from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(shop.Owner))
-                                orderby shop.Name
-                                select new
-                                {
-                                    shop.ShopId,
-                                    shop.Name,
-                                    OwnerId = shop.Owner,
-                                    OwnerName = user.Firstname+" "+user.Lastname,
-                                    shop.Mobile,
-                                    shop.Email,
-                                    shop.Address,
-                                    District = shop.Gbl_Master_City.CityName,
-                                   State=shop.Gbl_Master_State.StateName
-                                }).ToList();
-                return shopList;
-            }
-            catch (Exception ex)
-            {
-                throw;
-            }
-            finally
-            {
-                if (myshop != null)
-                    myshop = null;
-            }
+            myshop = new MyshopDb();
+            var shopList = (from shop in myshop.Gbl_Master_Shop.Where(x => x.IsDeleted == false)
+                            from user in myshop.Gbl_Master_User.Where(x => x.IsDeleted == false && x.UserId.Equals(shop.Owner))
+                            orderby shop.Name
+                            select new
+                            {
+                                shop.ShopId,
+                                shop.Name,
+                                OwnerId = shop.Owner,
+                                OwnerName = user.Firstname + " " + user.Lastname,
+                                shop.Mobile,
+                                shop.Email,
+                                shop.Address,
+                                District = shop.Gbl_Master_City.CityName,
+                                State = shop.Gbl_Master_State.StateName,
+                                shop.Gbl_Master_State.StateId,
+                                DistrictId=shop.Gbl_Master_City.CityId,
+                                shop.GSTIN,
+                                shop.IsPrimary
+                            }).ToList();
+            return shopList;
         }
 
         public Enums.CrudStatus SetBank(BankModel model, Enums.CrudType crudType)
@@ -234,7 +220,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
 
-                var oldBank = myshop.Gbl_Master_Bank.Where(bank => (bank.BankId.Equals(model.BankId) || (bank.BankName.ToLower().Equals(model.BankName) || bank.BankName.ToLower().Contains(model.BankName))) && bank.IsDeleted == false).FirstOrDefault();
+                var oldBank = myshop.Gbl_Master_Bank.Where(bank => (bank.BankId.Equals(model.BankId) || (bank.BankName.ToLower().Equals(model.BankName) || bank.BankName.ToLower().Contains(model.BankName))) && bank.IsDeleted == false && bank.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldBank != null)
                 {
                     if (crudType == Enums.CrudType.Update)
@@ -277,6 +263,7 @@ namespace Myshop.Areas.Global.Models
                     newBank.Description = model.BankDesc;
                     newBank.IsDeleted = false;
                     newBank.IsSync = false;
+                    newBank.ShopId = WebSession.ShopId;
                     newBank.ModifiedBy = WebSession.UserId;
                     newBank.ModificationDate = DateTime.Now;
                     myshop.Entry(newBank).State = EntityState.Added;
@@ -299,7 +286,7 @@ namespace Myshop.Areas.Global.Models
             try
             {
                 myshop = new MyshopDb();
-                var bankList = (from bank in myshop.Gbl_Master_Bank.Where(x => x.IsDeleted == false)
+                var bankList = (from bank in myshop.Gbl_Master_Bank.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
                                 orderby bank.BankName
                                 select new
                                 {
@@ -317,7 +304,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
 
@@ -327,7 +316,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
 
-                var oldBank = myshop.Gbl_Master_BankAccountType.Where(bank => (bank.AccountTypeId.Equals(model.AccountTypeId) || (bank.AccountType.ToLower().Equals(model.AccountType) || bank.AccountType.ToLower().Contains(model.AccountType))) && bank.IsDeleted == false).FirstOrDefault();
+                var oldBank = myshop.Gbl_Master_BankAccountType.Where(bank => (bank.AccountTypeId.Equals(model.AccountTypeId) || (bank.AccountType.ToLower().Equals(model.AccountType) || bank.AccountType.ToLower().Contains(model.AccountType))) && bank.IsDeleted == false && bank.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldBank != null)
                 {
                     if (crudType == Enums.CrudType.Update)
@@ -370,6 +359,7 @@ namespace Myshop.Areas.Global.Models
                     newBank.Description = model.AccountTypeDesc;
                     newBank.IsDeleted = false;
                     newBank.IsSync = false;
+                    newBank.ShopId = WebSession.ShopId;
                     newBank.ModifiedBy = WebSession.UserId;
                     newBank.ModificationDate = DateTime.Now;
                     myshop.Entry(newBank).State = EntityState.Added;
@@ -392,7 +382,7 @@ namespace Myshop.Areas.Global.Models
             try
             {
                 myshop = new MyshopDb();
-                var bankList = (from bank in myshop.Gbl_Master_BankAccountType.Where(x => x.IsDeleted == false)
+                var bankList = (from bank in myshop.Gbl_Master_BankAccountType.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
                                 orderby bank.AccountType
                                 select new
                                 {
@@ -410,7 +400,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
         public Enums.CrudStatus SetPayMode(PayModeModel model, Enums.CrudType crudType)
@@ -419,7 +411,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
 
-                var oldPay = myshop.Gbl_Master_PayMode.Where(pay => (pay.PayModeId.Equals(model.PayModeId) || (pay.PayMode.ToLower().Equals(model.PayMode) || pay.PayMode.ToLower().Contains(model.PayMode))) && pay.IsDeleted == false).FirstOrDefault();
+                var oldPay = myshop.Gbl_Master_PayMode.Where(pay => (pay.PayModeId.Equals(model.PayModeId) || (pay.PayMode.ToLower().Equals(model.PayMode) || pay.PayMode.ToLower().Contains(model.PayMode))) && pay.IsDeleted == false && pay.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldPay != null)
                 {
                     if (crudType == Enums.CrudType.Update)
@@ -479,20 +471,18 @@ namespace Myshop.Areas.Global.Models
 
             }
         }
-        public IEnumerable<object> GetPayModeJson()
+        public List<PayModeJsonModel> GetPayModeJson()
         {
             try
             {
                 myshop = new MyshopDb();
-                var payList = (from pay in myshop.Gbl_Master_PayMode.Where(x => x.IsDeleted == false)
-                               orderby pay.PayMode
-                               select new
+                var payList = myshop.Gbl_Master_PayMode.Where(x => x.IsDeleted == false && x.ShopId==WebSession.ShopId).Select(pay=> new PayModeJsonModel
                                {
-                                   pay.PayMode,
-                                   pay.PayModeId,
-                                   pay.CreatedDate,
+                                   PayMode=pay.PayMode,
+                                   PayModeId=pay.PayModeId,
+                                   CreatedDate=pay.CreatedDate,
                                    Description = pay.Description ?? "No Description",
-                               }).ToList();
+                               }).OrderBy(x=>x.PayMode).ToList();
                 return payList;
             }
             catch (Exception ex)
@@ -502,7 +492,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
         public Enums.CrudStatus SetBankAccount(BankAccModel model, Enums.CrudType crudType)
@@ -511,7 +503,7 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
 
-                var oldBank = myshop.Gbl_Master_BankAccount.Where(bank => (bank.BankAccId.Equals(model.BankAccId) || (bank.AccountNo.ToLower().Equals(model.AccountNo) || bank.AccountNo.ToLower().Contains(model.AccountNo))) && bank.IsDeleted == false).FirstOrDefault();
+                var oldBank = myshop.Gbl_Master_BankAccount.Where(bank => (bank.BankAccId.Equals(model.BankAccId) || (bank.AccountNo.ToLower().Equals(model.AccountNo) || bank.AccountNo.ToLower().Contains(model.AccountNo))) && bank.IsDeleted == false && bank.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldBank != null)
                 {
                     if (crudType == Enums.CrudType.Update)
@@ -588,8 +580,8 @@ namespace Myshop.Areas.Global.Models
             {
                 myshop = new MyshopDb();
                 var bankList = (from bankAcc in myshop.Gbl_Master_BankAccount.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
-                                from bankAccType in myshop.Gbl_Master_BankAccountType.Where(x => x.IsDeleted == false && x.AccountTypeId == bankAcc.AccTypeId)
-                                from bank in myshop.Gbl_Master_Bank.Where(x => x.IsDeleted == false && x.BankId == bankAcc.BankId)
+                                from bankAccType in myshop.Gbl_Master_BankAccountType.Where(x => x.IsDeleted == false && x.AccountTypeId == bankAcc.AccTypeId && x.ShopId.Equals(WebSession.ShopId))
+                                from bank in myshop.Gbl_Master_Bank.Where(x => x.IsDeleted == false && x.BankId == bankAcc.BankId && x.ShopId.Equals(WebSession.ShopId))
                                 orderby bankAcc.AccountName, bankAcc.AccountNo
                                 select new
                                 {
@@ -613,7 +605,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
         public Enums.CrudStatus SetDocProofType(Gbl_Master_DocProofType model, Enums.CrudType crudType)
@@ -705,7 +699,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
         public IEnumerable<object> GetDocProofJson()
@@ -734,7 +730,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
         public Enums.CrudStatus SetDocProof(Gbl_Master_DocProof model, Enums.CrudType crudType)
@@ -1010,13 +1008,15 @@ namespace Myshop.Areas.Global.Models
                 return Utility.CrudStatus(_result, Enums.CrudType.Delete);
             }
             else
+            {
                 return Enums.CrudStatus.NotExist;
+            }
         }
         public Enums.CrudStatus ReadNotification(int NotificationId)
         {
             myshop = new MyshopDb();
 
-            var _oldNoti = myshop.Gbl_Master_Notification.Where(noti => noti.ShopId.Equals(WebSession.ShopId) && !noti.IsDeleted && noti.NotificationId.Equals(NotificationId) && noti.PushedDate<=DateTime.Now && noti.IsPushed && noti.UserId.Equals(WebSession.UserId)).FirstOrDefault();
+            var _oldNoti = myshop.Gbl_Master_Notification.Where(noti => noti.ShopId.Equals(WebSession.ShopId) && !noti.IsDeleted && noti.NotificationId.Equals(NotificationId) && noti.PushedDate <= DateTime.Now && noti.IsPushed && noti.UserId.Equals(WebSession.UserId)).FirstOrDefault();
             if (_oldNoti != null)
             {
                 _oldNoti.ModifiedBy = WebSession.UserId;
@@ -1028,7 +1028,9 @@ namespace Myshop.Areas.Global.Models
                 return Utility.CrudStatus(_result, Enums.CrudType.Update);
             }
             else
+            {
                 return Enums.CrudStatus.NotExist;
+            }
         }
         public IEnumerable<object> GetNotificationTypeJson()
         {
@@ -1053,7 +1055,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
 
@@ -1144,7 +1148,7 @@ namespace Myshop.Areas.Global.Models
                     {
                         return Enums.CrudStatus.AlreadySendNotification;
                     }
-                    else if (crudType == Enums.CrudType.Update )
+                    else if (crudType == Enums.CrudType.Update)
                     {
                         if (oldNotiType.MessageExpireDate >= DateTime.Now)
                         {
@@ -1173,7 +1177,7 @@ namespace Myshop.Areas.Global.Models
                         {
                             return Enums.CrudStatus.NotificationExpired;
                         }
-                    }                    
+                    }
                     else if (crudType == Enums.CrudType.Delete)
                     {
                         oldNotiType.IsDeleted = true;
@@ -1202,15 +1206,17 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
-        public IEnumerable<object> GetNotificationJson(bool fetchPushed=true)
+        public IEnumerable<object> GetNotificationJson(bool fetchPushed = true)
         {
             try
             {
                 myshop = new MyshopDb();
-                var notiTypeList = (from noti in myshop.Gbl_Master_Notification.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId) && (fetchPushed || x.IsPushed==false))
+                var notiTypeList = (from noti in myshop.Gbl_Master_Notification.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId) && (fetchPushed || x.IsPushed == false))
                                     orderby noti.CreatedBy descending
                                     select new
                                     {
@@ -1220,7 +1226,7 @@ namespace Myshop.Areas.Global.Models
                                         noti.NotificationId,
                                         noti.Gbl_Master_NotificationType.NotificationType,
                                         noti.UserId,
-                                        UserName = noti.Gbl_Master_User.Firstname+" "+noti.Gbl_Master_User.Lastname,
+                                        UserName = noti.Gbl_Master_User.Firstname + " " + noti.Gbl_Master_User.Lastname,
                                         noti.CreatedDate,
                                         noti.IsForAll
                                     }).ToList();
@@ -1233,7 +1239,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
 
@@ -1268,7 +1276,9 @@ namespace Myshop.Areas.Global.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
     }

@@ -19,5 +19,12 @@ namespace Myshop.Models
             public string labelColor { get; set; }
             public decimal value { get; set; }
         }
+
+        public class AreaChart
+        {
+            public string Y { get; set; }
+            public string A { get; set; }
+            public string B { get; set; }
+        }
     }
 }

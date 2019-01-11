@@ -56,6 +56,12 @@
     <Compile Include="ErrorLog.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Exp_Dtl_New.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Exp_Tr_New.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Gbl_AppDowntime.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
@@ -105,6 +111,12 @@
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Gbl_Master_Employee_Role.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gbl_Master_ExpenseItem.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gbl_Master_ExpenseType.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Gbl_Master_Notification.cs">
@@ -178,6 +190,9 @@
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Sale_Tr_Invoice.cs">
+      <DependentUpon>MyshopModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="SpGetEmpList1_Result.cs">
       <DependentUpon>MyshopModel.tt</DependentUpon>
     </Compile>
     <Compile Include="SpGetEmpList_Result.cs">

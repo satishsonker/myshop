@@ -1,0 +1,41 @@
+﻿
+@{
+    ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script src="~/Scripts/morris.min.js"></script>
+<script src="~/Scripts/Raphael.js"></script>
+<script src="~/Scripts/App/Area/Expense/ExpHome/Dashboard.js"></script>
+<img class="shop_addIcon" title="Click here to add new expense" src="~/Images/Icons/expense.png" href="/ExpenseManagement/expense/AddExpenses" />
+
+
+<div class="col-lg-12">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Monthly Expense
+        </div>
+        <div class="panel-body">
+            <div class="graph-Container" style="max-height:350px;">
+                <div class="graph-Header">Sales</div>
+                <div class="graph-Main" id="line-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="col-lg-4">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Top Expense
+        </div>
+        <div class="panel-body" style="padding:4px;">
+            <table class="table table-bordered table-responsive table-striped" id="tblTopExp" style="font-size:12px;margin-bottom: 2px;">
+                <tbody></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<style>
+    body {
+        height: auto !important;
+    }
+</style>

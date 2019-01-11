@@ -16,8 +16,8 @@ namespace Myshop.Areas.ExpenseManagement
         {
             context.MapRoute(
                 "ExpenseManagement_default",
-                "Expense/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                "ExpenseManagement/{controller}/{action}/{id}",
+                new { controller="ExpHome", action = "Dashboard", id = UrlParameter.Optional }
             );
         }
     }

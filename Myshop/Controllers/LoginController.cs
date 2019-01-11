@@ -112,7 +112,7 @@ namespace Myshop.Controllers
             {
                 WebSession.ShopId = shopid;
                 WebSession.ShopName = shopname;
-                return RedirectToAction("index", "Home");
+                return RedirectToAction("Index", "Home",new { area=""});
             }
             else
             {

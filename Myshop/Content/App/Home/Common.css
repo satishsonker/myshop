@@ -33,6 +33,10 @@
     padding-left: 0px !important;
 }
 
+.shop_noPadding {
+    padding: 0px !important;
+}
+
 .shop_noPadRight {
     padding-right: 0px !important;
 }
@@ -459,7 +463,7 @@ table.dataTable tbody th, table.dataTable tbody td {
     max-height: 34px;
     height: 34px !important;
     border-radius: 4px;
-    background-color:white;
+    background-color: white;
 }
 
     .shop-multiselect .defaultText {
@@ -492,7 +496,7 @@ table.dataTable tbody th, table.dataTable tbody td {
         z-index: 99999;
         border: 1px solid;
         border-radius: 4px;
-        display:none;
+        display: none;
     }
 
         .shop-multiselect ul li {
@@ -504,21 +508,23 @@ table.dataTable tbody th, table.dataTable tbody td {
             background-color: #fbfbfb;
             color: black;
         }
+
             .shop-multiselect ul li:first-child {
-                height:50px;
+                height: 50px;
             }
 
-            .shop-multiselect ul li:first-child i {
-                cursor:pointer;
-            }
+                .shop-multiselect ul li:first-child i {
+                    cursor: pointer;
+                }
 
             .shop-multiselect ul li:not(:first-child) {
                 padding: 4px;
                 cursor: pointer;
             }
-            .shop-multiselect ul li:not(:first-child):hover {
-                background-color: aquamarine;
-            }
+
+                .shop-multiselect ul li:not(:first-child):hover {
+                    background-color: aquamarine;
+                }
 
     .shop-multiselect .selected {
         background: #6d6dff;
@@ -529,4 +535,121 @@ table.dataTable tbody th, table.dataTable tbody td {
         padding: 7px;
         height: 38px;
         position: absolute;
+    }
+
+/* The switch - the box around the slider */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+    /* Hide default HTML checkbox */
+    .switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+    }
+
+/* The slider */
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+    .slider:before {
+        position: absolute;
+        content: "";
+        height: 26px;
+        width: 26px;
+        left: 4px;
+        bottom: 4px;
+        background-color: white;
+        -webkit-transition: .4s;
+        transition: .4s;
+    }
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+    .slider.round:before {
+        border-radius: 50%;
+    }
+
+
+.defaultrow td {
+    background-color: #e0fbff !important;
+}
+
+.form-control-sm {
+    height: 27px !important;
+    padding: 2px 7px !important;
+    font-size: 12px !important;
+}
+
+.pageActive {
+    background: #56ffc6 !important;
+}
+
+.filterTab {
+    padding: 0;
+    margin: 0;
+    border-bottom: 1px solid #d4d4d4;
+    font-size: 11px;
+}
+
+    .filterTab li {
+        list-style: none;
+        border: 1px solid #d4d4d4;
+        display: inline-block;
+        padding: 2px 3px;
+        width: auto;
+        border-radius: 4px 4px 0 0;
+        cursor: pointer;
+        color: black;
+        background: white;
+        border-bottom: 1px solid white;
+        margin-bottom: -1px;
+        font-size: 11px;
+    }
+
+        .filterTab li:hover {
+            background: #e4e2e2;
+        }
+.filterTabCon {
+    font-size: 11px;
+    border: 1px solid #d4d4d4;
+    background: white;
+    height: 33px;
+    padding: 2px;
+    border-top: 1px solid white;
+    border-radius: 0 0px 6px 6px;
+}
+
+    .filterTab li i {
+        line-height: 0;
     }

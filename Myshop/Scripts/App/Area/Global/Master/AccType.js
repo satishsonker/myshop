@@ -25,7 +25,7 @@ $(document).on('click', '[id*="btnUpdate"]', function () {
 });
 
 $(document).on('click', '[id*="btnDelete"]', function () {
-    utility.confirmBox('Are you sure! want to Update.', function () {
+    utility.confirmBox('Are you sure! want to Delete.', function () {
         utility.setFormPostUrl('acctypeform', 'DeleteAccountType', 'masters', 'Global');
         $('#acctypeform').submit();
     });

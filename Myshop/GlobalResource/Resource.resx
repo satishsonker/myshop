@@ -157,7 +157,7 @@
     <value>Mobile No</value>
   </data>
   <data name="NotFound_404" xml:space="preserve">
-    <value>Requested Page in not available</value>
+    <value>Requested Page is not available</value>
   </data>
   <data name="PanCard" xml:space="preserve">
     <value>PAN Card No </value>
