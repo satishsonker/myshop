@@ -1,13 +1,18 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2036
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myshop", "Myshop\Myshop.csproj", "{62697F5D-CBF3-4D60-919B-C00BBFD234A2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myshop.Tests", "Myshop.Tests\Myshop.Tests.csproj", "{92BAC4B7-CEBB-4CAE-97B7-99881FCBF610}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{A7614D1C-2902-4F2E-96B6-4530C52E6F13}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28CD1FC3-5DC0-445D-9B52-B5A9F83F722F}"
+	ProjectSection(SolutionItems) = preProject
+		..\..\..\myshopDb_23-01-19.sql = ..\..\..\myshopDb_23-01-19.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -30,5 +35,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {DF682F7E-62B9-48F3-B39F-4766D2A1E03B}
 	EndGlobalSection
 EndGlobal
