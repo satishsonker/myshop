@@ -229,6 +229,7 @@
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="myshopDb_23-01-19.sql" />
     <Content Include="MyshopModel.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>MyshopModel.edmx</DependentUpon>

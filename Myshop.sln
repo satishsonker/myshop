@@ -9,11 +9,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Myshop.Tests", "Myshop.Test
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{A7614D1C-2902-4F2E-96B6-4530C52E6F13}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{28CD1FC3-5DC0-445D-9B52-B5A9F83F722F}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\myshopDb_23-01-19.sql = ..\..\..\myshopDb_23-01-19.sql
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
