@@ -59,7 +59,7 @@ namespace Myshop.Areas.StockManagement.Models
     public class UnitModel 
     {
         [Required(AllowEmptyStrings = false, ErrorMessage = "Unit name is required")]
-        [StringLength(maximumLength: 50, MinimumLength = 3, ErrorMessage = "Invalid Unit Name (3 Min and 50 max chars)")]
+        [StringLength(maximumLength: 50, MinimumLength = 2, ErrorMessage = "Invalid Unit Name (2 Min and 50 max chars)")]
         public String UnitName { get; set; }
 
         [Range(0, int.MaxValue, ErrorMessage = "UnitId should be greater or Equal than 0 (Zero)")]

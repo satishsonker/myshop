@@ -176,12 +176,16 @@
     <Compile Include="Areas\ExpenseManagement\Controllers\ExpenseController.cs" />
     <Compile Include="Areas\ExpenseManagement\Controllers\ExpHomeController.cs" />
     <Compile Include="Areas\ExpenseManagement\Controllers\MasterController.cs" />
+    <Compile Include="Areas\ExpenseManagement\Controllers\ReportsController.cs" />
     <Compile Include="Areas\ExpenseManagement\ExpenseManagementAreaRegistration.cs" />
     <Compile Include="Areas\ExpenseManagement\Models\ExpenseDetails.cs" />
     <Compile Include="Areas\ExpenseManagement\Models\ExpenseModel.cs" />
     <Compile Include="Areas\ExpenseManagement\Models\ExpHomeDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\ExpHomeModel.cs" />
     <Compile Include="Areas\ExpenseManagement\Models\MasterDetails.cs" />
     <Compile Include="Areas\ExpenseManagement\Models\MaterModel.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\ReportsDetails.cs" />
+    <Compile Include="Areas\ExpenseManagement\Models\ReportsModel.cs" />
     <Compile Include="Areas\Global\Controllers\AdminController.cs" />
     <Compile Include="Areas\Global\Controllers\MainController.cs" />
     <Compile Include="Areas\Global\Controllers\MastersController.cs" />
@@ -323,6 +327,7 @@
     <Content Include="Areas\ExpenseManagement\Views\Master\AddExpenseItem.cshtml" />
     <Content Include="Areas\ExpenseManagement\Views\Expense\ExpenseList.cshtml" />
     <Content Include="Areas\ExpenseManagement\Views\Expense\ExpenseDetails.cshtml" />
+    <Content Include="Areas\ExpenseManagement\Views\Reports\BalanceReport.cshtml" />
     <None Include="Resources\Close.ico" />
     <None Include="Resources\Image1.bmp" />
     <Content Include="Images\Icons\404.png" />
@@ -426,6 +431,7 @@
     <Content Include="Scripts\App\Area\Expense\ExpHome\Dashboard.js" />
     <Content Include="Scripts\App\Area\Expense\Master\ExpenseItem.js" />
     <Content Include="Scripts\App\Area\Expense\Master\ExpenseType.js" />
+    <Content Include="Scripts\App\Area\Expense\Reports\Balance.js" />
     <Content Include="Scripts\App\Area\Global\Admin\CreateTask.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ErrorLog.js" />
     <Content Include="Scripts\App\Area\Global\Admin\ResetUserPassword.js" />
@@ -475,6 +481,7 @@
     <Content Include="Scripts\App\Common\Validate.js" />
     <Content Include="Scripts\App\Home\Dashboard.js" />
     <Content Include="Scripts\App\Home\InputOtp.js" />
+    <Content Include="Scripts\App\JsBarcode.all.min.js" />
     <Content Include="Scripts\App\Users\NotifyList.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

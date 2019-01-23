@@ -32,18 +32,25 @@ function bindTable(pageNo, pageSize, pageBtn) {
         if (resp.length > 0) {
             $('#hdntotalRecord').val(resp[0].TotalRecords);
             $(resp).each(function (ind, ele) {
-                $html += '<tr>';
+                if (ele.IsCancelled) {
+                    $html += '<tr data-toggle="tooltip" class="cancelitem" title="Cancelled Expense\nReason: ' + ele.CancelReason + '\nDate: ' + utility.getJsDateTimeFromJson(ele.CancelledDate) + '">';
+                } else {
+                    $html += '<tr>';
+                }
                 $html += '<td><span  class="badge badge-danger">' + (ind + 1) + '</span></td>';
                 $html += '<td class="shop_vMiddle shop_hCentre"><a class="expNo" href="ExpenseDetails?expid=' + ele.ExpId + '">' + ele.ExpId + '</a></td>';
                 $html += '<td>' + utility.getJsDateTimeFromJson(ele.CreatedDate) + '</td>';
                 $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency(ele.TotalAmout) + '</td>';
                 $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency(ele.PaidAmount) + '</td>';
                 $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency(ele.BalanceAmount) + '</td>';
+                $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency(ele.BalancePaidAmount) + '</td>';
                 $html += '<td>' + ele.PayMode + '</td>';
+                $html += '<td>' + ele.CreatedBy + '</td>';
                 $html += '</tr>';
             });
             $('#tblExpList tbody').empty().append($html);
             bindPaging();
+            $('[data-toggle="tooltip"]').tooltip(); 
             $('#' + $selectedPage).addClass('pageActive');
         } else {
             $('#tblExpList tbody').empty().append('<tr><td colspan="7" style="text-align:center;">No Record Found</td></tr>');

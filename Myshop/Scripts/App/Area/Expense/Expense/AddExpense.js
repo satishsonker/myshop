@@ -109,6 +109,7 @@ $(document).on('click', "#_ptlSearchItemAdd", function () {
                 '<td>' + $data.ExpItem +
                 '</td>' +
                 '<td class="shop_vMiddle shop_hCentre">' + $data.ExpTypeName + '</td>' +
+                '<td class="shop_vMiddle shop_hCentre">' + $data.UnitName + '</td>' +
                 '<td class="shop_vMiddle shop_hCentre lblprice">' + parseFloat($data.ExpItemPrice).toFixed(2) + '</td>' +
                 '<td class="shop_vMiddle shop_hCentre"><input type="number" value="1" class="form-control txtqty" placeholder="Qty" min="1" max="99999" /></td>' +
                 '<td class="shop_vMiddle shop_hRigth lblamount">' + parseFloat($data.ExpItemPrice).toFixed(2) + '</td>' +
@@ -235,9 +236,9 @@ $expense.validateSave = function () {
         else {
             $(ele).css('border', '1px solid green');
         }
-        if (parseInt($(ele).find('input[type="number"]').val()) < 1) {
+        if (parseFloat($(ele).find('input[type="number"]').val()) <= 0) {
             $flag = false;
-            utility.SetAlert('Invalid Expense Item', utility.alertType.error);
+            utility.SetAlert('Invalid Expense Quantity', utility.alertType.error);
             $(ele).find('input[type="number"]').css('border', '1px solid red');
             return false;
         }

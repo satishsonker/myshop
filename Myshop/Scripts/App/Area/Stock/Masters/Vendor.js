@@ -14,12 +14,18 @@ $(document).on('click', '[id*="btnSelectRow_"]', function () {
 });
 
 $(document).on('click', '[id*="btnSave"]', function () {
+    if (!$vendor.isMobileValid()) {
+        return false;
+    }
     $('#vendorid').val('0');
     utility.setFormPostUrl('vendorform', 'SetVendor', 'masters', 'StockManagement');
     $(document).submit();
 });
 
 $(document).on('click', '[id*="btnUpdate"]', function () {
+    if (!$vendor.isMobileValid()) {
+        return false;
+    }
     utility.confirmBox('Are you sure! want to Update.', function () {
         utility.setFormPostUrl('vendorform', 'UpdateVendor', 'masters', 'StockManagement');
         $('#vendorform').submit();
@@ -28,9 +34,24 @@ $(document).on('click', '[id*="btnUpdate"]', function () {
 });
 
 $(document).on('click', '[id*="btnDelete"]', function () {
+    if (!$vendor.isMobileValid()) {
+        return false;
+    }
     utility.confirmBox('Are you sure! want to Update.', function () {
         utility.setFormPostUrl('vendorform', 'DeleteVendor', 'masters', 'StockManagement');
         $('#vendorform').submit();
     });
     return false;
 });
+
+var $vendor = {};
+
+$vendor.isMobileValid = function () {
+    let $mobile = $('#vendormobile').val();
+    if (!app.const.regex.mobile.test($mobile)) {
+        utility.SetAlert('Invalid mobile number', utility.alertType.warning);
+        return false;
+    }
+    else
+        return true;
+}

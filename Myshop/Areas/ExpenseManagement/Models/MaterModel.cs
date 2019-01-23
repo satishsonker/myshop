@@ -25,6 +25,9 @@ namespace Myshop.Areas.ExpenseManagement.Models
         [Range(1, int.MaxValue, ErrorMessage = "Expense type id should be greater than 0")]
         public int ExpTypeId { get; set; }
 
+        [Range(1, int.MaxValue, ErrorMessage = "Unit id should be greater than 0")]
+        public int UnitId { get; set; }
+
         [Range(0, int.MaxValue, ErrorMessage = "Expense Item id should be greater than -1")]
         public int ExpItemId { get; set; }
 
@@ -39,6 +42,8 @@ namespace Myshop.Areas.ExpenseManagement.Models
         public string ExpItemDesc { get; set; }
 
         public string ExpTypeName { get; set; }
+
+        public string UnitName { get; set; }
 
         public DateTime CreatedDate { get; set; }
     }

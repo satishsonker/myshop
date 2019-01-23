@@ -1,0 +1,154 @@
+﻿
+@{
+    ViewBag.Title = "Balance Report";
+    Layout = "~/Views/Shared/_MainLayout.cshtml";
+}
+<script src="~/Scripts/App/Area/Expense/Reports/Balance.js"></script>
+<div style="padding: 0 0px;margin-bottom: 3px;">
+    <ul class="filterTab">
+        <li><i class="fas fa-sort-up fa-1x"></i> Filters</li>
+    </ul>
+    <div class="col-lg-12 filterTabCon" style="color:black;">
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-4 shop_noPadding">
+                Year
+            </div>
+            <div class="col-lg-8 shop_noPadding">
+                <select class="form-control form-control-sm" id="ddlYear">
+                    <option value="0">All Years</option>
+                    @for (int _year = DateTime.Now.Year; _year >= DateTime.Now.Year - 10; _year--)
+                    {
+                        <option value="@_year">@_year</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-4 shop_noPadding">
+                Month
+            </div>
+            <div class="col-lg-8 shop_noPadding">
+                <select class="form-control form-control-sm" id="ddlMonth">
+                    <option value="0">All Months</option>
+                    @for (int _month = 1; _month <= 12; _month++)
+                    {
+                        <option value="@_month">@_month</option>
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="col-lg-2 shop_noPadding" style="margin-right:10px">
+            <div class="col-lg-4 shop_noPadding">
+                Pay Mode
+            </div>
+            <div class="col-lg-8 shop_noPadding">
+                <select class="form-control form-control-sm" id="ddlVendor">
+                    <option value="0">Select Vendor</option>
+                </select>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        Balance Report
+    </div>
+    <div class="panel-body">
+        <table class="table table-bordered table-condensed table-hover table-responsive" id="tblBalReport">
+            <tbody>
+                <tr>
+                    <td colspan="5"><i class="fas fa-user black-text">Vendor Name</i><span style="float:right;">Total balance <strong>0.00</strong></span></td>
+                </tr>
+                <tr>
+                    <td>Sr. No</td>
+                    <td>Expense No.</td>
+                    <td>Total Amount</td>
+                    <td>Paid Amount</td>
+                    <td>Balance Amount</td>
+                    <td>Date</td>
+                </tr>
+                <tr data-toggle="collapse" data-target="#exp1000">
+                    <td><span class="badge badge-danger">1</span></td>
+                    <td class="shop_vMiddle shop_hCentre"><a class="expNo" href="ExpenseDetails?expid=">1000</a></td>
+                    <td class="shop_vMiddle shop_hRigth">100</td>
+                    <td class="shop_vMiddle shop_hRigth">20</td>
+                    <td class="shop_vMiddle shop_hCentre">01/01/2019 11:12:13</td>
+                </tr>
+                <tr id="exp1000" class="collapse out">
+                    <td colspan="5">
+                        <table class="table table-bordered table-condensed table-hover table-responsive table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Sr. No</th>
+                                    <th>Item Name</th>
+                                    <th>Price</th>
+                                    <th>Unit</th>
+                                    <th>Qty</th>
+                                    <th>Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-danger">1</span></td>
+                                    <td class="shop_vMiddle shop_hCentre">Samosa</td>
+                                    <td class="shop_vMiddle shop_hRigth">4</td>
+                                    <td class="shop_vMiddle shop_hRigth">Pcs</td>
+                                    <td class="shop_vMiddle shop_hRigth">5.00</td>
+                                    <td class="shop_vMiddle shop_hRigth">20.00</td>
+                                </tr>
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <td colspan="5">Total Balance</td>
+                                    <td class="shop_vMiddle shop_hRigth">20.00</td>
+                                </tr>
+                            </tfoot>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<style>
+    .expNo {
+        border: 1px solid #ec9900 !important;
+        padding: 2px 22px !important;
+        border-radius: 4px !important;
+        background: #fbc86a !important;
+    }
+
+        .expNo:hover, .expNo:focus {
+            text-decoration: none !important;
+            color: black !important;
+        }
+
+    body {
+        height: auto !important;
+    }
+
+    #innerTable thead tr th
+    {
+        background:khaki;
+    }
+    #innerTable tfoot tr td {
+        background: #6cadff7a;
+        font-size: 15px;
+        color:black;
+    }
+    .cancelitem td {
+        background-color: antiquewhite !important;
+        color: red;
+    }
+
+    .cancelitem {
+        background-color: antiquewhite !important;
+        color: red;
+    }
+
+    table thead tr th, .asth {
+        color: black;
+    }
+</style>
+

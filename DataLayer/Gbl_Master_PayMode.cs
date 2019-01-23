@@ -18,6 +18,7 @@ namespace DataLayer
         public Gbl_Master_PayMode()
         {
             this.Exp_Tr_New = new HashSet<Exp_Tr_New>();
+            this.Exp_Tr_New1 = new HashSet<Exp_Tr_New>();
             this.Sale_Tr_Invoice = new HashSet<Sale_Tr_Invoice>();
             this.Sale_Tr_Invoice1 = new HashSet<Sale_Tr_Invoice>();
         }
@@ -35,6 +36,8 @@ namespace DataLayer
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exp_Tr_New> Exp_Tr_New { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exp_Tr_New> Exp_Tr_New1 { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Sale_Tr_Invoice> Sale_Tr_Invoice { get; set; }

@@ -566,6 +566,39 @@ namespace Myshop.Areas.StockManagement.Models
                     myshop = null;
             }
         }
+        public string GetProductCode(int subCatId)
+        {
+            try
+            {
+                myshop = new MyshopDb();
+                var subCat = myshop.Gbl_Master_SubCategory.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && x.SubCatId.Equals(subCatId)).FirstOrDefault();
+                var ProInitialCode = "000000";
+                if(subCat!=null)
+                {
+                    ProInitialCode = (subCat.Gbl_Master_Category.CatCode+ subCat.SubCatCode);
+                }
+                
+
+                CheckCode:
+                Random ran = new Random();
+                string Procode = ProInitialCode + ran.Next(100000, 999999).ToString();
+                var isExist = myshop.Gbl_Master_Product.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && x.ProductCode.Equals(Procode)).Count();
+                if (isExist > 0)
+                    goto CheckCode;
+                else
+                    return Procode;
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+            finally
+            {
+                if (myshop != null)
+                    myshop = null;
+            }
+        }
         public IEnumerable<object> GetProducts(int subCatId=0)
         {
             try

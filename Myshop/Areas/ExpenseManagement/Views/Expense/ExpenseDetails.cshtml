@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "ExpenseDetails";
+    ViewBag.Title = "Expense Details";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 <script src="~/Scripts/App/Area/Expense/Expense/ExpenseDetails.js"></script>
@@ -12,8 +12,8 @@
             @*<span class="pull-left">
                     <i class="fas fa-rupee-sign black-text lblexpenseno">Expense No. 0</i>
                 </span>*@
-            <div class="pull-left col-lg-7" style="margin-bottom:10px;padding-left:0px;">
-                <div class="input-group  pull-left" style="width: 73%;">
+            <div class="pull-left col-lg-10" style="margin-bottom:10px;padding-left:0px;">
+                <div class="input-group  pull-left" style="width: 65%;">
                     <span class="input-group-addon"><i class="fa fa-search fa-fw"></i></span>
                     <input type="number" min="1" style="height:32px;" max="9999999" id="txtSearchExpense" placeholder="Search Expense No." class="form-control" />
                 </div>
@@ -23,6 +23,9 @@
                 </button>
                 <button id="btnList" class="btn btn-success pull-left btn-sm" style="margin-left:10px;">
                     <i class="fas fa-list black-text"></i> Go to List
+                </button>
+                <button id="btnCancel" class="btn btn-danger pull-left btn-sm" style="margin-left:10px;display:none;">
+                    <i class="fas fa-times black-text"></i> Cancel Expense
                 </button>
             </div>
         </div>
@@ -35,6 +38,7 @@
                     <th>Price</th>
                     <th>Qty</th>
                     <th>Amount</th>
+                    <th style="width: 90px;">Cancel Item</th>
                 </tr>
             </thead>
             <tbody></tbody>
@@ -42,28 +46,82 @@
                 <tr>
                     <td colspan="5" class="shop_vMiddle shop_hRigth" style="background-color:aquamarine;">Total Amount</td>
                     <td class="shop_vMiddle shop_hRigth lbltotalamount" style="font-size:16px;background-color:aquamarine;font-weight:600;"><strong>0.00</strong></td>
+                    <td></td>
                 </tr>
             </tfoot>
         </table>
         <div>
-            <div class="col-lg-3">
-                <i class="fas fa-user black-text"> <span id="vendorid" data-toggle="tooltip" data-placement="top" title="Vendor Name">No Vendor</span></i>
+            <table class="table">
+                <tr>
+                    <td>Vendor</td>
+                    <td><i class="fas fa-user black-text"> <span id="vendorid" data-toggle="tooltip" data-placement="top" title="Vendor Name">No Vendor</span></i></td>
+                    <td>Pay through</td>
+                    <td> <i class="fas fa-receipt black-text"><span id="paidby">No Payment</span></i></td>
+                </tr>
+                <tr>
+                    <td>Ref# No.</td>
+                    <td>
+                        <i class="fas fa-receipt black-text">
+                            <span data-toggle="tooltip" data-placement="top" title="Payment Reference Number"> </span>
+                            <span id="paidRef">No Reference</span>
+                        </i>
+                    </td>
+                    <td>Paid Amount </td>
+                    <td>
+                    <i data-toggle="tooltip" data-placement="top" title="Amount Paid to Vendor" class="fas fa-rupee-sign black-text green-text"> <span id="paidamount">0.00</span></i>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Balance Amount</td>
+                    <td><i class="fas fa-rupee-sign red-text"> <span id="balamount">0.00</span></i></td>
+                    <td>Cancel Reason</td>
+                    <td><i class="fas fa-times red-text"> <span id="calreason">Not Cancelled</span></i></td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="cancelreason">
+    <div class="panel panel-info">
+        <div class="panel-heading">
+            Cancel Reason
+        </div>
+        <div class="panel-body">
+            <div class="form-group">
+                <label>Cancel Reason<strong style="color:red;">*</strong></label>
+                <input type="text" class="form-control" placeholder="Cancel Reason" id="txtCancelReason" maxlength="100" />
             </div>
-            <div class="col-lg-3">
-                <i class="fas fa-receipt black-text"> Pay through : <span id="paidby">No Payment</span></i>
+        </div>
+        <div class="panel-footer" style="height: 43px;padding: 5px 15px;">
+            <div class="pull-right">
+                <button id="btnCancelMain" data-id="" data-type="" class="btn btn-success pull-left btn-sm" style="margin-left:10px;">
+                    <i class="fas fa-check black-text"></i> OK
+                </button>
+                <button id="btnCancelRemark" class="btn btn-danger pull-left btn-sm" style="margin-left:10px;">
+                    <i class="fas fa-times black-text"></i> Cancel
+                </button>
             </div>
-            <div class="col-lg-2">
-               
-                <i class="fas fa-receipt black-text"><span data-toggle="tooltip" data-placement="top" title="Payment Reference Number"> Ref# No. :</span>
-                    <span id="paidRef">No Reference</span>
-                </i>
-            </div>
-            <div class="col-lg-2"><span data-toggle="tooltip" data-placement="top" title="Amount Paid to Vendor">Paid Amount : </span><i class="fas fa-rupee-sign black-text green-text"> <span id="paidamount">0.00</span></i></div>
-            <div class="col-lg-2">Balance Amount : <i class="fas fa-rupee-sign red-text"> <span id="balamount">0.00</span></i></div>
         </div>
     </div>
 </div>
 <style>
+    .cancelreason {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: #0000006b;
+        width: 100%;
+        height: 100%;
+        z-index: 9999999;
+        display: none;
+    }
+
+        .cancelreason .panel-info {
+            width: 40%;
+            margin-left: 30%;
+            margin-top: 10%;
+        }
+
     .expList {
         width: 64%;
         position: absolute;
@@ -72,7 +130,7 @@
         top: 32px;
         display: none;
         padding: 0;
-        z-index:99999999999999;
+        z-index: 99999999999999;
     }
 
         .expList li {
@@ -87,4 +145,14 @@
                 cursor: pointer;
                 background: aliceblue;
             }
+
+    .cancelitem td {
+        background-color: antiquewhite !important;
+        color: red;
+    }
+
+    .cancelitem {
+        background-color: antiquewhite !important;
+        color: red;
+    }
 </style>

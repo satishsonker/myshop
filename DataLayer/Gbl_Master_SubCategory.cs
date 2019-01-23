@@ -25,12 +25,13 @@ namespace DataLayer
         public int ShopId { get; set; }
         public string SubCatName { get; set; }
         public string Description { get; set; }
+        public string SubCatCode { get; set; }
         public bool IsSync { get; set; }
         public bool IsDeleted { get; set; }
         public int CreatedBy { get; set; }
-        public int ModifiedBy { get; set; }
+        public Nullable<int> ModifiedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
-        public System.DateTime ModificationDate { get; set; }
+        public Nullable<System.DateTime> ModificationDate { get; set; }
     
         public virtual Gbl_Master_Category Gbl_Master_Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -17,6 +17,7 @@ namespace DataLayer
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Gbl_Master_User()
         {
+            this.Exp_Dtl_New = new HashSet<Exp_Dtl_New>();
             this.Gbl_AppDowntime = new HashSet<Gbl_AppDowntime>();
             this.Gbl_AppDowntime1 = new HashSet<Gbl_AppDowntime>();
             this.Gbl_Master_ExpenseType = new HashSet<Gbl_Master_ExpenseType>();
@@ -49,6 +50,8 @@ namespace DataLayer
         public string Gender { get; set; }
         public Nullable<bool> HasDefaultPassword { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Exp_Dtl_New> Exp_Dtl_New { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Gbl_AppDowntime> Gbl_AppDowntime { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

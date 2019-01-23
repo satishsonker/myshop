@@ -19,10 +19,28 @@ $expenseDtl.getExpDetails = function ($val) {
         });
     });
 }
+$expenseDtl.cancelExpenseItem = function ($expId, $expDtlId, $remarks) {
+    return new Promise(function (resolve, reject) {
+        utility.ajaxHelper(app.urls.ExpenseArea.ExpenseController.CancelExpenseItem, { ExpId: $expId, ExpDtlId: $expDtlId, CancelReason:$remarks }, function (resp) {
+            resolve(resp);
+        }, function (err) {
+            reject(err);
+        });
+    });
+}
+$expenseDtl.cancelExpense = function ($expId, $remarks) {
+    return new Promise(function (resolve, reject) {
+        utility.ajaxHelper(app.urls.ExpenseArea.ExpenseController.CancelExpense, { ExpId: $expId, CancelReason: $remarks }, function (resp) {
+            resolve(resp);
+        }, function (err) {
+            reject(err);
+        });
+    });
+}
 $(document).ready(function () {
     let $expId = utility.getQueryStringValue('expid');
     if ($expId !== '') {
-        $('#txtSearchExpense').val();
+        $('#txtSearchExpense').val($expId);
         $('#btnGo').click();
     }
 });
@@ -36,7 +54,7 @@ $(document).on('keyup', '#txtSearchExpense', function () {
             $ul.empty();
             if (resp.length > 0) {
                 $(resp).each(function (ind, ele) {
-                    $li += "<li data-data='" + JSON.stringify(ele) + "' style='color:black;'><span style='width: 100%;float: left;color:black; padding: 2px;font-size:14px;'>" + ele.ExpId + "</span><span style='font-size: 11px;text-align:center;float: right;padding: 2px;'>Vendor: " + (ele.VendorName == null ? "No Vendor" : ele.VendorName) + ", Amount: " + utility.getInrCurrency(ele.TotalAmout) + '</span></li>';
+                    $li += "<li " + (ele.IsCancelled ?"class='cancelitem' title='This expense is Cancelled'":"") + " data-data='" + JSON.stringify(ele) + "' style='color:black;'><span style='width: 100%;float: left;color:black; padding: 2px;font-size:14px;'>" + ele.ExpId + "</span><span style='font-size: 11px;text-align:center;float: right;padding: 2px;'>Vendor: " + (ele.VendorName == null ? "No Vendor" : ele.VendorName) + ", Amount: " + utility.getInrCurrency(ele.TotalAmout) + '</span></li>';
                 });
             }
             else {
@@ -63,18 +81,32 @@ $(document).on('click', '#btnGo', function () {
     }
 
     $expenseDtl.getExpDetails($expNo).then(function (resp) {
-       // if (resp.length > 0) {
+        // if (resp.length > 0) {
         let $html = '';
-            $(resp.ExpDtl).each(function (ind, ele) {
+        let $total = 0.00;
+        $(resp.ExpDtl).each(function (ind, ele) {
+            if (ele.IsCancelled || resp.ExpTr.IsCancelled) {
+                var $reason = resp.ExpTr.CancelReason === '' ? ele.CancelReason : resp.ExpTr.CancelReason;
+                var $date = resp.ExpTr.CancelledDate === '' ? ele.CancCancelledDateelReason : resp.ExpTr.CancelledDate;
+                $html += '<tr data-toggle="tooltip" class="cancelitem" title="Reason: ' + $reason + '\n Date: ' + utility.getJsDateTimeFromJson($date) + '">';
+            }
+            else {
                 $html += '<tr>';
-                $html += '<td><span class="badge badge-danger">' + (ind + 1) + '<span></td>';
-                $html += '<td>' + ele.ExpItemName + '</td>';
-                $html += '<td>' + ele.ExpTypeName + '</td>';
-                $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency(ele.ExpItemPrice) + '</td>';
-                $html += '<td class="shop_vMiddle shop_hRigth">' + parseFloat(ele.Qty).toFixed(2) + '</td>';
-                $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency((ele.ExpItemPrice*ele.Qty)) + '</td>';
-                $html += '</tr>';
+                $total += (ele.ExpItemPrice * ele.Qty);
+            }
+            $html += '<td><span class="badge badge-danger">' + (ind + 1) + '<span></td>';
+            $html += '<td>' + ele.ExpItemName + '</td>';
+            $html += '<td>' + ele.ExpTypeName + '</td>';
+            $html += '<td class="shop_vMiddle shop_hRigth">' + utility.getInrCurrency(ele.ExpItemPrice) + '</td>';
+            $html += '<td class="shop_vMiddle shop_hRigth">' + parseFloat(ele.Qty).toFixed(2) + '</td>';
+            $html += '<td class="shop_vMiddle shop_hRigth ' + (ele.IsCancelled || resp.ExpTr.IsCancelled ?'cancelitem shop-textStrike':'')+'">' + utility.getInrCurrency((ele.ExpItemPrice * ele.Qty)) + '</td>';
+            $html += '<td class="shop_vMiddle shop_hCentre">' + (ele.IsCancelled || resp.ExpTr.IsCancelled? '' : '<i data-dtlid="' + ele.ExpDtlId + '" id="cancelId_' + ele.ExpDtlId + '" title="Cancel this Item" class="fas fa-times fa-2x red-text" style="cursor:pointer;"></i>') + '</td>';
+            $html += '</tr>';
         });
+        $('#tblExpense tbody').empty().append($html);
+
+        
+
         if ($html === '') {
             $html += '<tr><td colspan="6" style="text-align:center;">No Expense Found</td></tr>';
             $('.lbltotalamount').text('₹ 0.00');
@@ -85,19 +117,88 @@ $(document).on('click', '#btnGo', function () {
             $('#balamount').text(' 0.00');
         }
         else {
-            $('.lbltotalamount').text('₹' + parseFloat(resp.ExpTr.TotalAmount).toFixed(2));
+            $('.lbltotalamount').text('₹' + parseFloat($total).toFixed(2));
             $('#vendorid').text(' ' + resp.ExpTr.VendorName);
             $('#paidby').text(' ' + resp.ExpTr.PayMode);
             $('#paidRef').text(' ' + resp.ExpTr.PayRefNo);
             $('#paidamount').text(' ' + parseFloat(resp.ExpTr.PaidAmount).toFixed(2));
-            $('#balamount').text(' ' + parseFloat(resp.ExpTr.BalanceAmount).toFixed(2));
+            if (resp.ExpTr.BalanceAmount < 0) {
+                $('#balamount').parent().parent().find('[data-toggle="tooltip"]').remove();
+                $('#balamount').parent().after('<i data-toggle="tooltip" title="Negative amount indicate that you have to take money from vendor" class="fas fa-question-circle black-text"></i>')
+            }
+                $('#balamount').text(' ' + parseFloat(resp.ExpTr.BalanceAmount).toFixed(2)+' ');
         }
-        $('#tblExpense tbody').empty().append($html);
-        
-       // }
+        if (!resp.ExpTr.IsCancelled) {
+            $('#btnCancel').show();
+        }
+        else {
+            $('#calreason').text(resp.ExpTr.CancelReason);
+        }
+        $('[data-toggle="tooltip"]').tooltip(); 
     })
 });
 
 $(document).on('click', "#btnList", function () {
     window.location = '/expensemanagement/Expense/ExpenseList';
 });
+
+$(document).on('click', '[id*="cancelId_"]', function () {
+    $('.cancelreason').show(500);
+    $('#txtCancelReason').val('');
+    $('#btnCancelMain').data('id', $(this).attr('id').split('_')[1]);
+    $('#btnCancelMain').data('type', 'item');
+});
+$(document).on('click', '#btnCancel', function () {
+    $('.cancelreason').show(500);
+    $('#txtCancelReason').val('');
+    $('#btnCancelMain').data('id','');
+    $('#btnCancelMain').data('type', 'expense');
+});
+
+
+$(document).on('click', '#btnCancelRemark', function () {
+    $('.cancelreason').hide(500);
+});
+
+$(document).on('click', '#btnCancelMain', function () {
+    let $itemId = $(this).data('id');
+    let $expId = $('#txtSearchExpense').val().trim();
+    let $remarks = $('#txtCancelReason').val().trim();
+    let $type = $(this).data('type');
+    if (($itemId == undefined || $itemId == '') && $type=='item') {
+        utility.SetAlert('Cancel reason should be greater than 5 charectors', utility.alertType.warning);
+        $('#txtCancelReason').css('border', '1px solid red');
+        return false;
+    }
+    if ($remarks.length < 5) {
+        utility.SetAlert('Cancel reason should be greater than 5 charectors', utility.alertType.warning);
+        $('#txtCancelReason').css('border', '1px solid red');
+        return false;
+    }
+    else {
+        $('#txtCancelReason').css('border', '1px solid green');
+    }
+    if (isNaN(parseInt($expId))) {
+        utility.SetAlert('Invalid Expense Number', utility.alertType.warning);
+        $('#txtSearchExpense').css('border', '1px solid red');
+        return false;
+    }
+    else {
+        $('#txtSearchExpense').css('border', '1px solid green');
+    }
+    if ($type == 'item') {
+        $expenseDtl.cancelExpenseItem($expId, $itemId, $remarks).then(function (resp) {
+            utility.setAjaxAlert(resp);
+            $('#btnGo').click();
+        });
+    }
+    if ($type == 'expense') {
+        $expenseDtl.cancelExpense($expId, $remarks).then(function (resp) {
+            utility.setAjaxAlert(resp);
+            $('#btnGo').click();
+        });
+    }
+});
+
+
+

@@ -1,10 +1,9 @@
-﻿using System;
+﻿using DataLayer;
+using Myshop.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
-using System.Web;
-using DataLayer;
-using Myshop.App_Start;
 
 namespace Myshop.Areas.ExpenseManagement.Models
 {
@@ -21,6 +20,16 @@ namespace Myshop.Areas.ExpenseManagement.Models
                 var oldexp = myshop.Gbl_Master_ExpenseType.Where(exp => (exp.Id.Equals(model.ExpTypeId) || (exp.ExpenseType.ToLower().Equals(model.ExpType) || exp.ExpenseType.ToLower().Contains(model.ExpType))) && exp.IsDeleted == false && exp.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldexp != null)
                 {
+                    if(oldexp.ExpenseType.ToLower()==model.ExpType)
+                    {
+                        return Enums.CrudStatus.AlreadyExistForSameShop;
+                    }
+
+                    var isUsed = myshop.Gbl_Master_ExpenseItem.Where(x => x.IsDeleted == false && x.ExpTypeId.Equals(model.ExpTypeId) && x.ShopId.Equals(WebSession.ShopId)).Count() > 0 ? true : false;
+                    if(isUsed)
+                    {
+                        return Enums.CrudStatus.AlreadyInUse;
+                    }
                     oldexp.IsSync = false;
                     oldexp.ModifiedBy = WebSession.UserId;
                     oldexp.ModifiedDate = DateTime.Now;
@@ -30,20 +39,8 @@ namespace Myshop.Areas.ExpenseManagement.Models
                         oldexp.Description = model.ExpTypeDesc;
                     }
                     else if (crudType == Enums.CrudType.Delete)
-                    {
-                        var stock = myshop.Gbl_Master_ExpenseType.Where(x => x.IsDeleted == false && x.Id.Equals(model.ExpTypeId) && x.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
-                        if (stock == null)
-                        {
+                    {   
                             oldexp.IsDeleted = true;
-                        }
-                        else
-                        {
-                            return Enums.CrudStatus.AlreadyInUse;
-                        }
-                    }
-                    else
-                    {
-                        return Enums.CrudStatus.AlreadyExistForSameShop;
                     }
 
                     myshop.Entry(oldexp).State = EntityState.Modified;
@@ -81,14 +78,14 @@ namespace Myshop.Areas.ExpenseManagement.Models
             {
                 myshop = new MyshopDb();
                 var expList = (from exp in myshop.Gbl_Master_ExpenseType.Where(x => x.IsDeleted == false && x.ShopId.Equals(WebSession.ShopId))
-                                orderby exp.ExpenseType
-                                select new ExpTypeModel
-                                {
-                                    ExpType=exp.ExpenseType,
-                                   ExpTypeId= exp.Id,
-                                    CreatedDate=exp.CreatedDate,
-                                    ExpTypeDesc = exp.Description ?? "No Description",
-                                }).ToList();
+                               orderby exp.ExpenseType
+                               select new ExpTypeModel
+                               {
+                                   ExpType = exp.ExpenseType,
+                                   ExpTypeId = exp.Id,
+                                   CreatedDate = exp.CreatedDate,
+                                   ExpTypeDesc = exp.Description ?? "No Description",
+                               }).ToList();
                 return expList;
             }
             catch (Exception ex)
@@ -98,7 +95,9 @@ namespace Myshop.Areas.ExpenseManagement.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
         public Enums.CrudStatus SetExpItem(ExpItemModel model, Enums.CrudType crudType)
@@ -107,29 +106,40 @@ namespace Myshop.Areas.ExpenseManagement.Models
             {
                 myshop = new MyshopDb();
 
-                var oldexp = myshop.Gbl_Master_ExpenseItem.Where(exp => (exp.Id.Equals(model.ExpItemId) || exp.Name.ToLower().Equals(model.ExpItem) && exp.IsDeleted == false && exp.ShopId.Equals(WebSession.ShopId))).FirstOrDefault();
+                var oldexp = myshop.Gbl_Master_ExpenseItem.Where(exp => exp.Id.Equals(model.ExpItemId) && !exp.IsDeleted && exp.ShopId.Equals(WebSession.ShopId)).FirstOrDefault();
                 if (oldexp != null)
                 {
-                    oldexp.IsSync = false;
-                    oldexp.ModifiedBy = WebSession.UserId;
-                    oldexp.ModifiedDate = DateTime.Now;
-                    if (crudType == Enums.CrudType.Update)
-                    {
-                        oldexp.Name = model.ExpItem;
-                        oldexp.Description = model.ExpItemDesc;
-                        oldexp.ExpTypeId = model.ExpTypeId;
-                        oldexp.Price = model.ExpItemPrice;
-                    }
-                    else if (crudType == Enums.CrudType.Delete)
-                    {
-                            oldexp.IsDeleted = true;
-                    }
-                    else
+                    if(oldexp.Name.ToLower()==model.ExpItem)
                     {
                         return Enums.CrudStatus.AlreadyExistForSameShop;
                     }
 
-                    myshop.Entry(oldexp).State = EntityState.Modified;
+                    var isUsed = myshop.Exp_Dtl_New.Where(x => !x.IsDeleted && x.ShopId.Equals(WebSession.ShopId) && x.ExpItemId.Equals(model.ExpItemId)).Count() > 0 ? true : false;
+
+                    if (!isUsed)
+                    {
+                        oldexp.IsSync = false;
+                        oldexp.ModifiedBy = WebSession.UserId;
+                        oldexp.ModifiedDate = DateTime.Now;
+                        if (crudType == Enums.CrudType.Update)
+                        {
+                            oldexp.Name = model.ExpItem;
+                            oldexp.Description = model.ExpItemDesc;
+                            oldexp.ExpTypeId = model.ExpTypeId;
+                            oldexp.Price = model.ExpItemPrice;
+                            oldexp.UnitId = model.UnitId;
+                        }
+                        else if (crudType == Enums.CrudType.Delete)
+                        {
+                            oldexp.IsDeleted = true;
+                        }
+
+                        myshop.Entry(oldexp).State = EntityState.Modified;
+                    }
+                    else
+                    {
+                        return Enums.CrudStatus.AlreadyInUse;
+                    }
                 }
                 else if (crudType == Enums.CrudType.Insert)
                 {
@@ -144,7 +154,7 @@ namespace Myshop.Areas.ExpenseManagement.Models
                         IsSync = false,
                         ShopId = WebSession.ShopId,
                         Price = model.ExpItemPrice,
-                        ModifiedDate = DateTime.Now
+                        UnitId=model.UnitId
                     };
                     myshop.Entry(newexp).State = EntityState.Added;
                 }
@@ -172,10 +182,13 @@ namespace Myshop.Areas.ExpenseManagement.Models
                                {
                                    ExpItem = exp.Name,
                                    ExpTypeId = exp.ExpTypeId,
-                                   ExpTypeName=exp.Gbl_Master_ExpenseType.ExpenseType,
+                                   ExpTypeName = exp.Gbl_Master_ExpenseType.ExpenseType,
                                    ExpItemId = exp.Id,
                                    CreatedDate = exp.CreatedDate,
                                    ExpItemDesc = exp.Description ?? "No Description",
+                                   UnitId=exp.UnitId,
+                                   ExpItemPrice=exp.Price,
+                                   UnitName=exp.Gbl_Master_Unit.UnitName
                                }).ToList();
                 return expList;
             }
@@ -186,7 +199,9 @@ namespace Myshop.Areas.ExpenseManagement.Models
             finally
             {
                 if (myshop != null)
+                {
                     myshop = null;
+                }
             }
         }
     }

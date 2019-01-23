@@ -29,6 +29,42 @@
     text-align: right;
 }
 
+.shop_card {
+    box-shadow: 3px 2px 8px 0px grey;
+    border-radius: 4px;
+    padding: 10px 0;
+    background: white;
+    margin: 10px 5px;
+    width: 24% !important;
+}
+
+    .shop_card:hover {
+        background-color: antiquewhite;
+    }
+
+    .shop_card i {
+        padding: 5px 1px;
+        width: 15%;
+    }
+
+    .shop_card div {
+        float: right;
+        width: 85%;
+    }
+
+        .shop_card div p:first-child {
+            text-align: center;
+            font-size: 1.1vw;
+            color: grey;
+        }
+
+        .shop_card div p:last-child {
+            font-size: 1.3vw;
+            font-weight: 1000;
+            text-align: center;
+            overflow: hidden;
+        }
+
 .shop_noPadLeft {
     padding-left: 0px !important;
 }
@@ -640,6 +676,7 @@ input:checked + .slider:before {
         .filterTab li:hover {
             background: #e4e2e2;
         }
+
 .filterTabCon {
     font-size: 11px;
     border: 1px solid #d4d4d4;
@@ -650,6 +687,11 @@ input:checked + .slider:before {
     border-radius: 0 0px 6px 6px;
 }
 
-    .filterTab li i {
-        line-height: 0;
-    }
+.filterTab li i {
+    line-height: 0;
+}
+
+.shop-textStrike
+{
+    text-decoration:line-through;
+}

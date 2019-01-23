@@ -161,11 +161,21 @@ app.urls.ExpenseArea.ExpenseController.SearchExpenseNo = "/ExpenseManagement/Exp
 app.urls.ExpenseArea.ExpenseController.SaveExpense = "/ExpenseManagement/Expense/SaveExpense";
 app.urls.ExpenseArea.ExpenseController.ExpenseList = "/ExpenseManagement/Expense/ExpenseList";
 app.urls.ExpenseArea.ExpenseController.ExpenseDetails = "/ExpenseManagement/Expense/ExpenseDetails";
+app.urls.ExpenseArea.ExpenseController.CancelExpenseItem = "/ExpenseManagement/Expense/CancelExpenseItem";
+app.urls.ExpenseArea.ExpenseController.CancelExpense = "/ExpenseManagement/Expense/CancelExpense";
 
 app.urls.ExpenseArea.ExpenseHomeController = {};
-
 app.urls.ExpenseArea.ExpenseHomeController.GetMonthlyExpenseChart = "/ExpenseManagement/ExpHome/GetMonthlyExpenseChart";
 app.urls.ExpenseArea.ExpenseHomeController.TopExpenses = "/ExpenseManagement/ExpHome/TopExpenses";
+app.urls.ExpenseArea.ExpenseHomeController.Overview = "/ExpenseManagement/ExpHome/Overview";
+app.urls.ExpenseArea.ExpenseHomeController.TopBalance = "/ExpenseManagement/ExpHome/TopBalance";
+
+app.urls.ExpenseArea.ReportsController = {};
+app.urls.ExpenseArea.ReportsController.GetBalanceReport = "/ExpenseManagement/Reports/GetBalanceReport";
+
+app.urls.StockArea = {};
+app.urls.StockArea.MastersController = {};
+app.urls.StockArea.MastersController.GetProductCode = "/StockManagement/Masters/GetProductCode";
 
 //Constant Declaration
 app.const.toastColor = {};
@@ -194,11 +204,17 @@ app.const.ajaxMethod.delete = "DELETE";
 
 app.const.htmlCode = {};
 app.const.htmlCode.rupeesSymbol = "&#8377";
+app.const.htmlCode.rupeesSign =  "₹";
 
 app.const.hourArray = ["00", "01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23"];
 app.const.weekDayArray = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 app.const.digitInWord = ['', 'One ', 'Two ', 'Three ', 'Four ', 'Five ', 'Six ', 'Seven ', 'Eight ', 'Nine ', 'Ten ', 'Eleven ', 'Twelve ', 'Thirteen ', 'Fourteen ', 'Fifteen ', 'Sixteen ', 'Seventeen ', 'Eighteen ', 'Nineteen '];
 app.const.digitx10InWord = ['', '', 'Twenty', 'Thirty', 'Torty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+app.const.regex = {};
+app.const.regex.mobile = /^\d{10}$/;
+app.const.regex.digitonly = '';
+//app.const.regex.
 
 // Css Class
 app.cssClass = {};

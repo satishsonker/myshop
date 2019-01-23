@@ -31,7 +31,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetBrand");
+            return View("GetBrand");
         }
         public ActionResult UpdateBrand(BrandModel model)
         {
@@ -43,7 +43,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetBrand");
+            return View("GetBrand");
         }
         public ActionResult DeleteBrand(BrandModel model)
         {
@@ -55,7 +55,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetBrand");
+            return View("GetBrand");
         }
 
         public ActionResult GetCategory()
@@ -71,7 +71,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 Enums.CrudStatus status = insertCat.SetCatogary(model, Enums.CrudType.Insert);
                 ReturnAlertMessage(status);
             }
-            return RedirectToAction("GetCategory");
+            return View("GetCategory");
         }
         public ActionResult UpdateCategory(CategoryModel model)
         {
@@ -82,7 +82,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetCategory");
+            return View("GetCategory");
         }
         public ActionResult DeleteCategory(CategoryModel model)
         {
@@ -93,7 +93,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetCategory");
+            return View("GetCategory");
         }
 
         public ActionResult GetSubCategory()
@@ -109,7 +109,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetSubCategory");
+            return View("GetSubCategory");
         }
         public ActionResult UpdateSubCategory(SubCategoryModel model)
         {
@@ -120,7 +120,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetSubCategory");
+            return View("GetSubCategory");
         }
         public ActionResult DeleteSubCategory(SubCategoryModel model)
         {
@@ -131,7 +131,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetSubCategory");
+            return View("GetSubCategory");
         }
 
         public ActionResult GetUnit()
@@ -148,7 +148,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetUnit");
+            return View("GetUnit");
         }
         public ActionResult UpdateUnit(UnitModel model)
         {
@@ -160,7 +160,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetUnit");
+            return View("GetUnit");
         }
         public ActionResult DeleteUnit(UnitModel model)
         {
@@ -172,7 +172,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetUnit");
+            return View("GetUnit");
         }
 
         public ActionResult GetProduct()
@@ -190,7 +190,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetProduct");
+            return View("GetProduct");
         }
         public ActionResult UpdateProduct(ProductModel model)
         {
@@ -202,7 +202,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetProduct");
+            return View("GetProduct");
         }
         public ActionResult DeleteProduct(ProductModel model)
         {
@@ -214,7 +214,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetProduct");
+            return View("GetProduct");
         }
 
         public ActionResult GetVendor()
@@ -232,7 +232,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetVendor");
+            return View("GetVendor");
         }
         public ActionResult UpdateVendor(VendorModel model)
         {
@@ -244,7 +244,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetVendor");
+            return View("GetVendor");
         }
         public ActionResult DeleteVendor(VendorModel model)
         {
@@ -256,7 +256,7 @@ namespace Myshop.Areas.StockManagement.Controllers
                 ReturnAlertMessage(status);
             }
 
-            return RedirectToAction("GetVendor");
+            return View("GetVendor");
         }
 
         // JSon Result Action Methods
@@ -408,6 +408,23 @@ namespace Myshop.Areas.StockManagement.Controllers
             {
                 MastersModel model = new MastersModel();
                 return Json(model.GetUnitJson());
+            }
+            catch (Exception)
+            {
+                return Json("Invalid Error");
+            }
+        }
+        [HttpPost]
+        public JsonResult GetProductCode(int subCatId)
+        {
+            try
+            {
+                if(subCatId<1)
+                {
+                    return Json("Sub Cat Id is required");
+                }
+                MastersModel model = new MastersModel();
+                return Json(model.GetProductCode(subCatId),JsonRequestBehavior.AllowGet);
             }
             catch (Exception)
             {

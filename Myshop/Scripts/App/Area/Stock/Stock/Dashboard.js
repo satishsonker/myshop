@@ -1,9 +1,11 @@
 ﻿/// <reference path="../../../../jquery-1.10.2.js" />
 /// <reference path="../../../Common/App.js" />
+/// <reference path="../../../common/multiselect.js" />
 /// <reference path="../../../Common/Utility.js" />
 
 $(document).ready(function () {
-    utility.bindDdlByAjax('GetStockProductJosn', 'ddlProduct', 'ProductName', 'ProductId');    
+    $('#ddlProduct').multiselect({ data: app.urls.GetStockProductJosn, dataValue: 'ProductId', dataText:'ProductName' });
+    //utility.bindDdlByAjax('GetStockProductJosn', 'ddlProduct', 'ProductName', 'ProductId');    
 });
 
 $(document).on('click', '#btnGo', function () {

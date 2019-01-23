@@ -692,8 +692,8 @@ utility.alertType =
     }
 
 utility.setAjaxAlert = function (response, $successCall) {
-    var $key = response[0].Key;
     var resp = response.length > 1 ? response[1] : response[0];
+    var $key = resp.Key;
     var $val = resp.Value;
 
     if (resp.hasOwnProperty('Key')) {

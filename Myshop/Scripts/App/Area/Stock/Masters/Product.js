@@ -123,6 +123,16 @@ $(document).on('click', '[id*="btnUpdate"]', function () {
     });
     return false;
 });
+$(document).on('click', '#btnGetCode', function () {
+    let $subCatId = $('#subcatid').find(':selected').val();
+    if ($subCatId === '') {
+        utility.SetAlert('Please select sub category', utility.alertType.warning);
+        return false;
+    }
+    utility.ajaxHelper(app.urls.StockArea.MastersController.GetProductCode, { subcatid: $subCatId }, function (resp) {
+        $('#productcode').val(resp);
+    });
+});
 
 $(document).on('click', '[id*="btnDelete"]', function () {
     utility.confirmBox('Are you sure! want to delete.', function () {

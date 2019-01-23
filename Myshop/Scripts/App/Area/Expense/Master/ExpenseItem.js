@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     utility.bindDdlByAjax(app.urls.CommonController.GetExpenseTypeSelectList, 'exptypeid', 'Text', 'Value');
+    utility.bindDdlByAjax(app.urls.GetUnitJson, 'unitid', 'UnitName', 'UnitId');
 });
 
 $(document).on('click', '[id*="btnSelectRow_"]', function () {
@@ -8,6 +9,8 @@ $(document).on('click', '[id*="btnSelectRow_"]', function () {
     $('#expitem').val(data.ExpItem);
     $('#exptypeid').val(data.ExpTypeId);
     $('#expitemid').val(data.ExpItemId);
+    $('#expitemprice').val(data.ExpItemPrice);
+    $('#unitid').val(data.UnitId);
     $('#expitemdesc').val(data.ExpItemDesc === 'No Description' ? '' : data.ExpItemDesc);
     $('.popup').hide();
 });

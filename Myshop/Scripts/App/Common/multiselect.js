@@ -38,6 +38,8 @@ $(document).on('click', '.shop-multiselect ul li .fa-times', function () {
 
 $(document).on('keydown', '#_mSearch', function () {
     let $data = $(this).data('listdata');
+    let $dText = $(this).data('dataText');
+    let $dvalue = $(this).data('dataValue');
     let $text = $(this).val();
     let $len = $text.length;
     var $html = '';
@@ -48,7 +50,11 @@ $(document).on('keydown', '#_mSearch', function () {
            
             $($data).each(function (ind, ele) {
                 if (ele.toLowerCase().indexOf($text.toLowerCase()) > -1)
-                    $html += '<li>' + ele + '</li>';
+                    if ($dText != '' && $dvalue != '')
+                        $html += '<li data-value="' + ele[$dvalue] + '" >' + ele[$dText] + '</li>';
+                    else {
+                        $html += '<li>' + ele + '</li>';
+                    }
             });
             if ($html != '')
                 $($list).append($html);
@@ -58,7 +64,11 @@ $(document).on('keydown', '#_mSearch', function () {
         else {
             $($list).find('li:gt(0)').remove();
             $($data).each(function (ind, ele) {
+                if ($dText != '' && $dvalue != '')
+                    $html += '<li data-value="' + ele[$dvalue] + '" >' + ele[$dText] + '</li>';
+                else {
                     $html += '<li>' + ele + '</li>';
+                }
             });
             if ($html != '')
                 $($list).append($html);
@@ -87,8 +97,8 @@ function multiselectStatus() {
 $multiselect.getTextArray = function (objCollection) {
     let $arr = [];
     if (objCollection != undefined && typeof objCollection === 'object') {
-        $(objCollection).text(function (ind, ele) {
-            $arr.push(ele);
+        $(objCollection).each(function (ind, ele) {
+            $arr.push(ele.data('value'));
         });
     }
     return $arr;
@@ -103,7 +113,12 @@ jQuery.fn.extend({
             if (options.hasOwnProperty('data')) {
                 if (typeof options.data === 'object' && options.data.length > 0) {
                     $(options.data).each(function (ind, ele) {
-                        $li += '<li>' + ele + '</li>';
+                        if (options.hasOwnProperty('dataText') && options.hasOwnProperty('dataValue')) {
+                            $li += '<li data-value="' + ele[options.dataValue] + '">' + ele[options.dataText] + '</li>';
+                        }
+                        else {
+                            $li += '<li>' + ele + '</li>';
+                        }
                     });
                     let $html = '<span class="header"><i class="fa fa-list-ul defaultText"> Select Items</i></span>' +
                         '<ul>' +
@@ -116,26 +131,31 @@ jQuery.fn.extend({
                         '</li>' + $li +
                         '</ul>';
                     $($ctrl).addClass('shop-multiselect');
-                    $($ctrl).append($html);
+                    $($ctrl).empty().append($html);
                     $($ctrl).data('selecteddata', '');
                 }
                 if (typeof options.data === 'string') {
                     $multiselect.getData(options.data).then(function (rep) {
                         $(rep).each(function (ind, ele) {
-                            $li += '<li>' + ele + '</li>';
+                            if (options.hasOwnProperty('dataText') && options.hasOwnProperty('dataValue')) {
+                                $li += '<li data-value="' + ele[options.dataValue] + '">' + ele[options.dataText] + '</li>';
+                            }
+                            else {
+                                $li += '<li>' + ele + '</li>';
+                            }
                         });
                         let $html = '<span class="header"><i class="fa fa-list-ul defaultText"> Select Items</i></span>' +
                             '<ul>' +
                             '<li>' +
                             '<div class="input-group margin-bottom-sm">' +
                             '<span class="input-group-addon"><i class="fa fa-search fa-fw" aria-hidden="true"></i></span>' +
-                            '<input class="form-control" id="_mSearch" data-listdata="' + rep +'" autocomplete="off" type="text" placeholder="Search">' +
+                            '<input class="form-control" id="_mSearch" data-listdata="' + rep + '" data-dataValue="' + options.dataValue + '"data-dataText="' + options.dataText + '" autocomplete="off" type="text" placeholder="Search">' +
                             ' </div>' +
                             '<i class="fa fa-check pull-left" title="Select All"></i><i class="fa fa-times pull-right" title="Unselect All"></i>' +
                             '</li>' + $li +
                             '</ul>';
                         $($ctrl).addClass('shop-multiselect');
-                        $($ctrl).append($html);
+                        $($ctrl).empty().append($html);
                         $($ctrl).data('selecteddata', '');
                         $('#_mSearch').data('listdata', rep);
                         $('#_mSearch').val('');
@@ -158,7 +178,7 @@ jQuery.fn.extend({
                 '</ul>';
             $($ctrl).addClass('shop-multiselect');
             $($ctrl).data('selecteddata','');
-            $($ctrl).append($html);
+            $($ctrl).empty().append($html);
         }       
     },
     multiselectValue: function () {
@@ -193,12 +213,8 @@ $multiselect.isNullOrUndefined = function (str) {
 
 $multiselect.getData = function (url) {
     return new Promise(function (resolve, reject) {
-        $multiselect.ajaxHelperGet(url, function (data) {
-            var $data=[]
-            $(data).each(function (ind, ele) {
-                $data.push(ele.Text);
-            });
-            resolve($data);
+        $multiselect.ajaxHelperGet(url, function (data) {           
+            resolve(data);
         }, function (err) {
             reject(err);
         });

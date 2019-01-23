@@ -19,4 +19,8 @@
         }
         $('#_ptlPayReNo').val('');
     });
+
+    $(document).on('change', '#_ptlPayReNo', function () {
+        $(this).val($(this).val().toUpperCase());
+    });
 </script>

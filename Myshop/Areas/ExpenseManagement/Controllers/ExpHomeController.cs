@@ -35,5 +35,19 @@ namespace Myshop.Areas.ExpenseManagement.Controllers
             ExpHomeDetails expHomeDetails = new ExpHomeDetails();
             return Json(expHomeDetails.TopExpenses(Year, Month), JsonRequestBehavior.AllowGet);
         }
+
+        [HttpPost]
+        public JsonResult TopBalance(int Year, int Month)
+        {
+            ExpHomeDetails expHomeDetails = new ExpHomeDetails();
+            return Json(expHomeDetails.TopBalance(Year, Month), JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpPost]
+        public JsonResult Overview(int Year, int Month)
+        {
+            ExpHomeDetails expHomeDetails = new ExpHomeDetails();
+            return Json(expHomeDetails.Overview(Year, Month), JsonRequestBehavior.AllowGet);
+        }
     }
 }

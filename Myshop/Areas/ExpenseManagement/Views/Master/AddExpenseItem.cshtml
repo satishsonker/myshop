@@ -18,11 +18,17 @@
                 <div class="form-group">
                     <label>Expense Item Name</label>
                     <input type="text" class="form-control" name="expitem" id="expitem" />
-                    <input type="hidden" id="expitemid" value="0" />
+                    <input type="hidden" id="expitemid" name="expitemid" value="0" />
                 </div>
                 <div class="form-group">
                     <label>Expense Item Price</label>
                     <input type="text" class="form-control" name="expitemprice" id="expitemprice" />
+                </div>
+                <div class="form-group">
+                    <label>Item Unit</label>
+                    <select class="form-control" name="unitid" id="unitid">
+                        <option value="">Select Item Unit</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Expense Item Description</label>
@@ -44,6 +50,8 @@
                 <tr>
                     <th id="ExpTypeName">Expense Type</th>
                     <th id="ExpItem">Expense Item</th>
+                    <th id="ExpItemPrice">Price</th>
+                    <th id="UnitName">Unit</th>
                     <th id="ExpItemDesc" title="Expense Description">Description</th>
                     <th id="CreatedDate">Date</th>
                     <th id="btnSelect">Select</th>

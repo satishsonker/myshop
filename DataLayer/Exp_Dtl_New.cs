@@ -18,16 +18,20 @@ namespace DataLayer
         public int ExpTrId { get; set; }
         public int ExpItemId { get; set; }
         public int Qty { get; set; }
+        public bool IsCancelled { get; set; }
+        public Nullable<System.DateTime> CancelledDate { get; set; }
+        public string CancelReason { get; set; }
+        public int ShopId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSync { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public int CreatedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public Nullable<int> ModifiedBy { get; set; }
-        public int ShopId { get; set; }
     
         public virtual Exp_Tr_New Exp_Tr_New { get; set; }
         public virtual Gbl_Master_ExpenseItem Gbl_Master_ExpenseItem { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
+        public virtual Gbl_Master_User Gbl_Master_User { get; set; }
     }
 }

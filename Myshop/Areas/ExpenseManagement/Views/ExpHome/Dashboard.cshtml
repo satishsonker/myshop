@@ -7,30 +7,103 @@
 <script src="~/Scripts/Raphael.js"></script>
 <script src="~/Scripts/App/Area/Expense/ExpHome/Dashboard.js"></script>
 <img class="shop_addIcon" title="Click here to add new expense" src="~/Images/Icons/expense.png" href="/ExpenseManagement/expense/AddExpenses" />
-
-
-<div class="col-lg-12">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            Monthly Expense
-        </div>
-        <div class="panel-body">
-            <div class="graph-Container" style="max-height:350px;">
-                <div class="graph-Header">Sales</div>
-                <div class="graph-Main" id="line-chart"></div>
+<div style="padding: 0 0px;margin-bottom: 3px;">
+    <ul class="filterTab">
+        <li><i class="fas fa-sort-up fa-1x"></i> Filters</li>
+    </ul>
+    <div class="filterTabCon" style="color:black;">
+        <div class="form-inline">
+            <div class="form-group">
+                <label for="ddlYear" class="sr-only">Year</label>
+                <select class="form-control form-control-sm" id="ddlYear">
+                    @for (int _year = DateTime.Now.Year; _year >= DateTime.Now.Year - 10; _year--)
+                    {
+                        <option value="@_year">@_year</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="ddlMonth" class="sr-only">Month</label>
+                <select class="form-control form-control-sm" id="ddlMonth">
+                    @for (int _month = 1; _month <= 12; _month++)
+                    {
+                        <option value="@_month">@_month</option>
+                    }
+                </select>
             </div>
         </div>
     </div>
 </div>
-<div class="col-lg-4">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            Top Expense
+<div class="row">
+    <div class="col-sm-12 col-xs-12 col-md-12 col-lg-12">
+        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 shop_card">
+            <i class="fas fa-rupee-sign fa-3x black-text"></i>
+            <div>
+                <p>Total Expense</p>
+                <p id="totalExp">0.00</p>
+            </div>
         </div>
-        <div class="panel-body" style="padding:4px;">
-            <table class="table table-bordered table-responsive table-striped" id="tblTopExp" style="font-size:12px;margin-bottom: 2px;">
-                <tbody></tbody>
-            </table>
+        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 shop_card">
+            <i class="fas fa-rupee-sign fa-3x black-text"></i>
+            <div>
+                <p>Month Expense</p>
+                <p id="monthExp">0.00</p>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 shop_card">
+            <i class="fas fa-rupee-sign fa-3x black-text"></i>
+            <div>
+                <p>Month Balance Amount</p>
+                <p id="monBal">0.00</p>
+            </div>
+        </div>
+        <div class="col-sm-3 col-xs-3 col-md-3 col-lg-3 shop_card">
+            <i class="fas fa-rupee-sign fa-3x black-text"></i>
+            <div>
+                <p>Big Month Expense</p>
+                <p id="monBig">0.00</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Monthly Expense
+            </div>
+            <div class="panel-body">
+                <div class="graph-Container" style="max-height:350px;">
+                    <div class="graph-Header">Sales</div>
+                    <div class="graph-Main" id="line-chart" style="text-align:center;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Top Expense <span id="monthlyExpense" class="pull-right">0.00</span>
+            </div>
+            <div class="panel-body" style="padding:4px;">
+                <table class="table table-bordered table-responsive table-striped" id="tblTopExp" style="font-size:12px;margin-bottom: 2px;">
+                    <tbody></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="panel panel-info">
+            <div class="panel-heading">
+                Top Balance Amount
+            </div>
+            <div class="panel-body" style="padding:4px;">
+                <table class="table table-bordered table-responsive table-striped" id="tblTopBal" style="font-size:12px;margin-bottom: 2px;">
+                    <tbody></tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

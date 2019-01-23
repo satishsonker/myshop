@@ -32,10 +32,12 @@ namespace DataLayer
         public Nullable<int> ModifiedBy { get; set; }
         public Nullable<System.DateTime> ModifiedDate { get; set; }
         public decimal Price { get; set; }
+        public int UnitId { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exp_Dtl_New> Exp_Dtl_New { get; set; }
         public virtual Gbl_Master_ExpenseType Gbl_Master_ExpenseType { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
+        public virtual Gbl_Master_Unit Gbl_Master_Unit { get; set; }
     }
 }

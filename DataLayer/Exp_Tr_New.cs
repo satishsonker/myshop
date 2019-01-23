@@ -24,8 +24,14 @@ namespace DataLayer
         public int ShopId { get; set; }
         public decimal TotalAmout { get; set; }
         public decimal PaidAmount { get; set; }
-        public Nullable<decimal> BalanceAmount { get; set; }
-        public Nullable<int> VendorId { get; set; }
+        public decimal BalanceAmount { get; set; }
+        public int VendorId { get; set; }
+        public bool IsCancelled { get; set; }
+        public Nullable<System.DateTime> CancelledDate { get; set; }
+        public string CancelReason { get; set; }
+        public bool IsBalancePaid { get; set; }
+        public decimal BalancePaidAmount { get; set; }
+        public Nullable<System.DateTime> BalancePaidDate { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsSync { get; set; }
         public int CreatedBy { get; set; }
@@ -34,10 +40,13 @@ namespace DataLayer
         public Nullable<int> ModifiedBy { get; set; }
         public int PayModeId { get; set; }
         public string PayModeRefNo { get; set; }
+        public Nullable<int> BalPayModeId { get; set; }
+        public string BalPayModeRefNo { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Exp_Dtl_New> Exp_Dtl_New { get; set; }
         public virtual Gbl_Master_PayMode Gbl_Master_PayMode { get; set; }
+        public virtual Gbl_Master_PayMode Gbl_Master_PayMode1 { get; set; }
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         public virtual Gbl_Master_Vendor Gbl_Master_Vendor { get; set; }
     }

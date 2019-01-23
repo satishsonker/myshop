@@ -30,6 +30,7 @@ namespace DataLayer
         public int ModifiedBy { get; set; }
         public System.DateTime CreatedDate { get; set; }
         public System.DateTime ModificationDate { get; set; }
+        public string CatCode { get; set; }
     
         public virtual Gbl_Master_Shop Gbl_Master_Shop { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

@@ -62,5 +62,16 @@ namespace Myshop.Areas.ExpenseManagement.Controllers
             ExpenseDetails _details = new ExpenseDetails();
             return Json(_details.GetExpenseDetail(ExpId), JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult CancelExpenseItem(int ExpId,int ExpDtlId,string CancelReason)
+        {
+            ExpenseDetails _details = new ExpenseDetails();
+            return Json(ReturnAjaxAlertMessage(_details.CancelExpenseItem(ExpId,ExpDtlId,CancelReason)).ToList(), JsonRequestBehavior.AllowGet);
+        }
+        public JsonResult CancelExpense(int ExpId, string CancelReason)
+        {
+            ExpenseDetails _details = new ExpenseDetails();
+            return Json(ReturnAjaxAlertMessage(_details.CancelExpense(ExpId,CancelReason)).ToList(), JsonRequestBehavior.AllowGet);
+        }
     }
 }

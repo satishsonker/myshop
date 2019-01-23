@@ -1,6 +1,6 @@
 ﻿
 @{
-    ViewBag.Title = "GetProduct";
+    ViewBag.Title = "Add Product";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
 
@@ -36,7 +36,10 @@
                         </div>
                         <div class="col-sm-12">
                             <label>Product Code</label>
-                            <input type="text" placeholder="Enter Product Code" id="productcode" class="form-control" name="productcode" />
+                            <input type="text" placeholder="Enter Product Code" id="productcode" class="form-control" name="productcode" style="width:82%;" />
+                            <button type="button" id="btnGetCode" class="btn btn-primary btn-sm" style="float:right;margin: -33px 0;">
+                                <i class="fas fa-arrow-down black-text"> Get Code</i>
+                            </button>
                         </div>
                         <div class="col-sm-12">
                             <label>Product Min Quantity</label>

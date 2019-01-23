@@ -3,67 +3,63 @@
     ViewBag.Title = "Main";
     Layout = "~/Views/Shared/_MainLayout.cshtml";
 }
-
 <link href="~/Content/morris.css" rel="stylesheet" />
 <div style="margin-top:60px">
-   <div class="container">
-       <div class="alert alert-info">
-           <div class="row">
-               <div class="col-lg-2 col-md-2 col-xs-12">
-                   <div class="ddlProduct">
-                       <select class="form-control" id="ddlProduct" style="display:none" name="" multiple>
-                           <option value="0">Select Product</option>
-                       </select>
-                   </div>
-               </div>
-               <div class="col-lg-2 col-md-2 col-xs-12">
-                   <select class="form-control" id="ddlDuration">
-                       <option value="0">Select Duration</option>
-                       <option value="1">24 Hours</option>
-                       <option value="7">7 Days</option>
-                       <option value="30">30 Days</option>
-                       <option value="60">60 Days</option>
-                       <option value="90">90 Days</option>
-                   </select>
-               </div>
-               <div class="col-lg-2 col-md-2 col-xs-12">
-                   <button type="button" id="btnGo" class="btn btn-primary">Go!</button>
-               </div>
-           </div>
-       </div>
-       <div class="row" style="margin-bottom:20px;">
-           <div class="col-sm-6 col-lg-6">
-               <div class="graph-Container">
-                   <div class="graph-Header">Stock Entry Product Wise</div>
-                   <div class="graph-Main" id="line-chart"></div>
-               </div>
-           </div>
-           <div class="col-sm-6 col-lg-6">
-               <div class="graph-Container">
-                   <div class="graph-Header">Purchase Amount Product Wise</div>
-                   <div class="graph-Main" id="totalAmount-pie"></div>
-               </div>
-           </div>
-       </div>
-       <div class="row" style="margin-bottom:20px;">
-           <div class="col-sm-6 col-lg-6">
-               <div class="graph-Container">
-                   <div class="graph-Header">Stock Entry Product Wise</div>
-                   <div class="graph-Main" id="line"></div>
-               </div>
-           </div>
-           <div class="col-sm-6 col-lg-6">
-               <div class="graph-Container">
-                   <div class="graph-Header">Product Quantity Wise</div>
-                   <div class="graph-Main" id="totalQty-pie"></div>
-               </div>
-           </div>
-       </div>
-   </div>
+    <div class="container">
+        <div class="alert alert-info">
+            <div class="row">
+                <div class="col-lg-2 col-md-2 col-xs-12">
+                    <div id="ddlProduct" class="form-control">
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-12">
+                    <select class="form-control" id="ddlDuration">
+                        <option value="0">Select Duration</option>
+                        <option value="1">24 Hours</option>
+                        <option value="7">7 Days</option>
+                        <option value="30">30 Days</option>
+                        <option value="60">60 Days</option>
+                        <option value="90">90 Days</option>
+                    </select>
+                </div>
+                <div class="col-lg-2 col-md-2 col-xs-12">
+                    <button type="button" id="btnGo" class="btn btn-primary">Go!</button>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col-sm-6 col-lg-6">
+                <div class="graph-Container">
+                    <div class="graph-Header">Stock Entry Product Wise</div>
+                    <div class="graph-Main" id="line-chart"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="graph-Container">
+                    <div class="graph-Header">Purchase Amount Product Wise</div>
+                    <div class="graph-Main" id="totalAmount-pie"></div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-bottom:20px;">
+            <div class="col-sm-6 col-lg-6">
+                <div class="graph-Container">
+                    <div class="graph-Header">Stock Entry Product Wise</div>
+                    <div class="graph-Main" id="line"></div>
+                </div>
+            </div>
+            <div class="col-sm-6 col-lg-6">
+                <div class="graph-Container">
+                    <div class="graph-Header">Product Quantity Wise</div>
+                    <div class="graph-Main" id="totalQty-pie"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script src="~/Scripts/Raphael.js"></script>
 <script src="~/Scripts/morris.min.js"></script>
 <script src="~/Scripts/App/Common/App.js"></script>
+<script src="~/Scripts/App/Common/multiselect.js"></script>
 <script src="~/Scripts/App/Area/Stock/Stock/Dashboard.js"></script>
-<link href="~/Content/fSelect.css" rel="stylesheet" />

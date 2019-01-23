@@ -25,6 +25,9 @@ namespace Myshop.Areas.ExpenseManagement.Models
         public string ExpItemName { get; set; }
         public int ExpTypeId { get; set; }
         public string ExpTypeName { get; set; }
+        public bool IsCancelled { get; set; }
+        public DateTime CancelledDate { get; set; }
+        public string CancelReason{ get; set; }
         public int Qty { get; set; }
         public decimal ExpItemPrice { get; set; }
     }
@@ -32,12 +35,21 @@ namespace Myshop.Areas.ExpenseManagement.Models
     {
         public decimal BalanceAmount { get; set; }
         public DateTime CreatedDate { get; set; }
+        public string CreatedBy { get; set; }
         public int ExpId { get; set; }
         public string PayMode { get; set; }
         public string VendorName { get; set; }
         public decimal PaidAmount { get; set; }
         public string PayModeRefNo { get; set; }
         public decimal TotalAmout { get; set; }
+        public bool IsBalancePaid { get; set; }
+        public decimal BalancePaidAmount { get; set; }
+        public DateTime BalancePaidDate { get; set; }
+        public string BalPayMode { get; set; }
+        public string BalPayModeRefNo { get; set; }
+        public bool IsCancelled { get; set; }
+        public DateTime CancelledDate { get; set; }
+        public string CancelReason { get; set; }
     }
 
     public class ExpTrModel
@@ -52,5 +64,13 @@ namespace Myshop.Areas.ExpenseManagement.Models
         public string PayMode { get; set; }
         public string PayRefNo { get; set; }
         public DateTime Date { get; set; }
+        public bool IsBalancePaid { get; set; }
+        public decimal BalancePaidAmount { get; set; }
+        public DateTime BalancePaidDate { get; set; }
+        public string BalPayMode { get; set; }
+        public string BalPayModeRefNo { get; set; }
+        public bool IsCancelled { get; set; }
+        public DateTime CancelledDate { get; set; }
+        public string CancelReason { get; set; }
     }
 }
